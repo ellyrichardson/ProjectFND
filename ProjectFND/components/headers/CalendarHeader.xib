@@ -16,8 +16,8 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="37"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Znb-nZ-8Sv">
-                    <rect key="frame" x="102" y="8" width="170" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Znb-nZ-8Sv">
+                    <rect key="frame" x="58" y="8" width="259" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -25,10 +25,10 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="Znb-nZ-8Sv" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="8" id="696-jL-hL2"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Znb-nZ-8Sv" secondAttribute="bottom" constant="8" id="6dm-Yv-eaX"/>
-                <constraint firstItem="Znb-nZ-8Sv" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="102" id="d3U-aQ-ZY9"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Znb-nZ-8Sv" secondAttribute="trailing" constant="103" id="gzv-Mh-x8H"/>
+                <constraint firstItem="Znb-nZ-8Sv" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="8" id="9JY-4R-anT"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Znb-nZ-8Sv" secondAttribute="bottom" constant="8" id="Boy-DC-1T9"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Znb-nZ-8Sv" secondAttribute="trailing" constant="58" id="W3H-eM-MFg"/>
+                <constraint firstItem="Znb-nZ-8Sv" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="58" id="zwO-83-rDS"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
