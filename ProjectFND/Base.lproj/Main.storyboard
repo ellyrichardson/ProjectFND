@@ -210,10 +210,9 @@
             </objects>
             <point key="canvasLocation" x="-203" y="133"/>
         </scene>
-        <!--Root View Controller-->
+        <!--New Task-->
         <scene sceneID="1Tb-Fo-KGs">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hy8-v7-Zgd" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="knJ-Sz-Bcd" customClass="ItemInfoTableViewController" customModule="ProjectFND" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="wLi-et-GVt">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -305,6 +304,9 @@
                                                     <date key="date" timeIntervalSinceReferenceDate="589345435.80892205">
                                                         <!--2019-09-05 03:03:55 +0000-->
                                                     </date>
+                                                    <connections>
+                                                        <action selector="startDatePickerValueChanged:" destination="knJ-Sz-Bcd" eventType="valueChanged" id="5IF-Mv-TRx"/>
+                                                    </connections>
                                                 </datePicker>
                                             </subviews>
                                             <constraints>
@@ -333,6 +335,9 @@
                                                     <date key="date" timeIntervalSinceReferenceDate="589345435.80892205">
                                                         <!--2019-09-05 03:03:55 +0000-->
                                                     </date>
+                                                    <connections>
+                                                        <action selector="endDatePickerValueChanged:" destination="knJ-Sz-Bcd" eventType="valueChanged" id="ofu-AK-G5N"/>
+                                                    </connections>
                                                 </datePicker>
                                             </subviews>
                                             <constraints>
@@ -350,12 +355,24 @@
                             <outlet property="delegate" destination="knJ-Sz-Bcd" id="Rlx-Ui-ZUb"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="2g5-gE-cQu"/>
+                    <navigationItem key="navigationItem" title="New Task" id="2g5-gE-cQu">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="OW3-v0-q9n">
+                            <connections>
+                                <action selector="cancelButton:" destination="knJ-Sz-Bcd" id="f1E-Al-76r"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="KIg-in-f9m">
+                            <connections>
+                                <segue destination="CAs-7G-vcQ" kind="unwind" unwindAction="unwindToScheduleViewWithSender:" id="HgY-xs-6ZO"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="endDateLabel" destination="31v-Jj-QEE" id="17Z-fb-ZtO"/>
                         <outlet property="endDatePicker" destination="kqk-Fa-P5l" id="Wda-3f-BLs"/>
                         <outlet property="estTimeField" destination="xA8-Rd-roU" id="dON-6T-gnD"/>
                         <outlet property="estTimeLabel" destination="k3b-7f-PH6" id="FaB-JI-Aes"/>
+                        <outlet property="saveButton" destination="KIg-in-f9m" id="GoQ-ap-lAz"/>
                         <outlet property="startDateLabel" destination="DvV-uM-YSt" id="Apc-qv-Hfr"/>
                         <outlet property="startDatePicker" destination="T3m-eA-xYy" id="ETd-Ui-ioj"/>
                         <outlet property="taskDescriptionView" destination="3IJ-fw-sUJ" id="NcN-Mr-DIo"/>
@@ -363,6 +380,8 @@
                         <outlet property="taskNameField" destination="Wzx-Wt-DvB" id="IoT-9P-JAZ"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hy8-v7-Zgd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="CAs-7G-vcQ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1565.625" y="130.98591549295776"/>
         </scene>

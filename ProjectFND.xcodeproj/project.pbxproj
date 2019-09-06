@@ -17,7 +17,7 @@
 		21A4D122231ECE2300B5B52A /* CalendarHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D121231ECE2300B5B52A /* CalendarHeader.swift */; };
 		21A4D124231ECE9A00B5B52A /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D123231ECE9A00B5B52A /* ToDo.swift */; };
 		21A4D12D2320B6E400B5B52A /* ItemInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D12C2320B6E400B5B52A /* ItemInfoTableViewController.swift */; };
-		21A4D12F2320B9F600B5B52A /* StaticTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D12E2320B9F600B5B52A /* StaticTableViewCell.swift */; };
+		21A4D12F2320B9F600B5B52A /* StaticTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D12E2320B9F600B5B52A /* StaticTableCell.swift */; };
 		21A4D1322320CDC000B5B52A /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D1312320CDC000B5B52A /* CalendarCell.swift */; };
 		261DC6B2FA6BB83E89F1A698 /* Pods_ProjectFND.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3C362EFBC6B218F41C2F34B /* Pods_ProjectFND.framework */; };
 /* End PBXBuildFile section */
@@ -48,7 +48,7 @@
 		21A4D121231ECE2300B5B52A /* CalendarHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHeader.swift; sourceTree = "<group>"; };
 		21A4D123231ECE9A00B5B52A /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
 		21A4D12C2320B6E400B5B52A /* ItemInfoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemInfoTableViewController.swift; sourceTree = "<group>"; };
-		21A4D12E2320B9F600B5B52A /* StaticTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticTableViewCell.swift; sourceTree = "<group>"; };
+		21A4D12E2320B9F600B5B52A /* StaticTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticTableCell.swift; sourceTree = "<group>"; };
 		21A4D1312320CDC000B5B52A /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		C3C362EFBC6B218F41C2F34B /* Pods_ProjectFND.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectFND.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE54FDD48EC2E495B9E78996 /* Pods-ProjectFND.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectFND.debug.xcconfig"; path = "Target Support Files/Pods-ProjectFND/Pods-ProjectFND.debug.xcconfig"; sourceTree = "<group>"; };
@@ -149,7 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				21A4D123231ECE9A00B5B52A /* ToDo.swift */,
-				21A4D12E2320B9F600B5B52A /* StaticTableViewCell.swift */,
+				21A4D12E2320B9F600B5B52A /* StaticTableCell.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -354,7 +354,7 @@
 				21A4D124231ECE9A00B5B52A /* ToDo.swift in Sources */,
 				21A4D122231ECE2300B5B52A /* CalendarHeader.swift in Sources */,
 				21A4D0F7231ECC3600B5B52A /* AppDelegate.swift in Sources */,
-				21A4D12F2320B9F600B5B52A /* StaticTableViewCell.swift in Sources */,
+				21A4D12F2320B9F600B5B52A /* StaticTableCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

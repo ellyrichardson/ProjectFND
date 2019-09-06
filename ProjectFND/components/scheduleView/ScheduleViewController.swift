@@ -92,6 +92,36 @@ class ScheduleViewController: UIViewController {
             currentCell.bgView.isHidden = true
         }
     }
+    
+    // MARK: - Actions
+    @IBAction func unwindToScheduleView(sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? ItemInfoTableViewController, let toDo = sourceViewController.toDo {
+            
+            /*if let selectedIndexPath = tableView.indexPathForSelectedRow {
+                // Update an existing ToDo
+                // TODO: NEED FIXING?
+                //toDos.append(toDo)
+                //toDoDateGroup[selectedIndexPath.row] = dateFormatter.string(from: toDo.workDate)
+                //toDoSections[selectedIndexPath.section].toDos[selectedIndexPath.row] = toDo
+                //toDoSections[selectedIndexPath.section].toDos[selectedIndexPath.row] = toDo
+                //tableView.reloadRows(at: [selectedIndexPath], with: .none)
+                //tableView.reloadSections(IndexSet(selectedIndexPath), with: UITableView.RowAnimation.automatic)
+                /*if let delToDo = toDoSections[selectedIndexPath.section].toDos.index(of: toDo) {
+                 toDos.remove(at: delToDo)
+                 }*/
+                //toDos.remove(at: editedRow)
+                //toDos.append(toDo)
+                //tableView.reloadSections(IndexSet(selectedIndexPath), with: UITableView.RowAnimation.automatic)
+                //print("Selected INDEX PATH")
+                //print(IndexSet(selectedIndexPath).count)
+            }*/ /*else {
+                //toDos.append(toDo)
+            }*/
+            
+            // Save the ToDos
+            //saveToDos()
+        }
+    }
 }
 
 extension ScheduleViewController: JTAppleCalendarViewDataSource {
