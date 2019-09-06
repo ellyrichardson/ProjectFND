@@ -127,7 +127,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         
         chosenDueDate = sender.date
         let strDate = dateFormatter.string(from: chosenDueDate)
-        endDateLabel.text = "Endr  Date: " + strDate
+        endDateLabel.text = "End Date: " + strDate
     }
     
     // MARK: - Table view data source
