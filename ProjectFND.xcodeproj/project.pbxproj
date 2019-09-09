@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		219CA4A92326C904003ACBDE /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219CA4A82326C904003ACBDE /* TableViewCell.swift */; };
+		219CA4AB2326CA18003ACBDE /* CheckButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219CA4AA2326CA18003ACBDE /* CheckButton.swift */; };
 		21A4D0F7231ECC3600B5B52A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D0F6231ECC3600B5B52A /* AppDelegate.swift */; };
 		21A4D0F9231ECC3600B5B52A /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D0F8231ECC3600B5B52A /* ScheduleViewController.swift */; };
 		21A4D0FC231ECC3600B5B52A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21A4D0FA231ECC3600B5B52A /* Main.storyboard */; };
@@ -34,6 +36,8 @@
 
 /* Begin PBXFileReference section */
 		16E671796CFEAA07D048D5B4 /* Pods-ProjectFND.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectFND.release.xcconfig"; path = "Target Support Files/Pods-ProjectFND/Pods-ProjectFND.release.xcconfig"; sourceTree = "<group>"; };
+		219CA4A82326C904003ACBDE /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		219CA4AA2326CA18003ACBDE /* CheckButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckButton.swift; sourceTree = "<group>"; };
 		21A4D0F3231ECC3600B5B52A /* ProjectFND.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectFND.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21A4D0F6231ECC3600B5B52A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		21A4D0F8231ECC3600B5B52A /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
@@ -141,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				21A4D125231ECEB600B5B52A /* checkBox */,
+				219CA4AA2326CA18003ACBDE /* CheckButton.swift */,
 			);
 			path = buttons;
 			sourceTree = "<group>";
@@ -150,6 +155,7 @@
 			children = (
 				21A4D123231ECE9A00B5B52A /* ToDo.swift */,
 				21A4D12E2320B9F600B5B52A /* StaticTableCell.swift */,
+				219CA4A82326C904003ACBDE /* TableViewCell.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -349,8 +355,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				21A4D12D2320B6E400B5B52A /* ItemInfoTableViewController.swift in Sources */,
+				219CA4A92326C904003ACBDE /* TableViewCell.swift in Sources */,
 				21A4D1322320CDC000B5B52A /* CalendarCell.swift in Sources */,
 				21A4D0F9231ECC3600B5B52A /* ScheduleViewController.swift in Sources */,
+				219CA4AB2326CA18003ACBDE /* CheckButton.swift in Sources */,
 				21A4D124231ECE9A00B5B52A /* ToDo.swift in Sources */,
 				21A4D122231ECE2300B5B52A /* CalendarHeader.swift in Sources */,
 				21A4D0F7231ECC3600B5B52A /* AppDelegate.swift in Sources */,

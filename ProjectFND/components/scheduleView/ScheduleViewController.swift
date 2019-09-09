@@ -12,10 +12,12 @@
 import UIKit
 import JTAppleCalendar
 
-class ScheduleViewController: UIViewController {
+class ScheduleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var calendarView: JTAppleCalendarView!
     @IBOutlet weak var toDoListTableView: UITableView!
+    
+    var toDos = [ToDo]()
     
     let formatter = DateFormatter()
     let numberOfRows = 6
@@ -25,6 +27,12 @@ class ScheduleViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         //tableView.delegate = self
         //tableView.dataSource = self
+        
+        //toDoListTableView.delegate = self.table
+        
+        if let savedToDos = loadToDos() {
+            setToDoItems(toDoItems: savedToDos)
+        }
         
         configureCalendarView()
         //toDoListTableView.dataSource = self as! UITableViewDataSource
@@ -93,9 +101,29 @@ class ScheduleViewController: UIViewController {
         }
     }
     
+    // MARK: - Table View Data Source
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let toDoItems = getToDoItems()
+        return toDoItems.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let dateCellIdentifier = "ToDoTableViewCell"
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: dateCellIdentifier, for: indexPath) as? ScheduleTableViewCell else {
+            fatalError("The dequeued cell is not an instance of ToDoTableViewCell.")
+        }
+        
+        return cell
+    }
+    
     // MARK: - Actions
+    
     @IBAction func unwindToScheduleView(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? ItemInfoTableViewController, let toDo = sourceViewController.toDo {
+            
+            toDos.append(toDo)
             
             /*if let selectedIndexPath = tableView.indexPathForSelectedRow {
                 // Update an existing ToDo
@@ -121,6 +149,24 @@ class ScheduleViewController: UIViewController {
             // Save the ToDos
             //saveToDos()
         }
+    }
+    
+    // MARK: - Setters
+    
+    func setToDoItems(toDoItems: [ToDo]) {
+        self.toDos = toDoItems
+    }
+    
+    // MARK: - Getters
+    
+    func getToDoItems() -> [ToDo] {
+        return self.toDos
+    }
+    
+    // MARK: - Private Methods
+    
+    private func loadToDos() -> [ToDo]? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: ToDo.ArchiveURL.path) as? [ToDo]
     }
 }
 

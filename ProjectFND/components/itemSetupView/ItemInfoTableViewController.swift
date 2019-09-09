@@ -132,6 +132,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     
     // MARK: - Table view data source
     
+    // Collapses and expands table view cells
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             if taskItemCells[0].collapsed {
@@ -171,6 +172,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         }
     }
     
+    // Determines the height of the expansion of the table view cells
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
             if taskItemCells[0].collapsed {
@@ -219,7 +221,6 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         
         // Set the ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue
         toDo = ToDo(taskName: taskName!, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: finished)
-        //toDoDate = ToDoDate(toDoDate: workDate)
     }
     
     @IBAction func cancelButton(_ sender: UIBarButtonItem) {
@@ -264,5 +265,4 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         // Enable save button if all conditions are met
         saveButton.isEnabled = true
     }
-
 }
