@@ -163,10 +163,10 @@
                                             <constraint firstAttribute="height" constant="228" id="Gd8-kL-DxA"/>
                                         </constraints>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="84" id="5uS-bT-su0">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ScheduleTableViewCell" rowHeight="84" id="5uS-bT-su0" customClass="ScheduleTableViewCell" customModule="ProjectFND" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="320" height="84"/>
                                                 <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5uS-bT-su0" id="MpH-B1-QHB">
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5uS-bT-su0" id="MpH-B1-QHB" customClass="ScheduleTableViewCell" customModule="ProjectFND" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="83.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
@@ -175,7 +175,7 @@
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <state key="normal" title="Check"/>
                                                         </button>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ou-jz-3c5">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Task Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ou-jz-3c5">
                                                             <rect key="frame" x="53" y="16" width="214" height="19"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="17"/>
@@ -210,6 +210,12 @@
                                                         </label>
                                                     </subviews>
                                                 </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="dueDateLabel" destination="9q8-SJ-SQ4" id="YDo-2Z-Ahd"/>
+                                                    <outlet property="estTimeLabel" destination="p4a-zy-V6N" id="9XK-m8-o7X"/>
+                                                    <outlet property="startDateLabel" destination="XUa-SI-VXI" id="EQe-6v-1xb"/>
+                                                    <outlet property="taskNameLabel" destination="8ou-jz-3c5" id="Wdh-k5-XAX"/>
+                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
                                         <connections>
@@ -248,6 +254,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="calendarView" destination="PDs-aS-qTz" id="YJN-R5-SHf"/>
+                        <outlet property="toDoListTableView" destination="sYl-Eh-KfZ" id="Qo8-Ac-WFG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

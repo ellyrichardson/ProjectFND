@@ -25,10 +25,10 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        //tableView.delegate = self
-        //tableView.dataSource = self
+        self.toDoListTableView.delegate = self
+        self.toDoListTableView.dataSource = self
         
-        //toDoListTableView.delegate = self.table
+        //toDoListTableView.delegate = self
         
         if let savedToDos = loadToDos() {
             setToDoItems(toDoItems: savedToDos)
@@ -36,6 +36,12 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         
         configureCalendarView()
         //toDoListTableView.dataSource = self as! UITableViewDataSource
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        reloadTableViewData()
     }
     
     func configureCalendarView(){
@@ -109,11 +115,23 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let dateCellIdentifier = "ToDoTableViewCell"
+        let dateCellIdentifier = "ScheduleTableViewCell"
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: dateCellIdentifier, for: indexPath) as? ScheduleTableViewCell else {
-            fatalError("The dequeued cell is not an instance of ToDoTableViewCell.")
+            fatalError("The dequeued cell is not an instance of ScheduleTableViewCell.")
         }
+        var toDoItems = getToDoItems()
+        
+        for toDo in toDoItems {
+            print("-----")
+            print(toDo.taskName)
+            print("1321")
+        }
+        
+        cell.taskNameLabel.text = toDoItems[indexPath.row].taskName
+        //cell.startDateLabel.text = toDos[indexPath.row].workDate
+        //cell.estTimeLabel.text = toDos[indexPath.row].estTime
+        //cell.dueDateLabel.text = toDos[indexPath.row].dueDate
         
         return cell
     }
@@ -123,7 +141,13 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     @IBAction func unwindToScheduleView(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? ItemInfoTableViewController, let toDo = sourceViewController.toDo {
             
-            toDos.append(toDo)
+            //print(toDo.taskName)
+            
+            addToDoItem(toDoItem: toDo)
+            
+            /*for toDo in toDos {
+                print(toDo.taskName)
+            }*/
             
             /*if let selectedIndexPath = tableView.indexPathForSelectedRow {
                 // Update an existing ToDo
@@ -167,6 +191,16 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     private func loadToDos() -> [ToDo]? {
         return NSKeyedUnarchiver.unarchiveObject(withFile: ToDo.ArchiveURL.path) as? [ToDo]
+    }
+    
+    private func reloadTableViewData() {
+        DispatchQueue.main.async {
+            self.toDoListTableView.reloadData()
+        }
+    }
+    
+    private func addToDoItem(toDoItem: ToDo) {
+        self.toDos.append(toDoItem )
     }
 }
 
