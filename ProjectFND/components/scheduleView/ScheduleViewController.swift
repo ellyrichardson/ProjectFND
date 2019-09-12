@@ -18,6 +18,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var toDoListTableView: UITableView!
     
     var toDos = [ToDo]()
+    var selectedDate: Date = Date()
     
     let formatter = DateFormatter()
     let numberOfRows = 6
@@ -57,7 +58,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
-    // Configure the cell
+    // Configure the calendar cell
     func configureCell(cell: JTAppleCell?, cellState: CellState) {
         guard let currentCell = cell as? CalendarCell else {
             return
@@ -68,13 +69,14 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         print(cellState.text)
         print(cellState.date)
         print(cellState.dateBelongsTo.rawValue)
-        //configureSelectedStateFor(cell: currentCell, cellState: cellState)
+        configureSelectedStateFor(cell: currentCell, cellState: cellState)
         configureTextColorFor(cell: currentCell, cellState: cellState)
+        configureSelectedDay(cell: currentCell, cellState: cellState)
         let cellHidden = cellState.dateBelongsTo != .thisMonth
         currentCell.isHidden = cellHidden
     }
     
-    // Configure text colors
+    // Configure text calendar colors
     func configureTextColorFor(cell: JTAppleCell?, cellState: CellState){
         
         guard let currentCell = cell as? CalendarCell else {
@@ -101,9 +103,20 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         if cellState.isSelected{
             currentCell.selectedView.isHidden = false
             currentCell.bgView.isHidden = true
+            //setSelectedDate(selectedDate: cellState.date)
+            // USELESS reloadTableViewData()?
+            //reloadTableViewData()
         } else {
             currentCell.selectedView.isHidden = true
             currentCell.bgView.isHidden = true
+        }
+    }
+    
+    func configureSelectedDay(cell: JTAppleCell?, cellState: CellState) {
+        if cellState.isSelected{
+            setSelectedDate(selectedDate: cellState.date)
+            // USELESS reloadTableViewData()?
+            reloadTableViewData()
         }
     }
     
@@ -120,13 +133,17 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         guard let cell = tableView.dequeueReusableCell(withIdentifier: dateCellIdentifier, for: indexPath) as? ScheduleTableViewCell else {
             fatalError("The dequeued cell is not an instance of ScheduleTableViewCell.")
         }
-        var toDoItems = getToDoItems()
         
-        for toDo in toDoItems {
+        print("Selected Date")
+        print(getSelectedDate())
+        // Retrieves sorted ToDo Items by date that fall under the chosen day in the calendar
+        var toDoItems = retrieveToDoItemsByDay(toDoDate: getSelectedDate(), toDoItems: getToDoItems())
+        
+        /*for toDo in toDoItems {
             print("-----")
             print(toDo.taskName)
             print("1321")
-        }
+        }*/
         
         cell.taskNameLabel.text = toDoItems[indexPath.row].taskName
         //cell.startDateLabel.text = toDos[indexPath.row].workDate
@@ -141,37 +158,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     @IBAction func unwindToScheduleView(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? ItemInfoTableViewController, let toDo = sourceViewController.toDo {
             
-            //print(toDo.taskName)
-            
             addToDoItem(toDoItem: toDo)
-            
-            /*for toDo in toDos {
-                print(toDo.taskName)
-            }*/
-            
-            /*if let selectedIndexPath = tableView.indexPathForSelectedRow {
-                // Update an existing ToDo
-                // TODO: NEED FIXING?
-                //toDos.append(toDo)
-                //toDoDateGroup[selectedIndexPath.row] = dateFormatter.string(from: toDo.workDate)
-                //toDoSections[selectedIndexPath.section].toDos[selectedIndexPath.row] = toDo
-                //toDoSections[selectedIndexPath.section].toDos[selectedIndexPath.row] = toDo
-                //tableView.reloadRows(at: [selectedIndexPath], with: .none)
-                //tableView.reloadSections(IndexSet(selectedIndexPath), with: UITableView.RowAnimation.automatic)
-                /*if let delToDo = toDoSections[selectedIndexPath.section].toDos.index(of: toDo) {
-                 toDos.remove(at: delToDo)
-                 }*/
-                //toDos.remove(at: editedRow)
-                //toDos.append(toDo)
-                //tableView.reloadSections(IndexSet(selectedIndexPath), with: UITableView.RowAnimation.automatic)
-                //print("Selected INDEX PATH")
-                //print(IndexSet(selectedIndexPath).count)
-            }*/ /*else {
-                //toDos.append(toDo)
-            }*/
-            
-            // Save the ToDos
-            //saveToDos()
         }
     }
     
@@ -181,10 +168,18 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         self.toDos = toDoItems
     }
     
+    func setSelectedDate(selectedDate: Date) {
+        self.selectedDate = selectedDate
+    }
+    
     // MARK: - Getters
     
     func getToDoItems() -> [ToDo] {
         return self.toDos
+    }
+    
+    func getSelectedDate() -> Date {
+        return self.selectedDate
     }
     
     // MARK: - Private Methods
@@ -201,6 +196,34 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     private func addToDoItem(toDoItem: ToDo) {
         self.toDos.append(toDoItem )
+    }
+    
+    // Sorts ToDo items by date
+    private func sortToDoItemsByDate(toDoItems: [ToDo]) -> [ToDo] {
+        var toDosToBeSorted = toDoItems
+        toDosToBeSorted = toDosToBeSorted.sorted(by: {
+            $1.workDate > $0.workDate
+        })
+        return toDosToBeSorted
+    }
+    
+    // Gets ToDo items that meets the day selected in calendar
+    private func retrieveToDoItemsByDay(toDoDate: Date, toDoItems: [ToDo]) -> [ToDo] {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "M/d/yy"
+        var matchedToDosByDate: [ToDo] = [ToDo]()
+        for toDo in toDoItems {
+            if dateFormatter.string(from: toDo.workDate) == dateFormatter.string(from: toDoDate) {
+                matchedToDosByDate.append(toDo)
+            }
+        }
+        return sortToDoItemsByDate(toDoItems: matchedToDosByDate)
+    }
+    
+    // MARK: - Utility Methods
+    
+    func configureTableView(cell: JTAppleCell?, cellState: CellState) {
+        
     }
 }
 
@@ -242,6 +265,8 @@ extension ScheduleViewController: JTAppleCalendarViewDelegate {
     
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
         configureCell(cell: cell, cellState: cellState)
+        // Reloads table view data when a date is selected (USELESS reloadTableViewData()?)
+        reloadTableViewData()
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
