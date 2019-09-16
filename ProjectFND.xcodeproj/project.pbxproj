@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		219A6568232B12B10062BF84 /* ToDoProcessHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219A6567232B12B10062BF84 /* ToDoProcessHelper.swift */; };
+		219A656D232B19150062BF84 /* FNDTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219A656C232B19150062BF84 /* FNDTableViewCell.swift */; };
 		219CA4A92326C904003ACBDE /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219CA4A82326C904003ACBDE /* TableViewCell.swift */; };
 		219CA4AB2326CA18003ACBDE /* CheckButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219CA4AA2326CA18003ACBDE /* CheckButton.swift */; };
 		21A4D0F7231ECC3600B5B52A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D0F6231ECC3600B5B52A /* AppDelegate.swift */; };
@@ -36,6 +38,8 @@
 
 /* Begin PBXFileReference section */
 		16E671796CFEAA07D048D5B4 /* Pods-ProjectFND.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectFND.release.xcconfig"; path = "Target Support Files/Pods-ProjectFND/Pods-ProjectFND.release.xcconfig"; sourceTree = "<group>"; };
+		219A6567232B12B10062BF84 /* ToDoProcessHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoProcessHelper.swift; sourceTree = "<group>"; };
+		219A656C232B19150062BF84 /* FNDTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FNDTableViewCell.swift; sourceTree = "<group>"; };
 		219CA4A82326C904003ACBDE /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		219CA4AA2326CA18003ACBDE /* CheckButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckButton.swift; sourceTree = "<group>"; };
 		21A4D0F3231ECC3600B5B52A /* ProjectFND.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectFND.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -77,6 +81,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		219A6566232B12750062BF84 /* _helpers */ = {
+			isa = PBXGroup;
+			children = (
+				219A6567232B12B10062BF84 /* ToDoProcessHelper.swift */,
+			);
+			path = _helpers;
+			sourceTree = "<group>";
+		};
+		219A6569232B18910062BF84 /* cells */ = {
+			isa = PBXGroup;
+			children = (
+				219A656A232B18C80062BF84 /* tableViewCells */,
+			);
+			path = cells;
+			sourceTree = "<group>";
+		};
+		219A656A232B18C80062BF84 /* tableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				219A656C232B19150062BF84 /* FNDTableViewCell.swift */,
+			);
+			path = tableViewCells;
+			sourceTree = "<group>";
+		};
 		21A4D0EA231ECC3600B5B52A = {
 			isa = PBXGroup;
 			children = (
@@ -100,8 +128,9 @@
 		21A4D0F5231ECC3600B5B52A /* ProjectFND */ = {
 			isa = PBXGroup;
 			children = (
-				21A4D116231ECD5A00B5B52A /* components */,
-				21A4D11B231ECDA100B5B52A /* models */,
+				219A6566232B12750062BF84 /* _helpers */,
+				21A4D116231ECD5A00B5B52A /* _components */,
+				21A4D11B231ECDA100B5B52A /* _models */,
 				21A4D0F6231ECC3600B5B52A /* AppDelegate.swift */,
 				21A4D0FA231ECC3600B5B52A /* Main.storyboard */,
 				21A4D0FD231ECC3600B5B52A /* Assets.xcassets */,
@@ -120,7 +149,7 @@
 			path = ProjectFNDTests;
 			sourceTree = "<group>";
 		};
-		21A4D116231ECD5A00B5B52A /* components */ = {
+		21A4D116231ECD5A00B5B52A /* _components */ = {
 			isa = PBXGroup;
 			children = (
 				21A4D1302320CDAF00B5B52A /* cells */,
@@ -129,7 +158,7 @@
 				21A4D11A231ECD8600B5B52A /* buttons */,
 				21A4D117231ECD6600B5B52A /* headers */,
 			);
-			path = components;
+			path = _components;
 			sourceTree = "<group>";
 		};
 		21A4D117231ECD6600B5B52A /* headers */ = {
@@ -150,14 +179,15 @@
 			path = buttons;
 			sourceTree = "<group>";
 		};
-		21A4D11B231ECDA100B5B52A /* models */ = {
+		21A4D11B231ECDA100B5B52A /* _models */ = {
 			isa = PBXGroup;
 			children = (
+				219A6569232B18910062BF84 /* cells */,
 				21A4D123231ECE9A00B5B52A /* ToDo.swift */,
 				21A4D12E2320B9F600B5B52A /* StaticTableCell.swift */,
 				219CA4A82326C904003ACBDE /* TableViewCell.swift */,
 			);
-			path = models;
+			path = _models;
 			sourceTree = "<group>";
 		};
 		21A4D125231ECEB600B5B52A /* checkBox */ = {
@@ -360,7 +390,9 @@
 				21A4D0F9231ECC3600B5B52A /* ScheduleViewController.swift in Sources */,
 				219CA4AB2326CA18003ACBDE /* CheckButton.swift in Sources */,
 				21A4D124231ECE9A00B5B52A /* ToDo.swift in Sources */,
+				219A656D232B19150062BF84 /* FNDTableViewCell.swift in Sources */,
 				21A4D122231ECE2300B5B52A /* CalendarHeader.swift in Sources */,
+				219A6568232B12B10062BF84 /* ToDoProcessHelper.swift in Sources */,
 				21A4D0F7231ECC3600B5B52A /* AppDelegate.swift in Sources */,
 				21A4D12F2320B9F600B5B52A /* StaticTableCell.swift in Sources */,
 			);

@@ -17,7 +17,12 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var calendarView: JTAppleCalendarView!
     @IBOutlet weak var toDoListTableView: UITableView!
     
+    // Helpers
+    var toDoProcessHelper: ToDoProcessHelper = ToDoProcessHelper()
+    
+    // Properties
     var toDos = [ToDo]()
+    var toDoItemsForDay = [ToDo]()
     var selectedDate: Date = Date()
     
     let formatter = DateFormatter()
@@ -85,6 +90,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         
         if cellState.isSelected {
             currentCell.dateLabel.textColor = UIColor.red
+            reloadTableViewData()
         } else {
             if cellState.dateBelongsTo == .thisMonth && cellState.date > Date()  {
                 currentCell.dateLabel.textColor = UIColor.black
@@ -123,7 +129,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     // MARK: - Table View Data Source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let toDoItems = getToDoItems()
+        let toDoItems = getToDoItemsByDay()
         return toDoItems.count
     }
     
@@ -133,18 +139,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         guard let cell = tableView.dequeueReusableCell(withIdentifier: dateCellIdentifier, for: indexPath) as? ScheduleTableViewCell else {
             fatalError("The dequeued cell is not an instance of ScheduleTableViewCell.")
         }
-        
-        print("Selected Date")
-        print(getSelectedDate())
         // Retrieves sorted ToDo Items by date that fall under the chosen day in the calendar
-        var toDoItems = retrieveToDoItemsByDay(toDoDate: getSelectedDate(), toDoItems: getToDoItems())
-        
-        /*for toDo in toDoItems {
-            print("-----")
-            print(toDo.taskName)
-            print("1321")
-        }*/
-        
+        var toDoItems = getToDoItemsByDay()
         cell.taskNameLabel.text = toDoItems[indexPath.row].taskName
         //cell.startDateLabel.text = toDos[indexPath.row].workDate
         //cell.estTimeLabel.text = toDos[indexPath.row].estTime
@@ -172,6 +168,10 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         self.selectedDate = selectedDate
     }
     
+    private func getToDoItemsByDay() -> [ToDo] {
+        return toDoProcessHelper.retrieveToDoItemsByDay(toDoDate: getSelectedDate(), toDoItems: getToDoItems())
+    }
+    
     // MARK: - Getters
     
     func getToDoItems() -> [ToDo] {
@@ -196,28 +196,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     private func addToDoItem(toDoItem: ToDo) {
         self.toDos.append(toDoItem )
-    }
-    
-    // Sorts ToDo items by date
-    private func sortToDoItemsByDate(toDoItems: [ToDo]) -> [ToDo] {
-        var toDosToBeSorted = toDoItems
-        toDosToBeSorted = toDosToBeSorted.sorted(by: {
-            $1.workDate > $0.workDate
-        })
-        return toDosToBeSorted
-    }
-    
-    // Gets ToDo items that meets the day selected in calendar
-    private func retrieveToDoItemsByDay(toDoDate: Date, toDoItems: [ToDo]) -> [ToDo] {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "M/d/yy"
-        var matchedToDosByDate: [ToDo] = [ToDo]()
-        for toDo in toDoItems {
-            if dateFormatter.string(from: toDo.workDate) == dateFormatter.string(from: toDoDate) {
-                matchedToDosByDate.append(toDo)
-            }
-        }
-        return sortToDoItemsByDate(toDoItems: matchedToDosByDate)
     }
     
     // MARK: - Utility Methods
