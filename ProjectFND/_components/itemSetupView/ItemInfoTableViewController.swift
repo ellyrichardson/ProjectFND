@@ -35,7 +35,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         self.finished = false
         
         // If workDate already exist, then don't set replace chosenWorkDate to the actual toDo date
-        if toDo?.workDate != nil {
+        /*if toDo?.workDate != nil {
             self.chosenWorkDate = (toDo?.workDate)!
         }
         // If dueDate already exist, then don't set replace chosenDueDate to the actual toDo date
@@ -45,7 +45,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         // If item edited is already finished
         if toDo?.finished != false {
             self.finished = !self.finished
-        }
+        }*/
         super.init(coder: aDecoder)
     }
     
@@ -87,6 +87,16 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         updateSaveButtonState()
     }
     
+    // MARK: - Setters
+    
+    func setChosenWorkDate(chosenWorkDate: Date) {
+        self.chosenWorkDate = chosenWorkDate
+    }
+    
+    func setChosenDueDate(chosenDueDate: Date) {
+        self.chosenDueDate = chosenDueDate
+    }
+    
     // MARK: - UITextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -114,7 +124,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         dateFormatter.dateStyle = DateFormatter.Style.short
         dateFormatter.timeStyle = DateFormatter.Style.short
         
-        chosenWorkDate = sender.date
+        setChosenWorkDate(chosenWorkDate: sender.date)
         let strDate = dateFormatter.string(from: chosenWorkDate)
         startDateLabel.text = "Start Date: " + strDate
     }
@@ -124,8 +134,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         dateFormatter.dateStyle = DateFormatter.Style.short
         dateFormatter.timeStyle = DateFormatter.Style.short
         
-        
-        chosenDueDate = sender.date
+        setChosenDueDate(chosenDueDate: sender.date)
         let strDate = dateFormatter.string(from: chosenDueDate)
         endDateLabel.text = "End Date: " + strDate
     }

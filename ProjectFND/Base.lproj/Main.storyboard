@@ -215,6 +215,7 @@
                                                     <outlet property="estTimeLabel" destination="p4a-zy-V6N" id="9XK-m8-o7X"/>
                                                     <outlet property="startDateLabel" destination="XUa-SI-VXI" id="EQe-6v-1xb"/>
                                                     <outlet property="taskNameLabel" destination="8ou-jz-3c5" id="Wdh-k5-XAX"/>
+                                                    <segue destination="knJ-Sz-Bcd" kind="show" identifier="ShowToDoItemDetails" id="Hmx-bT-i6Z"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -248,7 +249,7 @@
                     <navigationItem key="navigationItem" id="Ecr-D0-8Bb">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Asg-dA-BLK">
                             <connections>
-                                <segue destination="Hgy-Cw-xVQ" kind="presentation" id="S04-n3-wvv"/>
+                                <segue destination="Hgy-Cw-xVQ" kind="presentation" identifier="AddToDoItem" id="S04-n3-wvv"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -453,4 +454,7 @@
             <point key="canvasLocation" x="681" y="630"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Hmx-bT-i6Z"/>
+    </inferredMetricsTieBreakers>
 </document>

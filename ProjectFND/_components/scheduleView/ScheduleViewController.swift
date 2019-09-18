@@ -5,11 +5,12 @@
 //  Created by Elly Richardson on 9/3/19.
 //  Copyright © 2019 EllyRichardson. All rights reserved.
 //
-//  Parts of this code was taken from CalendarControlUsingJTAppleCalenader
+//  Parts of the calendar implementation code was taken from CalendarControlUsingJTAppleCalenader
 //  project by anoop4real.
 //
 
 import UIKit
+import os.log
 import JTAppleCalendar
 
 class ScheduleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -18,11 +19,12 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var toDoListTableView: UITableView!
     
     // Helpers
+    
     var toDoProcessHelper: ToDoProcessHelper = ToDoProcessHelper()
     
     // Properties
+    
     var toDos = [ToDo]()
-    var toDoItemsForDay = [ToDo]()
     var selectedDate: Date = Date()
     
     let formatter = DateFormatter()
@@ -34,14 +36,11 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         self.toDoListTableView.delegate = self
         self.toDoListTableView.dataSource = self
         
-        //toDoListTableView.delegate = self
-        
         if let savedToDos = loadToDos() {
             setToDoItems(toDoItems: savedToDos)
         }
         
         configureCalendarView()
-        //toDoListTableView.dataSource = self as! UITableViewDataSource
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -109,9 +108,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         if cellState.isSelected{
             currentCell.selectedView.isHidden = false
             currentCell.bgView.isHidden = true
-            //setSelectedDate(selectedDate: cellState.date)
-            // USELESS reloadTableViewData()?
-            //reloadTableViewData()
         } else {
             currentCell.selectedView.isHidden = true
             currentCell.bgView.isHidden = true
@@ -121,7 +117,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     func configureSelectedDay(cell: JTAppleCell?, cellState: CellState) {
         if cellState.isSelected{
             setSelectedDate(selectedDate: cellState.date)
-            // USELESS reloadTableViewData()?
             reloadTableViewData()
         }
     }
@@ -153,8 +148,59 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func unwindToScheduleView(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? ItemInfoTableViewController, let toDo = sourceViewController.toDo {
+            if let selectedIndexPath = toDoListTableView.indexPathForSelectedRow {
+                // Update an existing ToDo
+                // TODO: NEED FIXING?
+                //toDos.append(toDo)
+                //toDoDateGroup[selectedIndexPath.row] = dateFormatter.string(from: toDo.workDate)
+                //toDoSections[selectedIndexPath.section].toDos[selectedIndexPath.row] = toDo
+                //toDoSections[selectedIndexPath.section].toDos[selectedIndexPath.row] = toDo
+                //tableView.reloadRows(at: [.selectedIndexPath], with: .none)
+                //tableView.reloadSections(IndexSet(selectedIndexPath), with: UITableView.RowAnimation.automatic)
+                /*if let delToDo = toDoSections[selectedIndexPath.section].toDos.index(of: toDo) {
+                 toDos.remove(at: delToDo)
+                 }*/
+                //toDos.remove(at: editedRow)
+                //removeToDoItem(toDoIndex: selectedIndexPath.row)
+                //addToDoItem(toDoItem: toDo)
+                replaceToDoItemInBaseList(toDoItem: toDo)
+                //replaceToDoItemInList(toDoIndex: selectedIndexPath.row, toDoItem: toDo)
+                toDoListTableView.reloadSections(IndexSet(selectedIndexPath), with: UITableView.RowAnimation.automatic)
+            } else {
+                addToDoItem(toDoItem: toDo)
+            }
+            //addToDoItem(toDoItem: toDo)
+        }
+    }
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        switch(segue.identifier ?? "") {
+        case "AddToDoItem":
+            os_log("Adding a new ToDo item.", log: OSLog.default, type: .debug)
+        case "ShowToDoItemDetails":
+            var toDoItemsByDay: [ToDo] = getToDoItemsByDay()
+            guard let itemInfoTableViewController = segue.destination as? ItemInfoTableViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
             
-            addToDoItem(toDoItem: toDo)
+            guard let selectedToDoItemCell = sender as? ScheduleTableViewCell else {
+                fatalError("Unexpected sender: \(String(describing: sender))")
+            }
+            
+            guard let indexPath = toDoListTableView.indexPath(for: selectedToDoItemCell) else {
+                fatalError("The selected cell is not being displayed by the table")
+            }
+            
+            let selectedToDoItem = toDoItemsByDay[indexPath.row]
+            itemInfoTableViewController.toDo = selectedToDoItem
+            itemInfoTableViewController.setChosenWorkDate(chosenWorkDate: selectedToDoItem.workDate)
+            itemInfoTableViewController.setChosenDueDate(chosenDueDate: selectedToDoItem.dueDate)
+            os_log("Showing details for the selected ToDo item.", log: OSLog.default, type: .debug)
+        default:
+            fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")
         }
     }
     
@@ -195,13 +241,28 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     private func addToDoItem(toDoItem: ToDo) {
-        self.toDos.append(toDoItem )
+        self.toDos.append(toDoItem)
     }
     
-    // MARK: - Utility Methods
+    private func removeToDoItem(toDoIndex: Int) {
+        self.toDos.remove(at: toDoIndex)
+    }
     
-    func configureTableView(cell: JTAppleCell?, cellState: CellState) {
+    private func addToDoItemByDay(toDoItem: ToDo) {
         
+    }
+    
+    // Retrieves the index of the ToDo from the base ToDo List instead of by day
+    private func retrieveRealIndexOfToDo(toDoItem: ToDo) -> Int {
+        let toDoItems: [ToDo] = getToDoItems()
+        let retrievedIndex: Int = toDoItems.firstIndex(of: toDoItem)!
+        return retrievedIndex
+    }
+    
+    // Replaces a ToDo item based on its index from an array
+    private func replaceToDoItemInBaseList(toDoItem: ToDo) {
+        //retrieveRealIndexOfToDo(toDoItem: toDoItem)
+        self.toDos[retrieveRealIndexOfToDo(toDoItem: toDoItem)] = toDoItem
     }
 }
 
@@ -243,15 +304,11 @@ extension ScheduleViewController: JTAppleCalendarViewDelegate {
     
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
         configureCell(cell: cell, cellState: cellState)
-        // Reloads table view data when a date is selected (USELESS reloadTableViewData()?)
-        reloadTableViewData()
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
         configureCell(cell: cell, cellState: cellState)
     }
-    
-    
     
     func calendar(_ calendar: JTAppleCalendarView, headerViewForDateRange range: (start: Date, end: Date), at indexPath: IndexPath) -> JTAppleCollectionReusableView {
         let header = calendar.dequeueReusableJTAppleSupplementaryView(withReuseIdentifier: "CalendarHeader", for: indexPath)
