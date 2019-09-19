@@ -24,8 +24,9 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     // Properties
     
-    var toDos = [ToDo]()
-    var selectedDate: Date = Date()
+    private var toDos = [ToDo]()
+    private var selectedDate: Date = Date()
+    private var selectedToDoIndex: Int = 0
     
     let formatter = DateFormatter()
     let numberOfRows = 6
@@ -124,8 +125,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     // MARK: - Table View Data Source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let toDoItems = getToDoItemsByDay()
-        return toDoItems.count
+        // Gets the ToDos that fall under the selected day in calendar
+        return getToDoItemsByDay().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -137,9 +138,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         // Retrieves sorted ToDo Items by date that fall under the chosen day in the calendar
         var toDoItems = getToDoItemsByDay()
         cell.taskNameLabel.text = toDoItems[indexPath.row].taskName
-        //cell.startDateLabel.text = toDos[indexPath.row].workDate
-        //cell.estTimeLabel.text = toDos[indexPath.row].estTime
-        //cell.dueDateLabel.text = toDos[indexPath.row].dueDate
         
         return cell
     }
@@ -149,27 +147,14 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     @IBAction func unwindToScheduleView(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? ItemInfoTableViewController, let toDo = sourceViewController.toDo {
             if let selectedIndexPath = toDoListTableView.indexPathForSelectedRow {
-                // Update an existing ToDo
-                // TODO: NEED FIXING?
-                //toDos.append(toDo)
-                //toDoDateGroup[selectedIndexPath.row] = dateFormatter.string(from: toDo.workDate)
-                //toDoSections[selectedIndexPath.section].toDos[selectedIndexPath.row] = toDo
-                //toDoSections[selectedIndexPath.section].toDos[selectedIndexPath.row] = toDo
-                //tableView.reloadRows(at: [.selectedIndexPath], with: .none)
-                //tableView.reloadSections(IndexSet(selectedIndexPath), with: UITableView.RowAnimation.automatic)
-                /*if let delToDo = toDoSections[selectedIndexPath.section].toDos.index(of: toDo) {
-                 toDos.remove(at: delToDo)
-                 }*/
-                //toDos.remove(at: editedRow)
-                //removeToDoItem(toDoIndex: selectedIndexPath.row)
-                //addToDoItem(toDoItem: toDo)
-                replaceToDoItemInBaseList(toDoItem: toDo)
-                //replaceToDoItemInList(toDoIndex: selectedIndexPath.row, toDoItem: toDo)
+                /*if toDo.taskName != getToDoItemByIndex(toDoIndex: selectedToDoIndex).taskName || toDo.estTime != getToDoItemByIndex(toDoIndex: selectedToDoIndex) || toDo.workDate != getToDoItemByIndex(toDoIndex: selectedToDoIndex) || toDo.dueDate != getToDoItemByIndex(toDoIndex: selectedToDoIndex) {
+                    
+                }*/
+                replaceToDoItemInBaseList(editedToDoItem: toDo, editedToDoItemIndex: getSelectedToDoIndex())
                 toDoListTableView.reloadSections(IndexSet(selectedIndexPath), with: UITableView.RowAnimation.automatic)
             } else {
                 addToDoItem(toDoItem: toDo)
             }
-            //addToDoItem(toDoItem: toDo)
         }
     }
     
@@ -196,8 +181,13 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             
             let selectedToDoItem = toDoItemsByDay[indexPath.row]
             itemInfoTableViewController.toDo = selectedToDoItem
+            // Sets the chosen work and due date in the itemInfoTableViewController
             itemInfoTableViewController.setChosenWorkDate(chosenWorkDate: selectedToDoItem.workDate)
             itemInfoTableViewController.setChosenDueDate(chosenDueDate: selectedToDoItem.dueDate)
+            print("Real Index")
+            print(retrieveRealIndexOfToDo(toDoItem: selectedToDoItem))
+            // Retrieves the index of the selected toDo
+            setSelectedToDoIndex(toDoItemIndex: retrieveRealIndexOfToDo(toDoItem: selectedToDoItem))
             os_log("Showing details for the selected ToDo item.", log: OSLog.default, type: .debug)
         default:
             fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")
@@ -208,6 +198,10 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     func setToDoItems(toDoItems: [ToDo]) {
         self.toDos = toDoItems
+    }
+    
+    func setSelectedToDoIndex(toDoItemIndex: Int) {
+        self.selectedToDoIndex = toDoItemIndex
     }
     
     func setSelectedDate(selectedDate: Date) {
@@ -222,6 +216,14 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     func getToDoItems() -> [ToDo] {
         return self.toDos
+    }
+    
+    func getToDoItemByIndex(toDoIndex: Int) -> ToDo {
+        return self.toDos[toDoIndex]
+    }
+    
+    func getSelectedToDoIndex() -> Int {
+        return self.selectedToDoIndex
     }
     
     func getSelectedDate() -> Date {
@@ -248,10 +250,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         self.toDos.remove(at: toDoIndex)
     }
     
-    private func addToDoItemByDay(toDoItem: ToDo) {
-        
-    }
-    
     // Retrieves the index of the ToDo from the base ToDo List instead of by day
     private func retrieveRealIndexOfToDo(toDoItem: ToDo) -> Int {
         let toDoItems: [ToDo] = getToDoItems()
@@ -260,9 +258,10 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     // Replaces a ToDo item based on its index from an array
-    private func replaceToDoItemInBaseList(toDoItem: ToDo) {
-        //retrieveRealIndexOfToDo(toDoItem: toDoItem)
-        self.toDos[retrieveRealIndexOfToDo(toDoItem: toDoItem)] = toDoItem
+    private func replaceToDoItemInBaseList(editedToDoItem: ToDo, editedToDoItemIndex: Int) {
+        //self.toDos[editedToDoItemIndex] = editedToDoItem
+        removeToDoItem(toDoIndex: editedToDoItemIndex)
+        addToDoItem(toDoItem: editedToDoItem)
     }
 }
 
