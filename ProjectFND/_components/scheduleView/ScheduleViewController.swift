@@ -146,9 +146,10 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func unwindToScheduleView(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? ItemInfoTableViewController, let toDo = sourceViewController.toDo {
-            if let selectedIndexPath = toDoListTableView.indexPathForSelectedRow {
+            if toDoListTableView.indexPathForSelectedRow != nil {
                 replaceToDoItemInBaseList(editedToDoItem: toDo, editedToDoItemIndex: getSelectedToDoIndex())
-                toDoListTableView.reloadSections(IndexSet(selectedIndexPath), with: UITableView.RowAnimation.automatic)
+                /*toDoListTableView.reloadSections(IndexSet(selectedIndexPath), with: UITableView.RowAnimation.automatic)*/
+                reloadTableViewData()
             } else {
                 addToDoItem(toDoItem: toDo)
             }
