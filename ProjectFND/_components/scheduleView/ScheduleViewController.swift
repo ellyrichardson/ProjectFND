@@ -132,12 +132,23 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let dateCellIdentifier = "ScheduleTableViewCell"
         
+        let dueDateFormatter = DateFormatter()
+        let workDateFormatter = DateFormatter()
+        dueDateFormatter.dateFormat = "M/d/yy, h:mm a"
+        workDateFormatter.dateFormat = "h:mm a"
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: dateCellIdentifier, for: indexPath) as? ScheduleTableViewCell else {
             fatalError("The dequeued cell is not an instance of ScheduleTableViewCell.")
         }
         // Retrieves sorted ToDo Items by date that fall under the chosen day in the calendar
         var toDoItems = getToDoItemsByDay()
         cell.taskNameLabel.text = toDoItems[indexPath.row].taskName
+        cell.startDateLabel.text = workDateFormatter.string(from: toDoItems[indexPath.row].workDate)
+        cell.estTimeLabel.text = toDoItems[indexPath.row].estTime
+        cell.dueDateLabel.text = dueDateFormatter.string(from: toDoItems[indexPath.row].dueDate)
+        cell.checkBoxButton.setToDoRowIndex(toDoRowIndex: indexPath.row)
+        cell.checkBoxButton.setPressedStatus(isPressed: toDoItems[indexPath.row].finished)
+        cell.checkBoxButton.addTarget(self, action: #selector(onDoneCheckButtonTap(sender:)), for: .touchUpInside)
         
         return cell
     }
@@ -260,6 +271,27 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         //self.toDos[editedToDoItemIndex] = editedToDoItem
         removeToDoItem(toDoIndex: editedToDoItemIndex)
         addToDoItem(toDoItem: editedToDoItem)
+    }
+    
+    @objc func onDoneCheckButtonTap(sender: CheckBoxButton) {
+        //let toDoRowIndex = sender.toDoRowIndex
+        //let toDoSectionIndex = sender.toDoSectionIndex
+        /*let toDoToBeChanged: ToDo = toDoSections[toDoSectionIndex].toDos[toDoRowIndex]
+        if toDoToBeChanged.finished {
+            toDoToBeChanged.finished = false
+        }
+        else {
+            toDoToBeChanged.finished = true
+        }
+        toDoSections[toDoSectionIndex].toDos[toDoRowIndex] = toDoToBeChanged
+        saveToDos()*/
+        
+        var toDoItemsByDay = getToDoItemsByDay()
+        let toDoItemToUpdate = toDoItemsByDay[sender.getToDoRowIndex()]
+        toDoItemToUpdate.finished = !toDoItemToUpdate.finished
+        let toDoItemRealIndex = retrieveRealIndexOfToDo(toDoItem: toDoItemsByDay[sender.getToDoRowIndex()])
+        replaceToDoItemInBaseList(editedToDoItem: toDoItemToUpdate, editedToDoItemIndex: toDoItemRealIndex)
+        reloadTableViewData()
     }
 }
 

@@ -6,4 +6,15 @@
 //  Copyright © 2019 EllyRichardson. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class ExpandButton: TransformingButton {
+    let expandedImage = UIImage(named: "ExpandToDo")! as UIImage
+    let collapsedImage = UIImage(named: "CollapseToDo")! as UIImage
+    
+    private var toDoRowIndex: Int = Int()
+    
+    override func awakeFromNib() {
+        self.toDoRowIndex = Int()
+    }
+}
