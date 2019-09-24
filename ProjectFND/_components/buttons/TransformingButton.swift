@@ -13,7 +13,7 @@ class TransformingButton: UIButton {
     private var isPressed: Bool = false
     
     override func awakeFromNib() {
-        self.addTarget(self, action: #selector(buttonPressed(sender:)), for: UIControl.Event.touchUpInside)
+        //self.addTarget(self, action: #selector(buttonPressed(sender:)), for: UIControl.Event.touchUpInside)
         //self.toDoRowIndex = Int()
         self.isPressed = false
     }

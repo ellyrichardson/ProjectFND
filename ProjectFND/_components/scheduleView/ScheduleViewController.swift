@@ -285,13 +285,17 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         }
         toDoSections[toDoSectionIndex].toDos[toDoRowIndex] = toDoToBeChanged
         saveToDos()*/
+        print("PRessed!")
         
-        var toDoItemsByDay = getToDoItemsByDay()
-        let toDoItemToUpdate = toDoItemsByDay[sender.getToDoRowIndex()]
+        var toDoItemsByDay: [ToDo] = getToDoItemsByDay()
+        let toDoItemToUpdate: ToDo = toDoItemsByDay[sender.getToDoRowIndex()]
+        print(toDoItemToUpdate.taskName)
+        let toDoItemRealIndex: Int = retrieveRealIndexOfToDo(toDoItem: toDoItemToUpdate)
+        print(toDoItemRealIndex)
         toDoItemToUpdate.finished = !toDoItemToUpdate.finished
-        let toDoItemRealIndex = retrieveRealIndexOfToDo(toDoItem: toDoItemsByDay[sender.getToDoRowIndex()])
+        print(toDoItemToUpdate.finished)
         replaceToDoItemInBaseList(editedToDoItem: toDoItemToUpdate, editedToDoItemIndex: toDoItemRealIndex)
-        reloadTableViewData()
+        //toDoListTableView.reloadData()
     }
 }
 
