@@ -27,6 +27,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     private var toDos = [ToDo]()
     private var selectedDate: Date = Date()
     private var selectedToDoIndex: Int = 0
+    private var selectedCheckBoxIndex: Int = 0
     
     let formatter = DateFormatter()
     let numberOfRows = 6
@@ -146,9 +147,13 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         cell.startDateLabel.text = workDateFormatter.string(from: toDoItems[indexPath.row].workDate)
         cell.estTimeLabel.text = toDoItems[indexPath.row].estTime
         cell.dueDateLabel.text = dueDateFormatter.string(from: toDoItems[indexPath.row].dueDate)
+        // Assigns an index to the CheckBox button of a row
         cell.checkBoxButton.setToDoRowIndex(toDoRowIndex: indexPath.row)
+        // Sets the status of the CheckBox being pressed
         cell.checkBoxButton.setPressedStatus(isPressed: toDoItems[indexPath.row].finished)
         cell.checkBoxButton.addTarget(self, action: #selector(onDoneCheckButtonTap(sender:)), for: .touchUpInside)
+        cell.expandButton.setToDoRowIndex(toDoRowIndex: indexPath.row)
+        //cell.expandButton.setPressedStatus(isPressed: true)
         
         return cell
     }
@@ -274,28 +279,11 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @objc func onDoneCheckButtonTap(sender: CheckBoxButton) {
-        //let toDoRowIndex = sender.toDoRowIndex
-        //let toDoSectionIndex = sender.toDoSectionIndex
-        /*let toDoToBeChanged: ToDo = toDoSections[toDoSectionIndex].toDos[toDoRowIndex]
-        if toDoToBeChanged.finished {
-            toDoToBeChanged.finished = false
-        }
-        else {
-            toDoToBeChanged.finished = true
-        }
-        toDoSections[toDoSectionIndex].toDos[toDoRowIndex] = toDoToBeChanged
-        saveToDos()*/
-        print("PRessed!")
-        
         var toDoItemsByDay: [ToDo] = getToDoItemsByDay()
         let toDoItemToUpdate: ToDo = toDoItemsByDay[sender.getToDoRowIndex()]
-        print(toDoItemToUpdate.taskName)
         let toDoItemRealIndex: Int = retrieveRealIndexOfToDo(toDoItem: toDoItemToUpdate)
-        print(toDoItemRealIndex)
         toDoItemToUpdate.finished = !toDoItemToUpdate.finished
-        print(toDoItemToUpdate.finished)
         replaceToDoItemInBaseList(editedToDoItem: toDoItemToUpdate, editedToDoItemIndex: toDoItemRealIndex)
-        //toDoListTableView.reloadData()
     }
 }
 
