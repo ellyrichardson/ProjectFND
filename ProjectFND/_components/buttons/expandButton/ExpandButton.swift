@@ -50,11 +50,11 @@ class ExpandButton: TransformingButton {
          }*/
     }
     
-    func setToDoRowIndex(toDoRowIndex: Int) {
+    func setExpandedRowIndex(toDoRowIndex: Int) {
         self.toDoRowIndex = toDoRowIndex
     }
     
-    func getToDoRowIndex() -> Int {
+    func getExpandedRowIndex() -> Int {
         return self.toDoRowIndex
     }
     

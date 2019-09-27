@@ -26,8 +26,13 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     private var toDos = [ToDo]()
     private var selectedDate: Date = Date()
-    private var selectedToDoIndex: Int = 0
-    private var selectedCheckBoxIndex: Int = 0
+    private var selectedToDoIndex: Int = -1
+    //private var selectedCheckBoxIndex: Int = -1
+    private var expandedRowIndex: Int = -1
+    private var pressedExpandButtonIndex: Int = -1
+    private var thereIsCellTapped: Bool = false
+    private var listOfExpandedRow: [Int] = [Int]()
+    private var listOfExpandedRows: [ExpandedRows] = [ExpandedRows]()
     
     let formatter = DateFormatter()
     let numberOfRows = 6
@@ -130,6 +135,24 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         return getToDoItemsByDay().count
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        /*if listOfExpandedRows.contains(where: {$0.expandedRowIndex == indexPath.row && $0.isExpandedRowSelected == true}) {
+            return 75
+        }*/
+        
+        /*if listOfExpandedRows[indexPath.row].isExpandedRowSelected == true {
+            return 75
+        }*/
+        
+        if listOfExpandedRows.count > 0 && pressedExpandButtonIndex != -1 {
+            if listOfExpandedRows[pressedExpandButtonIndex].expandedRowIndex == expandedRowIndex && listOfExpandedRows[pressedExpandButtonIndex].isExpandedRowSelected == true {
+                return 75
+            }
+        }
+        
+        return 50
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let dateCellIdentifier = "ScheduleTableViewCell"
         
@@ -151,9 +174,10 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         cell.checkBoxButton.setToDoRowIndex(toDoRowIndex: indexPath.row)
         // Sets the status of the CheckBox being pressed
         cell.checkBoxButton.setPressedStatus(isPressed: toDoItems[indexPath.row].finished)
-        cell.checkBoxButton.addTarget(self, action: #selector(onDoneCheckButtonTap(sender:)), for: .touchUpInside)
-        cell.expandButton.setToDoRowIndex(toDoRowIndex: indexPath.row)
-        //cell.expandButton.setPressedStatus(isPressed: true)
+        cell.checkBoxButton.addTarget(self, action: #selector(onCheckBoxButtonTap(sender:)), for: .touchUpInside)
+        cell.expandButton.setExpandedRowIndex(toDoRowIndex: indexPath.row)
+        cell.expandButton.addTarget(self, action: #selector(onExpandRowButtonTap(sender:)), for: .touchUpInside)
+        listOfExpandedRows.append(ExpandedRows(expandedRowIndex: indexPath.row, isExpandedRowSelected: false))
         
         return cell
     }
@@ -222,11 +246,19 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         self.selectedDate = selectedDate
     }
     
-    private func getToDoItemsByDay() -> [ToDo] {
-        return toDoProcessHelper.retrieveToDoItemsByDay(toDoDate: getSelectedDate(), toDoItems: getToDoItems())
+    func setExpandedRowIndex(rowIndex: Int) {
+        self.expandedRowIndex = rowIndex
+    }
+    
+    func setThereIsCellTapped(tapped: Bool) {
+        self.thereIsCellTapped = tapped
     }
     
     // MARK: - Getters
+    
+    private func getToDoItemsByDay() -> [ToDo] {
+        return toDoProcessHelper.retrieveToDoItemsByDay(toDoDate: getSelectedDate(), toDoItems: getToDoItems())
+    }
     
     func getToDoItems() -> [ToDo] {
         return self.toDos
@@ -242,6 +274,14 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     func getSelectedDate() -> Date {
         return self.selectedDate
+    }
+    
+    func getExpandedRowIndex() -> Int {
+        return self.expandedRowIndex
+    }
+    
+    func getThereIsCellTapped() -> Bool {
+        return self.thereIsCellTapped
     }
     
     // MARK: - Private Methods
@@ -278,12 +318,52 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         addToDoItem(toDoItem: editedToDoItem)
     }
     
-    @objc func onDoneCheckButtonTap(sender: CheckBoxButton) {
+    // Function for expanding specific rows
+    private func expandRow(rowIndex: Int) {
+        //listOfExpandedRows.append(ExpandedRows(expandedRowIndex: rowIndex, isExpandedRowSelected: true))
+        listOfExpandedRows[rowIndex].isExpandedRowSelected = true
+        pressedExpandButtonIndex = rowIndex
+        expandedRowIndex = -1
+        //expandedRowIndex = rowIndex
+        //listOfExpandedRow.append(rowIndex)
+        //setThereIsCellTapped(tapped: true)
+        //setExpandedRowIndex(rowIndex: rowIndex)
+        reloadTableViewData()
+    }
+    
+    // Function for collapsing specific rows
+    private func collapseRow(rowIndex: Int) {
+        //listOfExpandedRow.remove(at: rowIndex)
+        //listOfExpandedRows.remove(at: rowIndex)
+        listOfExpandedRows[rowIndex].isExpandedRowSelected = false
+        pressedExpandButtonIndex = rowIndex
+        expandedRowIndex = -1
+        //expandedRowIndex = -1
+        //setThereIsCellTapped(tapped: false)
+        //setExpandedRowIndex(rowIndex: -1)
+        reloadTableViewData()
+    }
+    
+    @objc func onCheckBoxButtonTap(sender: CheckBoxButton) {
         var toDoItemsByDay: [ToDo] = getToDoItemsByDay()
         let toDoItemToUpdate: ToDo = toDoItemsByDay[sender.getToDoRowIndex()]
         let toDoItemRealIndex: Int = retrieveRealIndexOfToDo(toDoItem: toDoItemToUpdate)
         toDoItemToUpdate.finished = !toDoItemToUpdate.finished
         replaceToDoItemInBaseList(editedToDoItem: toDoItemToUpdate, editedToDoItemIndex: toDoItemRealIndex)
+    }
+    
+    @objc func onExpandRowButtonTap(sender: ExpandButton) {
+        print("Expand PRessed")
+        expandedRowIndex = sender.getExpandedRowIndex()
+        print(expandedRowIndex)
+        
+        // If there is no expanded row yet
+        if listOfExpandedRows[expandedRowIndex].isExpandedRowSelected == false {
+            //print(sender.getExpandedRowIndex())
+            expandRow(rowIndex: expandedRowIndex)
+        } else {
+            collapseRow(rowIndex: expandedRowIndex)
+        }
     }
 }
 
@@ -342,6 +422,16 @@ extension ScheduleViewController: JTAppleCalendarViewDelegate {
     
     func calendarSizeForMonths(_ calendar: JTAppleCalendarView?) -> MonthSize? {
         return MonthSize(defaultSize: 40)
+    }
+}
+
+struct ExpandedRows {
+    var expandedRowIndex: Int = Int()
+    var isExpandedRowSelected: Bool = Bool()
+    
+    init(expandedRowIndex: Int, isExpandedRowSelected: Bool) {
+        self.expandedRowIndex = expandedRowIndex
+        self.isExpandedRowSelected = isExpandedRowSelected
     }
 }
 
