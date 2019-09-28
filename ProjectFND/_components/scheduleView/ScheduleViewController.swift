@@ -28,11 +28,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     private var selectedDate: Date = Date()
     private var selectedToDoIndex: Int = -1
     //private var selectedCheckBoxIndex: Int = -1
-    private var expandedRowIndex: Int = -1
-    private var pressedExpandButtonIndex: Int = -1
-    private var thereIsCellTapped: Bool = false
-    private var listOfExpandedRow: [Int] = [Int]()
-    private var listOfExpandedRows: [ExpandedRows] = [ExpandedRows]()
+    private var selectedIndexPath: IndexPath?
+    private var selectedIndexPaths: [IndexPath] = [IndexPath]()
     
     let formatter = DateFormatter()
     let numberOfRows = 6
@@ -121,9 +118,11 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
+    // When a particular day is selected in the calendar
     func configureSelectedDay(cell: JTAppleCell?, cellState: CellState) {
         if cellState.isSelected{
             setSelectedDate(selectedDate: cellState.date)
+            removeAllSelectedIndexPaths()
             reloadTableViewData()
         }
     }
@@ -136,16 +135,12 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        /*if listOfExpandedRows.contains(where: {$0.expandedRowIndex == indexPath.row && $0.isExpandedRowSelected == true}) {
-            return 75
-        }*/
-        
-        /*if listOfExpandedRows[indexPath.row].isExpandedRowSelected == true {
-            return 75
-        }*/
-        
-        if listOfExpandedRows.count > 0 && pressedExpandButtonIndex != -1 {
-            if listOfExpandedRows[pressedExpandButtonIndex].expandedRowIndex == expandedRowIndex && listOfExpandedRows[pressedExpandButtonIndex].isExpandedRowSelected == true {
+        if selectedIndexPaths.count > 0 {
+            if selectedIndexPaths.contains(indexPath) {
+                //print("height of row")
+                //print(expandedRowIndex)
+                //expandedRowIndex = -1
+                
                 return 75
             }
         }
@@ -177,7 +172,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         cell.checkBoxButton.addTarget(self, action: #selector(onCheckBoxButtonTap(sender:)), for: .touchUpInside)
         cell.expandButton.setExpandedRowIndex(toDoRowIndex: indexPath.row)
         cell.expandButton.addTarget(self, action: #selector(onExpandRowButtonTap(sender:)), for: .touchUpInside)
-        listOfExpandedRows.append(ExpandedRows(expandedRowIndex: indexPath.row, isExpandedRowSelected: false))
         
         return cell
     }
@@ -246,14 +240,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         self.selectedDate = selectedDate
     }
     
-    func setExpandedRowIndex(rowIndex: Int) {
-        self.expandedRowIndex = rowIndex
-    }
-    
-    func setThereIsCellTapped(tapped: Bool) {
-        self.thereIsCellTapped = tapped
-    }
-    
     // MARK: - Getters
     
     private func getToDoItemsByDay() -> [ToDo] {
@@ -276,12 +262,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         return self.selectedDate
     }
     
-    func getExpandedRowIndex() -> Int {
-        return self.expandedRowIndex
-    }
-    
-    func getThereIsCellTapped() -> Bool {
-        return self.thereIsCellTapped
+    func getSelectedIndexPaths() -> [IndexPath] {
+        return self.selectedIndexPaths
     }
     
     // MARK: - Private Methods
@@ -290,6 +272,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         return NSKeyedUnarchiver.unarchiveObject(withFile: ToDo.ArchiveURL.path) as? [ToDo]
     }
     
+    // TODO: Put this function in its own helper
     private func reloadTableViewData() {
         DispatchQueue.main.async {
             self.toDoListTableView.reloadData()
@@ -302,6 +285,18 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     private func removeToDoItem(toDoIndex: Int) {
         self.toDos.remove(at: toDoIndex)
+    }
+    
+    private func addSelectedIndexPath(indexPath: IndexPath) {
+        selectedIndexPaths.append(indexPath)
+    }
+    
+    private func removeSelectedIndexPath(indexPathInt: Int) {
+        selectedIndexPaths.remove(at: indexPathInt)
+    }
+    
+    private func removeAllSelectedIndexPaths() {
+        selectedIndexPaths.removeAll()
     }
     
     // Retrieves the index of the ToDo from the base ToDo List instead of by day
@@ -320,27 +315,11 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     // Function for expanding specific rows
     private func expandRow(rowIndex: Int) {
-        //listOfExpandedRows.append(ExpandedRows(expandedRowIndex: rowIndex, isExpandedRowSelected: true))
-        listOfExpandedRows[rowIndex].isExpandedRowSelected = true
-        pressedExpandButtonIndex = rowIndex
-        expandedRowIndex = -1
-        //expandedRowIndex = rowIndex
-        //listOfExpandedRow.append(rowIndex)
-        //setThereIsCellTapped(tapped: true)
-        //setExpandedRowIndex(rowIndex: rowIndex)
         reloadTableViewData()
     }
     
     // Function for collapsing specific rows
     private func collapseRow(rowIndex: Int) {
-        //listOfExpandedRow.remove(at: rowIndex)
-        //listOfExpandedRows.remove(at: rowIndex)
-        listOfExpandedRows[rowIndex].isExpandedRowSelected = false
-        pressedExpandButtonIndex = rowIndex
-        expandedRowIndex = -1
-        //expandedRowIndex = -1
-        //setThereIsCellTapped(tapped: false)
-        //setExpandedRowIndex(rowIndex: -1)
         reloadTableViewData()
     }
     
@@ -354,15 +333,16 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     @objc func onExpandRowButtonTap(sender: ExpandButton) {
         print("Expand PRessed")
-        expandedRowIndex = sender.getExpandedRowIndex()
-        print(expandedRowIndex)
+        let buttonIndexPath = IndexPath(row: sender.getExpandedRowIndex(), section: 0)
         
         // If there is no expanded row yet
-        if listOfExpandedRows[expandedRowIndex].isExpandedRowSelected == false {
-            //print(sender.getExpandedRowIndex())
-            expandRow(rowIndex: expandedRowIndex)
+        if !getSelectedIndexPaths().contains(buttonIndexPath) {
+            addSelectedIndexPath(indexPath: buttonIndexPath)
+            reloadTableViewData()
         } else {
-            collapseRow(rowIndex: expandedRowIndex)
+            let indPath: Int = selectedIndexPaths.firstIndex(of: buttonIndexPath)!
+            removeSelectedIndexPath(indexPathInt: indPath)
+            reloadTableViewData()
         }
     }
 }
@@ -425,6 +405,7 @@ extension ScheduleViewController: JTAppleCalendarViewDelegate {
     }
 }
 
+// To keep track of expandable rows
 struct ExpandedRows {
     var expandedRowIndex: Int = Int()
     var isExpandedRowSelected: Bool = Bool()
