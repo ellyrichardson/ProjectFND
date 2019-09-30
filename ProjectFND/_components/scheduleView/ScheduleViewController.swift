@@ -30,6 +30,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     //private var selectedCheckBoxIndex: Int = -1
     private var selectedIndexPath: IndexPath?
     private var selectedIndexPaths: [IndexPath] = [IndexPath]()
+    private var calendarDayChanged: Bool = false
+    private var remainingExpandButtonsToReset: Int = -1
     
     let formatter = DateFormatter()
     let numberOfRows = 6
@@ -73,10 +75,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         }
         
         currentCell.dateLabel.text = cellState.text
-        print("Cell State")
-        print(cellState.text)
-        print(cellState.date)
-        print(cellState.dateBelongsTo.rawValue)
         configureSelectedStateFor(cell: currentCell, cellState: cellState)
         configureTextColorFor(cell: currentCell, cellState: cellState)
         configureSelectedDay(cell: currentCell, cellState: cellState)
@@ -123,7 +121,11 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         if cellState.isSelected{
             setSelectedDate(selectedDate: cellState.date)
             removeAllSelectedIndexPaths()
+            // To track if the selected day in the calendar was changed
+            setCalendarDayChanged(didChange: true)
+            // To track how many expand row buttons will be reset if the selected was changed
             reloadTableViewData()
+            setRemainingExpandButtonsToReset(remainingButtons: getToDoItemsByDay().count)
         }
     }
     
@@ -137,9 +139,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if selectedIndexPaths.count > 0 {
             if selectedIndexPaths.contains(indexPath) {
-                //print("height of row")
-                //print(expandedRowIndex)
-                //expandedRowIndex = -1
                 
                 return 75
             }
@@ -170,6 +169,13 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         // Sets the status of the CheckBox being pressed
         cell.checkBoxButton.setPressedStatus(isPressed: toDoItems[indexPath.row].finished)
         cell.checkBoxButton.addTarget(self, action: #selector(onCheckBoxButtonTap(sender:)), for: .touchUpInside)
+        
+        if getCalendarDayChanged() == true {
+            cell.expandButton.setPressedStatus(isPressed: false)
+            // Determines if more buttons need to be reset
+            trackExpandButtonsToBeReset()
+        }
+        
         cell.expandButton.setExpandedRowIndex(toDoRowIndex: indexPath.row)
         cell.expandButton.addTarget(self, action: #selector(onExpandRowButtonTap(sender:)), for: .touchUpInside)
         
@@ -216,8 +222,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             // Sets the chosen work and due date in the itemInfoTableViewController
             itemInfoTableViewController.setChosenWorkDate(chosenWorkDate: selectedToDoItem.workDate)
             itemInfoTableViewController.setChosenDueDate(chosenDueDate: selectedToDoItem.dueDate)
-            print("Real Index")
-            print(retrieveRealIndexOfToDo(toDoItem: selectedToDoItem))
             // Retrieves the index of the selected toDo
             setSelectedToDoIndex(toDoItemIndex: retrieveRealIndexOfToDo(toDoItem: selectedToDoItem))
             os_log("Showing details for the selected ToDo item.", log: OSLog.default, type: .debug)
@@ -238,6 +242,14 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     func setSelectedDate(selectedDate: Date) {
         self.selectedDate = selectedDate
+    }
+    
+    func setCalendarDayChanged(didChange: Bool) {
+        self.calendarDayChanged = didChange
+    }
+    
+    func setRemainingExpandButtonsToReset(remainingButtons: Int) {
+        self.remainingExpandButtonsToReset = remainingButtons
     }
     
     // MARK: - Getters
@@ -264,6 +276,14 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     func getSelectedIndexPaths() -> [IndexPath] {
         return self.selectedIndexPaths
+    }
+    
+    func getCalendarDayChanged() -> Bool {
+        return self.calendarDayChanged
+    }
+    
+    func getRemainingButtonsToReset() -> Int {
+        return self.remainingExpandButtonsToReset
     }
     
     // MARK: - Private Methods
@@ -323,6 +343,15 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         reloadTableViewData()
     }
     
+    // Tracks the expand row buttons that needs to be reset
+    private func trackExpandButtonsToBeReset() {
+        setRemainingExpandButtonsToReset(remainingButtons: getRemainingButtonsToReset() - 1)
+        if getRemainingButtonsToReset() <= 0 {
+            setCalendarDayChanged(didChange: false)
+            setRemainingExpandButtonsToReset(remainingButtons: -1)
+        }
+    }
+    
     @objc func onCheckBoxButtonTap(sender: CheckBoxButton) {
         var toDoItemsByDay: [ToDo] = getToDoItemsByDay()
         let toDoItemToUpdate: ToDo = toDoItemsByDay[sender.getToDoRowIndex()]
@@ -332,7 +361,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @objc func onExpandRowButtonTap(sender: ExpandButton) {
-        print("Expand PRessed")
         let buttonIndexPath = IndexPath(row: sender.getExpandedRowIndex(), section: 0)
         
         // If there is no expanded row yet

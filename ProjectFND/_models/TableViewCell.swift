@@ -20,17 +20,9 @@ class ScheduleTableViewCell: UITableViewCell, UITableViewDelegate {
     
     @IBOutlet weak var checkBoxButton: CheckBoxButton!
     @IBOutlet weak var expandButton: ExpandButton!
-    //@IBOutlet weak var doneCheckBox: CheckBox!
-    
-    /*@IBOutlet weak var taskNameLabel: UILabel!
-     @IBOutlet weak var workDateLabel: UILabel!
-     @IBOutlet weak var estTimeLabel: UILabel!
-     @IBOutlet weak var dueDateLabel: UILabel!*/
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        //setupSubTable()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

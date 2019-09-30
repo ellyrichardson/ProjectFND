@@ -33,19 +33,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         self.chosenWorkDate = Date()
         self.chosenDueDate = Date()
         self.finished = false
-        
-        // If workDate already exist, then don't set replace chosenWorkDate to the actual toDo date
-        /*if toDo?.workDate != nil {
-            self.chosenWorkDate = (toDo?.workDate)!
-        }
-        // If dueDate already exist, then don't set replace chosenDueDate to the actual toDo date
-        if toDo?.dueDate != nil {
-            self.chosenDueDate = (toDo?.dueDate)!
-        }
-        // If item edited is already finished
-        if toDo?.finished != false {
-            self.finished = !self.finished
-        }*/
+
         super.init(coder: aDecoder)
     }
     
