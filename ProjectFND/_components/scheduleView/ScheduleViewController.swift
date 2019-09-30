@@ -94,7 +94,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         }
         
         if cellState.isSelected {
-            currentCell.dateLabel.textColor = UIColor.red
+            currentCell.dateLabel.textColor = UIColor(red:1.00, green:0.40, blue:0.18, alpha:1.0)
             reloadTableViewData()
         } else {
             if cellState.dateBelongsTo == .thisMonth && cellState.date > Date()  {
@@ -169,9 +169,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         // Assigns an index to the CheckBox button of a row
         cell.checkBoxButton.setToDoRowIndex(toDoRowIndex: indexPath.row)
         // Sets the status of the CheckBox being pressed
-        print("isfinished")
-        print(indexPath.row)
-        print(toDoItems[indexPath.row].finished)
         cell.checkBoxButton.setPressedStatus(isPressed: toDoItems[indexPath.row].finished)
         cell.checkBoxButton.addTarget(self, action: #selector(onCheckBoxButtonTap(sender:)), for: .touchUpInside)
         
@@ -186,6 +183,10 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         cell.expandButton.addTarget(self, action: #selector(onExpandRowButtonTap(sender:)), for: .touchUpInside)
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+       cell.backgroundColor = colorForToDoRow(index: indexPath.row)
     }
     
     // MARK: - Actions
@@ -341,16 +342,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         addToDoItem(toDoItem: editedToDoItem)
     }
     
-    // Function for expanding specific rows
-    private func expandRow(rowIndex: Int) {
-        reloadTableViewData()
-    }
-    
-    // Function for collapsing specific rows
-    private func collapseRow(rowIndex: Int) {
-        reloadTableViewData()
-    }
-    
     // Tracks the expand row buttons that needs to be reset
     private func trackExpandButtonsToBeReset() {
         setRemainingExpandButtonsToReset(remainingButtons: getRemainingButtonsToReset() - 1)
@@ -361,12 +352,36 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
+    // Sets the appropriate row color if the ToDo is finished, late, or neutral status
+    private func colorForToDoRow(index: Int) -> UIColor {
+        let currentDate = Date()
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "M/d/yy, h:mm a"
+        
+        let toDoItem = getToDoItemsByDay()[index]
+        
+        // Neutral status - if ToDo hasn't met due date yet
+        if toDoItem.finished == false && currentDate < toDoItem.dueDate {
+            return UIColor(red:1.00, green:0.89, blue:0.00, alpha:1.0)
+        }
+            // Finished - if ToDo is finished
+        else if toDoItem.finished == true {
+            return UIColor(red:0.08, green:0.65, blue:0.42, alpha:1.0)
+        }
+            // Late - if ToDo hasn't finished yet and is past due date
+        else {
+            return UIColor(red:1.00, green:0.40, blue:0.18, alpha:1.0)
+        }
+    }
+    
     @objc func onCheckBoxButtonTap(sender: CheckBoxButton) {
         var toDoItemsByDay: [ToDo] = getToDoItemsByDay()
         let toDoItemToUpdate: ToDo = toDoItemsByDay[sender.getToDoRowIndex()]
         let toDoItemRealIndex: Int = retrieveRealIndexOfToDo(toDoItem: toDoItemToUpdate)
         toDoItemToUpdate.finished = !toDoItemToUpdate.finished
         replaceToDoItemInBaseList(editedToDoItem: toDoItemToUpdate, editedToDoItemIndex: toDoItemRealIndex)
+        reloadTableViewData()
     }
     
     @objc func onExpandRowButtonTap(sender: ExpandButton) {
@@ -397,8 +412,8 @@ extension ScheduleViewController: JTAppleCalendarViewDataSource {
         formatter.locale = Calendar.current.locale
         calendar.scrollingMode = .stopAtEachSection
         
-        let startDate = formatter.date(from: "01 01 18")!
-        let endDate = formatter.date(from: "31 12 20")!
+        let startDate = formatter.date(from: "01 01 19")!
+        let endDate = formatter.date(from: "31 12 22")!
         
         let parameters = ConfigurationParameters(startDate: startDate,
                                                  endDate: endDate,
@@ -439,17 +454,6 @@ extension ScheduleViewController: JTAppleCalendarViewDelegate {
     
     func calendarSizeForMonths(_ calendar: JTAppleCalendarView?) -> MonthSize? {
         return MonthSize(defaultSize: 40)
-    }
-}
-
-// To keep track of expandable rows
-struct ExpandedRows {
-    var expandedRowIndex: Int = Int()
-    var isExpandedRowSelected: Bool = Bool()
-    
-    init(expandedRowIndex: Int, isExpandedRowSelected: Bool) {
-        self.expandedRowIndex = expandedRowIndex
-        self.isExpandedRowSelected = isExpandedRowSelected
     }
 }
 
