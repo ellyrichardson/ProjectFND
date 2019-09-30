@@ -15,6 +15,8 @@ import JTAppleCalendar
 
 class ScheduleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    // MARK: Properties
+    
     @IBOutlet weak var calendarView: JTAppleCalendarView!
     @IBOutlet weak var toDoListTableView: UITableView!
     
@@ -23,13 +25,15 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     var toDoProcessHelper: ToDoProcessHelper = ToDoProcessHelper()
     
     // Properties
-    
+
     private var toDos = [ToDo]()
     private var selectedDate: Date = Date()
     private var selectedToDoIndex: Int = -1
-    //private var selectedCheckBoxIndex: Int = -1
     private var selectedIndexPath: IndexPath?
     private var selectedIndexPaths: [IndexPath] = [IndexPath]()
+    
+    // Expand row buttons tracker assets
+    
     private var calendarDayChanged: Bool = false
     private var remainingExpandButtonsToReset: Int = -1
     
@@ -123,8 +127,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             removeAllSelectedIndexPaths()
             // To track if the selected day in the calendar was changed
             setCalendarDayChanged(didChange: true)
-            // To track how many expand row buttons will be reset if the selected was changed
             reloadTableViewData()
+            // To track how many expand row buttons will be reset if the selected was changed
             setRemainingExpandButtonsToReset(remainingButtons: getToDoItemsByDay().count)
         }
     }
@@ -139,11 +143,9 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if selectedIndexPaths.count > 0 {
             if selectedIndexPaths.contains(indexPath) {
-                
                 return 75
             }
         }
-        
         return 50
     }
     
@@ -167,9 +169,13 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         // Assigns an index to the CheckBox button of a row
         cell.checkBoxButton.setToDoRowIndex(toDoRowIndex: indexPath.row)
         // Sets the status of the CheckBox being pressed
+        print("isfinished")
+        print(indexPath.row)
+        print(toDoItems[indexPath.row].finished)
         cell.checkBoxButton.setPressedStatus(isPressed: toDoItems[indexPath.row].finished)
         cell.checkBoxButton.addTarget(self, action: #selector(onCheckBoxButtonTap(sender:)), for: .touchUpInside)
         
+        // If calendar day was changed, then make the state of to-be loaded expand row buttons false
         if getCalendarDayChanged() == true {
             cell.expandButton.setPressedStatus(isPressed: false)
             // Determines if more buttons need to be reset
@@ -219,9 +225,11 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             
             let selectedToDoItem = toDoItemsByDay[indexPath.row]
             itemInfoTableViewController.toDo = selectedToDoItem
-            // Sets the chosen work and due date in the itemInfoTableViewController
+            // Sets the chosen work and due date in the itemInfoTableViewController to avoid its reset
             itemInfoTableViewController.setChosenWorkDate(chosenWorkDate: selectedToDoItem.workDate)
             itemInfoTableViewController.setChosenDueDate(chosenDueDate: selectedToDoItem.dueDate)
+            // Sets the finish status of the todo in the itemInfoTableViewController to avoid its reset
+            itemInfoTableViewController.setIsFinished(isFinished: selectedToDoItem.finished)
             // Retrieves the index of the selected toDo
             setSelectedToDoIndex(toDoItemIndex: retrieveRealIndexOfToDo(toDoItem: selectedToDoItem))
             os_log("Showing details for the selected ToDo item.", log: OSLog.default, type: .debug)
@@ -346,6 +354,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     // Tracks the expand row buttons that needs to be reset
     private func trackExpandButtonsToBeReset() {
         setRemainingExpandButtonsToReset(remainingButtons: getRemainingButtonsToReset() - 1)
+        // If all to-be loaded expand buttons state are now false
         if getRemainingButtonsToReset() <= 0 {
             setCalendarDayChanged(didChange: false)
             setRemainingExpandButtonsToReset(remainingButtons: -1)

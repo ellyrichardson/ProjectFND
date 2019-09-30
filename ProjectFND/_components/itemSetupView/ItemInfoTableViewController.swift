@@ -85,6 +85,16 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         self.chosenDueDate = chosenDueDate
     }
     
+    func setIsFinished(isFinished: Bool) {
+        self.finished = isFinished
+    }
+    
+    // MARK: - Getters
+    
+    func getIsFinished() -> Bool {
+        return self.finished
+    }
+    
     // MARK: - UITextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -217,7 +227,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         navigationItem.title = taskName
         
         // Set the ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue
-        toDo = ToDo(taskName: taskName!, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: finished)
+        toDo = ToDo(taskName: taskName!, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())
     }
     
     @IBAction func cancelButton(_ sender: UIBarButtonItem) {

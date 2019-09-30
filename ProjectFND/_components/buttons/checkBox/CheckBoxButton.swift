@@ -16,8 +16,6 @@ class CheckBoxButton: TransformingButton {
     private var isPressed: Bool = false {
         didSet{
             if getPressedStatus() == true {
-                print("pressed status")
-                print(getPressedStatus())
                 self.setImage(checkedImage, for: UIControl.State.normal)
             } else {
                 self.setImage(uncheckedImage, for: UIControl.State.normal)
@@ -30,7 +28,6 @@ class CheckBoxButton: TransformingButton {
     override func getPressedStatus() -> Bool {
         return self.isPressed
     }
-    
     
     override func setPressedStatus(isPressed: Bool) {
         self.isPressed = isPressed
