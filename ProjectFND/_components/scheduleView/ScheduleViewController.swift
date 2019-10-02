@@ -45,6 +45,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         // Do any additional setup after loading the view, typically from a nib.
         self.toDoListTableView.delegate = self
         self.toDoListTableView.dataSource = self
+        self.toDoListTableView.backgroundColor = UIColor.darkGray
         
         if let savedToDos = loadToDos() {
             setToDoItems(toDoItems: savedToDos)
@@ -94,11 +95,11 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         }
         
         if cellState.isSelected {
-            currentCell.dateLabel.textColor = UIColor(red:1.00, green:0.40, blue:0.18, alpha:1.0)
+            currentCell.dateLabel.textColor = UIColor.black
             reloadTableViewData()
         } else {
             if cellState.dateBelongsTo == .thisMonth && cellState.date > Date()  {
-                currentCell.dateLabel.textColor = UIColor.black
+                currentCell.dateLabel.textColor = UIColor.white
             } else {
                 currentCell.dateLabel.textColor = UIColor.gray
             }
@@ -110,6 +111,12 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         guard let currentCell = cell as? CalendarCell else {
             return
         }
+        
+        currentCell.selectedView.layer.masksToBounds = false
+        currentCell.selectedView.layer.borderColor = UIColor.gray.cgColor
+        currentCell.selectedView.layer.backgroundColor = UIColor.gray.cgColor
+        currentCell.selectedView.layer.cornerRadius = 18.5
+        currentCell.selectedView.clipsToBounds = true
         
         if cellState.isSelected{
             currentCell.selectedView.isHidden = false
@@ -143,10 +150,10 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if selectedIndexPaths.count > 0 {
             if selectedIndexPaths.contains(indexPath) {
-                return 75
+                return 65
             }
         }
-        return 50
+        return 45
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -160,6 +167,12 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         guard let cell = tableView.dequeueReusableCell(withIdentifier: dateCellIdentifier, for: indexPath) as? ScheduleTableViewCell else {
             fatalError("The dequeued cell is not an instance of ScheduleTableViewCell.")
         }
+        
+        
+        // For making the rows oval.
+        cell.layer.cornerRadius = 23
+        cell.layer.masksToBounds = true
+        
         // Retrieves sorted ToDo Items by date that fall under the chosen day in the calendar
         var toDoItems = getToDoItemsByDay()
         cell.taskNameLabel.text = toDoItems[indexPath.row].taskName
@@ -365,11 +378,11 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         if toDoItem.finished == false && currentDate < toDoItem.dueDate {
             return UIColor(red:1.00, green:0.89, blue:0.00, alpha:1.0)
         }
-            // Finished - if ToDo is finished
+        // Finished - if ToDo is finished
         else if toDoItem.finished == true {
             return UIColor(red:0.08, green:0.65, blue:0.42, alpha:1.0)
         }
-            // Late - if ToDo hasn't finished yet and is past due date
+        // Late - if ToDo hasn't finished yet and is past due date
         else {
             return UIColor(red:1.00, green:0.40, blue:0.18, alpha:1.0)
         }
