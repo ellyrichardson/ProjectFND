@@ -173,6 +173,15 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         cell.layer.cornerRadius = 23
         cell.layer.masksToBounds = true
         
+        // Added borders for spacing of the table view cells.
+        cell.layer.borderWidth = 5.0
+        cell.layer.borderColor = UIColor.darkGray.cgColor
+        
+        /*let shapeLayer = CAShapeLayer()
+        let bezierPath = UIBezierPath(roundedRect: CGRect.inset(<#T##CGRect#>), cornerRadius: 5.0)
+        shapeLayer.path = bezierPath.cgPath
+        cell.layer.mask = shapeLayer*/
+        
         // Retrieves sorted ToDo Items by date that fall under the chosen day in the calendar
         var toDoItems = getToDoItemsByDay()
         cell.taskNameLabel.text = toDoItems[indexPath.row].taskName
