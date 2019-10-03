@@ -47,7 +47,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         // Do any additional setup after loading the view, typically from a nib.
         self.toDoListTableView.delegate = self
         self.toDoListTableView.dataSource = self
-        self.toDoListTableView.backgroundColor = UIColor.darkGray
+        self.toDoListTableView.backgroundColor = UIColor.darkText
         
         if let savedToDos = loadToDos() {
             setToDoItems(toDoItems: savedToDos)
@@ -90,7 +90,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         configureSelectedDay(cell: currentCell, cellState: cellState)
         let cellHidden = cellState.dateBelongsTo != .thisMonth
         currentCell.isHidden = cellHidden
-        
     }
     
     // Configure text calendar colors
@@ -107,7 +106,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             if cellState.dateBelongsTo == .thisMonth && cellState.date > Date()  {
                 currentCell.dateLabel.textColor = UIColor.white
             } else {
-                currentCell.dateLabel.textColor = UIColor.gray
+                currentCell.dateLabel.textColor = UIColor.lightGray
             }
         }
     }
@@ -185,12 +184,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         
         // Added borders for spacing of the table view cells.
         cell.layer.borderWidth = 5.0
-        cell.layer.borderColor = UIColor.darkGray.cgColor
-        
-        /*let shapeLayer = CAShapeLayer()
-        let bezierPath = UIBezierPath(roundedRect: CGRect.inset(<#T##CGRect#>), cornerRadius: 5.0)
-        shapeLayer.path = bezierPath.cgPath
-        cell.layer.mask = shapeLayer*/
+        cell.layer.borderColor = UIColor.darkText.cgColor
         
         // Retrieves sorted ToDo Items by date that fall under the chosen day in the calendar
         var toDoItems = getToDoItemsByDay()
