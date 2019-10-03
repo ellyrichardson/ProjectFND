@@ -121,15 +121,28 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kqc-NC-t2c" userLabel="Selected View">
-                                                            <rect key="frame" x="3.5" y="4" width="37" height="37"/>
+                                                            <rect key="frame" x="4" y="4.5" width="37" height="37"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <subviews>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v3i-F9-fBN" userLabel="Top Indicator">
+                                                                    <rect key="frame" x="8" y="4" width="19" height="8"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                </stackView>
+                                                            </subviews>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </view>
-                                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yDe-Zh-gR6" userLabel="Background">
-                                                            <rect key="frame" x="0.0" y="0.0" width="45.5" height="45.5"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zN6-ej-M0S" userLabel="Top Right Indicator">
+                                                            <rect key="frame" x="24.5" y="14" width="19" height="8"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        </view>
+                                                        </stackView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iZ9-Qi-9PX" userLabel="Top Left Indicator">
+                                                            <rect key="frame" x="1" y="14" width="19" height="8"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        </stackView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PVZ-Uv-mMH" userLabel="Bottom Indicator">
+                                                            <rect key="frame" x="12" y="29.5" width="19" height="8"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        </stackView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QvW-9w-CGe">
                                                             <rect key="frame" x="8" y="16" width="28" height="14"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -141,9 +154,12 @@
                                                 </view>
                                                 <size key="customSize" width="45.700000000000003" height="45.700000000000003"/>
                                                 <connections>
-                                                    <outlet property="bgView" destination="yDe-Zh-gR6" id="zdA-M0-JDy"/>
+                                                    <outlet property="bottomIndicator" destination="PVZ-Uv-mMH" id="5I5-h7-YN0"/>
                                                     <outlet property="dateLabel" destination="QvW-9w-CGe" id="N8e-xJ-QA2"/>
                                                     <outlet property="selectedView" destination="kqc-NC-t2c" id="56E-Oo-8om"/>
+                                                    <outlet property="topIndicator" destination="v3i-F9-fBN" id="tw1-32-b6y"/>
+                                                    <outlet property="topLeftIndicator" destination="iZ9-Qi-9PX" id="9fv-h0-oA6"/>
+                                                    <outlet property="topRightIndicator" destination="zN6-ej-M0S" id="MEP-uo-GTg"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>

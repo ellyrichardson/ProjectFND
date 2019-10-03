@@ -32,6 +32,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     private var selectedIndexPath: IndexPath?
     private var selectedIndexPaths: [IndexPath] = [IndexPath]()
     
+    private var circleStuff = UIView()
+    
     // Expand row buttons tracker assets
     
     private var calendarDayChanged: Bool = false
@@ -79,12 +81,16 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             return
         }
         
+        // Creates indicators for the appropriate calendar days.
+        currentCell.createIndicators(createIndicator: true, indicatorType: 0)
+        
         currentCell.dateLabel.text = cellState.text
         configureSelectedStateFor(cell: currentCell, cellState: cellState)
         configureTextColorFor(cell: currentCell, cellState: cellState)
         configureSelectedDay(cell: currentCell, cellState: cellState)
         let cellHidden = cellState.dateBelongsTo != .thisMonth
         currentCell.isHidden = cellHidden
+        
     }
     
     // Configure text calendar colors
@@ -120,10 +126,14 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         
         if cellState.isSelected{
             currentCell.selectedView.isHidden = false
-            currentCell.bgView.isHidden = true
+            //currentCell.bgView.isHidden = true
+            // Indicator stack view is hidden for now
+            //currentCell.indicatorStackView.isHidden = true
         } else {
             currentCell.selectedView.isHidden = true
-            currentCell.bgView.isHidden = true
+            //currentCell.bgView.isHidden = true
+            // Indicator stack view is hidden for now
+            //currentCell.indicatorStackView.isHidden = true
         }
     }
     
@@ -385,14 +395,17 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         
         // Neutral status - if ToDo hasn't met due date yet
         if toDoItem.finished == false && currentDate < toDoItem.dueDate {
+            // Yellowish color
             return UIColor(red:1.00, green:0.89, blue:0.00, alpha:1.0)
         }
         // Finished - if ToDo is finished
         else if toDoItem.finished == true {
+            // Greenish color
             return UIColor(red:0.08, green:0.65, blue:0.42, alpha:1.0)
         }
         // Late - if ToDo hasn't finished yet and is past due date
         else {
+            // Reddish orange color
             return UIColor(red:1.00, green:0.40, blue:0.18, alpha:1.0)
         }
     }
