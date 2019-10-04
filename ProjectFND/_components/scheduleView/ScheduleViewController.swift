@@ -32,8 +32,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     private var selectedIndexPath: IndexPath?
     private var selectedIndexPaths: [IndexPath] = [IndexPath]()
     
-    private var circleStuff = UIView()
-    
     // Expand row buttons tracker assets
     
     private var calendarDayChanged: Bool = false
@@ -81,20 +79,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         guard let currentCell = cell as? CalendarCell else {
             return
         }
-        
-        /*
-         USAGE:
-         Indicator Types:
-         0 - All indicators, which are Yellow, Green, and Red
-         1 - Yellow indicator only
-         2 - Green indicator only
-         3 - Red indicator only
-         4 - Yellow and Green indicators
-         5 - Yellow and Red indicators
-         6 - Red and Green indicators
-         */
-        // Creates indicators for the appropriate calendar days.
-        //currentCell.createIndicators(createIndicator: true, indicatorType: 0)
         
         currentCell.dateLabel.text = cellState.text
         configureSelectedStateFor(cell: currentCell, cellState: cellState)
@@ -485,23 +469,21 @@ extension ScheduleViewController: JTAppleCalendarViewDelegate {
         
         var cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "CalendarCell", for: indexPath) as! CalendarCell
         
-        // ---------------------------------------------------------------------------
-        //let dateFormatter = DateFormatter()
-        //dateFormatter.dateFormat = "M/d/yy"
-        
-        //let stringedDate = dateFormatter.string(from: cellState.date)
-        
+        // Hides the indicators initially.
         cell.bottomIndicator.isHidden = true
         cell.topIndicator.isHidden = true
         cell.topLeftIndicator.isHidden = true
         cell.topRightIndicator.isHidden = true
         
+        // Gets the ToDos based on the date of the current cell.
         let toDosForTheDay = getToDoItemsByDay(dateChosen: date)
         
+        // Checks if these kinds of ToDos exist in the date of the current cell.
         let onProgressToDo = toDosForTheDay.first(where: {Date() < $0.dueDate})
         let finishedToDo = toDosForTheDay.first(where: {$0.finished == true})
         let overdueToDo = toDosForTheDay.first(where: {Date() > $0.dueDate})
         
+        // Sets boolean variables if types of ToDos exist.
         if onProgressToDo != nil {
             onProgressToDoExist = true
         }
@@ -512,83 +494,13 @@ extension ScheduleViewController: JTAppleCalendarViewDelegate {
             overdueToDoExist = true
         }
         
-        cell = showIndicators(cell: cell, onProgress: onProgressToDoExist, finished: finishedToDoExist, overdue: overdueToDoExist)
-        
-        /*
-        if onProgressToDo != nil && finishedToDo == nil && overdueToDo == nil {
-            cell.bottomIndicator.isHidden = false
-            cell.createIndicators(createIndicator: true, indicatorType: 1)
+        // If either one of the types of ToDo exist.
+        if onProgressToDoExist == true || finishedToDoExist == true || overdueToDoExist == true {
+            // Update the cell to have the indicators it needs.
+            cell = showCellIndicators(cell: cell, onProgress: onProgressToDoExist, finished: finishedToDoExist, overdue: overdueToDoExist)
         }
-        else if onProgressToDo == nil && finishedToDo != nil && overdueToDo == nil {
-            cell.bottomIndicator.isHidden = false
-            cell.createIndicators(createIndicator: true, indicatorType: 2)
-        }
-        else if onProgressToDo == nil && finishedToDo == nil && overdueToDo != nil {
-            cell.bottomIndicator.isHidden = false
-            cell.createIndicators(createIndicator: true, indicatorType: 3)
-        }
-        else if onProgressToDo != nil && finishedToDo != nil && overdueToDo == nil {
-            cell.topIndicator.isHidden = false
-            cell.bottomIndicator.isHidden = false
-            cell.createIndicators(createIndicator: true, indicatorType: 4)
-        }
-        else if onProgressToDo != nil && finishedToDo == nil && overdueToDo != nil {
-            cell.bottomIndicator.isHidden = false
-            cell.topIndicator.isHidden = false
-            cell.createIndicators(createIndicator: true, indicatorType: 5)
-        }
-        else if onProgressToDo == nil && finishedToDo != nil && overdueToDo != nil {
-            cell.bottomIndicator.isHidden = false
-            cell.topIndicator.isHidden = false
-            cell.createIndicators(createIndicator: true, indicatorType: 6)
-        }
-        else if onProgressToDo != nil && finishedToDo != nil && overdueToDo != nil {
-            cell.bottomIndicator.isHidden = false
-            cell.topRightIndicator.isHidden = false
-            cell.topLeftIndicator.isHidden = false
-            cell.createIndicators(createIndicator: true, indicatorType: 0)
-        }
-         */
-        // ----------------------------------------------------------------------
         
         configureCell(cell: cell, cellState: cellState)
-        return cell
-    }
-    
-    func showIndicators(cell: CalendarCell, onProgress: Bool, finished: Bool, overdue: Bool) -> CalendarCell {
-        if onProgress == true && finished == false && overdue == false {
-            cell.bottomIndicator.isHidden = false
-            cell.createIndicators(createIndicator: true, indicatorType: 1)
-        }
-        else if onProgress == false && finished == true && overdue == false {
-            cell.bottomIndicator.isHidden = false
-            cell.createIndicators(createIndicator: true, indicatorType: 2)
-        }
-        else if onProgress == false && finished == false && overdue == true {
-            cell.bottomIndicator.isHidden = false
-            cell.createIndicators(createIndicator: true, indicatorType: 3)
-        }
-        else if onProgress == true && finished == true && overdue == false {
-            cell.topIndicator.isHidden = false
-            cell.bottomIndicator.isHidden = false
-            cell.createIndicators(createIndicator: true, indicatorType: 4)
-        }
-        else if onProgress == true && finished == false && overdue == true {
-            cell.bottomIndicator.isHidden = false
-            cell.topIndicator.isHidden = false
-            cell.createIndicators(createIndicator: true, indicatorType: 5)
-        }
-        else if onProgress == false && finished == true && overdue == true {
-            cell.bottomIndicator.isHidden = false
-            cell.topIndicator.isHidden = false
-            cell.createIndicators(createIndicator: true, indicatorType: 6)
-        }
-        else if onProgress == true && finished == true && overdue == true {
-            cell.bottomIndicator.isHidden = false
-            cell.topRightIndicator.isHidden = false
-            cell.topLeftIndicator.isHidden = false
-            cell.createIndicators(createIndicator: true, indicatorType: 0)
-        }
         return cell
     }
     
@@ -611,6 +523,50 @@ extension ScheduleViewController: JTAppleCalendarViewDelegate {
     
     func calendarSizeForMonths(_ calendar: JTAppleCalendarView?) -> MonthSize? {
         return MonthSize(defaultSize: 40)
+    }
+    
+    func showCellIndicators(cell: CalendarCell, onProgress: Bool, finished: Bool, overdue: Bool) -> CalendarCell {
+        // Yellow indicator only
+        if onProgress == true && finished == false && overdue == false {
+            cell.bottomIndicator.isHidden = false
+            cell.createIndicators(createIndicator: true, indicatorType: 1)
+        }
+        // Green indicator only
+        else if onProgress == false && finished == true && overdue == false {
+            cell.bottomIndicator.isHidden = false
+            cell.createIndicators(createIndicator: true, indicatorType: 2)
+        }
+        // Orange indicator only
+        else if onProgress == false && finished == false && overdue == true {
+            cell.bottomIndicator.isHidden = false
+            cell.createIndicators(createIndicator: true, indicatorType: 3)
+        }
+        // Yellow and Green indicator
+        else if onProgress == true && finished == true && overdue == false {
+            cell.topIndicator.isHidden = false
+            cell.bottomIndicator.isHidden = false
+            cell.createIndicators(createIndicator: true, indicatorType: 4)
+        }
+        // Yellow and Orange indicator
+        else if onProgress == true && finished == false && overdue == true {
+            cell.bottomIndicator.isHidden = false
+            cell.topIndicator.isHidden = false
+            cell.createIndicators(createIndicator: true, indicatorType: 5)
+        }
+        // Green and Orange indicator
+        else if onProgress == false && finished == true && overdue == true {
+            cell.bottomIndicator.isHidden = false
+            cell.topIndicator.isHidden = false
+            cell.createIndicators(createIndicator: true, indicatorType: 6)
+        }
+        // Yellow, Green, and Orange indicator
+        else if onProgress == true && finished == true && overdue == true {
+            cell.bottomIndicator.isHidden = false
+            cell.topRightIndicator.isHidden = false
+            cell.topLeftIndicator.isHidden = false
+            cell.createIndicators(createIndicator: true, indicatorType: 0)
+        }
+        return cell
     }
 }
 
