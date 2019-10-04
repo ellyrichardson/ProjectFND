@@ -59,6 +59,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        calendarView.reloadData()
         reloadTableViewData()
     }
     
@@ -81,8 +82,19 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             return
         }
         
+        /*
+         USAGE:
+         Indicator Types:
+         0 - All indicators, which are Yellow, Green, and Red
+         1 - Yellow indicator only
+         2 - Green indicator only
+         3 - Red indicator only
+         4 - Yellow and Green indicators
+         5 - Yellow and Red indicators
+         6 - Red and Green indicators
+         */
         // Creates indicators for the appropriate calendar days.
-        currentCell.createIndicators(createIndicator: true, indicatorType: 0)
+        //currentCell.createIndicators(createIndicator: true, indicatorType: 0)
         
         currentCell.dateLabel.text = cellState.text
         configureSelectedStateFor(cell: currentCell, cellState: cellState)
@@ -145,7 +157,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             setCalendarDayChanged(didChange: true)
             reloadTableViewData()
             // To track how many expand row buttons will be reset if the selected was changed
-            setRemainingExpandButtonsToReset(remainingButtons: getToDoItemsByDay().count)
+            setRemainingExpandButtonsToReset(remainingButtons: getToDoItemsByDay(dateChosen: getSelectedDate()).count)
         }
     }
     
@@ -153,7 +165,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Gets the ToDos that fall under the selected day in calendar
-        return getToDoItemsByDay().count
+        return getToDoItemsByDay(dateChosen: getSelectedDate()).count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -183,11 +195,11 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         cell.layer.masksToBounds = true
         
         // Added borders for spacing of the table view cells.
-        cell.layer.borderWidth = 5.0
+        cell.layer.borderWidth = 8.0
         cell.layer.borderColor = UIColor.darkText.cgColor
         
         // Retrieves sorted ToDo Items by date that fall under the chosen day in the calendar
-        var toDoItems = getToDoItemsByDay()
+        var toDoItems = getToDoItemsByDay(dateChosen: getSelectedDate())
         cell.taskNameLabel.text = toDoItems[indexPath.row].taskName
         cell.startDateLabel.text = workDateFormatter.string(from: toDoItems[indexPath.row].workDate)
         cell.estTimeLabel.text = toDoItems[indexPath.row].estTime
@@ -237,7 +249,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         case "AddToDoItem":
             os_log("Adding a new ToDo item.", log: OSLog.default, type: .debug)
         case "ShowToDoItemDetails":
-            var toDoItemsByDay: [ToDo] = getToDoItemsByDay()
+            var toDoItemsByDay: [ToDo] = getToDoItemsByDay(dateChosen: getSelectedDate())
             guard let itemInfoTableViewController = segue.destination as? ItemInfoTableViewController else {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
@@ -289,8 +301,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     // MARK: - Getters
     
-    private func getToDoItemsByDay() -> [ToDo] {
-        return toDoProcessHelper.retrieveToDoItemsByDay(toDoDate: getSelectedDate(), toDoItems: getToDoItems())
+    private func getToDoItemsByDay(dateChosen: Date) -> [ToDo] {
+        return toDoProcessHelper.retrieveToDoItemsByDay(toDoDate: dateChosen, toDoItems: getToDoItems())
     }
     
     func getToDoItems() -> [ToDo] {
@@ -331,6 +343,12 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     private func reloadTableViewData() {
         DispatchQueue.main.async {
             self.toDoListTableView.reloadData()
+        }
+    }
+    
+    private func reloadCalendarViewData() {
+        DispatchQueue.main.async {
+            self.calendarView.reloadData()
         }
     }
     
@@ -385,7 +403,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         
         dateFormatter.dateFormat = "M/d/yy, h:mm a"
         
-        let toDoItem = getToDoItemsByDay()[index]
+        let toDoItem = getToDoItemsByDay(dateChosen: getSelectedDate())[index]
         
         // Neutral status - if ToDo hasn't met due date yet
         if toDoItem.finished == false && currentDate < toDoItem.dueDate {
@@ -405,7 +423,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @objc func onCheckBoxButtonTap(sender: CheckBoxButton) {
-        var toDoItemsByDay: [ToDo] = getToDoItemsByDay()
+        var toDoItemsByDay: [ToDo] = getToDoItemsByDay(dateChosen: getSelectedDate())
         let toDoItemToUpdate: ToDo = toDoItemsByDay[sender.getToDoRowIndex()]
         let toDoItemRealIndex: Int = retrieveRealIndexOfToDo(toDoItem: toDoItemToUpdate)
         toDoItemToUpdate.finished = !toDoItemToUpdate.finished
@@ -419,10 +437,12 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         // If there is no expanded row yet
         if !getSelectedIndexPaths().contains(buttonIndexPath) {
             addSelectedIndexPath(indexPath: buttonIndexPath)
+            reloadCalendarViewData()
             reloadTableViewData()
         } else {
             let indPath: Int = selectedIndexPaths.firstIndex(of: buttonIndexPath)!
             removeSelectedIndexPath(indexPathInt: indPath)
+            reloadCalendarViewData()
             reloadTableViewData()
         }
     }
@@ -459,8 +479,116 @@ extension ScheduleViewController: JTAppleCalendarViewDataSource {
 extension ScheduleViewController: JTAppleCalendarViewDelegate {
     func calendar(_ calendar: JTAppleCalendarView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTAppleCell {
         
-        let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "CalendarCell", for: indexPath) as! CalendarCell
+        var onProgressToDoExist: Bool = false
+        var finishedToDoExist: Bool = false
+        var overdueToDoExist: Bool = false
+        
+        var cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "CalendarCell", for: indexPath) as! CalendarCell
+        
+        // ---------------------------------------------------------------------------
+        //let dateFormatter = DateFormatter()
+        //dateFormatter.dateFormat = "M/d/yy"
+        
+        //let stringedDate = dateFormatter.string(from: cellState.date)
+        
+        cell.bottomIndicator.isHidden = true
+        cell.topIndicator.isHidden = true
+        cell.topLeftIndicator.isHidden = true
+        cell.topRightIndicator.isHidden = true
+        
+        let toDosForTheDay = getToDoItemsByDay(dateChosen: date)
+        
+        let onProgressToDo = toDosForTheDay.first(where: {Date() < $0.dueDate})
+        let finishedToDo = toDosForTheDay.first(where: {$0.finished == true})
+        let overdueToDo = toDosForTheDay.first(where: {Date() > $0.dueDate})
+        
+        if onProgressToDo != nil {
+            onProgressToDoExist = true
+        }
+        if finishedToDo != nil {
+            finishedToDoExist = true
+        }
+        if overdueToDo != nil {
+            overdueToDoExist = true
+        }
+        
+        cell = showIndicators(cell: cell, onProgress: onProgressToDoExist, finished: finishedToDoExist, overdue: overdueToDoExist)
+        
+        /*
+        if onProgressToDo != nil && finishedToDo == nil && overdueToDo == nil {
+            cell.bottomIndicator.isHidden = false
+            cell.createIndicators(createIndicator: true, indicatorType: 1)
+        }
+        else if onProgressToDo == nil && finishedToDo != nil && overdueToDo == nil {
+            cell.bottomIndicator.isHidden = false
+            cell.createIndicators(createIndicator: true, indicatorType: 2)
+        }
+        else if onProgressToDo == nil && finishedToDo == nil && overdueToDo != nil {
+            cell.bottomIndicator.isHidden = false
+            cell.createIndicators(createIndicator: true, indicatorType: 3)
+        }
+        else if onProgressToDo != nil && finishedToDo != nil && overdueToDo == nil {
+            cell.topIndicator.isHidden = false
+            cell.bottomIndicator.isHidden = false
+            cell.createIndicators(createIndicator: true, indicatorType: 4)
+        }
+        else if onProgressToDo != nil && finishedToDo == nil && overdueToDo != nil {
+            cell.bottomIndicator.isHidden = false
+            cell.topIndicator.isHidden = false
+            cell.createIndicators(createIndicator: true, indicatorType: 5)
+        }
+        else if onProgressToDo == nil && finishedToDo != nil && overdueToDo != nil {
+            cell.bottomIndicator.isHidden = false
+            cell.topIndicator.isHidden = false
+            cell.createIndicators(createIndicator: true, indicatorType: 6)
+        }
+        else if onProgressToDo != nil && finishedToDo != nil && overdueToDo != nil {
+            cell.bottomIndicator.isHidden = false
+            cell.topRightIndicator.isHidden = false
+            cell.topLeftIndicator.isHidden = false
+            cell.createIndicators(createIndicator: true, indicatorType: 0)
+        }
+         */
+        // ----------------------------------------------------------------------
+        
         configureCell(cell: cell, cellState: cellState)
+        return cell
+    }
+    
+    func showIndicators(cell: CalendarCell, onProgress: Bool, finished: Bool, overdue: Bool) -> CalendarCell {
+        if onProgress == true && finished == false && overdue == false {
+            cell.bottomIndicator.isHidden = false
+            cell.createIndicators(createIndicator: true, indicatorType: 1)
+        }
+        else if onProgress == false && finished == true && overdue == false {
+            cell.bottomIndicator.isHidden = false
+            cell.createIndicators(createIndicator: true, indicatorType: 2)
+        }
+        else if onProgress == false && finished == false && overdue == true {
+            cell.bottomIndicator.isHidden = false
+            cell.createIndicators(createIndicator: true, indicatorType: 3)
+        }
+        else if onProgress == true && finished == true && overdue == false {
+            cell.topIndicator.isHidden = false
+            cell.bottomIndicator.isHidden = false
+            cell.createIndicators(createIndicator: true, indicatorType: 4)
+        }
+        else if onProgress == true && finished == false && overdue == true {
+            cell.bottomIndicator.isHidden = false
+            cell.topIndicator.isHidden = false
+            cell.createIndicators(createIndicator: true, indicatorType: 5)
+        }
+        else if onProgress == false && finished == true && overdue == true {
+            cell.bottomIndicator.isHidden = false
+            cell.topIndicator.isHidden = false
+            cell.createIndicators(createIndicator: true, indicatorType: 6)
+        }
+        else if onProgress == true && finished == true && overdue == true {
+            cell.bottomIndicator.isHidden = false
+            cell.topRightIndicator.isHidden = false
+            cell.topLeftIndicator.isHidden = false
+            cell.createIndicators(createIndicator: true, indicatorType: 0)
+        }
         return cell
     }
     
