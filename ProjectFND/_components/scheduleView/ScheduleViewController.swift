@@ -57,7 +57,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        calendarView.reloadData()
+        reloadCalendarViewData()
         reloadTableViewData()
     }
     
@@ -121,14 +121,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         
         if cellState.isSelected{
             currentCell.selectedView.isHidden = false
-            //currentCell.bgView.isHidden = true
-            // Indicator stack view is hidden for now
-            //currentCell.indicatorStackView.isHidden = true
         } else {
             currentCell.selectedView.isHidden = true
-            //currentCell.bgView.isHidden = true
-            // Indicator stack view is hidden for now
-            //currentCell.indicatorStackView.isHidden = true
         }
     }
     
@@ -209,6 +203,28 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
        cell.backgroundColor = colorForToDoRow(index: indexPath.row)
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteButton = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
+            self.toDoListTableView.dataSource?.tableView!(self.toDoListTableView, commit: .delete, forRowAt: indexPath)
+            return
+        }
+        // Makes the backgroundColor of deleteButton black and its title "Remove".
+        deleteButton.backgroundColor = UIColor.black
+        deleteButton.title = "Remove"
+        return [deleteButton]
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let toDoToBeDeleted: [ToDo] = getToDoItemsByDay(dateChosen: getSelectedDate())
+            let toDoRealIndex = retrieveRealIndexOfToDo(toDoItem: toDoToBeDeleted[indexPath.row])
+            removeToDoItem(toDoIndex: toDoRealIndex)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }
     }
     
     // MARK: - Actions
@@ -330,6 +346,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
+    // TODO: Put this function in its own helper
     private func reloadCalendarViewData() {
         DispatchQueue.main.async {
             self.calendarView.reloadData()
@@ -412,6 +429,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         let toDoItemRealIndex: Int = retrieveRealIndexOfToDo(toDoItem: toDoItemToUpdate)
         toDoItemToUpdate.finished = !toDoItemToUpdate.finished
         replaceToDoItemInBaseList(editedToDoItem: toDoItemToUpdate, editedToDoItemIndex: toDoItemRealIndex)
+        //reloadCalendarViewData()
         reloadTableViewData()
     }
     
@@ -421,12 +439,10 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         // If there is no expanded row yet
         if !getSelectedIndexPaths().contains(buttonIndexPath) {
             addSelectedIndexPath(indexPath: buttonIndexPath)
-            reloadCalendarViewData()
             reloadTableViewData()
         } else {
             let indPath: Int = selectedIndexPaths.firstIndex(of: buttonIndexPath)!
             removeSelectedIndexPath(indexPathInt: indPath)
-            reloadCalendarViewData()
             reloadTableViewData()
         }
     }
