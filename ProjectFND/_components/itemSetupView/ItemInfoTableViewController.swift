@@ -253,6 +253,14 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     private func updateSaveButtonState() {
         saveButton.isEnabled = false
         
+        // Task name or estimated time fields are empty
+        if !(taskNameField.text?.isEmpty)! && !(estTimeField.text?.isEmpty)! {
+            saveButton.isEnabled = true
+        }
+            /*
+        else {
+            saveButton.isEnabled = true
+        }*/
         // Only allow saveButton if textFields are not empty
         taskNameField.addTarget(self, action: #selector(textFieldsAreNotEmpty), for: .editingChanged)
         estTimeField.addTarget(self, action: #selector(textFieldsAreNotEmpty), for: .editingChanged)
