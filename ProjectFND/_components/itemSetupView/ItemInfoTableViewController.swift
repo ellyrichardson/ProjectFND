@@ -40,6 +40,12 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let nav = self.navigationController?.navigationBar
+        
+        // Sets the navigation bar to color black with tintColor of yellow.
+        nav?.barStyle = UIBarStyle.black
+        nav?.tintColor = UIColor(red:1.00, green:0.89, blue:0.00, alpha:1.0)
+        
         // Auto resizing the height of the cell
         tableView.estimatedRowHeight = 44.0
         tableView.rowHeight = UITableView.automaticDimension

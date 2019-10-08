@@ -42,6 +42,13 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let nav = self.navigationController?.navigationBar
+        
+        // Sets the navigation bar to color black with tintColor of yellow.
+        nav?.barStyle = UIBarStyle.black
+        nav?.tintColor = UIColor(red:1.00, green:0.89, blue:0.00, alpha:1.0)
+        
         // Do any additional setup after loading the view, typically from a nib.
         self.toDoListTableView.delegate = self
         self.toDoListTableView.dataSource = self
