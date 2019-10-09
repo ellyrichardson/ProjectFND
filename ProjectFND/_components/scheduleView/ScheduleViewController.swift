@@ -504,7 +504,7 @@ extension ScheduleViewController: JTAppleCalendarViewDelegate {
         // Checks if these kinds of ToDos exist in the date of the current cell.
         let onProgressToDo = toDosForTheDay.first(where: {Date() < $0.dueDate})
         let finishedToDo = toDosForTheDay.first(where: {$0.finished == true})
-        let overdueToDo = toDosForTheDay.first(where: {Date() > $0.dueDate})
+        let overdueToDo = toDosForTheDay.first(where: {Date() > $0.dueDate && !$0.finished})
         
         // Sets boolean variables if types of ToDos exist.
         if onProgressToDo != nil {
