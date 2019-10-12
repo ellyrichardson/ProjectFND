@@ -229,6 +229,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         if editingStyle == .delete {
             let toDoToBeDeleted: [ToDo] = getToDoItemsByDay(dateChosen: getSelectedDate())
             let toDoRealIndex = retrieveRealIndexOfToDo(toDoItem: toDoToBeDeleted[indexPath.row])
+            deleteToDo(toDoToDelete: getToDoItems()[toDoRealIndex])
             removeToDoItem(toDoIndex: toDoRealIndex)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
@@ -242,10 +243,14 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         if let sourceViewController = sender.source as? ItemInfoTableViewController, let toDo = sourceViewController.toDo {
             if toDoListTableView.indexPathForSelectedRow != nil {
                 // Replaces the ToDo item in the original array of ToDos.
+                updateToDo(toDoToUpdate: getToDoItemByIndex(toDoIndex: getSelectedToDoIndex()), newToDo: toDo)
                 replaceToDoItemInBaseList(editedToDoItem: toDo, editedToDoItemIndex: getSelectedToDoIndex())
                 reloadTableViewData()
             } else {
                 addToDoItem(toDoItem: toDo)
+                print("ToDo Finished?")
+                print(toDo.finished)
+                saveToDos(toDoItem: toDo)
             }
         }
     }
@@ -363,7 +368,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             // If result is not empty,
             if result.count > 0 {
                 for toDo in result as! [NSManagedObject] {
-                    loadedToDo = ToDo(taskName: toDo.value(forKey: "taskName") as! String, taskDescription: toDo.value(forKey: "taskDescription") as! String, workDate: toDo.value(forKey: "startDate") as! Date, estTime: toDo.value(forKey: "estTime") as! String, dueDate: toDo.value(forKey: "dueDate") as! Date, finished: (toDo.value(forKey: "finished") != nil))
+                    loadedToDo = ToDo(taskName: toDo.value(forKey: "taskName") as! String, taskDescription: toDo.value(forKey: "taskDescription") as! String, workDate: toDo.value(forKey: "startDate") as! Date, estTime: toDo.value(forKey: "estTime") as! String, dueDate: toDo.value(forKey: "dueDate") as! Date, finished: (toDo.value(forKey: "finished") as! Bool))
                     loadedToDos.append(loadedToDo!)
                 }
             }
@@ -413,9 +418,9 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         let taskNamePredicate = NSPredicate(format: "taskName = %@", toDoToUpdate.taskName)
         let taskDescriptionPredicate = NSPredicate(format: "taskDescription = %@", toDoToUpdate.taskDescription)
         let estTimePredicate = NSPredicate(format: "estTime = %@", toDoToUpdate.estTime)
-        let startDatePredicate = NSPredicate(format: "startDate = %@", toDoToUpdate.workDate as CVarArg)
-        let dueDatePredicate = NSPredicate(format: "dueDate = %@", toDoToUpdate.dueDate as CVarArg)
-        let statusPredicate = NSPredicate(format: "finished = %@", toDoToUpdate.finished as CVarArg)
+        let startDatePredicate = NSPredicate(format: "startDate == %@", toDoToUpdate.workDate as NSDate)
+        let dueDatePredicate = NSPredicate(format: "dueDate == %@", toDoToUpdate.dueDate as NSDate)
+        let statusPredicate = NSPredicate(format: "finished = %d", toDoToUpdate.finished)
         
         // Combines different filters to one filter
         let propertiesPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [taskNamePredicate, taskDescriptionPredicate, estTimePredicate, startDatePredicate, dueDatePredicate, statusPredicate])
@@ -456,9 +461,9 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         let taskNamePredicate = NSPredicate(format: "taskName = %@", toDoToDelete.taskName)
         let taskDescriptionPredicate = NSPredicate(format: "taskDescription = %@", toDoToDelete.taskDescription)
         let estTimePredicate = NSPredicate(format: "estTime = %@", toDoToDelete.estTime)
-        let startDatePredicate = NSPredicate(format: "startDate = %@", toDoToDelete.workDate as CVarArg)
-        let dueDatePredicate = NSPredicate(format: "dueDate = %@", toDoToDelete.dueDate as CVarArg)
-        let statusPredicate = NSPredicate(format: "finished = %@", toDoToDelete.finished as CVarArg)
+        let startDatePredicate = NSPredicate(format: "startDate == %@", toDoToDelete.workDate as NSDate)
+        let dueDatePredicate = NSPredicate(format: "dueDate == %@", toDoToDelete.dueDate as NSDate)
+        let statusPredicate = NSPredicate(format: "finished = %d", toDoToDelete.finished)
         
         // Combines different filters to one filter
         let propertiesPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [taskNamePredicate, taskDescriptionPredicate, estTimePredicate, startDatePredicate, dueDatePredicate, statusPredicate])
@@ -467,7 +472,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         
         do {
             let toDoItem = try managedContext.fetch(fetchRequest)
-            
+            print("ToDo Items length")
+            print(toDoItem.count)
             let objectToDelete = toDoItem[0] as! NSManagedObject
             managedContext.delete(objectToDelete)
             
