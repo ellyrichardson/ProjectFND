@@ -577,6 +577,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         let toDoItemRealIndex: Int = retrieveRealIndexOfToDo(toDoItem: toDoItemToUpdate)
         toDoItemToUpdate.finished = !toDoItemToUpdate.finished
         replaceToDoItemInBaseList(editedToDoItem: toDoItemToUpdate, editedToDoItemIndex: toDoItemRealIndex)
+        updateToDo(toDoToUpdate: getToDoItemByIndex(toDoIndex: toDoItemRealIndex), newToDo: toDoItemToUpdate)
         //reloadCalendarViewData()
         reloadTableViewData()
     }
