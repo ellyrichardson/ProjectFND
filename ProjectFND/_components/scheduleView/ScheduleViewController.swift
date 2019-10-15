@@ -195,6 +195,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         cell.checkBoxButton.setToDoRowIndex(toDoRowIndex: indexPath.row)
         // Sets the status of the CheckBox being pressed
         cell.checkBoxButton.setPressedStatus(isPressed: toDoItems[indexPath.row].finished)
+        setSelectedToDoIndex(toDoItemIndex: indexPath.row)
         cell.checkBoxButton.addTarget(self, action: #selector(onCheckBoxButtonTap(sender:)), for: .touchUpInside)
         
         // If calendar day was changed, then make the state of to-be loaded expand row buttons false
@@ -323,10 +324,12 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         return self.toDos
     }
     
+    // Gets ToDo item by its index in the base list.
     func getToDoItemByIndex(toDoIndex: Int) -> ToDo {
         return self.toDos[toDoIndex]
     }
     
+    // Gets the index of the selected ToDo
     func getSelectedToDoIndex() -> Int {
         return self.selectedToDoIndex
     }
@@ -573,11 +576,46 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     @objc func onCheckBoxButtonTap(sender: CheckBoxButton) {
         var toDoItemsByDay: [ToDo] = getToDoItemsByDay(dateChosen: getSelectedDate())
-        let toDoItemToUpdate: ToDo = toDoItemsByDay[sender.getToDoRowIndex()]
+        let toDoItemToUpdate: ToDo = toDoItemsByDay[getSelectedToDoIndex()]
+        let newToDoItem: ToDo = toDoItemsByDay[sender.getToDoRowIndex()]
         let toDoItemRealIndex: Int = retrieveRealIndexOfToDo(toDoItem: toDoItemToUpdate)
-        toDoItemToUpdate.finished = !toDoItemToUpdate.finished
-        replaceToDoItemInBaseList(editedToDoItem: toDoItemToUpdate, editedToDoItemIndex: toDoItemRealIndex)
-        updateToDo(toDoToUpdate: getToDoItemByIndex(toDoIndex: toDoItemRealIndex), newToDo: toDoItemToUpdate)
+        
+        // -----------
+        print("THE TODOS")
+        for toDo in getToDoItems() {
+            print("LOADED")
+            print(toDo.taskName)
+            print(toDo.taskDescription)
+            print(toDo.estTime)
+            print(toDo.workDate)
+            print(toDo.dueDate)
+            print("Finished?")
+            print(toDo.finished)
+        }
+        
+        print("ORIGINAL")
+        print(toDoItemsByDay[sender.getToDoRowIndex()].taskName)
+        print(toDoItemsByDay[sender.getToDoRowIndex()].taskDescription)
+        print(toDoItemsByDay[sender.getToDoRowIndex()].estTime)
+        print(toDoItemsByDay[sender.getToDoRowIndex()].workDate)
+        print(toDoItemsByDay[sender.getToDoRowIndex()].dueDate)
+        print("Finished?")
+        print(toDoItemsByDay[sender.getToDoRowIndex()].finished)
+        
+        newToDoItem.finished = !newToDoItem.finished
+        
+        print("UPDATED")
+        print(toDoItemToUpdate.taskName)
+        print(toDoItemToUpdate.taskDescription)
+        print(toDoItemToUpdate.estTime)
+        print(toDoItemToUpdate.workDate)
+        print(toDoItemToUpdate.dueDate)
+        print("Finished?")
+        print(toDoItemToUpdate.finished)
+        // -----------
+        updateToDo(toDoToUpdate: getToDoItemByIndex(toDoIndex: toDoItemRealIndex), newToDo: newToDoItem)
+        //updateToDo(toDoToUpdate: toDoItemsByDay[sender.getToDoRowIndex()], newToDo: toDoItemToUpdate)
+        //replaceToDoItemInBaseList(editedToDoItem: toDoItemToUpdate, editedToDoItemIndex: toDoItemRealIndex)
         //reloadCalendarViewData()
         reloadTableViewData()
     }
