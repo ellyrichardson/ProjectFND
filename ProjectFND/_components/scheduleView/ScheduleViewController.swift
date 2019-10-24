@@ -29,6 +29,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
 
     private var toDos = [ToDo]()
     private var selectedDate: Date = Date()
+    private var selectedToDoCheckButtonIndex: Int = -1
     private var selectedToDoIndex: Int = -1
     private var selectedIndexPath: IndexPath?
     private var selectedIndexPaths: [IndexPath] = [IndexPath]()
@@ -195,7 +196,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         cell.checkBoxButton.setToDoRowIndex(toDoRowIndex: indexPath.row)
         // Sets the status of the CheckBox being pressed
         cell.checkBoxButton.setPressedStatus(isPressed: toDoItems[indexPath.row].finished)
-        setSelectedToDoIndex(toDoItemIndex: indexPath.row)
+        setSelectedToDoCheckButtonIndex(checkButtonIndex: indexPath.row)
         cell.checkBoxButton.addTarget(self, action: #selector(onCheckBoxButtonTap(sender:)), for: .touchUpInside)
         
         // If calendar day was changed, then make the state of to-be loaded expand row buttons false
@@ -302,6 +303,10 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         self.selectedToDoIndex = toDoItemIndex
     }
     
+    func setSelectedToDoCheckButtonIndex(checkButtonIndex: Int) {
+        self.selectedToDoCheckButtonIndex = checkButtonIndex
+    }
+    
     func setSelectedDate(selectedDate: Date) {
         self.selectedDate = selectedDate
     }
@@ -332,6 +337,11 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     // Gets the index of the selected ToDo
     func getSelectedToDoIndex() -> Int {
         return self.selectedToDoIndex
+    }
+    
+    // Gets the index of the selected ToDo CheckButton
+    func getSelectedToDoCheckButtonIndex() -> Int {
+        return self.selectedToDoCheckButtonIndex
     }
     
     func getSelectedDate() -> Date {
@@ -576,7 +586,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     @objc func onCheckBoxButtonTap(sender: CheckBoxButton) {
         var toDoItemsByDay: [ToDo] = getToDoItemsByDay(dateChosen: getSelectedDate())
-        let toDoItemToUpdate: ToDo = toDoItemsByDay[getSelectedToDoIndex()]
+        let toDoItemToUpdate: ToDo = toDoItemsByDay[sender.getToDoRowIndex()]
         let newToDoItem: ToDo = toDoItemsByDay[sender.getToDoRowIndex()]
         let toDoItemRealIndex: Int = retrieveRealIndexOfToDo(toDoItem: toDoItemToUpdate)
         
@@ -591,6 +601,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             print(toDo.dueDate)
             print("Finished?")
             print(toDo.finished)
+            print("")
         }
         
         print("ORIGINAL")
@@ -601,6 +612,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         print(toDoItemsByDay[sender.getToDoRowIndex()].dueDate)
         print("Finished?")
         print(toDoItemsByDay[sender.getToDoRowIndex()].finished)
+        print("")
         
         newToDoItem.finished = !newToDoItem.finished
         
@@ -612,11 +624,14 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         print(toDoItemToUpdate.dueDate)
         print("Finished?")
         print(toDoItemToUpdate.finished)
+        print("")
         // -----------
-        updateToDo(toDoToUpdate: getToDoItemByIndex(toDoIndex: toDoItemRealIndex), newToDo: newToDoItem)
+        updateToDo(toDoToUpdate: getToDoItemByIndex(toDoIndex: getSelectedToDoCheckButtonIndex()), newToDo: newToDoItem)
+        
         //updateToDo(toDoToUpdate: toDoItemsByDay[sender.getToDoRowIndex()], newToDo: toDoItemToUpdate)
         //replaceToDoItemInBaseList(editedToDoItem: toDoItemToUpdate, editedToDoItemIndex: toDoItemRealIndex)
         //reloadCalendarViewData()
+        setSelectedToDoCheckButtonIndex(checkButtonIndex: -1)
         reloadTableViewData()
     }
     
