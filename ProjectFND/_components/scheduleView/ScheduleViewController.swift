@@ -29,7 +29,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
 
     private var toDos = [ToDo]()
     private var selectedDate: Date = Date()
-    private var selectedToDoCheckButtonIndex: Int = -1
     private var selectedToDoIndex: Int = -1
     private var selectedIndexPath: IndexPath?
     private var selectedIndexPaths: [IndexPath] = [IndexPath]()
@@ -159,7 +158,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if selectedIndexPaths.count > 0 {
             if selectedIndexPaths.contains(indexPath) {
-                return 65
+                return 70
             }
         }
         return 45
@@ -196,7 +195,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         cell.checkBoxButton.setToDoRowIndex(toDoRowIndex: indexPath.row)
         // Sets the status of the CheckBox being pressed
         cell.checkBoxButton.setPressedStatus(isPressed: toDoItems[indexPath.row].finished)
-        setSelectedToDoCheckButtonIndex(checkButtonIndex: indexPath.row)
         cell.checkBoxButton.addTarget(self, action: #selector(onCheckBoxButtonTap(sender:)), for: .touchUpInside)
         
         // If calendar day was changed, then make the state of to-be loaded expand row buttons false
@@ -245,7 +243,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         if let sourceViewController = sender.source as? ItemInfoTableViewController, let toDo = sourceViewController.toDo {
             if toDoListTableView.indexPathForSelectedRow != nil {
                 // Replaces the ToDo item in the original array of ToDos.
-                updateToDo(toDoToUpdate: getToDoItemByIndex(toDoIndex: getSelectedToDoIndex()), newToDo: toDo)
+                updateToDo(toDoToUpdate: getToDoItemByIndex(toDoIndex: getSelectedToDoIndex()), newToDo: toDo, updateType: 0)
                 replaceToDoItemInBaseList(editedToDoItem: toDo, editedToDoItemIndex: getSelectedToDoIndex())
                 reloadTableViewData()
             } else {
@@ -303,10 +301,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         self.selectedToDoIndex = toDoItemIndex
     }
     
-    func setSelectedToDoCheckButtonIndex(checkButtonIndex: Int) {
-        self.selectedToDoCheckButtonIndex = checkButtonIndex
-    }
-    
     func setSelectedDate(selectedDate: Date) {
         self.selectedDate = selectedDate
     }
@@ -337,11 +331,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     // Gets the index of the selected ToDo
     func getSelectedToDoIndex() -> Int {
         return self.selectedToDoIndex
-    }
-    
-    // Gets the index of the selected ToDo CheckButton
-    func getSelectedToDoCheckButtonIndex() -> Int {
-        return self.selectedToDoCheckButtonIndex
     }
     
     func getSelectedDate() -> Date {
@@ -389,6 +378,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             os_log("Loading of a ToDo from SQLite didn't work", log: OSLog.default, type: .debug)
         }
         
+        
+        
         return loadedToDos
     }
     
@@ -418,7 +409,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    private func updateToDo(toDoToUpdate: ToDo, newToDo: ToDo) {
+    private func updateToDo(toDoToUpdate: ToDo, newToDo: ToDo, updateType: Int) {
         // Container is set up in the AppDelegate so it needs to refer to that container.
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else  { return }
         
@@ -433,7 +424,11 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         let estTimePredicate = NSPredicate(format: "estTime = %@", toDoToUpdate.estTime)
         let startDatePredicate = NSPredicate(format: "startDate == %@", toDoToUpdate.workDate as NSDate)
         let dueDatePredicate = NSPredicate(format: "dueDate == %@", toDoToUpdate.dueDate as NSDate)
-        let statusPredicate = NSPredicate(format: "finished = %d", toDoToUpdate.finished)
+        var statusPredicate = NSPredicate(format: "finished = %d", toDoToUpdate.finished)
+        
+        if updateType == 1 {
+            statusPredicate = NSPredicate(format: "finished = %d", !toDoToUpdate.finished)
+        }
         
         // Combines different filters to one filter
         let propertiesPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [taskNamePredicate, taskDescriptionPredicate, estTimePredicate, startDatePredicate, dueDatePredicate, statusPredicate])
@@ -588,51 +583,12 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         var toDoItemsByDay: [ToDo] = getToDoItemsByDay(dateChosen: getSelectedDate())
         let toDoItemToUpdate: ToDo = toDoItemsByDay[sender.getToDoRowIndex()]
         let newToDoItem: ToDo = toDoItemsByDay[sender.getToDoRowIndex()]
-        let toDoItemRealIndex: Int = retrieveRealIndexOfToDo(toDoItem: toDoItemToUpdate)
-        
-        // -----------
-        print("THE TODOS")
-        for toDo in getToDoItems() {
-            print("LOADED")
-            print(toDo.taskName)
-            print(toDo.taskDescription)
-            print(toDo.estTime)
-            print(toDo.workDate)
-            print(toDo.dueDate)
-            print("Finished?")
-            print(toDo.finished)
-            print("")
-        }
-        
-        print("ORIGINAL")
-        print(toDoItemsByDay[sender.getToDoRowIndex()].taskName)
-        print(toDoItemsByDay[sender.getToDoRowIndex()].taskDescription)
-        print(toDoItemsByDay[sender.getToDoRowIndex()].estTime)
-        print(toDoItemsByDay[sender.getToDoRowIndex()].workDate)
-        print(toDoItemsByDay[sender.getToDoRowIndex()].dueDate)
-        print("Finished?")
-        print(toDoItemsByDay[sender.getToDoRowIndex()].finished)
-        print("")
         
         newToDoItem.finished = !newToDoItem.finished
         
-        print("UPDATED")
-        print(toDoItemToUpdate.taskName)
-        print(toDoItemToUpdate.taskDescription)
-        print(toDoItemToUpdate.estTime)
-        print(toDoItemToUpdate.workDate)
-        print(toDoItemToUpdate.dueDate)
-        print("Finished?")
-        print(toDoItemToUpdate.finished)
-        print("")
-        // -----------
-        updateToDo(toDoToUpdate: getToDoItemByIndex(toDoIndex: getSelectedToDoCheckButtonIndex()), newToDo: newToDoItem)
-        
-        //updateToDo(toDoToUpdate: toDoItemsByDay[sender.getToDoRowIndex()], newToDo: toDoItemToUpdate)
-        //replaceToDoItemInBaseList(editedToDoItem: toDoItemToUpdate, editedToDoItemIndex: toDoItemRealIndex)
-        //reloadCalendarViewData()
-        setSelectedToDoCheckButtonIndex(checkButtonIndex: -1)
+        updateToDo(toDoToUpdate: toDoItemToUpdate, newToDo: newToDoItem, updateType: 1)
         reloadTableViewData()
+        reloadCalendarViewData()
     }
     
     @objc func onExpandRowButtonTap(sender: ExpandButton) {
