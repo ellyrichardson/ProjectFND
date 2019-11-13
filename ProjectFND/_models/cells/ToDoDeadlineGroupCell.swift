@@ -14,9 +14,9 @@ class ToDoDeadlineGroupCell: UITableViewCell, UITableViewDelegate {
     
     // MARK: - Properties
     @IBOutlet weak var taskNameLabel: UILabel!
-    @IBOutlet weak var workDateLabel: UILabel!
+    @IBOutlet weak var startDateLabel: UILabel!
     @IBOutlet weak var estTimeLabel: UILabel!
-    @IBOutlet weak var dueDateLabel: UILabel!
+    @IBOutlet weak var endDateLabel: UILabel!
     
     /*@IBOutlet weak var taskNameLabel: UILabel!
      @IBOutlet weak var workDateLabel: UILabel!

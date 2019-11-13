@@ -73,9 +73,9 @@ class DeadlinesTableViewController: UITableViewController {
         let toDo = self.toDoSections[indexPath.section].toDos[indexPath.row]
         
         cell.taskNameLabel.text = toDo.taskName
-        cell.workDateLabel.text = "Start: " + workDateFormatter.string(from: toDo.workDate)
+        cell.startDateLabel.text = "Start: " + workDateFormatter.string(from: toDo.workDate)
         cell.estTimeLabel.text = "Est. Time: " + toDo.estTime
-        cell.dueDateLabel.text = "Due: " + dueDateFormatter.string(from: toDo.dueDate)
+        cell.endDateLabel.text = "Due: " + dueDateFormatter.string(from: toDo.dueDate)
         
         print(indexPath.row)
         print(toDo.finished)
