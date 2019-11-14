@@ -20,8 +20,21 @@ class DeadlineSetupTableViewController: UITableViewController, UITextViewDelegat
     @IBOutlet weak var startDatePicker: UIDatePicker!
     @IBOutlet weak var endDateLabel: UILabel!
     @IBOutlet weak var endDatePicker: UIDatePicker!
+    /*
+    @IBOutlet weak var taskNameDescriptionLabel: UILabel!
+    @IBOutlet weak var taskNameField: UITextField!
+    @IBOutlet weak var taskDescriptionView: UITextView!
+    @IBOutlet weak var estTimeLabel: UILabel!
+    @IBOutlet weak var estTimeField: UITextField!
+    @IBOutlet weak var startDateLabel: UILabel!
+    @IBOutlet weak var startDatePicker: UIDatePicker!
+    @IBOutlet weak var endDateLabel: UILabel!
+    @IBOutlet weak var endDatePicker: UIDatePicker!
+ 
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
+ */
+    @IBOutlet weak var scheduleButton: UIBarButtonItem!
     
     private var taskItemCells = [StaticTableCell]()
     var toDo: ToDo?
@@ -217,7 +230,7 @@ class DeadlineSetupTableViewController: UITableViewController, UITextViewDelegat
         super.prepare(for: segue, sender: sender)
         
         // Only prepare view controller when the save button is pressed
-        guard let button = sender as? UIBarButtonItem, button === saveButton else {
+        guard let button = sender as? UIBarButtonItem, button === scheduleButton else {
             os_log("The save button was not pressed, cancelling new item", log: OSLog.default,
                    type: .debug)
             return
@@ -257,11 +270,11 @@ class DeadlineSetupTableViewController: UITableViewController, UITextViewDelegat
     
     // Disable the save button if the text field is empty
     private func updateSaveButtonState() {
-        saveButton.isEnabled = false
+        scheduleButton.isEnabled = false
         
         // Task name or estimated time fields are empty
         if !(taskNameField.text?.isEmpty)! && !(estTimeField.text?.isEmpty)! {
-            saveButton.isEnabled = true
+            scheduleButton.isEnabled = true
         }
         /*
          else {
@@ -280,11 +293,11 @@ class DeadlineSetupTableViewController: UITableViewController, UITextViewDelegat
             let taskName = taskNameField.text, !taskName.isEmpty,
             let estTime = estTimeField.text, !estTime.isEmpty
             else {
-                self.saveButton.isEnabled = false
+                self.scheduleButton.isEnabled = false
                 return
         }
         // Enable save button if all conditions are met
-        saveButton.isEnabled = true
+        scheduleButton.isEnabled = true
     }
 }
 
