@@ -46,9 +46,14 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         nav?.barStyle = UIBarStyle.black
         nav?.tintColor = UIColor(red:1.00, green:0.89, blue:0.00, alpha:1.0)
         
+        startDatePicker.setValue(UIColor.white, forKey: "textColor")
+        endDatePicker.setValue(UIColor.white, forKey: "textColor")
+        
         // Auto resizing the height of the cell
         tableView.estimatedRowHeight = 44.0
         tableView.rowHeight = UITableView.automaticDimension
+        
+        tableView.tableFooterView = UIView()
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "M/d/yy, h:mm a"

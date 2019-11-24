@@ -31,6 +31,8 @@
 		21C8DA85237915990084E2D6 /* DeadlinesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21C8DA83237915990084E2D6 /* DeadlinesTableViewController.xib */; };
 		21C8DA88237916A90084E2D6 /* ToDoDateSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C8DA87237916A90084E2D6 /* ToDoDateSection.swift */; };
 		21C8DA8A23791A900084E2D6 /* ToDoDeadlineGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C8DA8923791A900084E2D6 /* ToDoDeadlineGroupCell.swift */; };
+		21D7A113238A551F00C5E0D0 /* SchedulePreviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D7A111238A551F00C5E0D0 /* SchedulePreviewTableViewController.swift */; };
+		21D7A114238A551F00C5E0D0 /* SchedulePreviewTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21D7A112238A551F00C5E0D0 /* SchedulePreviewTableViewController.xib */; };
 		261DC6B2FA6BB83E89F1A698 /* Pods_ProjectFND.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3C362EFBC6B218F41C2F34B /* Pods_ProjectFND.framework */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +76,8 @@
 		21C8DA83237915990084E2D6 /* DeadlinesTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeadlinesTableViewController.xib; sourceTree = "<group>"; };
 		21C8DA87237916A90084E2D6 /* ToDoDateSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDateSection.swift; sourceTree = "<group>"; };
 		21C8DA8923791A900084E2D6 /* ToDoDeadlineGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDeadlineGroupCell.swift; sourceTree = "<group>"; };
+		21D7A111238A551F00C5E0D0 /* SchedulePreviewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePreviewTableViewController.swift; sourceTree = "<group>"; };
+		21D7A112238A551F00C5E0D0 /* SchedulePreviewTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SchedulePreviewTableViewController.xib; sourceTree = "<group>"; };
 		C3C362EFBC6B218F41C2F34B /* Pods_ProjectFND.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectFND.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE54FDD48EC2E495B9E78996 /* Pods-ProjectFND.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectFND.debug.xcconfig"; path = "Target Support Files/Pods-ProjectFND/Pods-ProjectFND.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -255,6 +259,8 @@
 			isa = PBXGroup;
 			children = (
 				21C4B006237BEB4700EA3688 /* DeadlineSetupTableViewController.swift */,
+				21D7A111238A551F00C5E0D0 /* SchedulePreviewTableViewController.swift */,
+				21D7A112238A551F00C5E0D0 /* SchedulePreviewTableViewController.xib */,
 			);
 			path = newDeadlineView;
 			sourceTree = "<group>";
@@ -375,6 +381,7 @@
 				21A4D120231ECE1300B5B52A /* CalendarHeader.xib in Resources */,
 				21A4D0FC231ECC3600B5B52A /* Main.storyboard in Resources */,
 				21C8DA85237915990084E2D6 /* DeadlinesTableViewController.xib in Resources */,
+				21D7A114238A551F00C5E0D0 /* SchedulePreviewTableViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,6 +442,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				21A4D12D2320B6E400B5B52A /* ItemInfoTableViewController.swift in Sources */,
+				21D7A113238A551F00C5E0D0 /* SchedulePreviewTableViewController.swift in Sources */,
 				219CA4A92326C904003ACBDE /* TableViewCell.swift in Sources */,
 				21A4D1322320CDC000B5B52A /* CalendarCell.swift in Sources */,
 				21C8DA84237915990084E2D6 /* DeadlinesTableViewController.swift in Sources */,

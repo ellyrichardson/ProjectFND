@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import os.log
 
 class DeadlinesTableViewController: UITableViewController {
     
@@ -19,6 +20,12 @@ class DeadlinesTableViewController: UITableViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        let nav = self.navigationController?.navigationBar
+        
+        // Sets the navigation bar to color black with tintColor of yellow.
+        nav?.barTintColor = UIColor.black
+        //nav?.tintColor = UIColor(red:1.00, green:0.89, blue:0.00, alpha:1.0)
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

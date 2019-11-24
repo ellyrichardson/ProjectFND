@@ -53,12 +53,6 @@ class DeadlineSetupTableViewController: UITableViewController, UITextViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let nav = self.navigationController?.navigationBar
-        
-        // Sets the navigation bar to color black with tintColor of yellow.
-        nav?.barStyle = UIBarStyle.black
-        nav?.tintColor = UIColor(red:1.00, green:0.89, blue:0.00, alpha:1.0)
-        
         // Auto resizing the height of the cell
         tableView.estimatedRowHeight = 44.0
         tableView.rowHeight = UITableView.automaticDimension
@@ -91,7 +85,7 @@ class DeadlineSetupTableViewController: UITableViewController, UITextViewDelegat
             endDatePicker.date = toDo.dueDate
         }
         
-        updateSaveButtonState()
+        updateScheduleButtonState()
     }
     
     // MARK: - Setters
@@ -131,7 +125,7 @@ class DeadlineSetupTableViewController: UITableViewController, UITextViewDelegat
             estTimeLabel.text = "Estimated Time: " + textField.text!
         }
         
-        updateSaveButtonState()
+        updateScheduleButtonState()
     }
     
     // MARK: - Actions
@@ -242,11 +236,23 @@ class DeadlineSetupTableViewController: UITableViewController, UITextViewDelegat
         let estTime = estTimeField.text
         let dueDate = chosenDueDate
         
-        updateSaveButtonState()
+        updateScheduleButtonState()
         navigationItem.title = taskName
         
         // Set the ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue
         toDo = ToDo(taskName: taskName!, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())
+        
+        // TODO: The passing of Base ToDo to the preview page will start here
+        //if let navigationController = segue.destination as? UINavigationController, let
+        switch(segue.identifier ?? "") {
+        default:
+            fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")
+            guard let schedulePreviewTableViewController = segue.destination as? SchedulePreviewTableViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            
+            schedulePreviewTableViewController.setBaseToDo(baseToDo: toDo!)
+        }
     }
     
     @IBAction func cancelButton(_ sender: UIBarButtonItem) {
@@ -269,7 +275,7 @@ class DeadlineSetupTableViewController: UITableViewController, UITextViewDelegat
     // MARK: - Private Methods
     
     // Disable the save button if the text field is empty
-    private func updateSaveButtonState() {
+    private func updateScheduleButtonState() {
         scheduleButton.isEnabled = false
         
         // Task name or estimated time fields are empty
