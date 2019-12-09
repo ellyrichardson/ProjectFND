@@ -46,40 +46,55 @@ class SchedulePreviewTableViewController: UITableViewController {
         var toDoIntervalStart: Date = intervalToDo.workDate
         var toDoIntervalEnd: Date = intervalToDo.dueDate
         
-        // Not a minute still, could be minutes
+        // Not a minute still, could be minutes (DUMMY TRACKER)
         var intervalToDoMinutesTracker = toDoIntervalEnd.timeIntervalSince(toDoIntervalStart)
         
+        // DUMMY lines
+        // REMINDER: Don't have a checker if nothing is available yet.
+        let intervalToDoForCheck = checkToDo(toDoToCheck: intervalToDo, toDoIntervalStart: toDoIntervalStart, toDoIntervalEnd: toDoIntervalEnd)
+        
         while intervalToDoMinutesTracker > 0 {
-            // DUMMY lines
-            // REMINDER: Don't have a checker if nothing is available yet.
-            var intervalToDoForCheck = checkToDo(toDoToCheck: intervalToDo, toDoIntervalStart: toDoIntervalStart, toDoIntervalEnd: toDoIntervalEnd)
+            // Checks if workDate is earlier than dueDate
+            if intervalToDoForCheck?.dueDate.compare((intervalToDoForCheck?.workDate)!) == ComparisonResult.orderedDescending {
+                // Break loop
+                break
+            }
+            
             if intervalToDoForCheck == nil {
                 // Assign the date
                 let intervalOfAssignedDate = intervalToDoForCheck?.dueDate.timeIntervalSince((intervalToDoForCheck?.workDate)!)
                 // Substracts the remaining interval
-                intervalToDoMinutesTracker = intervalToDoMinutesTracker - intervalOfAssignedDate!
+                intervalToDoMinutesTracker -= intervalOfAssignedDate!
             }
             else {
                 // Adding the interval 15 mins
-                intervalToDoForCheck?.workDate.addingTimeInterval(15.0 * 60.0)
+                intervalToDoForCheck?.workDate = (intervalToDoForCheck?.workDate.addingTimeInterval(15.0 * 60.0))!
+                // TODO: May need to also take into account adding time interval of the due date. Maybe restructure ToDo Model with the time length in it?
             }
         }
         
         // ALGORITHM GUIDE
         /*
          - Have a date that starts from the beginning interval called bDate
+         
          - Have some kind of a tracker for remaining intervals
+         
          - From bDate, check if the it is already taken in the Core Data.
+         
          - Have some kind of a loop based on the remaining intervals
+         
          - If it is taken, then increment the bDate, make sure that bDate don't do past the dueDate
             (Start every 15 mins, from the interval start, to assign tasks.)
             - Increment the bDate by 15 mins
+         
          - If it is not taken, then assign that bDate in Core Data.
             - Decrement the tracker of remaining intervals by the amount of time bDate has
+         
          - If the only available date doesn't fit the rest of the interval, then reduce bDate.
             - Assign bDate anyway, but inform the user that the ideal time wasn't possible
+         
          - Start all over again until the interval is completed.
-         (Have a special case to stop assigning if there is nothing available and intervals are still not done.)
+         (NOTE: Have a special case to stop assigning if there is nothing available and intervals are still not done.)
          */
         
         // BIG TODO:
@@ -87,6 +102,24 @@ class SchedulePreviewTableViewController: UITableViewController {
          CHECKER FOR AVAILABLE DATES
          - If the bDate reaches the dueDate interval, first reduce it.
             - If there is still no available interval, then there is no available dates anymore
+         
+         - (A1) Since the bDate checker increments by 15 mins, if the bDate to be checked with doesn't fall between the two dates of a toDo, a ToDo's workdate and duedate for the current day, then save the start and end of it as a list. Also, check the end, which is pretty much checking the next 15 mins, of the listed time to know the duration. Must be atleast 15 mins.
+            (NOTE: Check if + or - 15 mins from the chosen bDate have a ToDo to determine if it is at least 15 mins or not. If it is not atleast 15 mins, then discard the bDate (A3).)
+         
+         - (A2) If the bDate ended up having to reduce the work time, then use these listed dates. The listed dates that can be used is only if these dates, if consecutive, will be half an hour, as a minimum of half an hour is needed for every ToDo.
+            (NOTE: Its pretty much like concatenating dates, and if they are consecutive, then good.)
+         
+         - (A3) To check if the dates are consecutive, since there will be list of bDates that doesn't fall between a ToDo's work and due date time, determine if the next date in the list is 15 mins or less from the previous or next date. If it is maximum of 15 mins, then it is consecutive, if not, then it is not consecutive.
+            (NOTE: Keep checking if these dates fall under a taken ToDo time. This 15 minutes time checking is constrained by the data used.)
+            - Have some kind of a tracker for consecutive dates (Linked List)
+         
+         - STAR IDEA (KEEP): Check every 15 min period of the date if the ToDo has to be reduced. Call it bDate. If bDate does not fall between the work interval of a ToDo in currentDay, then check the next 15 mins.
+            - If the next 15 mins does not fall under a ToDo work interval, then list this time that tells the start and the end like (4:00 pm - 4:15 pm).
+            - List all of the 15 min available intervals found.
+            - To check if some of the 15 mins are consecutive, check if the end and start date of one listed interval is the same as this will mean they are consecutives.
+                (Note: ToDos can only be auto scheduled if it has at least 30 mins work time.)
+            - Determine these consecutives, if they exist, and use the longest one and assign it as a time for the reduced ToDo.
+                - If there are other reduced ToDos, find the next consecutive and assign it.
          */
     }
     
