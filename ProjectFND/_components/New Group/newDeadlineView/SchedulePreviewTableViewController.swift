@@ -14,6 +14,7 @@ class SchedulePreviewTableViewController: UITableViewController {
     
     private var toDo: ToDo?
     private var toDoProcessHelper: ToDoProcessHelper = ToDoProcessHelper()
+    private var intervalSchedulingHelper: IntervalSchedulingHelper = IntervalSchedulingHelper()
     //var availableIntervals: [Date] = [Date]()
         
     override func viewDidLoad() {
@@ -42,13 +43,24 @@ class SchedulePreviewTableViewController: UITableViewController {
         self.toDo = baseToDo
     }
     
+    /*
+     - To divide the ToDo into different intervals, convert the total hours to seconds (or minutes).
+     - Keep track of the total seconds of the toDo, and then subtract the seconds of the assigned interval.
+     - Get the available intervals, and measure its length in seconds (these are consecutive 15 mins dates).
+     - If the to-be-assigned interval fits the length, then assign it within that consecutive interval by using the start of the first 15 min of interval.
+     - Subtract the seconds of the assigned interval to the total seconds of the ToDo
+     - As long as there is still seconds left to the ToDo, keep repeating the steps.
+     */
+    
     func theOperation(intervalToDo: ToDo) {
         // TODO: Really fix the logic of this function and the checkToDo
         // TODO: Still need to add function for dividing the dates
         var toDoIntervalStart: Date = intervalToDo.workDate
         var toDoIntervalEnd: Date = intervalToDo.dueDate
+        // The total time of the ToDo
+        var toDoTotalTime = Int(intervalToDo.estTime)
         
-        // Not a minute still, could be minutes (DUMMY TRACKER)
+        // Not a minute still, could be minutes (DUMMY TRACKER), this is seconds 
         var intervalToDoMinutesTracker = toDoIntervalEnd.timeIntervalSince(toDoIntervalStart)
         
         // DUMMY lines
@@ -127,114 +139,16 @@ class SchedulePreviewTableViewController: UITableViewController {
         
     }
     
-    // NOTE: Can be placed in a different file
-    private func checkIntervalsIfOccupied(checkDateIntervals: [Date], dayChosenToCheck: Date) -> [Date] {
-        var availableIntervals: [Date] = [Date]()
-        let toDoItemsToCheckWith: [ToDo] = toDoProcessHelper.retrieveToDoItemsByDay(toDoDate: dayChosenToCheck, toDoItems: toDoProcessHelper.loadToDos()!)
+    // TODO: Utilize this function when it is finished so that ToDo intervals can be assigned
+    private func assignWorkIntervalsForToDo(toDoStartDate: Date, dayToCheck: Date){
+        var availableIntervals: [Date] = intervalSchedulingHelper.getLongestConsecutiveInterval(intervalList: intervalSchedulingHelper.getAvailableIntervalsForDay(dayToCheck: dayToCheck))
         
-        // If else statements based on the value of the squares of checkDateIntervals and toDoItemsToCheckWith
-        if checkDateIntervals.count > toDoItemsToCheckWith.count {
-            for intervalToCheck in checkDateIntervals {
-                for toDo in toDoItemsToCheckWith {
-                    assignIntervalToList(toDoStartDate: toDo.workDate, toDoEndDate: toDo.dueDate, intervalToCheck: intervalToCheck, listOfAvailableIntervals: &availableIntervals)
-                }
-            }
-        } else {
-            for toDo in toDoItemsToCheckWith {
-                for intervalToCheck in checkDateIntervals {
-                    assignIntervalToList(toDoStartDate: toDo.workDate, toDoEndDate: toDo.dueDate, intervalToCheck: intervalToCheck, listOfAvailableIntervals: &availableIntervals)
-                }
-            }
+        var totalIntervalLength: Date = Date()
+        for interval in availableIntervals {
+            // Add up the total length of the interval here from the availableIntervals array
         }
         
-        return availableIntervals
-    }
-    
-    private func assignIntervalToList(toDoStartDate: Date, toDoEndDate: Date, intervalToCheck: Date, listOfAvailableIntervals: inout [Date]) {
-        if !(toDoStartDate ... toDoEndDate).contains(intervalToCheck) {
-            let endOfInterval = intervalToCheck.addingTimeInterval(15.0 * 60.0)
-            // If the end of interval is not between a ToDo start date and end date
-            if !(toDoStartDate ... toDoEndDate).contains(endOfInterval) {
-                listOfAvailableIntervals.append(intervalToCheck)
-            }
-        }
-    }
-    
-    private func getAvailableIntervalsForDay(startDateOfToDo: Date, dayToCheck: Date) -> [Date] {
-        var toDoStartDateToCheck: Date = startDateOfToDo
-        
-        // TODO: Update endDate check to 15 mins prior the endDate as checking will increment by 15 mins
-        var dateIntervalsToCheck: [Date] = [Date]()
-        
-        while toDoStartDateToCheck <= dayToCheck {
-            dateIntervalsToCheck.append(toDoStartDateToCheck)
-            toDoStartDateToCheck = toDoStartDateToCheck.addingTimeInterval(15.0 * 60.0)
-        }
-        
-        return checkIntervalsIfOccupied(checkDateIntervals: dateIntervalsToCheck, dayChosenToCheck: dayToCheck)
-    }
-    
-    private func isDateEqualToAnotherDate(dateToCheck: Date, anotherDate: Date) -> Bool {
-        if dateToCheck == anotherDate {
-            return true
-        }
-        return false
-    }
-    
-    private func getLongestConsecutiveInterval(intervalList: [Date]) -> [Date] {
-        var listOfIntervalsList: [[Date]] = [[Date]]()
-        var preIntervalList: [Date] = [Date]()
-        var endOfLastInterval: Date = Date()
-        var iterationCounter: Int = 0
-        
-        // Returns an empty list of date if the intervalList is empty
-        if intervalList.count < 1 {
-            return [Date]()
-        }
-        
-        for interval in intervalList {
-            // If the iteration is at the very first item of intervalList
-            if iterationCounter < 1 {
-                let endOfInterval = interval.addingTimeInterval(15.0 * 60.0)
-                // If the endOfInterval doesn't overlap with the start of the next interval
-                checkIfIntervalOverlapsWithNext(endOfInterval: endOfInterval, intervalList: &preIntervalList, endOfLastInterval: &endOfLastInterval, iterationCounter: iterationCounter, currentInterval: interval)
-                
-                iterationCounter += 1
-            } else {
-                // Checks if the interval being checked is consecutive to the previous interval
-                if intervalList[iterationCounter - 1] == endOfLastInterval {
-                    let endOfInterval = interval.addingTimeInterval(15.0 * 60.0)
-                    // If the endOfInterval doesn't overlap with the start of the next interval
-                    checkIfIntervalOverlapsWithNext(endOfInterval: endOfInterval, intervalList: &preIntervalList, endOfLastInterval: &endOfLastInterval, iterationCounter: iterationCounter, currentInterval: interval)
-                    
-                    iterationCounter += 1
-                } else {
-                    // If a consecutive interval ends, then add to the list of consecutive intervals.
-                    listOfIntervalsList.append(preIntervalList)
-                }
-            }
-        }
-        return checkForLongestInterval(listOfIntervalsList: listOfIntervalsList)
-    }
-    
-    // Checks if an interval overlaps with the next interval
-    private func checkIfIntervalOverlapsWithNext(endOfInterval: Date, intervalList: inout [Date], endOfLastInterval: inout Date, iterationCounter: Int, currentInterval: Date) {
-        if endOfInterval <= intervalList[iterationCounter + 1] {
-            intervalList.append(currentInterval)
-            // Tracks the end of previous interval
-            endOfLastInterval = endOfInterval
-        }
-    }
-    
-    // Checks for the longest consecutive interval in a list of intervals
-    private func checkForLongestInterval(listOfIntervalsList: [[Date]]) -> [Date] {
-        var longestInterval = listOfIntervalsList[0]
-        for intervalList in listOfIntervalsList {
-            if intervalList.count > longestInterval.count {
-                longestInterval = intervalList
-            }
-        }
-        return longestInterval
+        // If the length of totalInterval fits with the ToDo interval to be assigned, then assign it.
     }
     
     private func checkToDo(toDoToCheck: ToDo, toDoIntervalStart: Date, toDoIntervalEnd: Date) -> ToDo?  {

@@ -26,6 +26,7 @@
 		21A4D12D2320B6E400B5B52A /* ItemInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D12C2320B6E400B5B52A /* ItemInfoTableViewController.swift */; };
 		21A4D12F2320B9F600B5B52A /* StaticTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D12E2320B9F600B5B52A /* StaticTableCell.swift */; };
 		21A4D1322320CDC000B5B52A /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D1312320CDC000B5B52A /* CalendarCell.swift */; };
+		21B774DA23A7F8E70009923C /* intervalSchedulingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B774D923A7F8E70009923C /* intervalSchedulingHelper.swift */; };
 		21C4B007237BEB4700EA3688 /* DeadlineSetupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C4B006237BEB4700EA3688 /* DeadlineSetupTableViewController.swift */; };
 		21C8DA84237915990084E2D6 /* DeadlinesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C8DA82237915990084E2D6 /* DeadlinesTableViewController.swift */; };
 		21C8DA85237915990084E2D6 /* DeadlinesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21C8DA83237915990084E2D6 /* DeadlinesTableViewController.xib */; };
@@ -71,6 +72,7 @@
 		21A4D12C2320B6E400B5B52A /* ItemInfoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemInfoTableViewController.swift; sourceTree = "<group>"; };
 		21A4D12E2320B9F600B5B52A /* StaticTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticTableCell.swift; sourceTree = "<group>"; };
 		21A4D1312320CDC000B5B52A /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
+		21B774D923A7F8E70009923C /* intervalSchedulingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = intervalSchedulingHelper.swift; sourceTree = "<group>"; };
 		21C4B006237BEB4700EA3688 /* DeadlineSetupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadlineSetupTableViewController.swift; sourceTree = "<group>"; };
 		21C8DA82237915990084E2D6 /* DeadlinesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadlinesTableViewController.swift; sourceTree = "<group>"; };
 		21C8DA83237915990084E2D6 /* DeadlinesTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeadlinesTableViewController.xib; sourceTree = "<group>"; };
@@ -255,9 +257,18 @@
 			path = cells;
 			sourceTree = "<group>";
 		};
+		21B774D823A7F8B00009923C /* scheduleIntervalsOperations */ = {
+			isa = PBXGroup;
+			children = (
+				21B774D923A7F8E70009923C /* intervalSchedulingHelper.swift */,
+			);
+			path = scheduleIntervalsOperations;
+			sourceTree = "<group>";
+		};
 		21C4B005237BE90300EA3688 /* newDeadlineView */ = {
 			isa = PBXGroup;
 			children = (
+				21B774D823A7F8B00009923C /* scheduleIntervalsOperations */,
 				21C4B006237BEB4700EA3688 /* DeadlineSetupTableViewController.swift */,
 				21D7A111238A551F00C5E0D0 /* SchedulePreviewTableViewController.swift */,
 				21D7A112238A551F00C5E0D0 /* SchedulePreviewTableViewController.xib */,
@@ -441,6 +452,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21B774DA23A7F8E70009923C /* intervalSchedulingHelper.swift in Sources */,
 				21A4D12D2320B6E400B5B52A /* ItemInfoTableViewController.swift in Sources */,
 				21D7A113238A551F00C5E0D0 /* SchedulePreviewTableViewController.swift in Sources */,
 				219CA4A92326C904003ACBDE /* TableViewCell.swift in Sources */,
