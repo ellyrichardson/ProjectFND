@@ -52,6 +52,12 @@ class SchedulePreviewTableViewController: UITableViewController {
      - As long as there is still seconds left to the ToDo, keep repeating the steps.
      */
     
+    /*
+     - Lets say the task is 11 hours, but the user wants to work on it with an ideal of 2 hours in a day, in an ideal span of 6 days
+     - This has total of 12 hrs of work. Take this amount instead and try if it is possible.
+     */
+    
+    
     func theOperation(intervalToDo: ToDo) {
         // TODO: Really fix the logic of this function and the checkToDo
         // TODO: Still need to add function for dividing the dates
@@ -140,15 +146,63 @@ class SchedulePreviewTableViewController: UITableViewController {
     }
     
     // TODO: Utilize this function when it is finished so that ToDo intervals can be assigned
-    private func assignWorkIntervalsForToDo(toDoStartDate: Date, dayToCheck: Date){
+    private func assignWorkIntervalsForToDo(toDo: ToDo, dayToCheck: Date, idealHoursPerDay: Int, idealDaysToWork: Int){
+        
+        // NOTE: Not converted to actual minutes yet
+        
+        // To keep track of the total length of toDo in minutes
+        // NOTE: Could be seconds RIGHT NOW!
+        var remainingToDoWorkTimeToAssign: TimeInterval = TimeInterval(Int(toDo.estTime)! * 3600)
+        var toDoDateToAssign: Date = toDo.workDate
+        
+        let calendar = Calendar.current
+        
+        // NOTE: Needs a special case if interval wasn't assigned
+        while toDoDateToAssign < toDo.dueDate {
+            // Breaks loop if there is no interval of time left to assign for the ToDo
+            if remainingToDoWorkTimeToAssign <= 0 {
+                break
+            }
+            if assignToDoIntervals(toDo: toDo, dayToCheck: toDoDateToAssign) {
+                // Increments the toDoDateToAssign by 1 day if it is assigned
+                toDoDateToAssign = calendar.date(byAdding: .day, value: 1, to: toDoDateToAssign)!
+                // Subtracts the assigned interval to the remainingToDoWorkTimeToAssign
+                // NOTE: The time being subtracted is not an accurate subtraction for all cases. It is hard coded. Special case is if the interval assigned was shortened.
+                remainingToDoWorkTimeToAssign -= TimeInterval(idealHoursPerDay * 60)
+            } else {
+                // If ToDo interval didn't get assigned cuz it didn't fit.
+            }
+        }
+    }
+    
+    // TODO: Have an option for cases of not fitting with an interval
+    private func assignToDoIntervals(toDo: ToDo, dayToCheck: Date) -> Bool {
+        // To keep track of the total length of toDo in minutes
+        // NOTE: Could be seconds RIGHT NOW!
+        let toDoTimeLengthInMin: TimeInterval = TimeInterval(Int(toDo.estTime)! * 60)
+        var totalTimeIntervalAvailable: TimeInterval = TimeInterval(0)
+        var intervalIterationCounter = 0
+        
         var availableIntervals: [Date] = intervalSchedulingHelper.getLongestConsecutiveInterval(intervalList: intervalSchedulingHelper.getAvailableIntervalsForDay(dayToCheck: dayToCheck))
         
-        var totalIntervalLength: Date = Date()
-        for interval in availableIntervals {
+        let calendar = Calendar.current
+        for _ in availableIntervals {
             // Add up the total length of the interval here from the availableIntervals array
+            // NOTE: For now it is just adding
+            if intervalIterationCounter < (availableIntervals.count - 1) {
+                totalTimeIntervalAvailable += TimeInterval(calendar.dateComponents([.minute], from: availableIntervals[intervalIterationCounter], to: availableIntervals[intervalIterationCounter + 1]).minute!)
+                intervalIterationCounter += 1
+            }
         }
         
-        // If the length of totalInterval fits with the ToDo interval to be assigned, then assign it.
+        if toDoTimeLengthInMin <= totalTimeIntervalAvailable {
+            // TODO: Assign the ToDo interval here!
+            
+            // To check that it got assigned
+            return true
+        }
+        
+        return false
     }
     
     private func checkToDo(toDoToCheck: ToDo, toDoIntervalStart: Date, toDoIntervalEnd: Date) -> ToDo?  {
