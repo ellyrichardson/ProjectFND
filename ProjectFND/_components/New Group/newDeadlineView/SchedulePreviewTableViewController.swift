@@ -57,132 +57,60 @@ class SchedulePreviewTableViewController: UITableViewController {
      - This has total of 12 hrs of work. Take this amount instead and try if it is possible.
      */
     
-    
-    func theOperation(intervalToDo: ToDo) {
-        // TODO: Really fix the logic of this function and the checkToDo
-        // TODO: Still need to add function for dividing the dates
-        var toDoIntervalStart: Date = intervalToDo.workDate
-        var toDoIntervalEnd: Date = intervalToDo.dueDate
-        // The total time of the ToDo
-        var toDoTotalTime = Int(intervalToDo.estTime)
-        
-        // Not a minute still, could be minutes (DUMMY TRACKER), this is seconds 
-        var intervalToDoMinutesTracker = toDoIntervalEnd.timeIntervalSince(toDoIntervalStart)
-        
-        // DUMMY lines
-        // REMINDER: Don't have a checker if nothing is available yet.
-        let intervalToDoForCheck = checkToDo(toDoToCheck: intervalToDo, toDoIntervalStart: toDoIntervalStart, toDoIntervalEnd: toDoIntervalEnd)
-        
-        while intervalToDoMinutesTracker > 0 {
-            // Checks if workDate is earlier than dueDate
-            if intervalToDoForCheck?.dueDate.compare((intervalToDoForCheck?.workDate)!) == ComparisonResult.orderedDescending {
-                // Break loop
-                break
-            }
-            
-            if intervalToDoForCheck == nil {
-                // Assign the date
-                let intervalOfAssignedDate = intervalToDoForCheck?.dueDate.timeIntervalSince((intervalToDoForCheck?.workDate)!)
-                // Substracts the remaining interval
-                intervalToDoMinutesTracker -= intervalOfAssignedDate!
-            }
-            else {
-                // Adding the interval 15 mins
-                intervalToDoForCheck?.workDate = (intervalToDoForCheck?.workDate.addingTimeInterval(15.0 * 60.0))!
-                // TODO: May need to also take into account adding time interval of the due date. Maybe restructure ToDo Model with the time length in it?
-            }
-        }
-        
-        // ALGORITHM GUIDE
-        /*
-         - Have a date that starts from the beginning interval called bDate
-         
-         - Have some kind of a tracker for remaining intervals
-         
-         - From bDate, check if the it is already taken in the Core Data.
-         
-         - Have some kind of a loop based on the remaining intervals
-         
-         - If it is taken, then increment the bDate, make sure that bDate don't do past the dueDate
-            (Start every 15 mins, from the interval start, to assign tasks.)
-            - Increment the bDate by 15 mins
-         
-         - If it is not taken, then assign that bDate in Core Data.
-            - Decrement the tracker of remaining intervals by the amount of time bDate has
-         
-         - If the only available date doesn't fit the rest of the interval, then reduce bDate.
-            - Assign bDate anyway, but inform the user that the ideal time wasn't possible
-         
-         - Start all over again until the interval is completed.
-         (NOTE: Have a special case to stop assigning if there is nothing available and intervals are still not done.)
-         */
-        
-        // BIG TODO:
-        /*
-         CHECKER FOR AVAILABLE DATES
-         - If the bDate reaches the dueDate interval, first reduce it.
-            - If there is still no available interval, then there is no available dates anymore
-         
-         - (A1) Since the bDate checker increments by 15 mins, if the bDate to be checked with doesn't fall between the two dates of a toDo, a ToDo's workdate and duedate for the current day, then save the start and end of it as a list. Also, check the end, which is pretty much checking the next 15 mins, of the listed time to know the duration. Must be atleast 15 mins.
-            (NOTE: Check if + or - 15 mins from the chosen bDate have a ToDo to determine if it is at least 15 mins or not. If it is not atleast 15 mins, then discard the bDate (A3).)
-         
-         - (A2) If the bDate ended up having to reduce the work time, then use these listed dates. The listed dates that can be used is only if these dates, if consecutive, will be half an hour, as a minimum of half an hour is needed for every ToDo.
-            (NOTE: Its pretty much like concatenating dates, and if they are consecutive, then good.)
-         
-         - (A3) To check if the dates are consecutive, since there will be list of bDates that doesn't fall between a ToDo's work and due date time, determine if the next date in the list is 15 mins or less from the previous or next date. If it is maximum of 15 mins, then it is consecutive, if not, then it is not consecutive.
-            (NOTE: Keep checking if these dates fall under a taken ToDo time. This 15 minutes time checking is constrained by the data used.)
-            - Have some kind of a tracker for consecutive dates (Linked List)
-         
-         - STAR IDEA (KEEP): Check every 15 min period of the date if the ToDo has to be reduced. Call it bDate. If bDate does not fall between the work interval of a ToDo in currentDay, then check the next 15 mins.
-            - If the next 15 mins does not fall under a ToDo work interval, then list this time that tells the start and the end like (4:00 pm - 4:15 pm).
-            - List all of the 15 min available intervals found.
-            - To check if some of the 15 mins are consecutive, check if the end and start date of one listed interval is the same as this will mean they are consecutives.
-                (Note: ToDos can only be auto scheduled if it has at least 30 mins work time.)
-            - Determine these consecutives, if they exist, and use the one with longest interval and assign it as a time for the reduced ToDo.
-                - If there are other reduced ToDos, find the next longest interval consecutive and assign it.
-         */
-        
-        
-    }
-    
     // TODO: Utilize this function when it is finished so that ToDo intervals can be assigned
+    // Kind of divides the tasks by its intervals based on ideal hours per day and days to work. May have to clean this code
     private func assignWorkIntervalsForToDo(toDo: ToDo, dayToCheck: Date, idealHoursPerDay: Int, idealDaysToWork: Int){
         
         // NOTE: Not converted to actual minutes yet
         
+        /*
+         Dividing the intervals
+         
+         */
+        
         // To keep track of the total length of toDo in minutes
         // NOTE: Could be seconds RIGHT NOW!
-        var remainingToDoWorkTimeToAssign: TimeInterval = TimeInterval(Int(toDo.estTime)! * 3600)
+        // Gets the total minutes of the undivided ToDo, not divided for intervals yet
+        var remainingMinutes: TimeInterval = TimeInterval((Int(toDo.estTime)! * 3600) / 60)
+        
+        // First date to assign the beggining day of work ToDo
         var toDoDateToAssign: Date = toDo.workDate
+        
+        // Gets the amount of total intervals of ToDo, not the days to work, based on the ideal hours/minutes per day
+        var remainingIntervals = remainingMinutes / TimeInterval(Int(idealHoursPerDay))
         
         let calendar = Calendar.current
         
         // NOTE: Needs a special case if interval wasn't assigned
-        while toDoDateToAssign < toDo.dueDate {
+        // As long as the toDoDateToAssign hasn't past due date
+        while toDoDateToAssign <= toDo.dueDate {
             // Breaks loop if there is no interval of time left to assign for the ToDo
-            if remainingToDoWorkTimeToAssign <= 0 {
+            if remainingIntervals <= 0 || remainingIntervals <= 0 {
                 break
             }
-            if assignToDoIntervals(toDo: toDo, dayToCheck: toDoDateToAssign) {
-                // Increments the toDoDateToAssign by 1 day if it is assigned
-                toDoDateToAssign = calendar.date(byAdding: .day, value: 1, to: toDoDateToAssign)!
-                // Subtracts the assigned interval to the remainingToDoWorkTimeToAssign
-                // NOTE: The time being subtracted is not an accurate subtraction for all cases. It is hard coded. Special case is if the interval assigned was shortened.
-                remainingToDoWorkTimeToAssign -= TimeInterval(idealHoursPerDay * 60)
-            } else {
-                // If ToDo interval didn't get assigned cuz it didn't fit.
-            }
+            
+            assignToDoIntervals(toDo: toDo, dayToCheck: toDoDateToAssign, remainingMinutesToAssign: &remainingMinutes, remainingIntervalsToAssign: &remainingIntervals)
+            
+            // Adds one more day ot the toDoDate for the while loop
+            toDoDateToAssign = calendar.date(byAdding: .day, value: 1, to: toDoDateToAssign)!
+            // TODO: If ToDo interval didn't get assigned cuz it didn't fit.
         }
     }
     
+    // This is assigning ToDo interval
     // TODO: Have an option for cases of not fitting with an interval
-    private func assignToDoIntervals(toDo: ToDo, dayToCheck: Date) -> Bool {
+    private func assignToDoIntervals(toDo: ToDo, dayToCheck: Date, remainingMinutesToAssign: inout TimeInterval, remainingIntervalsToAssign: inout TimeInterval) {
         // To keep track of the total length of toDo in minutes
-        // NOTE: Could be seconds RIGHT NOW!
-        let toDoTimeLengthInMin: TimeInterval = TimeInterval(Int(toDo.estTime)! * 60)
-        var totalTimeIntervalAvailable: TimeInterval = TimeInterval(0)
+        // NOTE: Could be seconds RIGHT NOW! AND THIS IS WRONG! This should use
+        let toDoTimeLengthInMin: TimeInterval = TimeInterval((Int(toDo.estTime)! * 3600) / 60)
+        
+        // Total intervals available in minutes
+        var totalMinuteIntervalAvailable: TimeInterval = TimeInterval(0)
+        
+        // To aid the iteration of checking availableIntervals in minutes
         var intervalIterationCounter = 0
         
+        // Gets available intervals by the day to be checked
         var availableIntervals: [Date] = intervalSchedulingHelper.getLongestConsecutiveInterval(intervalList: intervalSchedulingHelper.getAvailableIntervalsForDay(dayToCheck: dayToCheck))
         
         let calendar = Calendar.current
@@ -190,83 +118,18 @@ class SchedulePreviewTableViewController: UITableViewController {
             // Add up the total length of the interval here from the availableIntervals array
             // NOTE: For now it is just adding
             if intervalIterationCounter < (availableIntervals.count - 1) {
-                totalTimeIntervalAvailable += TimeInterval(calendar.dateComponents([.minute], from: availableIntervals[intervalIterationCounter], to: availableIntervals[intervalIterationCounter + 1]).minute!)
+                totalMinuteIntervalAvailable += TimeInterval(calendar.dateComponents([.minute], from: availableIntervals[intervalIterationCounter], to: availableIntervals[intervalIterationCounter + 1]).minute!)
                 intervalIterationCounter += 1
             }
         }
         
-        if toDoTimeLengthInMin <= totalTimeIntervalAvailable {
-            // TODO: Assign the ToDo interval here!
-            
-            // To check that it got assigned
-            return true
+        // If ToDo fits inside the toDoTimeIntervalAvailable
+        if toDoTimeLengthInMin <= totalMinuteIntervalAvailable {
+            // NOTE: No checking for special cases, just assumes the best scenario.
+            // TODO: Assign the ToDo interval here! And Subtract the remaining interval by reference
+            remainingMinutesToAssign -= toDoTimeLengthInMin
+            remainingIntervalsToAssign -= 1
         }
-        
-        return false
-    }
-    
-    private func checkToDo(toDoToCheck: ToDo, toDoIntervalStart: Date, toDoIntervalEnd: Date) -> ToDo?  {
-        var existingToDo: ToDo?
-        // Container is set up in the AppDelegate so it needs to refer to that container.
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        
-        // Context needs to be created in this container
-        let managedContext = appDelegate!.persistentContainer.viewContext
-        
-        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FND_ToDo")
-        
-        // Assigning different filters for the ToDo to be checked
-        let taskNamePredicate = NSPredicate(format: "taskName = %@", toDoToCheck.taskName)
-        let taskDescriptionPredicate = NSPredicate(format: "taskDescription = %@", toDoToCheck.taskDescription)
-        let estTimePredicate = NSPredicate(format: "estTime = %@", toDoToCheck.estTime)
-        let startDatePredicate = NSPredicate(format: "startDate == %@", toDoToCheck.workDate as NSDate)
-        let dueDatePredicate = NSPredicate(format: "dueDate == %@", toDoToCheck.dueDate as NSDate)
-        //var statusPredicate = NSPredicate(format: "finished = %d", toDoToUpdate.finished)
-        
-        /*
-        if updateType == 1 {
-            statusPredicate = NSPredicate(format: "finished = %d", !toDoToUpdate.finished)
-        }
-        */
-        
-        // Combines different filters to one filter
-        let propertiesPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [taskNamePredicate, taskDescriptionPredicate, estTimePredicate, startDatePredicate, dueDatePredicate])
-        
-        fetchRequest.predicate = propertiesPredicate
-        
-        do {
-            let toDoItem = try managedContext.fetch(fetchRequest)
-            
-            //let objectUpdate = toDoItem[0] as! NSManagedObject
-            
-            // ANOMALY: Why is there a warning?
-            if toDoItem[0] != nil {
-                let objectCheck = toDoItem[0] as! NSManagedObject
-                existingToDo = ToDo(taskName: objectCheck.value(forKey: "taskName") as! String, taskDescription: objectCheck.value(forKey: "taskDescription") as! String, workDate: objectCheck.value(forKey: "startDate") as! Date, estTime: objectCheck.value(forKey: "estTime") as! String, dueDate: objectCheck.value(forKey: "dueDate") as! Date, finished: (objectCheck.value(forKey: "finished") as! Bool))
-                
-                return existingToDo
-            }
-            /*
-            objectUpdate.setValue(newToDo.taskName, forKey: "taskName")
-            objectUpdate.setValue(newToDo.taskDescription, forKey: "taskDescription")
-            objectUpdate.setValue(newToDo.estTime, forKey: "estTime")
-            objectUpdate.setValue(newToDo.workDate, forKey: "startDate")
-            objectUpdate.setValue(newToDo.dueDate, forKey: "dueDate")
-            //objectUpdate.setValue(newToDo.finished, forKey: "finished")
-            */
-            
-            /*
-            do {
-                try managedContext.save()
-            } catch {
-                os_log("Could not update ToDo.", log: OSLog.default, type: .debug)
-            }
-            */
-        } catch {
-            os_log("Could not fetch ToDos.", log: OSLog.default, type: .debug)
-        }
-        // If date didn't exist
-        return nil
     }
     
 }
