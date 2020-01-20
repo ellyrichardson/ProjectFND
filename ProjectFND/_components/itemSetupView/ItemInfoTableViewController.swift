@@ -20,8 +20,10 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     @IBOutlet weak var startDatePicker: UIDatePicker!
     @IBOutlet weak var endDateLabel: UILabel!
     @IBOutlet weak var endDatePicker: UIDatePicker!
-    
     @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet weak var intervalSchedulingHourField: UITextField!
+    @IBOutlet weak var intervalSchedulingDayField: UITextField!
+    @IBOutlet weak var intervalSchedulingSetupButton: UIButton!
     
     private var taskItemCells = [StaticTableCell]()
     var toDo: ToDo?
@@ -63,6 +65,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             StaticTableCell(name: "Work Date"),
             StaticTableCell(name: "Estimated Time"),
             StaticTableCell(name: "Due Date"),
+            StaticTableCell(name: "Interval Scheduling"),
         ]
 
         taskNameField.delegate = self
@@ -188,6 +191,15 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             tableView.beginUpdates()
             tableView.endUpdates()
         }
+        if indexPath.row == 4 {
+            if taskItemCells[4].collapsed {
+                taskItemCells[4].collapsed = false
+            } else {
+                taskItemCells[4].collapsed = true
+            }
+            tableView.beginUpdates()
+            tableView.endUpdates()
+        }
     }
     
     // Determines the height of the expansion of the table view cells
@@ -210,6 +222,11 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         if indexPath.row == 3 {
             if taskItemCells[3].collapsed {
                 return 170
+            }
+        }
+        if indexPath.row == 4 {
+            if taskItemCells[4].collapsed {
+                return 210
             }
         }
         return 50

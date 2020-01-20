@@ -177,11 +177,4 @@ class ToDoProcessHelper {
         }
     }
     
-    func changeDateFormatToMDYY(dateToChange: Date) -> Date {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "M/d/yy"
-        let dateString = dateFormatter.string(from: dateToChange)
-        return dateFormatter.date(from: dateString)!
-    }
-    
 }

@@ -45,6 +45,12 @@ class IntervalSchedulingHelper {
         }
     }
     
+    // TEST CODE
+    func justTest() {
+        var timeSlotOfObject = "timeslot"
+        
+    }
+    
     // Checks for available intervals from the start of the day.
     func getAvailableIntervalsForDay(dayToCheck: Date) -> [Date] {
         // var toDoStartDateToCheck: Date = startDateOfToDo

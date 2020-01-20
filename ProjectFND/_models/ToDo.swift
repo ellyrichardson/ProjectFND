@@ -13,6 +13,7 @@ class ToDo: NSObject, NSCoding {
     // MARK: - Properties
     var taskName, taskDescription, estTime: String
     var workDate, dueDate: Date
+    
     //var doneCheckBox: CheckBox
     var finished: Bool
     

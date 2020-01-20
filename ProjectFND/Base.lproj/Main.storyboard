@@ -579,6 +579,64 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="209" id="SDw-Tp-o25">
+                                        <rect key="frame" x="0.0" y="668" width="320" height="209"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SDw-Tp-o25" id="tKK-Zf-FIy">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="208.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Interval Scheduling" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idZ-LV-EGz">
+                                                    <rect key="frame" x="8" y="14" width="304" height="17"/>
+                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="15"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xnm-Bn-EvX">
+                                                    <rect key="frame" x="137" y="145" width="46" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <connections>
+                                                        <segue destination="kd2-te-07V" kind="show" id="Uz5-cK-vff"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hours" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ar-hh-YQP">
+                                                    <rect key="frame" x="36" y="50" width="67" height="17"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="15"/>
+                                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Days" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G6m-gm-QVN">
+                                                    <rect key="frame" x="199" y="50" width="67" height="17"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="15"/>
+                                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="E.g. 10 Hrs" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CWO-6e-a98">
+                                                    <rect key="frame" x="36" y="75" width="86" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="15"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="E.g. 8 Days" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vkm-ct-hNM">
+                                                    <rect key="frame" x="199" y="75" width="86" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="15"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="idZ-LV-EGz" firstAttribute="top" secondItem="tKK-Zf-FIy" secondAttribute="topMargin" constant="6" id="4n7-3s-dIf"/>
+                                                <constraint firstItem="idZ-LV-EGz" firstAttribute="leading" secondItem="tKK-Zf-FIy" secondAttribute="leadingMargin" id="6fL-sM-ZmC"/>
+                                                <constraint firstItem="idZ-LV-EGz" firstAttribute="trailing" secondItem="tKK-Zf-FIy" secondAttribute="trailingMargin" id="Rnb-hV-oMD"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -604,6 +662,9 @@
                         <outlet property="endDatePicker" destination="kqk-Fa-P5l" id="Wda-3f-BLs"/>
                         <outlet property="estTimeField" destination="xA8-Rd-roU" id="dON-6T-gnD"/>
                         <outlet property="estTimeLabel" destination="k3b-7f-PH6" id="FaB-JI-Aes"/>
+                        <outlet property="intervalSchedulingDayField" destination="vkm-ct-hNM" id="MD3-oD-buN"/>
+                        <outlet property="intervalSchedulingHourField" destination="CWO-6e-a98" id="f1n-y6-Vol"/>
+                        <outlet property="intervalSchedulingSetupButton" destination="xnm-Bn-EvX" id="fTd-UI-dLc"/>
                         <outlet property="saveButton" destination="KIg-in-f9m" id="GoQ-ap-lAz"/>
                         <outlet property="startDateLabel" destination="DvV-uM-YSt" id="Apc-qv-Hfr"/>
                         <outlet property="startDatePicker" destination="T3m-eA-xYy" id="ETd-Ui-ioj"/>
@@ -845,11 +906,7 @@
                                 <action selector="cancelButton:" destination="Gq2-ea-enc" id="BMI-41-QHc"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Schedule" id="7eS-He-hvI">
-                            <connections>
-                                <segue destination="kd2-te-07V" kind="show" id="bqm-r2-HRe"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Schedule" id="7eS-He-hvI"/>
                     </navigationItem>
                     <connections>
                         <outlet property="endDateLabel" destination="NPp-61-QUo" id="FKT-3f-A0v"/>
@@ -867,23 +924,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XDd-x8-sR4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1566" y="901"/>
-        </scene>
-        <!--Item-->
-        <scene sceneID="LHX-dY-yEV">
-            <objects>
-                <navigationController id="bbl-u5-ePp" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="AwX-pu-rA7"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Krx-vG-lYl">
-                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="kd2-te-07V" kind="relationship" relationship="rootViewController" id="6gG-w5-Wo7"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="feV-4d-mPh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2404" y="1299"/>
         </scene>
         <!--Ib Calendar Data Source-->
         <scene sceneID="lc4-y0-04g">
@@ -1130,7 +1170,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wYS-Bb-NB0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3212" y="900"/>
+            <point key="canvasLocation" x="2803" y="131"/>
         </scene>
     </scenes>
     <resources>
@@ -1141,7 +1181,6 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="bqm-r2-HRe"/>
         <segue reference="Hmx-bT-i6Z"/>
     </inferredMetricsTieBreakers>
 </document>
