@@ -140,6 +140,8 @@
 		219A6569232B18910062BF84 /* cells */ = {
 			isa = PBXGroup;
 			children = (
+				219CA4A82326C904003ACBDE /* TableViewCell.swift */,
+				21A4D12E2320B9F600B5B52A /* StaticTableCell.swift */,
 				21C8DA8923791A900084E2D6 /* ToDoDeadlineGroupCell.swift */,
 				219A656A232B18C80062BF84 /* tableViewCells */,
 			);
@@ -235,10 +237,8 @@
 		21A4D11B231ECDA100B5B52A /* _models */ = {
 			isa = PBXGroup;
 			children = (
-				219A6569232B18910062BF84 /* cells */,
 				21A4D123231ECE9A00B5B52A /* ToDo.swift */,
-				21A4D12E2320B9F600B5B52A /* StaticTableCell.swift */,
-				219CA4A82326C904003ACBDE /* TableViewCell.swift */,
+				219A6569232B18910062BF84 /* cells */,
 				21C8DA87237916A90084E2D6 /* ToDoDateSection.swift */,
 				214F4F7A23D50DEC00391D7A /* TimeSlot.swift */,
 			);

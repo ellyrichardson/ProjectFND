@@ -597,6 +597,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Button"/>
                                                     <connections>
+                                                        <action selector="setupIntervalSchedule:" destination="knJ-Sz-Bcd" eventType="touchUpInside" id="EaC-c4-kgr"/>
                                                         <segue destination="kd2-te-07V" kind="show" id="Uz5-cK-vff"/>
                                                     </connections>
                                                 </button>

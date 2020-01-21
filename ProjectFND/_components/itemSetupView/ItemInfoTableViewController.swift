@@ -151,6 +151,15 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         endDateLabel.text = "End Date: " + strDate
     }
     
+    @IBAction func setupIntervalSchedule(_ sender: UIButton) {
+        var toDoProcessHelper = ToDoProcessHelper()
+        
+        var intervalHours = intervalSchedulingHourField.text
+        var intervalDays = intervalSchedulingDayField.text
+        
+    }
+    
+    
     // MARK: - Table view data source
     
     // Collapses and expands table view cells

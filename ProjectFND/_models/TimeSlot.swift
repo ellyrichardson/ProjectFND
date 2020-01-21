@@ -16,16 +16,38 @@ import os.log
 class TimeSlot {
     var startOfTimeSlot: Date
     var endOfTimeSlot: Date
-    // slotCodes e.g. "1A", "2B", "3C"
+    //var timeLength: Double
+    // slotCodes e.g. "1-A", "2-B", "3-C"
     var slotCode: String
     
     // MARK: Initialization
     init?(startOfTimeSlot: Date, endOfTimeSlot: Date){
         self.startOfTimeSlot = startOfTimeSlot
         self.endOfTimeSlot = endOfTimeSlot
+        //self.timeLength = 0.0
         self.slotCode = ""
-        // Work around of not being able to call a function to a self variable directly
+        // Workaround of not being able to call a function to a self variable directly
         setSlotCode(generatedSlotCode: generateSlotCode(startOfTimeSlot: startOfTimeSlot))
+    }
+    
+    
+    init?(timeSlotCode: String, timeSlotCodeDay: Date) {
+        let dateArithmeticOps = DateArithmeticOperations()
+        self.startOfTimeSlot = Date()
+        self.endOfTimeSlot = Date()
+        //self.timeLength = 0.0
+        self.slotCode = timeSlotCode
+        // Workarounds of not being able to call a function to a self variable directly
+        setStartOfTimeSlot(startTime: decodeStartDateOfSlotCode(slotCode: timeSlotCode, timeSlotDay: timeSlotCodeDay))
+        setEndOfTimeSlot(endTime: dateArithmeticOps.addMinutesToDate(date: getStartTime(), minutes: 15.0))
+    }
+ 
+    func setStartOfTimeSlot(startTime: Date) {
+        self.startOfTimeSlot = startTime
+    }
+    
+    func setEndOfTimeSlot(endTime: Date) {
+        self.endOfTimeSlot = endTime
     }
     
     func setSlotCode(generatedSlotCode: String) {
@@ -44,6 +66,19 @@ class TimeSlot {
         return self.slotCode
     }
     
+    /*
+    func getTimeLength() -> Double {
+        let calendar = Calendar.current
+        
+        // Replace the hour (time) of both dates with 00:00
+        let startTime = calendar.startOfDay(for: getStartTime())
+        let endTime = calendar.startOfDay(for: getEndTime())
+        
+        let components = calendar.dateComponents([.minute], from: startTime, to: endTime)
+        return self.timeLength
+    }
+     */
+    
     // Takes a start of fifteen minutes interval and creates a slotCode based of it
     func generateSlotCode(startOfTimeSlot: Date) -> String {
         let calendar = Calendar.current
@@ -59,13 +94,13 @@ class TimeSlot {
         hourCode = String(hour)
         
         // Assigns the letter code as the minuteCode based of which interval within the hour does the minute component fall
-        if minute == 15 {
+        if minute == 0 {
             minuteCode = "A"
         }
-        else if minute == 30 {
+        else if minute == 15 {
             minuteCode = "B"
         }
-        else if minute == 45 {
+        else if minute == 30 {
             minuteCode = "C"
         }
         else {
@@ -73,6 +108,27 @@ class TimeSlot {
         }
         
         // "1B"
-        return hourCode + minuteCode
+        return hourCode + "-" + minuteCode
+    }
+    
+    func decodeStartDateOfSlotCode(slotCode: String, timeSlotDay: Date) -> Date {
+        let slotCodeArr = slotCode.components(separatedBy: "-")
+        let hourCode    = slotCodeArr[0]
+        let minuteCode = slotCodeArr[1]
+        let hourValue = Int(hourCode)
+        var startDate: Date = Date()
+        if minuteCode == "A" {
+            startDate = Calendar.current.date(bySettingHour: hourValue!, minute: 0, second: 0, of: timeSlotDay)!
+        }
+        else if minuteCode == "B" {
+            startDate = Calendar.current.date(bySettingHour: hourValue!, minute: 15, second: 0, of: timeSlotDay)!
+        }
+        else if minuteCode == "C" {
+            startDate = Calendar.current.date(bySettingHour: hourValue!, minute: 30, second: 0, of: timeSlotDay)!
+        }
+        else if minuteCode == "D" {
+            startDate = Calendar.current.date(bySettingHour: hourValue!, minute: 45, second: 0, of: timeSlotDay)!
+        }
+        return startDate
     }
 }
