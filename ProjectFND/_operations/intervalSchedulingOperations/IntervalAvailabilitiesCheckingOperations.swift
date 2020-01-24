@@ -99,10 +99,7 @@ class IntervalAvailabilitiesCheckingOperations {
         var collectionOfConsecutiveTimeSlots: [[String: TimeSlot]] = [[String: TimeSlot]]()
         var singleConsecutiveTimeSlots: [String: TimeSlot] = [String: TimeSlot]()
         var timeSlotCodeHourIterator: Int = 0
-        var consecutiveTimeSlotCollectionsIterator: Int = 0
-        var currentAndNextTimeSlotIterator: Int = 0
         while timeSlotCodeHourIterator < 24 {
-            resetIteratorWheneverItReachesSpecificNumber(iterator: &currentAndNextTimeSlotIterator, maximumIteration: 2)
             let firstFifteenSlotCode = String(timeSlotCodeHourIterator) + "-" + "A"
             let secondFifteenSlotCode = String(timeSlotCodeHourIterator) + "-" + "B"
             let thirdFifteenSlotCode = String(timeSlotCodeHourIterator) + "-" + "C"
@@ -110,13 +107,26 @@ class IntervalAvailabilitiesCheckingOperations {
             if timeSlotDictionary[firstFifteenSlotCode] != nil {
                 var currentAndNextTimeSlot: [TimeSlot] = [TimeSlot]()
                 let accessedTimeSlot: TimeSlot = timeSlotDictionary[firstFifteenSlotCode]!
-                if currentAndNextTimeSlotIterator == 0 {
+                
+                currentAndNextTimeSlot.append(accessedTimeSlot)
+                
+                // Next value in the dictionary
+                let secFirstFifteenSlotCode = String(timeSlotCodeHourIterator + 1) + "-" + "A"
+                let secSecondFifteenSlotCode = String(timeSlotCodeHourIterator + 1) + "-" + "B"
+                let secThirdFifteenSlotCode = String(timeSlotCodeHourIterator + 1) + "-" + "C"
+                let secFourthFifteenSlotCode = String(timeSlotCodeHourIterator + 1) + "-" + "D"
+                
+                if timeSlotDictionary[secFirstFifteenSlotCode] != nil {
+                    let nextToAccessedTimeSlot: TimeSlot = timeSlotDictionary[secFirstFifteenSlotCode]!
+                    currentAndNextTimeSlot.append(nextToAccessedTimeSlot)
+                } else {
+                    // Just put the same timeSlot
                     currentAndNextTimeSlot.append(accessedTimeSlot)
                 }
                 
-                addTimeSlotDictionaryToCollectionOfTimeSlotDictionaryAppropriately(p_firstTimeSlot: accessedTimeSlot, p_secondTimeSlot: <#T##TimeSlot#>, collectionOfTimeSlotDictionary: &<#T##[[String : TimeSlot]]#>, singleConsecutiveTimeSlots: &<#T##[String : TimeSlot]#>, currentCollectionIteration: <#T##Int#>)
+                addTimeSlotDictionaryToCollectionOfTimeSlotDictionaryAppropriately(currentAndNextTimeSlot: &currentAndNextTimeSlot, collectionOfTimeSlotDictionary: &collectionOfConsecutiveTimeSlots, singleConsecutiveTimeSlots: &singleConsecutiveTimeSlots)
             }
-            currentAndNextTimeSlotIterator = currentAndNextTimeSlotIterator + 1
+            timeSlotCodeHourIterator = timeSlotCodeHourIterator + 1
         }
     }
     
@@ -127,15 +137,9 @@ class IntervalAvailabilitiesCheckingOperations {
         return false
     }
     
-    func resetIteratorWheneverItReachesSpecificNumber(iterator: inout Int, maximumIteration: Int) {
-        if iterator == maximumIteration {
-            iterator = 0
-        }
-    }
-    
-    func addTimeSlotDictionaryToCollectionOfTimeSlotDictionaryAppropriately(p_firstTimeSlot: TimeSlot, p_secondTimeSlot: TimeSlot, collectionOfTimeSlotDictionary: inout [[String: TimeSlot]], singleConsecutiveTimeSlots: inout [String: TimeSlot], currentCollectionIteration: Int) {
-        if !checkIfTimeSlotEndTimeOverlapsWithNextTimeSlotStartTime(firstTimeSlot: p_firstTimeSlot, secondTimeSlot: p_secondTimeSlot) {
-            singleConsecutiveTimeSlots[p_firstTimeSlot.getSlotCode()] = p_firstTimeSlot
+    func addTimeSlotDictionaryToCollectionOfTimeSlotDictionaryAppropriately(currentAndNextTimeSlot: inout [TimeSlot], collectionOfTimeSlotDictionary: inout [[String: TimeSlot]], singleConsecutiveTimeSlots: inout [String: TimeSlot]) {
+        if !checkIfTimeSlotEndTimeOverlapsWithNextTimeSlotStartTime(firstTimeSlot: currentAndNextTimeSlot[0], secondTimeSlot: currentAndNextTimeSlot[1]) {
+            singleConsecutiveTimeSlots[currentAndNextTimeSlot[0].getSlotCode()] = currentAndNextTimeSlot[0]
         }
         else {
             collectionOfTimeSlotDictionary.append(singleConsecutiveTimeSlots)
