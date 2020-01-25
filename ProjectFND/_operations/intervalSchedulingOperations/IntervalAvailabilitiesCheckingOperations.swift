@@ -12,6 +12,12 @@ import os.log
 
 class IntervalAvailabilitiesCheckingOperations {
     var dateArithmeticOps = DateArithmeticOperations()
+    private var allOfTheToDos: [ToDo]
+    
+    init() {
+        let toDoProcessHelper = ToDoProcessHelper()
+        self.allOfTheToDos = toDoProcessHelper.loadToDos()!
+    }
     
     // MARK: Essential Functions
     
@@ -44,15 +50,33 @@ class IntervalAvailabilitiesCheckingOperations {
     }
     
     /*
-     DESCRIPTION: Gets the longest available consecutive time slots for day so that it can be used by ToDo interval scheduling
+     Description: Gets all the occupied time slots for the day
+     Usage: Put a collection of ToDos for a single Day as a parameter, also add the date of the day for the collection
+     Logic: The collection of ToDos will be checked for their TimeSlots, and those TimeSlots will be placed in a single collection to be returned.
      TEST: Untested
+     */
+    func getOccupiedTimeSlots(collectionOfToDosForTheDay: [ToDo], dayDateOfTheCollection: Date) -> [String:TimeSlot] {
+        // Collection of dictionaries
+        var collectionOfTimeSlotCollections: [[String:TimeSlot]] = [[String:TimeSlot]]()
+        // Iterates every ToDo in the ToDo Dictionary Collection
+        for toDoInCollection in collectionOfToDosForTheDay {
+            // Adds the timeSlot collection for a ToDo to a general collection of timeSlot dictionary
+            collectionOfTimeSlotCollections.append(getTimeSlotsOfAToDo(toDo: toDoInCollection))
+        }
+        // Returns a timeSlot dictionary containing all the timeSlots in the collection of timeSlot dictionary
+        return putContentsOfOccupiedTimeSlotsDictionariesInOneSingleDictionary(collectionOfTimeSlotDictionary: collectionOfTimeSlotCollections, dayDateForTimeSlotsDictionary: dayDateOfTheCollection)
+    }
+    
+    /*
+     DESCRIPTION: Gets the longest available consecutive time slots for day so that it can be used by ToDo interval scheduling
+     TEST: Failed
      */
     func getLongestAvailableConsecutiveTimeSlotsForDay(dayToCheck: Date) -> [String: TimeSlot] {
         let toDoProcessHelper = ToDoProcessHelper()
         // Gets all the ToDos
-        let allOfTheToDos = toDoProcessHelper.loadToDos()
+        //let allOfTheToDos = toDoProcessHelper.loadToDos()
         // Gets all the ToDos from the collection of the ToDos that belongs to the dayToCheck
-        let toDosForTheDay: [ToDo] = toDoProcessHelper.retrieveToDoItemsByDay(toDoDate: dayToCheck, toDoItems: allOfTheToDos!)
+        let toDosForTheDay: [ToDo] = toDoProcessHelper.retrieveToDoItemsByDay(toDoDate: dayToCheck, toDoItems: getAllOfTheToDos())
         // Gets all the occupied timeSlots as a dictionary for the dayToCheck
         var occupiedTimeSlotsDictionary: [String:TimeSlot] = getOccupiedTimeSlots(collectionOfToDosForTheDay: toDosForTheDay, dayDateOfTheCollection: dayToCheck)
         // To store available timeSlots for the day as a dictionary
@@ -201,6 +225,7 @@ class IntervalAvailabilitiesCheckingOperations {
     
     /*
      DESCRIPTION: Adds time slot dictionary to the collection of timeSlotDictionary appropriately
+     TEST: Untested
      */
     func addTimeSlotDictionaryToCollectionOfTimeSlotDictionaryAppropriately(currentAndNextTimeSlot: inout [TimeSlot], collectionOfTimeSlotDictionary: inout [[String: TimeSlot]], singleConsecutiveTimeSlots: inout [String: TimeSlot]) {
         if !checkIfTimeSlotEndTimeOverlapsWithNextTimeSlotStartTime(firstTimeSlot: currentAndNextTimeSlot[0], secondTimeSlot: currentAndNextTimeSlot[1]) {
@@ -215,6 +240,7 @@ class IntervalAvailabilitiesCheckingOperations {
         }
     }
     
+    // TEST: Untested
     func assignAndAddTimeSlotsToTheirAppropriateDataStructures(currentAndNextTimeSlot: inout [TimeSlot], timeSlotDictionary: [String: TimeSlot], timeSlotCodeHourIterator: Int, currentTimeSlot: TimeSlot, collectionOfConsecutiveTimeSlots: inout [[String: TimeSlot]], singleConsecutiveTimeSlots: inout [String: TimeSlot]) {
         
         var potentialNextTimeSlotTimeSlotCode = ""
@@ -241,26 +267,10 @@ class IntervalAvailabilitiesCheckingOperations {
     }
     
     /*
-     Description: Gets all the occupied time slots for the day
-     Usage: Put a collection of ToDos for a single Day as a parameter, also add the date of the day for the collection
-     Logic: The collection of ToDos will be checked for their TimeSlots, and those TimeSlots will be placed in a single collection to be returned.
-     */
-    func getOccupiedTimeSlots(collectionOfToDosForTheDay: [ToDo], dayDateOfTheCollection: Date) -> [String:TimeSlot] {
-        // Collection of dictionaries
-        var collectionOfTimeSlotCollections: [[String:TimeSlot]] = [[String:TimeSlot]]()
-        // Iterates every ToDo in the ToDo Dictionary Collection
-        for toDoInCollection in collectionOfToDosForTheDay {
-            // Adds the timeSlot collection for a ToDo to a general collection of timeSlot dictionary
-            collectionOfTimeSlotCollections.append(getTimeSlotsOfAToDo(toDo: toDoInCollection))
-        }
-        // Returns a timeSlot dictionary containing all the timeSlots in the collection of timeSlot dictionary
-        return putContentsOfOccupiedTimeSlotsDictionariesInOneSingleDictionary(collectionOfTimeSlotDictionary: collectionOfTimeSlotCollections, dayDateForTimeSlotsDictionary: dayDateOfTheCollection)
-    }
-    
-    /*
      Description: Puts all the timeSlots in the collection of timeSlot collections to a single collection.
      Usage: Put a collection of timeSlot collections in the parameter. Put the date of the day that the single dictionary for timeSlots will belong to
      Returns: A single dictionary of all occupied timeSlots from a collection of occupied timeSlot collections
+     TEST: Untested
      */
     func putContentsOfOccupiedTimeSlotsDictionariesInOneSingleDictionary(collectionOfTimeSlotDictionary: [[String:TimeSlot]], dayDateForTimeSlotsDictionary: Date) -> [String:TimeSlot] {
         var singleDictionaryOfTimeSlots: [String:TimeSlot] = [String:TimeSlot]()
@@ -302,5 +312,17 @@ class IntervalAvailabilitiesCheckingOperations {
             }
         }
         return singleDictionaryOfTimeSlots
+    }
+    
+    // MARK: Setters
+    
+    // Really just for testing purposes
+    func setAllOfTheToDos(toDoItems: [ToDo]) {
+        self.allOfTheToDos = toDoItems
+    }
+    
+    // MARK: Getters
+    func getAllOfTheToDos() -> [ToDo] {
+        return self.allOfTheToDos
     }
 }

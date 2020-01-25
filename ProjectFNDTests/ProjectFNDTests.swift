@@ -26,6 +26,10 @@ class ProjectFNDTests: XCTestCase {
         arrayOfToDos.append(ToDo(taskName: "Task Three", taskDescription: "Task Three Description", workDate: formatter.date(from: "2020/01/16 16:30")!, estTime: "3.0", dueDate: formatter.date(from: "2020/01/17 13:30")!, finished: false)!)
         arrayOfToDos.append(ToDo(taskName: "Task Four", taskDescription: "Task Four Description", workDate: formatter.date(from: "2020/01/16 19:30")!, estTime: "2.0", dueDate: formatter.date(from: "2020/01/17 13:30")!, finished: false)!)
         arrayOfToDos.append(ToDo(taskName: "Task Five", taskDescription: "Task Five Description", workDate: formatter.date(from: "2020/01/16 21:30")!, estTime: "2.5", dueDate: formatter.date(from: "2020/01/17 13:30")!, finished: false)!)
+        // For getting longest consecutives
+        arrayOfToDos.append(ToDo(taskName: "Task Six", taskDescription: "Task Six Description", workDate: formatter.date(from: "2020/01/15 21:30")!, estTime: "2.0", dueDate: formatter.date(from: "2020/01/16 13:30")!, finished: false)!)
+        arrayOfToDos.append(ToDo(taskName: "Task Seven", taskDescription: "Task Seven Description", workDate: formatter.date(from: "2020/01/15 23:30")!, estTime: "2.0", dueDate: formatter.date(from: "2020/01/16 13:30")!, finished: false)!)
+        intervalAvailabilitiesHelper.setAllOfTheToDos(toDoItems: arrayOfToDos)
     }
     
     // MARK: IntervalAvailabilitiesCheckingOperations Tests
@@ -148,6 +152,12 @@ class ProjectFNDTests: XCTestCase {
         XCTAssertEqual(intervalAvailabilitiesHelper.checkTimeIfLastFifteenMinutes(timeToBeChecked: baseStartTimeOfToDoForTheDay, endingWorkTimeForTheDay: correctEndTimeOfToDoForTheDay), false)
         // Asserts that this timeSlot is the last fifteen minutes
         XCTAssertEqual(intervalAvailabilitiesHelper.checkTimeIfLastFifteenMinutes(timeToBeChecked: lastFifteenMinOfToDoForTheDay, endingWorkTimeForTheDay: correctEndTimeOfToDoForTheDay), true)
+    }
+    
+    func testGetLongestAvailableConsecutiveTimeSlotsForDay() {
+        formatter.dateFormat = "yyyy/MM/dd"
+        //print(intervalAvailabilitiesHelper.getLongestAvailableConsecutiveTimeSlotsForDay(dayToCheck: formatter.date(from: "2020/01/16 13:30")!))
+        //XCTAssertEqual(intervalAvailabilitiesHelper.getLongestAvailableConsecutiveTimeSlotsForDay(dayToCheck: formatter.date(from: "2020/01/16 13:30")!), nil)
     }
 
     /*
