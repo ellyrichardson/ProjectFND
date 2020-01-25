@@ -104,4 +104,28 @@ class ToDo: NSObject, NSCoding {
         // Must call designated initializer.
         self.init(taskName: taskName, taskDescription: taskDescription, workDate: workDate, estTime: estTime, dueDate: dueDate, finished: finished)
     }
+    
+    func getTaskName() -> String {
+        return self.taskName
+    }
+    
+    func getTaskDescription() -> String {
+        return self.taskDescription
+    }
+    
+    func getEstTime() -> String {
+        return self.estTime
+    }
+    
+    func getStartDate() -> Date {
+        return self.workDate
+    }
+    
+    func getEndDate() -> Date {
+        return self.dueDate
+    }
+    
+    func isFinished() -> Bool {
+        return self.finished
+    }
 }

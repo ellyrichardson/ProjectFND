@@ -15,15 +15,16 @@ class IntervalAvailabilitiesCheckingOperations {
     
     // MARK: Essential Functions
     
+    // TEST: Passed
     func getTimeSlotsOfAToDo(toDo: ToDo) -> [String:TimeSlot] {
         var timeSlots: [String:TimeSlot] = [String:TimeSlot]()
         // Gets the starting time of the first fifteen minute interval of the ToDo
         var startingTimeOfToDoFifteenMinuteInterval: Date = toDo.workDate
         // Gets the endingTime of the ToDo workTime for the day
-        let endingTimeOfToDoWorkTimeForTheDay: Date = getEndOfToDoWorkTimeForTheDay(toDo: toDo, toDoWorkTimeLength: 2.0)
+        let endingTimeOfToDoWorkTimeForTheDay: Date = getEndOfToDoWorkTimeForTheDay(toDo: toDo, toDoWorkTimeLength: Double(toDo.estTime)!)
         
         // While the timeToBeChecked is not the ending work time of the Todo, keep adding the fifteen minute interval to the timeSlots
-        while checkTimeIfLastFifteenMinutes(timeToBeChecked: startingTimeOfToDoFifteenMinuteInterval, endingWorkTimeForTheDay: endingTimeOfToDoWorkTimeForTheDay) == false {
+        while !checkTimeIfLastFifteenMinutes(timeToBeChecked: startingTimeOfToDoFifteenMinuteInterval, endingWorkTimeForTheDay: endingTimeOfToDoWorkTimeForTheDay) {
             // Gets the time with added fifteen minutes
             let timeWithAddedFifteenMinutes: Date = dateArithmeticOps.addMinutesToDate(date: startingTimeOfToDoFifteenMinuteInterval, minutes: 15.0)
             // Appends the new time slot with the startingTime and the added 15 minutes to the timeSlots collection
@@ -32,11 +33,19 @@ class IntervalAvailabilitiesCheckingOperations {
             // Increases the startingTime by 15 minutes
             startingTimeOfToDoFifteenMinuteInterval = timeWithAddedFifteenMinutes
         }
+        
+        // Last timeSlot gets added with fifteen minutes to get its ending time.
+        let lastTimeSlotWithAddedFifteenMinutes: Date = dateArithmeticOps.addMinutesToDate(date: startingTimeOfToDoFifteenMinuteInterval, minutes: 15.0)
+        // Appends the last time slot with its startingTime and the added 15 minutes to the timeSlots collection
+        let lastTimeSlot = TimeSlot(startOfTimeSlot: startingTimeOfToDoFifteenMinuteInterval, endOfTimeSlot: lastTimeSlotWithAddedFifteenMinutes)!
+        timeSlots[lastTimeSlot.getSlotCode()] = lastTimeSlot
+        
         return timeSlots
     }
     
     /*
-     Description: Gets the longest available consecutive time slots for day so that it can be used by ToDo interval scheduling
+     DESCRIPTION: Gets the longest available consecutive time slots for day so that it can be used by ToDo interval scheduling
+     TEST: Untested
      */
     func getLongestAvailableConsecutiveTimeSlotsForDay(dayToCheck: Date) -> [String: TimeSlot] {
         let toDoProcessHelper = ToDoProcessHelper()
@@ -94,6 +103,7 @@ class IntervalAvailabilitiesCheckingOperations {
      Description: Checks if the timeToBeChecked is the last 15 minutes of the work time for the day
      Usage: The time to be checked must be inputted. The ending of the work time for a ToDo for the day must be inputted
      Logic: If 15 minutes is added to the timeToBeChecked and is equal to the endingTimeForTheWorkDay, then it is the last 15 mins.
+     TEST: Passed
      */
     func checkTimeIfLastFifteenMinutes(timeToBeChecked: Date, endingWorkTimeForTheDay: Date) -> Bool {
         // Check if the timeToBeChecked + 15 minutes is the endingTime for the ToDo work time of the day
@@ -103,24 +113,37 @@ class IntervalAvailabilitiesCheckingOperations {
         return false
     }
     
+    /*
+     DESCRIPTION: Gets the end of work time of ToDo for the day.
+     TEST: Passed
+     */
     func getEndOfToDoWorkTimeForTheDay(toDo: ToDo, toDoWorkTimeLength: Double) -> Date {
         return dateArithmeticOps.addHoursToDate(date: toDo.workDate, hours: toDoWorkTimeLength)
     }
     
+    /*
+     TEST: Untested
+     */
     func getConsecutiveTimeSlotsFromATimeSlotDictionary(timeSlotDictionary: [String: TimeSlot]) -> [[String: TimeSlot]] {
         var collectionOfConsecutiveTimeSlots: [[String: TimeSlot]] = [[String: TimeSlot]]()
         var singleConsecutiveTimeSlots: [String: TimeSlot] = [String: TimeSlot]()
         var timeSlotCodeHourIterator: Int = 0
+        // While the timeSlotCodeHourIterator is less than the whole day hours
         while timeSlotCodeHourIterator < 24 {
+            // Possible timeSlot codes
             let firstFifteenSlotCode = String(timeSlotCodeHourIterator) + "-" + "A"
             let secondFifteenSlotCode = String(timeSlotCodeHourIterator) + "-" + "B"
             let thirdFifteenSlotCode = String(timeSlotCodeHourIterator) + "-" + "C"
             let fourthFifteenSlotCode = String(timeSlotCodeHourIterator) + "-" + "D"
+            
+            // If timeSlot is occupied, based on the dictionary
             if timeSlotDictionary[firstFifteenSlotCode] != nil {
+                // Temporary storage of the accessed timeSlot and the next timeSlot to it
                 var currentAndNextTimeSlot: [TimeSlot] = [TimeSlot]()
                 let accessedTimeSlot: TimeSlot = timeSlotDictionary[firstFifteenSlotCode]!
                 currentAndNextTimeSlot.append(accessedTimeSlot)
                 
+                // Assigns and add timeSlots to their appropriate data structures: e.g. dictionaries
                 assignAndAddTimeSlotsToTheirAppropriateDataStructures(currentAndNextTimeSlot: &currentAndNextTimeSlot, timeSlotDictionary: timeSlotDictionary, timeSlotCodeHourIterator: timeSlotCodeHourIterator, currentTimeSlot: accessedTimeSlot, collectionOfConsecutiveTimeSlots: &collectionOfConsecutiveTimeSlots, singleConsecutiveTimeSlots: &singleConsecutiveTimeSlots)
             }
             if timeSlotDictionary[secondFifteenSlotCode] != nil {
@@ -150,7 +173,8 @@ class IntervalAvailabilitiesCheckingOperations {
     }
     
     /*
-     Description: This function accepts by reference a currentAndNextTimeSlot array. The next timeSlot will be assigned based on the currentTimeSlot accessed. The potential next timeSlotCodes that will be compared to the currentTimeSlot is needed. The dictionary the timeSlots were being retrieved will also be needed. The current iteration of the slotCode combinations is needed to determine the next timeSlot, too.
+     DESCRIPTION: This function accepts by reference a currentAndNextTimeSlot array. The next timeSlot will be assigned based on the currentTimeSlot accessed. The potential next timeSlotCodes that will be compared to the currentTimeSlot is needed. The dictionary the timeSlots were being retrieved will also be needed. The current iteration of the slotCode combinations is needed to determine the next timeSlot, too.
+     TEST: Untested
      */
     func assignTheNextTimeSlotToCurrentAndNextTimeSlotArray(currentAndNextTimeSlot: inout [TimeSlot], timeSlotDictionary: [String: TimeSlot], timeSlotCodeHourIterator: Int, currentTimeSlot: TimeSlot, timeSlotCodeForPotentialNextTimeSlot: String) {
         
@@ -164,19 +188,29 @@ class IntervalAvailabilitiesCheckingOperations {
         }
     }
     
+    /*
+     TEST: Untested
+     */
     func checkIfTimeSlotEndTimeOverlapsWithNextTimeSlotStartTime(firstTimeSlot: TimeSlot, secondTimeSlot: TimeSlot) -> Bool {
+        // Checks if the endTime of the firstTimeSlot overlaps with the startTime of secondTimeSlot
         if firstTimeSlot.getEndTime() == secondTimeSlot.getStartTime() {
             return true
         }
         return false
     }
     
+    /*
+     DESCRIPTION: Adds time slot dictionary to the collection of timeSlotDictionary appropriately
+     */
     func addTimeSlotDictionaryToCollectionOfTimeSlotDictionaryAppropriately(currentAndNextTimeSlot: inout [TimeSlot], collectionOfTimeSlotDictionary: inout [[String: TimeSlot]], singleConsecutiveTimeSlots: inout [String: TimeSlot]) {
         if !checkIfTimeSlotEndTimeOverlapsWithNextTimeSlotStartTime(firstTimeSlot: currentAndNextTimeSlot[0], secondTimeSlot: currentAndNextTimeSlot[1]) {
+            // Adds the accessed time Slot [0] to the singleConsecutiveTimeSlot
             singleConsecutiveTimeSlots[currentAndNextTimeSlot[0].getSlotCode()] = currentAndNextTimeSlot[0]
         }
         else {
+            // Adds the current singleConsecutiveTimeSlots to the timeSlotDictionaryCollection
             collectionOfTimeSlotDictionary.append(singleConsecutiveTimeSlots)
+            // Removes all elements in the singleConsecutiveTimeSlots to start a new singleConsecutiveTimeSlots
             singleConsecutiveTimeSlots.removeAll()
         }
     }

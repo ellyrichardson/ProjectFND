@@ -10,11 +10,12 @@ import UIKit
 import CoreData
 import os.log
 
+/*
 class SchedulePreviewTableViewController: UITableViewController {
     
     private var toDo: ToDo?
     private var toDoProcessHelper: ToDoProcessHelper = ToDoProcessHelper()
-    private var intervalSchedulingHelper: IntervalSchedulingHelper = IntervalSchedulingHelper()
+    //private var intervalSchedulingHelper: IntervalSchedulingHelper = IntervalSchedulingHelper()
     //var availableIntervals: [Date] = [Date]()
         
     override func viewDidLoad() {
@@ -132,4 +133,4 @@ class SchedulePreviewTableViewController: UITableViewController {
         }
     }
     
-}
+}*/

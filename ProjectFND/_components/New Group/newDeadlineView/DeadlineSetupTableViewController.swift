@@ -9,6 +9,7 @@
 import UIKit
 import os.log
 
+/*
 class DeadlineSetupTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var taskNameDescriptionLabel: UILabel!
@@ -306,4 +307,5 @@ class DeadlineSetupTableViewController: UITableViewController, UITextViewDelegat
         scheduleButton.isEnabled = true
     }
 }
+ */
 
