@@ -16,6 +16,7 @@ class ProjectFNDTests: XCTestCase {
     
     var arrayOfToDos: [ToDo] = [ToDo]()
     let intervalAvailabilitiesHelper = IntervalAvailabilitiesCheckingOperations.init()
+    let toDoProcessHelper = ToDoProcessHelper()
     let formatter = DateFormatter()
     
     override func setUp() {
@@ -27,8 +28,8 @@ class ProjectFNDTests: XCTestCase {
         arrayOfToDos.append(ToDo(taskName: "Task Four", taskDescription: "Task Four Description", workDate: formatter.date(from: "2020/01/16 19:30")!, estTime: "2.0", dueDate: formatter.date(from: "2020/01/17 13:30")!, finished: false)!)
         arrayOfToDos.append(ToDo(taskName: "Task Five", taskDescription: "Task Five Description", workDate: formatter.date(from: "2020/01/16 21:30")!, estTime: "2.5", dueDate: formatter.date(from: "2020/01/17 13:30")!, finished: false)!)
         // For getting longest consecutives
-        arrayOfToDos.append(ToDo(taskName: "Task Six", taskDescription: "Task Six Description", workDate: formatter.date(from: "2020/01/15 21:30")!, estTime: "2.0", dueDate: formatter.date(from: "2020/01/16 13:30")!, finished: false)!)
-        arrayOfToDos.append(ToDo(taskName: "Task Seven", taskDescription: "Task Seven Description", workDate: formatter.date(from: "2020/01/15 23:30")!, estTime: "2.0", dueDate: formatter.date(from: "2020/01/16 13:30")!, finished: false)!)
+        //arrayOfToDos.append(ToDo(taskName: "Task Six", taskDescription: "Task Six Description", workDate: formatter.date(from: "2020/01/15 21:30")!, estTime: "2.0", dueDate: formatter.date(from: "2020/01/16 13:30")!, finished: false)!)
+        //arrayOfToDos.append(ToDo(taskName: "Task Seven", taskDescription: "Task Seven Description", workDate: formatter.date(from: "2020/01/15 23:30")!, estTime: "2.0", dueDate: formatter.date(from: "2020/01/16 13:30")!, finished: false)!)
         intervalAvailabilitiesHelper.setAllOfTheToDos(toDoItems: arrayOfToDos)
     }
     
@@ -156,8 +157,56 @@ class ProjectFNDTests: XCTestCase {
     
     func testGetLongestAvailableConsecutiveTimeSlotsForDay() {
         formatter.dateFormat = "yyyy/MM/dd"
-        //print(intervalAvailabilitiesHelper.getLongestAvailableConsecutiveTimeSlotsForDay(dayToCheck: formatter.date(from: "2020/01/16 13:30")!))
+        print(intervalAvailabilitiesHelper.getLongestAvailableConsecutiveTimeSlotsForDay(dayToCheck: formatter.date(from: "2020/01/16 13:30")!))
         //XCTAssertEqual(intervalAvailabilitiesHelper.getLongestAvailableConsecutiveTimeSlotsForDay(dayToCheck: formatter.date(from: "2020/01/16 13:30")!), nil)
+    }
+    
+    func testGetOccupiedTimeSlots() {
+        // Initial DateFormat
+        formatter.dateFormat = "yyyy/MM/dd"
+        let dateOfTheDay: Date = formatter.date(from: "2020/01/15")!
+        let toDosForADay: [ToDo] = toDoProcessHelper.retrieveToDoItemsByDay(toDoDate: dateOfTheDay, toDoItems: arrayOfToDos)
+        var occupiedTimeSlots: [String: TimeSlot] = intervalAvailabilitiesHelper.getOccupiedTimeSlots(collectionOfToDosForTheDay: toDosForADay, dayDateOfTheCollection: dateOfTheDay)
+        
+        // DateFormat for the assertions
+        formatter.dateFormat = "yyyy/MM/dd HH:mm"
+        // Test of timeSlot startTime
+        XCTAssertEqual(occupiedTimeSlots["13-C"]?.getStartTime(), formatter.date(from: "2020/01/15 13:30")!)
+        XCTAssertEqual(occupiedTimeSlots["13-D"]?.getStartTime(), formatter.date(from: "2020/01/15 13:45")!)
+        XCTAssertEqual(occupiedTimeSlots["14-A"]?.getStartTime(), formatter.date(from: "2020/01/15 14:00")!)
+        XCTAssertEqual(occupiedTimeSlots["14-B"]?.getStartTime(), formatter.date(from: "2020/01/15 14:15")!)
+        XCTAssertEqual(occupiedTimeSlots["14-C"]?.getStartTime(), formatter.date(from: "2020/01/15 14:30")!)
+        XCTAssertEqual(occupiedTimeSlots["14-D"]?.getStartTime(), formatter.date(from: "2020/01/15 14:45")!)
+        XCTAssertEqual(occupiedTimeSlots["15-A"]?.getStartTime(), formatter.date(from: "2020/01/15 15:00")!)
+        XCTAssertEqual(occupiedTimeSlots["15-B"]?.getStartTime(), formatter.date(from: "2020/01/15 15:15")!)
+        // Test of timeSlot endTime
+        XCTAssertEqual(occupiedTimeSlots["13-C"]?.getEndTime(), formatter.date(from: "2020/01/15 13:45")!)
+        XCTAssertEqual(occupiedTimeSlots["13-D"]?.getEndTime(), formatter.date(from: "2020/01/15 14:00")!)
+        XCTAssertEqual(occupiedTimeSlots["14-A"]?.getEndTime(), formatter.date(from: "2020/01/15 14:15")!)
+        XCTAssertEqual(occupiedTimeSlots["14-B"]?.getEndTime(), formatter.date(from: "2020/01/15 14:30")!)
+        XCTAssertEqual(occupiedTimeSlots["14-C"]?.getEndTime(), formatter.date(from: "2020/01/15 14:45")!)
+        XCTAssertEqual(occupiedTimeSlots["14-D"]?.getEndTime(), formatter.date(from: "2020/01/15 15:00")!)
+        XCTAssertEqual(occupiedTimeSlots["15-A"]?.getEndTime(), formatter.date(from: "2020/01/15 15:15")!)
+        XCTAssertEqual(occupiedTimeSlots["15-B"]?.getEndTime(), formatter.date(from: "2020/01/15 15:30")!)
+        
+        // Test of timeSlot startTime
+        XCTAssertEqual(occupiedTimeSlots["15-C"]?.getStartTime(), formatter.date(from: "2020/01/15 15:30")!)
+        XCTAssertEqual(occupiedTimeSlots["15-D"]?.getStartTime(), formatter.date(from: "2020/01/15 15:45")!)
+        XCTAssertEqual(occupiedTimeSlots["16-A"]?.getStartTime(), formatter.date(from: "2020/01/15 16:00")!)
+        XCTAssertEqual(occupiedTimeSlots["16-B"]?.getStartTime(), formatter.date(from: "2020/01/15 16:15")!)
+        XCTAssertEqual(occupiedTimeSlots["16-C"]?.getStartTime(), formatter.date(from: "2020/01/15 16:30")!)
+        XCTAssertEqual(occupiedTimeSlots["16-D"]?.getStartTime(), formatter.date(from: "2020/01/15 16:45")!)
+        XCTAssertEqual(occupiedTimeSlots["17-A"]?.getStartTime(), formatter.date(from: "2020/01/15 17:00")!)
+        XCTAssertEqual(occupiedTimeSlots["17-B"]?.getStartTime(), formatter.date(from: "2020/01/15 17:15")!)
+        // Test of timeSlot endTime
+        XCTAssertEqual(occupiedTimeSlots["15-C"]?.getEndTime(), formatter.date(from: "2020/01/15 15:45")!)
+        XCTAssertEqual(occupiedTimeSlots["15-D"]?.getEndTime(), formatter.date(from: "2020/01/15 16:00")!)
+        XCTAssertEqual(occupiedTimeSlots["16-A"]?.getEndTime(), formatter.date(from: "2020/01/15 16:15")!)
+        XCTAssertEqual(occupiedTimeSlots["16-B"]?.getEndTime(), formatter.date(from: "2020/01/15 16:30")!)
+        XCTAssertEqual(occupiedTimeSlots["16-C"]?.getEndTime(), formatter.date(from: "2020/01/15 16:45")!)
+        XCTAssertEqual(occupiedTimeSlots["16-D"]?.getEndTime(), formatter.date(from: "2020/01/15 17:00")!)
+        XCTAssertEqual(occupiedTimeSlots["17-A"]?.getEndTime(), formatter.date(from: "2020/01/15 17:15")!)
+        XCTAssertEqual(occupiedTimeSlots["17-B"]?.getEndTime(), formatter.date(from: "2020/01/15 17:30")!)
     }
 
     /*

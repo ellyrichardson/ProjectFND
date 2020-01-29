@@ -50,10 +50,11 @@ class IntervalAvailabilitiesCheckingOperations {
     }
     
     /*
+     TODO: Only get timeSlots for the day, and not put the exceeding timeSlots at the end of the day to the start of the day
      Description: Gets all the occupied time slots for the day
      Usage: Put a collection of ToDos for a single Day as a parameter, also add the date of the day for the collection
      Logic: The collection of ToDos will be checked for their TimeSlots, and those TimeSlots will be placed in a single collection to be returned.
-     TEST: Untested
+     TEST: Passed
      */
     func getOccupiedTimeSlots(collectionOfToDosForTheDay: [ToDo], dayDateOfTheCollection: Date) -> [String:TimeSlot] {
         // Collection of dictionaries
@@ -270,7 +271,7 @@ class IntervalAvailabilitiesCheckingOperations {
      Description: Puts all the timeSlots in the collection of timeSlot collections to a single collection.
      Usage: Put a collection of timeSlot collections in the parameter. Put the date of the day that the single dictionary for timeSlots will belong to
      Returns: A single dictionary of all occupied timeSlots from a collection of occupied timeSlot collections
-     TEST: Untested
+     TEST: Untested by itself, but tested through getOccupiedTimeSlots()
      */
     func putContentsOfOccupiedTimeSlotsDictionariesInOneSingleDictionary(collectionOfTimeSlotDictionary: [[String:TimeSlot]], dayDateForTimeSlotsDictionary: Date) -> [String:TimeSlot] {
         var singleDictionaryOfTimeSlots: [String:TimeSlot] = [String:TimeSlot]()
@@ -290,19 +291,19 @@ class IntervalAvailabilitiesCheckingOperations {
                     singleDictionaryOfTimeSlots[tempTimeSlot!.getSlotCode()] = tempTimeSlot
                 }
                 // If timeSlot hour code is the second 15 mins. This is because if timeSlotDictionary key-value is nil, it means the timeSlot is not occupied
-                else if timeSlotDictionary[secondFifteenSlotCode] != nil {
+                if timeSlotDictionary[secondFifteenSlotCode] != nil {
                     // Adding the timeSlot to the available timeSlots dictionary
                     let tempTimeSlot = TimeSlot(timeSlotCode: secondFifteenSlotCode, timeSlotCodeDay: dayDateForTimeSlotsDictionary)
                     singleDictionaryOfTimeSlots[tempTimeSlot!.getSlotCode()] = tempTimeSlot
                 }
                 // If timeSlot hour code is the third 15 mins. This is because if timeSlotDictionary key-value is nil, it means the timeSlot is not occupied
-                else if timeSlotDictionary[thirdFifteenSlotCode] != nil {
+                if timeSlotDictionary[thirdFifteenSlotCode] != nil {
                     // Adding the timeSlot to the available timeSlots dictionary
                     let tempTimeSlot = TimeSlot(timeSlotCode: thirdFifteenSlotCode, timeSlotCodeDay: dayDateForTimeSlotsDictionary)
                     singleDictionaryOfTimeSlots[tempTimeSlot!.getSlotCode()] = tempTimeSlot
                 }
                 // If timeSlot hour code is the fourth 15 mins. This is because if timeSlotDictionary key-value is nil, it means the timeSlot is not occupied
-                else if timeSlotDictionary[fourthFifteenSlotCode] != nil {
+                if timeSlotDictionary[fourthFifteenSlotCode] != nil {
                     // Adding the timeSlot to the available timeSlots dictionary
                     let tempTimeSlot = TimeSlot(timeSlotCode: fourthFifteenSlotCode, timeSlotCodeDay: dayDateForTimeSlotsDictionary)
                     singleDictionaryOfTimeSlots[tempTimeSlot!.getSlotCode()] = tempTimeSlot
