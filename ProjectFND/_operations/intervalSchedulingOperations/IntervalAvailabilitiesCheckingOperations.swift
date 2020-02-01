@@ -69,15 +69,14 @@ class IntervalAvailabilitiesCheckingOperations {
     }
     
     /*
-     DESCRIPTION: Gets the longest available consecutive time slots for day so that it can be used by ToDo interval scheduling
+     DESCRIPTION: Gets the available time slots for day so that it can be used by ToDo interval scheduling
      TEST: Failed
      */
-    func getLongestAvailableConsecutiveTimeSlotsForDay(dayToCheck: Date) -> [String: TimeSlot] {
+    func getAvailableTimeSlotsForDay(dayToCheck: Date, toDoItemsForDay: [ToDo]) -> [String: TimeSlot] {
         let toDoProcessHelper = ToDoProcessHelper()
-        // Gets all the ToDos
-        //let allOfTheToDos = toDoProcessHelper.loadToDos()
         // Gets all the ToDos from the collection of the ToDos that belongs to the dayToCheck
-        let toDosForTheDay: [ToDo] = toDoProcessHelper.retrieveToDoItemsByDay(toDoDate: dayToCheck, toDoItems: getAllOfTheToDos())
+        let toDosForTheDay: [ToDo] = toDoProcessHelper.retrieveToDoItemsByDay(toDoDate: dayToCheck, toDoItems: toDoItemsForDay)
+        //let toDosForTheDay: [ToDo] = toDoItemsForDay
         // Gets all the occupied timeSlots as a dictionary for the dayToCheck
         var occupiedTimeSlotsDictionary: [String:TimeSlot] = getOccupiedTimeSlots(collectionOfToDosForTheDay: toDosForTheDay, dayDateOfTheCollection: dayToCheck)
         // To store available timeSlots for the day as a dictionary
@@ -94,15 +93,15 @@ class IntervalAvailabilitiesCheckingOperations {
                 let tempTimeSlot = TimeSlot(timeSlotCode: firstFifteenSlotCode, timeSlotCodeDay: dayToCheck)
                 availableTimeSlotsDictionary[tempTimeSlot!.getSlotCode()] = tempTimeSlot
             }
-            else if occupiedTimeSlotsDictionary[secondFifteenSlotCode] != nil {
+            if occupiedTimeSlotsDictionary[secondFifteenSlotCode] == nil {
                 let tempTimeSlot = TimeSlot(timeSlotCode: secondFifteenSlotCode, timeSlotCodeDay: dayToCheck)
                 availableTimeSlotsDictionary[tempTimeSlot!.getSlotCode()] = tempTimeSlot
             }
-            else if occupiedTimeSlotsDictionary[thirdFifteenSlotCode] != nil {
+            if occupiedTimeSlotsDictionary[thirdFifteenSlotCode] == nil {
                 let tempTimeSlot = TimeSlot(timeSlotCode: thirdFifteenSlotCode, timeSlotCodeDay: dayToCheck)
                 availableTimeSlotsDictionary[tempTimeSlot!.getSlotCode()] = tempTimeSlot
             }
-            else if occupiedTimeSlotsDictionary[fourthFifteenSlotCode] != nil {
+            if occupiedTimeSlotsDictionary[fourthFifteenSlotCode] == nil {
                 let tempTimeSlot = TimeSlot(timeSlotCode: fourthFifteenSlotCode, timeSlotCodeDay: dayToCheck)
                 availableTimeSlotsDictionary[tempTimeSlot!.getSlotCode()] = tempTimeSlot
             }
@@ -110,6 +109,8 @@ class IntervalAvailabilitiesCheckingOperations {
             timeSlotCodeHourIterator = timeSlotCodeHourIterator + 1
         }
         
+        
+        /*
         // Gets a collection of consecutive timeSlots for the day
         let collectionOfConsecutiveTimeSlots: [[String: TimeSlot]] = getConsecutiveTimeSlotsFromATimeSlotDictionary(timeSlotDictionary: availableTimeSlotsDictionary)
         var longestConsecutiveTimeSlotsForTheDay: [String: TimeSlot] = [String: TimeSlot]()
@@ -118,11 +119,63 @@ class IntervalAvailabilitiesCheckingOperations {
             // Assigns the longest consecutive timeSlots for the day
             longestConsecutiveTimeSlotsForTheDay = collectionOfConsecutiveTimeSlotsForTheDay
         }
-        
-        return longestConsecutiveTimeSlotsForTheDay
+ */
+         return availableTimeSlotsDictionary
+        //return getLongestConsecutiveTimeSlot(timeSlotDictionary: availableTimeSlotsDictionary, dayToCheck: dayToCheck)
     }
     
-    // MARK: Assisting Private Functions
+    func getLongestAvailableConsecutiveTimeSlot(timeSlotDictionary: [String: TimeSlot], dayToCheck: Date) -> [String: TimeSlot] {
+        var tempSingleTimeSlotDictionary: [String: TimeSlot] = [String: TimeSlot]()
+        var tempCollectionOfSingleTimeSlotDict: [[String: TimeSlot]] = [[String: TimeSlot]]()
+        var timeSlotCodeHourIterator: Int = 0
+        // Iterates through every possible hourCode component of a timeSlotCode
+        while timeSlotCodeHourIterator < 24 {
+            let firstFifteenSlotCode = String(timeSlotCodeHourIterator) + "-" + "A"
+            let secondFifteenSlotCode = String(timeSlotCodeHourIterator) + "-" + "B"
+            let thirdFifteenSlotCode = String(timeSlotCodeHourIterator) + "-" + "C"
+            let fourthFifteenSlotCode = String(timeSlotCodeHourIterator) + "-" + "D"
+            // If the key-value does not exist in this occupiedTimeSlot dictionary, it means the timeSlot is available. The available timeSlot (key-value) gets added to the availableTimeSlotDictionary.
+            if timeSlotDictionary[firstFifteenSlotCode] == nil {
+                let tempTimeSlot = TimeSlot(timeSlotCode: firstFifteenSlotCode, timeSlotCodeDay: dayToCheck)
+                tempSingleTimeSlotDictionary[tempTimeSlot!.getSlotCode()] = tempTimeSlot
+            } else {
+                tempCollectionOfSingleTimeSlotDict.append(tempSingleTimeSlotDictionary)
+                tempSingleTimeSlotDictionary.removeAll()
+            }
+            if timeSlotDictionary[secondFifteenSlotCode] == nil {
+                let tempTimeSlot = TimeSlot(timeSlotCode: secondFifteenSlotCode, timeSlotCodeDay: dayToCheck)
+                tempSingleTimeSlotDictionary[tempTimeSlot!.getSlotCode()] = tempTimeSlot
+            } else {
+                tempCollectionOfSingleTimeSlotDict.append(tempSingleTimeSlotDictionary)
+                tempSingleTimeSlotDictionary.removeAll()
+            }
+            if timeSlotDictionary[thirdFifteenSlotCode] == nil {
+                let tempTimeSlot = TimeSlot(timeSlotCode: thirdFifteenSlotCode, timeSlotCodeDay: dayToCheck)
+                tempSingleTimeSlotDictionary[tempTimeSlot!.getSlotCode()] = tempTimeSlot
+            } else {
+                tempCollectionOfSingleTimeSlotDict.append(tempSingleTimeSlotDictionary)
+                tempSingleTimeSlotDictionary.removeAll()
+            }
+            if timeSlotDictionary[fourthFifteenSlotCode] == nil {
+                let tempTimeSlot = TimeSlot(timeSlotCode: fourthFifteenSlotCode, timeSlotCodeDay: dayToCheck)
+                tempSingleTimeSlotDictionary[tempTimeSlot!.getSlotCode()] = tempTimeSlot
+            } else {
+                tempCollectionOfSingleTimeSlotDict.append(tempSingleTimeSlotDictionary)
+                tempSingleTimeSlotDictionary.removeAll()
+            }
+            // Iterates to the next codeHour possible by incrementing the timeSlotCodeHourIterator by 1
+            timeSlotCodeHourIterator = timeSlotCodeHourIterator + 1
+        }
+        
+        // Gets the longest consecutive timeSlot
+        var longestConsecutiveTimeSlot: [String: TimeSlot] = tempCollectionOfSingleTimeSlotDict[0]
+        for timeSlotDict in tempCollectionOfSingleTimeSlotDict {
+            if timeSlotDict.count > longestConsecutiveTimeSlot.count {
+                longestConsecutiveTimeSlot = timeSlotDict
+            }
+        }
+        return longestConsecutiveTimeSlot
+    }
     
     /*
      Description: Checks if the timeToBeChecked is the last 15 minutes of the work time for the day
@@ -146,6 +199,7 @@ class IntervalAvailabilitiesCheckingOperations {
         return dateArithmeticOps.addHoursToDate(date: toDo.workDate, hours: toDoWorkTimeLength)
     }
     
+    // TODO: SHOULD REMOVE!!
     /*
      TEST: Untested
      */
@@ -173,21 +227,21 @@ class IntervalAvailabilitiesCheckingOperations {
             }
             if timeSlotDictionary[secondFifteenSlotCode] != nil {
                 var currentAndNextTimeSlot: [TimeSlot] = [TimeSlot]()
-                let accessedTimeSlot: TimeSlot = timeSlotDictionary[firstFifteenSlotCode]!
+                let accessedTimeSlot: TimeSlot = timeSlotDictionary[secondFifteenSlotCode]!
                 currentAndNextTimeSlot.append(accessedTimeSlot)
                 
                 assignAndAddTimeSlotsToTheirAppropriateDataStructures(currentAndNextTimeSlot: &currentAndNextTimeSlot, timeSlotDictionary: timeSlotDictionary, timeSlotCodeHourIterator: timeSlotCodeHourIterator, currentTimeSlot: accessedTimeSlot, collectionOfConsecutiveTimeSlots: &collectionOfConsecutiveTimeSlots, singleConsecutiveTimeSlots: &singleConsecutiveTimeSlots)
             }
             if timeSlotDictionary[thirdFifteenSlotCode] != nil {
                 var currentAndNextTimeSlot: [TimeSlot] = [TimeSlot]()
-                let accessedTimeSlot: TimeSlot = timeSlotDictionary[firstFifteenSlotCode]!
+                let accessedTimeSlot: TimeSlot = timeSlotDictionary[thirdFifteenSlotCode]!
                 currentAndNextTimeSlot.append(accessedTimeSlot)
                 
                 assignAndAddTimeSlotsToTheirAppropriateDataStructures(currentAndNextTimeSlot: &currentAndNextTimeSlot, timeSlotDictionary: timeSlotDictionary, timeSlotCodeHourIterator: timeSlotCodeHourIterator, currentTimeSlot: accessedTimeSlot, collectionOfConsecutiveTimeSlots: &collectionOfConsecutiveTimeSlots, singleConsecutiveTimeSlots: &singleConsecutiveTimeSlots)
             }
             if timeSlotDictionary[fourthFifteenSlotCode] != nil {
                 var currentAndNextTimeSlot: [TimeSlot] = [TimeSlot]()
-                let accessedTimeSlot: TimeSlot = timeSlotDictionary[firstFifteenSlotCode]!
+                let accessedTimeSlot: TimeSlot = timeSlotDictionary[fourthFifteenSlotCode]!
                 currentAndNextTimeSlot.append(accessedTimeSlot)
     
                 assignAndAddTimeSlotsToTheirAppropriateDataStructures(currentAndNextTimeSlot: &currentAndNextTimeSlot, timeSlotDictionary: timeSlotDictionary, timeSlotCodeHourIterator: timeSlotCodeHourIterator, currentTimeSlot: accessedTimeSlot, collectionOfConsecutiveTimeSlots: &collectionOfConsecutiveTimeSlots, singleConsecutiveTimeSlots: &singleConsecutiveTimeSlots)
@@ -229,7 +283,7 @@ class IntervalAvailabilitiesCheckingOperations {
      TEST: Untested
      */
     func addTimeSlotDictionaryToCollectionOfTimeSlotDictionaryAppropriately(currentAndNextTimeSlot: inout [TimeSlot], collectionOfTimeSlotDictionary: inout [[String: TimeSlot]], singleConsecutiveTimeSlots: inout [String: TimeSlot]) {
-        if !checkIfTimeSlotEndTimeOverlapsWithNextTimeSlotStartTime(firstTimeSlot: currentAndNextTimeSlot[0], secondTimeSlot: currentAndNextTimeSlot[1]) {
+        if checkIfTimeSlotEndTimeOverlapsWithNextTimeSlotStartTime(firstTimeSlot: currentAndNextTimeSlot[0], secondTimeSlot: currentAndNextTimeSlot[1]) {
             // Adds the accessed time Slot [0] to the singleConsecutiveTimeSlot
             singleConsecutiveTimeSlots[currentAndNextTimeSlot[0].getSlotCode()] = currentAndNextTimeSlot[0]
         }
@@ -247,16 +301,16 @@ class IntervalAvailabilitiesCheckingOperations {
         var potentialNextTimeSlotTimeSlotCode = ""
         
         // Conditional statements to determine the key for the next time slot
-        if currentTimeSlot.getSlotCode() == String(timeSlotCodeHourIterator) + "-" + "A" {
+        if currentTimeSlot.getSlotCode() == (String(timeSlotCodeHourIterator) + "-" + "A") {
             potentialNextTimeSlotTimeSlotCode = String(timeSlotCodeHourIterator) + "-" + "B"
         }
-        else if currentTimeSlot.getSlotCode() == String(timeSlotCodeHourIterator) + "-" + "B" {
+        else if currentTimeSlot.getSlotCode() == (String(timeSlotCodeHourIterator) + "-" + "B") {
             potentialNextTimeSlotTimeSlotCode = String(timeSlotCodeHourIterator) + "-" + "C"
         }
-        else if currentTimeSlot.getSlotCode() == String(timeSlotCodeHourIterator) + "-" + "C" {
+        else if currentTimeSlot.getSlotCode() == (String(timeSlotCodeHourIterator) + "-" + "C") {
             potentialNextTimeSlotTimeSlotCode = String(timeSlotCodeHourIterator) + "-" + "D"
         }
-        else if currentTimeSlot.getSlotCode() == String(timeSlotCodeHourIterator) + "-" + "D" {
+        else if currentTimeSlot.getSlotCode() == (String(timeSlotCodeHourIterator) + "-" + "D") {
             potentialNextTimeSlotTimeSlotCode = String(timeSlotCodeHourIterator + 1) + "-" + "A"
         }
         
@@ -275,6 +329,7 @@ class IntervalAvailabilitiesCheckingOperations {
      */
     func putContentsOfOccupiedTimeSlotsDictionariesInOneSingleDictionary(collectionOfTimeSlotDictionary: [[String:TimeSlot]], dayDateForTimeSlotsDictionary: Date) -> [String:TimeSlot] {
         var singleDictionaryOfTimeSlots: [String:TimeSlot] = [String:TimeSlot]()
+        let lastTimeSlotForTheDay = TimeSlot(timeSlotCode: "23-D", timeSlotCodeDay: dayDateForTimeSlotsDictionary)
         // Iterates through every single dictionaries within the collection of timeSlot dictionary
         for timeSlotDictionary in collectionOfTimeSlotDictionary {
             var timeSlotCodeHourIterator: Int = 0
@@ -286,27 +341,35 @@ class IntervalAvailabilitiesCheckingOperations {
                 let fourthFifteenSlotCode = String(timeSlotCodeHourIterator) + "-" + "D"
                 // If timeSlot hour code is the first 15 mins. This is because if timeSlotDictionary key-value is nil, it means the timeSlot is not occupied
                 if timeSlotDictionary[firstFifteenSlotCode] != nil  {
-                    // Adding the timeSlot to the available timeSlots dictionary
-                    let tempTimeSlot = TimeSlot(timeSlotCode: firstFifteenSlotCode, timeSlotCodeDay: dayDateForTimeSlotsDictionary)
-                    singleDictionaryOfTimeSlots[tempTimeSlot!.getSlotCode()] = tempTimeSlot
+                    if timeSlotDictionary[firstFifteenSlotCode]?.getEndTime().compare((lastTimeSlotForTheDay?.getEndTime())!) == ComparisonResult.orderedDescending {
+                        // Adding the timeSlot to the available timeSlots dictionary
+                        let tempTimeSlot = TimeSlot(timeSlotCode: firstFifteenSlotCode, timeSlotCodeDay: dayDateForTimeSlotsDictionary)
+                        singleDictionaryOfTimeSlots[tempTimeSlot!.getSlotCode()] = tempTimeSlot
+                    }
                 }
                 // If timeSlot hour code is the second 15 mins. This is because if timeSlotDictionary key-value is nil, it means the timeSlot is not occupied
                 if timeSlotDictionary[secondFifteenSlotCode] != nil {
-                    // Adding the timeSlot to the available timeSlots dictionary
-                    let tempTimeSlot = TimeSlot(timeSlotCode: secondFifteenSlotCode, timeSlotCodeDay: dayDateForTimeSlotsDictionary)
-                    singleDictionaryOfTimeSlots[tempTimeSlot!.getSlotCode()] = tempTimeSlot
+                    if timeSlotDictionary[secondFifteenSlotCode]?.getEndTime().compare((lastTimeSlotForTheDay?.getEndTime())!) == ComparisonResult.orderedDescending {
+                        // Adding the timeSlot to the available timeSlots dictionary
+                        let tempTimeSlot = TimeSlot(timeSlotCode: secondFifteenSlotCode, timeSlotCodeDay: dayDateForTimeSlotsDictionary)
+                        singleDictionaryOfTimeSlots[tempTimeSlot!.getSlotCode()] = tempTimeSlot
+                    }
                 }
                 // If timeSlot hour code is the third 15 mins. This is because if timeSlotDictionary key-value is nil, it means the timeSlot is not occupied
                 if timeSlotDictionary[thirdFifteenSlotCode] != nil {
-                    // Adding the timeSlot to the available timeSlots dictionary
-                    let tempTimeSlot = TimeSlot(timeSlotCode: thirdFifteenSlotCode, timeSlotCodeDay: dayDateForTimeSlotsDictionary)
-                    singleDictionaryOfTimeSlots[tempTimeSlot!.getSlotCode()] = tempTimeSlot
+                    if timeSlotDictionary[thirdFifteenSlotCode]?.getEndTime().compare((lastTimeSlotForTheDay?.getEndTime())!) == ComparisonResult.orderedDescending {
+                        // Adding the timeSlot to the available timeSlots dictionary
+                        let tempTimeSlot = TimeSlot(timeSlotCode: thirdFifteenSlotCode, timeSlotCodeDay: dayDateForTimeSlotsDictionary)
+                        singleDictionaryOfTimeSlots[tempTimeSlot!.getSlotCode()] = tempTimeSlot
+                    }
                 }
                 // If timeSlot hour code is the fourth 15 mins. This is because if timeSlotDictionary key-value is nil, it means the timeSlot is not occupied
                 if timeSlotDictionary[fourthFifteenSlotCode] != nil {
-                    // Adding the timeSlot to the available timeSlots dictionary
-                    let tempTimeSlot = TimeSlot(timeSlotCode: fourthFifteenSlotCode, timeSlotCodeDay: dayDateForTimeSlotsDictionary)
-                    singleDictionaryOfTimeSlots[tempTimeSlot!.getSlotCode()] = tempTimeSlot
+                    if timeSlotDictionary[fourthFifteenSlotCode]?.getEndTime().compare((lastTimeSlotForTheDay?.getEndTime())!) == ComparisonResult.orderedDescending {
+                        // Adding the timeSlot to the available timeSlots dictionary
+                        let tempTimeSlot = TimeSlot(timeSlotCode: fourthFifteenSlotCode, timeSlotCodeDay: dayDateForTimeSlotsDictionary)
+                        singleDictionaryOfTimeSlots[tempTimeSlot!.getSlotCode()] = tempTimeSlot
+                    }
                 }
                 // Increments the timeSlotCode hour iterator
                 timeSlotCodeHourIterator = timeSlotCodeHourIterator + 1
