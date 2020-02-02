@@ -21,6 +21,13 @@ class TimeSlot {
     var slotCode: String
     
     // MARK: Initialization
+    init?() {
+        self.startOfTimeSlot = Date()
+        self.endOfTimeSlot = Date()
+        self.slotCode = ""
+        setSlotCode(generatedSlotCode: generateSlotCode(startOfTimeSlot: self.startOfTimeSlot))
+    }
+    
     init?(startOfTimeSlot: Date, endOfTimeSlot: Date){
         self.startOfTimeSlot = startOfTimeSlot
         self.endOfTimeSlot = endOfTimeSlot

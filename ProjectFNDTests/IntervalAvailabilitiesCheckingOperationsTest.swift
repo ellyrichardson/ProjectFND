@@ -10,7 +10,7 @@ import XCTest
 import os.log
 @testable import ProjectFND
 
-class ProjectFNDTests: XCTestCase {
+class IntervalAvailabilitiesCheckingOperationsTest: XCTestCase {
     
     // MARK: Mock datas
     
@@ -30,9 +30,9 @@ class ProjectFNDTests: XCTestCase {
         // For getting longest consecutives
         arrayOfToDos.append(ToDo(taskName: "Task Six", taskDescription: "Task Six Description", workDate: formatter.date(from: "2020/01/15 21:30")!, estTime: "2.0", dueDate: formatter.date(from: "2020/01/16 13:30")!, finished: false)!)
         arrayOfToDos.append(ToDo(taskName: "Task Seven", taskDescription: "Task Seven Description", workDate: formatter.date(from: "2020/01/15 23:30")!, estTime: "2.0", dueDate: formatter.date(from: "2020/01/16 13:30")!, finished: false)!)
-        intervalAvailabilitiesHelper.setAllOfTheToDos(toDoItems: arrayOfToDos)
+        //intervalAvailabilitiesHelper.setAllOfTheToDos(toDoItems: arrayOfToDos)
         arrayOfToDos.append(ToDo(taskName: "Task Seven", taskDescription: "Task Seven Description", workDate: formatter.date(from: "2020/01/15 00:00")!, estTime: "7.0", dueDate: formatter.date(from: "2020/01/16 13:30")!, finished: false)!)
-        intervalAvailabilitiesHelper.setAllOfTheToDos(toDoItems: arrayOfToDos)
+        //intervalAvailabilitiesHelper.setAllOfTheToDos(toDoItems: arrayOfToDos)
     }
     
     // MARK: IntervalAvailabilitiesCheckingOperations Tests
@@ -157,16 +157,14 @@ class ProjectFNDTests: XCTestCase {
         XCTAssertEqual(intervalAvailabilitiesHelper.checkTimeIfLastFifteenMinutes(timeToBeChecked: lastFifteenMinOfToDoForTheDay, endingWorkTimeForTheDay: correctEndTimeOfToDoForTheDay), true)
     }
     
-    func testGetLongestConsecutiveTimeSlotsForDay() {
+    func testGetLongestAvailableConsecutiveTimeSlotsForDay() {
         formatter.dateFormat = "yyyy/MM/dd"
         let otherDict = intervalAvailabilitiesHelper.getOccupiedTimeSlots(collectionOfToDosForTheDay: arrayOfToDos, dayDateOfTheCollection: formatter.date(from: "2020/01/15")!)
-        let longestTimeSlots = intervalAvailabilitiesHelper.getLongestConsecutiveTimeSlot(timeSlotDictionary: otherDict, dayToCheck: formatter.date(from: "2020/01/15")!)
+        //print(otherDict)
+        let longestTimeSlots = intervalAvailabilitiesHelper.getLongestAvailableConsecutiveTimeSlot(timeSlotDictionary: otherDict, dayToCheck: formatter.date(from: "2020/01/15")!)
         print(longestTimeSlots)
     }
     
-    /*
-     DEFECT: Issue with this algorithm is that the timeSlots that get past midnight get put for the day instead.
-     */
     func testGetOccupiedTimeSlots() {
         // Initial DateFormat
         formatter.dateFormat = "yyyy/MM/dd"
@@ -214,16 +212,7 @@ class ProjectFNDTests: XCTestCase {
         XCTAssertEqual(occupiedTimeSlots["17-A"]?.getEndTime(), formatter.date(from: "2020/01/15 17:15")!)
         XCTAssertEqual(occupiedTimeSlots["17-B"]?.getEndTime(), formatter.date(from: "2020/01/15 17:30")!)
     }
-
-    func testGetConsecutiveTimeSlotsFromATimeSlotDictionary() {
-        // Initial DateFormat
-        formatter.dateFormat = "yyyy/MM/dd"
-        let dateOfTheDay: Date = formatter.date(from: "2020/01/15")!
-        let toDosForADay: [ToDo] = toDoProcessHelper.retrieveToDoItemsByDay(toDoDate: dateOfTheDay, toDoItems: arrayOfToDos)
-        //var occupiedTimeSlots: [String: TimeSlot] = intervalAvailabilitiesHelper.getOccupiedTimeSlots(collectionOfToDosForTheDay: toDosForADay, dayDateOfTheCollection: dateOfTheDay)
-        //var sortedDictionary = Array
-        //print(intervalAvailabilitiesHelper.getConsecutiveTimeSlotsFromATimeSlotDictionary(timeSlotDictionary: occupiedTimeSlots))
-    }
+    
     /*
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.

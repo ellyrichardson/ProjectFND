@@ -21,7 +21,7 @@
 		21A4D0FC231ECC3600B5B52A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21A4D0FA231ECC3600B5B52A /* Main.storyboard */; };
 		21A4D0FE231ECC3600B5B52A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21A4D0FD231ECC3600B5B52A /* Assets.xcassets */; };
 		21A4D101231ECC3600B5B52A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21A4D0FF231ECC3600B5B52A /* LaunchScreen.storyboard */; };
-		21A4D10C231ECC3700B5B52A /* ProjectFNDTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D10B231ECC3700B5B52A /* ProjectFNDTests.swift */; };
+		21A4D10C231ECC3700B5B52A /* IntervalAvailabilitiesCheckingOperationsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D10B231ECC3700B5B52A /* IntervalAvailabilitiesCheckingOperationsTest.swift */; };
 		21A4D120231ECE1300B5B52A /* CalendarHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21A4D11F231ECE1300B5B52A /* CalendarHeader.xib */; };
 		21A4D122231ECE2300B5B52A /* CalendarHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D121231ECE2300B5B52A /* CalendarHeader.swift */; };
 		21A4D124231ECE9A00B5B52A /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D123231ECE9A00B5B52A /* ToDo.swift */; };
@@ -30,6 +30,8 @@
 		21A4D1322320CDC000B5B52A /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D1312320CDC000B5B52A /* CalendarCell.swift */; };
 		21B8965323D3B7E100D49827 /* DateFormattingOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8965223D3B7E100D49827 /* DateFormattingOperations.swift */; };
 		21B8965623D3BC8000D49827 /* DateArithmeticOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8965523D3BC8000D49827 /* DateArithmeticOperations.swift */; };
+		21BC58AE23E629CA00015ECE /* IntervalAvailabilitiesRetrievingOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BC58AD23E629CA00015ECE /* IntervalAvailabilitiesRetrievingOperations.swift */; };
+		21BC58B023E63A4500015ECE /* IntervalAvailabilitiesRetrievingOperationsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BC58AF23E63A4500015ECE /* IntervalAvailabilitiesRetrievingOperationsTest.swift */; };
 		21C4B007237BEB4700EA3688 /* DeadlineSetupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C4B006237BEB4700EA3688 /* DeadlineSetupTableViewController.swift */; };
 		21C8DA84237915990084E2D6 /* DeadlinesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C8DA82237915990084E2D6 /* DeadlinesTableViewController.swift */; };
 		21C8DA85237915990084E2D6 /* DeadlinesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21C8DA83237915990084E2D6 /* DeadlinesTableViewController.xib */; };
@@ -69,7 +71,7 @@
 		21A4D100231ECC3600B5B52A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		21A4D102231ECC3600B5B52A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		21A4D107231ECC3700B5B52A /* ProjectFNDTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectFNDTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		21A4D10B231ECC3700B5B52A /* ProjectFNDTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectFNDTests.swift; sourceTree = "<group>"; };
+		21A4D10B231ECC3700B5B52A /* IntervalAvailabilitiesCheckingOperationsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalAvailabilitiesCheckingOperationsTest.swift; sourceTree = "<group>"; };
 		21A4D10D231ECC3700B5B52A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		21A4D11F231ECE1300B5B52A /* CalendarHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarHeader.xib; sourceTree = "<group>"; };
 		21A4D121231ECE2300B5B52A /* CalendarHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHeader.swift; sourceTree = "<group>"; };
@@ -79,6 +81,8 @@
 		21A4D1312320CDC000B5B52A /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		21B8965223D3B7E100D49827 /* DateFormattingOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormattingOperations.swift; sourceTree = "<group>"; };
 		21B8965523D3BC8000D49827 /* DateArithmeticOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateArithmeticOperations.swift; sourceTree = "<group>"; };
+		21BC58AD23E629CA00015ECE /* IntervalAvailabilitiesRetrievingOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalAvailabilitiesRetrievingOperations.swift; sourceTree = "<group>"; };
+		21BC58AF23E63A4500015ECE /* IntervalAvailabilitiesRetrievingOperationsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalAvailabilitiesRetrievingOperationsTest.swift; sourceTree = "<group>"; };
 		21C4B006237BEB4700EA3688 /* DeadlineSetupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadlineSetupTableViewController.swift; sourceTree = "<group>"; };
 		21C8DA82237915990084E2D6 /* DeadlinesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadlinesTableViewController.swift; sourceTree = "<group>"; };
 		21C8DA83237915990084E2D6 /* DeadlinesTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeadlinesTableViewController.xib; sourceTree = "<group>"; };
@@ -121,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				217477CE23D5282B001CA394 /* IntervalAvailabilitiesCheckingOperations.swift */,
+				21BC58AD23E629CA00015ECE /* IntervalAvailabilitiesRetrievingOperations.swift */,
 			);
 			path = intervalSchedulingOperations;
 			sourceTree = "<group>";
@@ -193,7 +198,8 @@
 		21A4D10A231ECC3700B5B52A /* ProjectFNDTests */ = {
 			isa = PBXGroup;
 			children = (
-				21A4D10B231ECC3700B5B52A /* ProjectFNDTests.swift */,
+				21A4D10B231ECC3700B5B52A /* IntervalAvailabilitiesCheckingOperationsTest.swift */,
+				21BC58AF23E63A4500015ECE /* IntervalAvailabilitiesRetrievingOperationsTest.swift */,
 				21A4D10D231ECC3700B5B52A /* Info.plist */,
 			);
 			path = ProjectFNDTests;
@@ -507,6 +513,7 @@
 				219CEE6C234FD21000A9E819 /* ProjectFND.xcdatamodeld in Sources */,
 				219CA4AB2326CA18003ACBDE /* CheckBoxButton.swift in Sources */,
 				214E0AE9233552C700398AC5 /* TransformingButton.swift in Sources */,
+				21BC58AE23E629CA00015ECE /* IntervalAvailabilitiesRetrievingOperations.swift in Sources */,
 				214E0AEC233552FE00398AC5 /* ExpandButton.swift in Sources */,
 				21C8DA88237916A90084E2D6 /* ToDoDateSection.swift in Sources */,
 				21A4D124231ECE9A00B5B52A /* ToDo.swift in Sources */,
@@ -523,7 +530,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				21A4D10C231ECC3700B5B52A /* ProjectFNDTests.swift in Sources */,
+				21BC58B023E63A4500015ECE /* IntervalAvailabilitiesRetrievingOperationsTest.swift in Sources */,
+				21A4D10C231ECC3700B5B52A /* IntervalAvailabilitiesCheckingOperationsTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
