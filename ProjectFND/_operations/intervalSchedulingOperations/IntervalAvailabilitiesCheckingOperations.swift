@@ -107,6 +107,7 @@ class IntervalAvailabilitiesCheckingOperations {
     }
     
     /*
+     DESCRIPTION: timeSlotDictionary parameter is assumed to have been occupiedTimeSlots, ideally
      TEST: Passed
      */
     func getLongestAvailableConsecutiveTimeSlot(timeSlotDictionary: [String: TimeSlot], dayToCheck: Date) -> [String: TimeSlot] {

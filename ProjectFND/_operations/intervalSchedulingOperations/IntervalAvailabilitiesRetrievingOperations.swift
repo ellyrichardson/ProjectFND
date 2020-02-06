@@ -12,16 +12,11 @@ import os.log
 
 class IntervalAvailabilitiesRetrievalOperations {
     var dateArithmeticOps = DateArithmeticOperations()
-    private var allOfTheToDos: [ToDo]
-    
-    init() {
-        let toDoProcessHelper = ToDoProcessHelper()
-        self.allOfTheToDos = toDoProcessHelper.loadToDos()!
-    }
+    //private var allOfTheToDos: [ToDo]
     
     // MARK: Essential Functions
     
-    // TEST: Untested
+    // TEST: Failed
     func getStartTimeOfConsecutiveTimeSlots(consecutiveTimeSlot: [String: TimeSlot], dayOfConcern: Date) -> TimeSlot {
         var timeSlotCodeHourIterator: Int = 0
         var earliestAssignedNumberComponent: Int = 24
@@ -36,13 +31,13 @@ class IntervalAvailabilitiesRetrievalOperations {
             if consecutiveTimeSlot[firstFifteenSlotCode] != nil {
                 mutateComponentsForSlotCodeStartTime(slotCode: firstFifteenSlotCode, earliestAssignedNumberComponent: &earliestAssignedNumberComponent, earliestAssignedLetterComponentAsInt: &earliestAssignedLetterComponentAsInt)
             }
-            if consecutiveTimeSlot[secondFifteenSlotCode] == nil {
+            if consecutiveTimeSlot[secondFifteenSlotCode] != nil {
                 mutateComponentsForSlotCodeStartTime(slotCode: secondFifteenSlotCode, earliestAssignedNumberComponent: &earliestAssignedNumberComponent, earliestAssignedLetterComponentAsInt: &earliestAssignedLetterComponentAsInt)
             }
-            if consecutiveTimeSlot[thirdFifteenSlotCode] == nil {
+            if consecutiveTimeSlot[thirdFifteenSlotCode] != nil {
                 mutateComponentsForSlotCodeStartTime(slotCode: thirdFifteenSlotCode, earliestAssignedNumberComponent: &earliestAssignedNumberComponent, earliestAssignedLetterComponentAsInt: &earliestAssignedLetterComponentAsInt)
             }
-            if consecutiveTimeSlot[fourthFifteenSlotCode] == nil {
+            if consecutiveTimeSlot[fourthFifteenSlotCode] != nil {
                 mutateComponentsForSlotCodeStartTime(slotCode: fourthFifteenSlotCode, earliestAssignedNumberComponent: &earliestAssignedNumberComponent, earliestAssignedLetterComponentAsInt: &earliestAssignedLetterComponentAsInt)
             }
             // Iterates to the next codeHour possible by incrementing the timeSlotCodeHourIterator by 1
@@ -79,18 +74,23 @@ class IntervalAvailabilitiesRetrievalOperations {
             if consecutiveTimeSlot[firstFifteenSlotCode] != nil {
                 mutateComponentsForSlotCodeEndTime(slotCode: firstFifteenSlotCode, latestAssignedNumberComponent: &latestAssignedNumberComponent, latestAssignedLetterComponentAsInt: &latestAssignedLetterComponentAsInt)
             }
-            if consecutiveTimeSlot[secondFifteenSlotCode] == nil {
+            if consecutiveTimeSlot[secondFifteenSlotCode] != nil {
                 mutateComponentsForSlotCodeEndTime(slotCode: secondFifteenSlotCode, latestAssignedNumberComponent: &latestAssignedNumberComponent, latestAssignedLetterComponentAsInt: &latestAssignedLetterComponentAsInt)
             }
-            if consecutiveTimeSlot[thirdFifteenSlotCode] == nil {
+            if consecutiveTimeSlot[thirdFifteenSlotCode] != nil {
                 mutateComponentsForSlotCodeEndTime(slotCode: thirdFifteenSlotCode, latestAssignedNumberComponent: &latestAssignedNumberComponent, latestAssignedLetterComponentAsInt: &latestAssignedLetterComponentAsInt)
             }
-            if consecutiveTimeSlot[fourthFifteenSlotCode] == nil {
+            if consecutiveTimeSlot[fourthFifteenSlotCode] != nil {
                 mutateComponentsForSlotCodeEndTime(slotCode: fourthFifteenSlotCode, latestAssignedNumberComponent: &latestAssignedNumberComponent, latestAssignedLetterComponentAsInt: &latestAssignedLetterComponentAsInt)
             }
             // Iterates to the next codeHour possible by incrementing the timeSlotCodeHourIterator by 1
             timeSlotCodeHourIterator = timeSlotCodeHourIterator + 1
         }
+        // TODO: Some gnarly stuff. Should be fixed!
+        if latestAssignedLetterComponentAsInt < 3 {
+            latestAssignedLetterComponentAsInt = latestAssignedLetterComponentAsInt + 1
+        }
+        
         var timeSlotCodeReady: String = String()
         if latestAssignedLetterComponentAsInt == 0 {
             timeSlotCodeReady = String(latestAssignedNumberComponent) + "-" + "A"

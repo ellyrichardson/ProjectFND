@@ -31,7 +31,7 @@
 		21B8965323D3B7E100D49827 /* DateFormattingOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8965223D3B7E100D49827 /* DateFormattingOperations.swift */; };
 		21B8965623D3BC8000D49827 /* DateArithmeticOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8965523D3BC8000D49827 /* DateArithmeticOperations.swift */; };
 		21BC58AE23E629CA00015ECE /* IntervalAvailabilitiesRetrievingOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BC58AD23E629CA00015ECE /* IntervalAvailabilitiesRetrievingOperations.swift */; };
-		21BC58B023E63A4500015ECE /* IntervalAvailabilitiesRetrievingOperationsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BC58AF23E63A4500015ECE /* IntervalAvailabilitiesRetrievingOperationsTest.swift */; };
+		21BC58B023E63A4500015ECE /* IntervalAvailabilitiesRetrievalOperationsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BC58AF23E63A4500015ECE /* IntervalAvailabilitiesRetrievalOperationsTest.swift */; };
 		21C4B007237BEB4700EA3688 /* DeadlineSetupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C4B006237BEB4700EA3688 /* DeadlineSetupTableViewController.swift */; };
 		21C8DA84237915990084E2D6 /* DeadlinesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C8DA82237915990084E2D6 /* DeadlinesTableViewController.swift */; };
 		21C8DA85237915990084E2D6 /* DeadlinesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21C8DA83237915990084E2D6 /* DeadlinesTableViewController.xib */; };
@@ -82,7 +82,7 @@
 		21B8965223D3B7E100D49827 /* DateFormattingOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormattingOperations.swift; sourceTree = "<group>"; };
 		21B8965523D3BC8000D49827 /* DateArithmeticOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateArithmeticOperations.swift; sourceTree = "<group>"; };
 		21BC58AD23E629CA00015ECE /* IntervalAvailabilitiesRetrievingOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalAvailabilitiesRetrievingOperations.swift; sourceTree = "<group>"; };
-		21BC58AF23E63A4500015ECE /* IntervalAvailabilitiesRetrievingOperationsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalAvailabilitiesRetrievingOperationsTest.swift; sourceTree = "<group>"; };
+		21BC58AF23E63A4500015ECE /* IntervalAvailabilitiesRetrievalOperationsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalAvailabilitiesRetrievalOperationsTest.swift; sourceTree = "<group>"; };
 		21C4B006237BEB4700EA3688 /* DeadlineSetupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadlineSetupTableViewController.swift; sourceTree = "<group>"; };
 		21C8DA82237915990084E2D6 /* DeadlinesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadlinesTableViewController.swift; sourceTree = "<group>"; };
 		21C8DA83237915990084E2D6 /* DeadlinesTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeadlinesTableViewController.xib; sourceTree = "<group>"; };
@@ -199,7 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				21A4D10B231ECC3700B5B52A /* IntervalAvailabilitiesCheckingOperationsTest.swift */,
-				21BC58AF23E63A4500015ECE /* IntervalAvailabilitiesRetrievingOperationsTest.swift */,
+				21BC58AF23E63A4500015ECE /* IntervalAvailabilitiesRetrievalOperationsTest.swift */,
 				21A4D10D231ECC3700B5B52A /* Info.plist */,
 			);
 			path = ProjectFNDTests;
@@ -530,7 +530,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				21BC58B023E63A4500015ECE /* IntervalAvailabilitiesRetrievingOperationsTest.swift in Sources */,
+				21BC58B023E63A4500015ECE /* IntervalAvailabilitiesRetrievalOperationsTest.swift in Sources */,
 				21A4D10C231ECC3700B5B52A /* IntervalAvailabilitiesCheckingOperationsTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
