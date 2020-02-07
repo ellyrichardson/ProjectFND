@@ -16,7 +16,7 @@ class IntervalAvailabilitiesRetrievalOperations {
     
     // MARK: Essential Functions
     
-    // TEST: Failed
+    // TEST: Passed
     func getStartTimeOfConsecutiveTimeSlots(consecutiveTimeSlot: [String: TimeSlot], dayOfConcern: Date) -> TimeSlot {
         var timeSlotCodeHourIterator: Int = 0
         var earliestAssignedNumberComponent: Int = 24
@@ -59,7 +59,7 @@ class IntervalAvailabilitiesRetrievalOperations {
         return TimeSlot(timeSlotCode: timeSlotCodeReady, timeSlotCodeDay: dayOfConcern)!
     }
     
-    // TEST: Untested
+    // TEST: Passed
     func getEndTimeOfConsecutiveTimeSlots(consecutiveTimeSlot: [String: TimeSlot], dayOfConcern: Date) -> TimeSlot {
         var timeSlotCodeHourIterator: Int = 0
         var latestAssignedNumberComponent: Int = 0
@@ -107,7 +107,7 @@ class IntervalAvailabilitiesRetrievalOperations {
         return TimeSlot(timeSlotCode: timeSlotCodeReady, timeSlotCodeDay: dayOfConcern)!
     }
     
-    // TEST: Untested
+    // TEST: Untested directly, but tested through getStartTimeOfConsecutiveTimeSlots test
     func mutateComponentsForSlotCodeStartTime(slotCode: String, earliestAssignedNumberComponent: inout Int, earliestAssignedLetterComponentAsInt: inout Int) {
         let slotCodeComponents: [String] = slotCode.components(separatedBy: "-")
         let numberComponent = Int(slotCodeComponents[0])!
@@ -153,7 +153,7 @@ class IntervalAvailabilitiesRetrievalOperations {
         }
     }
     
-    // TEST: Untested
+    // TEST: Untested directly, but tested through getEndTimeOfConsecutiveTimeSlots test
     func mutateComponentsForSlotCodeEndTime(slotCode: String, latestAssignedNumberComponent: inout Int, latestAssignedLetterComponentAsInt: inout Int) {
         let slotCodeComponents: [String] = slotCode.components(separatedBy: "-")
         let numberComponent = Int(slotCodeComponents[0])!

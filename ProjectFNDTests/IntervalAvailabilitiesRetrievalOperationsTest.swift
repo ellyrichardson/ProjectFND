@@ -34,30 +34,44 @@ class IntervalAvailabilitiesRetrievalOperationsTest: XCTestCase {
         arrayOfToDos.append(ToDo(taskName: "Task Seven", taskDescription: "Task Seven Description", workDate: formatter.date(from: "2020/01/15 00:00")!, estTime: "7.0", dueDate: formatter.date(from: "2020/01/16 13:30")!, finished: false)!)
     }
     
-    // FIX THIS TEST!!!
     func testGetStartTimeOfConsecutiveTimeSlots() {
         formatter.dateFormat = "yyyy/MM/dd"
-        let timeSlotDictionaryOne: [String: TimeSlot] = intervalAvailabilitiesCheckingHelper.getTimeSlotsOfAToDo(toDo: arrayOfToDos[0])
-        let theTimeSlot = intervalAvailabilitiesRetrievalHelper.getStartTimeOfConsecutiveTimeSlots(consecutiveTimeSlot: timeSlotDictionaryOne, dayOfConcern: formatter.date(from: "2020/01/15")!)
+        let dateOfTheDay: Date = formatter.date(from: "2020/01/15")!
+        
+        let toDosForADay: [ToDo] = toDoProcessHelper.retrieveToDoItemsByDay(toDoDate: dateOfTheDay, toDoItems: arrayOfToDos)
+        let dictForTimeSlotsOfOneToDo: [String: TimeSlot] = intervalAvailabilitiesCheckingHelper.getTimeSlotsOfAToDo(toDo: arrayOfToDos[0])
+        let oneToDoTimeSlot = intervalAvailabilitiesRetrievalHelper.getStartTimeOfConsecutiveTimeSlots(consecutiveTimeSlot: dictForTimeSlotsOfOneToDo, dayOfConcern: dateOfTheDay)
         // DateFormat for the assertions
         formatter.dateFormat = "yyyy/MM/dd HH:mm"
-        XCTAssertEqual(theTimeSlot.getStartTime(), formatter.date(from: "2020/01/15 13:30")!)
-        let otherDict = intervalAvailabilitiesCheckingHelper.getOccupiedTimeSlots(collectionOfToDosForTheDay: arrayOfToDos, dayDateOfTheCollection: formatter.date(from: "2020/01/15")!)
-        let longestTimeSlots = intervalAvailabilitiesCheckingHelper.getLongestAvailableConsecutiveTimeSlot(timeSlotDictionary: otherDict, dayToCheck: formatter.date(from: "2020/01/15")!)
-        XCTAssertEqual(theTimeSlot.getStartTime(), formatter.date(from: "2020/01/15 13:30")!)
+        // Assertion for the startTime of timeSlots of a ToDo
+        XCTAssertEqual(oneToDoTimeSlot.getStartTime(), formatter.date(from: "2020/01/15 13:30")!)
+        
+        let dictForTimeSlotsOfAllToDoInDate = intervalAvailabilitiesCheckingHelper.getOccupiedTimeSlots(collectionOfToDosForTheDay: toDosForADay, dayDateOfTheCollection: dateOfTheDay)
+        let availableTimeSlots = intervalAvailabilitiesCheckingHelper.getLongestAvailableConsecutiveTimeSlot(timeSlotDictionary: dictForTimeSlotsOfAllToDoInDate, dayToCheck: dateOfTheDay)
+        let longestTimeSlots = intervalAvailabilitiesRetrievalHelper.getStartTimeOfConsecutiveTimeSlots(consecutiveTimeSlot: availableTimeSlots, dayOfConcern: dateOfTheDay)
+        
+        // Assertion for checking the startTime of longest available consecutive timeSlots from all of the ToDos in a date
+        XCTAssertEqual(longestTimeSlots.getStartTime(), formatter.date(from: "2020/01/15 07:00")!)
     }
     
     func testGetEndTimeOfConsecutiveTimeSlots() {
         formatter.dateFormat = "yyyy/MM/dd"
-        let timeSlotDictionaryOne: [String: TimeSlot] = intervalAvailabilitiesCheckingHelper.getTimeSlotsOfAToDo(toDo: arrayOfToDos[0])
-        let theTimeSlot = intervalAvailabilitiesRetrievalHelper.getEndTimeOfConsecutiveTimeSlots(consecutiveTimeSlot: timeSlotDictionaryOne, dayOfConcern: formatter.date(from: "2020/01/15")!)
+        let dateOfTheDay: Date = formatter.date(from: "2020/01/15")!
+        
+        let toDosForADay: [ToDo] = toDoProcessHelper.retrieveToDoItemsByDay(toDoDate: dateOfTheDay, toDoItems: arrayOfToDos)
+        let dictForTimeSlotsOfOneToDo: [String: TimeSlot] = intervalAvailabilitiesCheckingHelper.getTimeSlotsOfAToDo(toDo: arrayOfToDos[0])
+        let oneToDoTimeSlot = intervalAvailabilitiesRetrievalHelper.getEndTimeOfConsecutiveTimeSlots(consecutiveTimeSlot: dictForTimeSlotsOfOneToDo, dayOfConcern: dateOfTheDay)
         // DateFormat for the assertions
         formatter.dateFormat = "yyyy/MM/dd HH:mm"
-        XCTAssertEqual(theTimeSlot.getStartTime(), formatter.date(from: "2020/01/15 15:30")!)
-    }
-    
-    func testMutateComponentsForSlotCodeStartTime() {
+        // Assertion for the endTime of timeSlots of a ToDo
+        XCTAssertEqual(oneToDoTimeSlot.getStartTime(), formatter.date(from: "2020/01/15 15:30")!)
         
+        let dictForTimeSlotsOfAllToDoInDate = intervalAvailabilitiesCheckingHelper.getOccupiedTimeSlots(collectionOfToDosForTheDay: toDosForADay, dayDateOfTheCollection: dateOfTheDay)
+        let availableTimeSlots = intervalAvailabilitiesCheckingHelper.getLongestAvailableConsecutiveTimeSlot(timeSlotDictionary: dictForTimeSlotsOfAllToDoInDate, dayToCheck: dateOfTheDay)
+        let longestTimeSlots = intervalAvailabilitiesRetrievalHelper.getEndTimeOfConsecutiveTimeSlots(consecutiveTimeSlot: availableTimeSlots, dayOfConcern: dateOfTheDay)
+        
+        // Assertion for checking the endTime of longest available consecutive timeSlots from all of the ToDos in a date
+        XCTAssertEqual(longestTimeSlots.getStartTime(), formatter.date(from: "2020/01/15 13:30")!)
     }
     /*
     override func tearDown() {
