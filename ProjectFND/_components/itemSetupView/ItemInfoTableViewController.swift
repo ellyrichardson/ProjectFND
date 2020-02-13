@@ -30,11 +30,13 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     private var finished: Bool
     private var chosenWorkDate: Date
     private var chosenDueDate: Date
+    private var schedulerWasSet: Bool
     
     required init?(coder aDecoder: NSCoder) {
         self.chosenWorkDate = Date()
         self.chosenDueDate = Date()
         self.finished = false
+        self.schedulerWasSet = false
 
         super.init(coder: aDecoder)
     }
@@ -157,8 +159,15 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         var intervalHours = intervalSchedulingHourField.text
         var intervalDays = intervalSchedulingDayField.text
         
+        // Send the interval hours and days from here to next view!
+        
+        /*
+        guard let itemInfoTableViewController = segue.destination as? IntervalSchedulingPreviewController else {
+            fatalError("Unexpected destination: \(segue.destination)")
+        }
+ */
     }
-    
+
     
     // MARK: - Table view data source
     
@@ -247,24 +256,35 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
-        // Only prepare view controller when the save button is pressed
-        guard let button = sender as? UIBarButtonItem, button === saveButton else {
-            os_log("The save button was not pressed, cancelling new item", log: OSLog.default,
-                   type: .debug)
-            return
+        if segue.identifier == "setupIntervals" {
+            guard let intervalSchedulingPreviewController = segue.destination as? IntervalSchedulingPreviewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            var intervalHours = intervalSchedulingHourField.text
+            var intervalDays = intervalSchedulingDayField.text
+            intervalSchedulingPreviewController.setIntervalAmount(intervalAmount: intervalDays!)
+            intervalSchedulingPreviewController.setIntervalLength(intervalLength: intervalHours!)
+            
+        } else {
+            // Only prepare view controller when the save button is pressed
+            guard let button = sender as? UIBarButtonItem, button === saveButton else {
+                os_log("The save button was not pressed, cancelling new item", log: OSLog.default,
+                       type: .debug)
+                return
+            }
+            
+            let taskName = taskNameField.text
+            let taskDescription = taskDescriptionView.text
+            let workDate = chosenWorkDate
+            let estTime = estTimeField.text
+            let dueDate = chosenDueDate
+            
+            updateSaveButtonState()
+            navigationItem.title = taskName
+            
+            // Set the ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue
+            toDo = ToDo(taskName: taskName!, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())
         }
-        
-        let taskName = taskNameField.text
-        let taskDescription = taskDescriptionView.text
-        let workDate = chosenWorkDate
-        let estTime = estTimeField.text
-        let dueDate = chosenDueDate
-        
-        updateSaveButtonState()
-        navigationItem.title = taskName
-        
-        // Set the ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue
-        toDo = ToDo(taskName: taskName!, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())
     }
     
     @IBAction func cancelButton(_ sender: UIBarButtonItem) {
@@ -294,10 +314,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         if !(taskNameField.text?.isEmpty)! && !(estTimeField.text?.isEmpty)! {
             saveButton.isEnabled = true
         }
-            /*
-        else {
-            saveButton.isEnabled = true
-        }*/
+        
         // Only allow saveButton if textFields are not empty
         taskNameField.addTarget(self, action: #selector(textFieldsAreNotEmpty), for: .editingChanged)
         estTimeField.addTarget(self, action: #selector(textFieldsAreNotEmpty), for: .editingChanged)

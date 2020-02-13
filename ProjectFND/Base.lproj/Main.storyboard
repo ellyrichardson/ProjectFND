@@ -579,11 +579,11 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="209" id="SDw-Tp-o25">
-                                        <rect key="frame" x="0.0" y="668" width="320" height="209"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="178" id="SDw-Tp-o25">
+                                        <rect key="frame" x="0.0" y="668" width="320" height="178"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SDw-Tp-o25" id="tKK-Zf-FIy">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="208.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="177.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Interval Scheduling" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idZ-LV-EGz">
@@ -592,43 +592,43 @@
                                                     <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xnm-Bn-EvX">
-                                                    <rect key="frame" x="137" y="145" width="46" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="Button"/>
-                                                    <connections>
-                                                        <action selector="setupIntervalSchedule:" destination="knJ-Sz-Bcd" eventType="touchUpInside" id="EaC-c4-kgr"/>
-                                                        <segue destination="kd2-te-07V" kind="show" id="Uz5-cK-vff"/>
-                                                    </connections>
-                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hours" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ar-hh-YQP">
-                                                    <rect key="frame" x="36" y="50" width="67" height="17"/>
+                                                    <rect key="frame" x="36" y="49" width="67" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="15"/>
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Days" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G6m-gm-QVN">
-                                                    <rect key="frame" x="199" y="50" width="67" height="17"/>
+                                                    <rect key="frame" x="198" y="49" width="67" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="15"/>
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="E.g. 10 Hrs" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CWO-6e-a98">
-                                                    <rect key="frame" x="36" y="75" width="86" height="30"/>
+                                                    <rect key="frame" x="36" y="74" width="86" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                                 <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="E.g. 8 Days" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vkm-ct-hNM">
-                                                    <rect key="frame" x="199" y="75" width="86" height="30"/>
+                                                    <rect key="frame" x="198" y="74" width="86" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xnm-Bn-EvX">
+                                                    <rect key="frame" x="137" y="109" width="46" height="27"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <connections>
+                                                        <action selector="setupIntervalSchedule:" destination="knJ-Sz-Bcd" eventType="touchUpInside" id="EaC-c4-kgr"/>
+                                                        <segue destination="kd2-te-07V" kind="show" identifier="setupIntervals" id="Qam-1J-jT7"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="idZ-LV-EGz" firstAttribute="top" secondItem="tKK-Zf-FIy" secondAttribute="topMargin" constant="6" id="4n7-3s-dIf"/>
@@ -929,7 +929,7 @@
         <!--Ib Calendar Data Source-->
         <scene sceneID="lc4-y0-04g">
             <objects>
-                <viewController id="kd2-te-07V" customClass="ScheduleViewController" customModule="ProjectFND" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="kd2-te-07V" customClass="IntervalSchedulingPreviewController" customModule="ProjectFND" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YL5-vZ-tk0">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1162,16 +1162,16 @@
                         <viewLayoutGuide key="safeArea" id="L5l-sE-gEo"/>
                     </view>
                     <navigationItem key="navigationItem" id="VaS-3z-XZa">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="QLn-av-zQD"/>
+                        <barButtonItem key="rightBarButtonItem" title="Accept" id="QLn-av-zQD"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="calendarView" destination="sh0-dO-jS7" id="hvK-K6-5d1"/>
-                        <outlet property="toDoListTableView" destination="Zyq-n4-ZfN" id="RmF-bG-HnE"/>
+                        <outlet property="calendarView" destination="sh0-dO-jS7" id="UYw-61-JUN"/>
+                        <outlet property="toDoListTableView" destination="Zyq-n4-ZfN" id="vQk-PP-gkG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wYS-Bb-NB0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2803" y="131"/>
+            <point key="canvasLocation" x="3894" y="131"/>
         </scene>
     </scenes>
     <resources>

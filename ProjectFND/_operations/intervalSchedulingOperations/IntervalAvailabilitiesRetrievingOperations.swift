@@ -155,6 +155,7 @@ class IntervalAvailabilitiesRetrievalOperations {
     
     // TEST: Untested directly, but tested through getEndTimeOfConsecutiveTimeSlots test
     func mutateComponentsForSlotCodeEndTime(slotCode: String, latestAssignedNumberComponent: inout Int, latestAssignedLetterComponentAsInt: inout Int) {
+        
         let slotCodeComponents: [String] = slotCode.components(separatedBy: "-")
         let numberComponent = Int(slotCodeComponents[0])!
         let letterComponent = slotCodeComponents[1]
@@ -174,7 +175,7 @@ class IntervalAvailabilitiesRetrievalOperations {
                 latestAssignedLetterComponentAsInt = 3
             }
         }
-            // If accessed number component already equal to the assigned latest number component, then check the accessed letter component
+        // If accessed number component already equal to the assigned latest number component, then check the accessed letter component
         else if numberComponent == latestAssignedNumberComponent {
             if letterComponent == "B" {
                 if 1 > latestAssignedLetterComponentAsInt {
