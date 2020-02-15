@@ -260,10 +260,12 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             guard let intervalSchedulingPreviewController = segue.destination as? IntervalSchedulingPreviewController else {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
-            var intervalHours = intervalSchedulingHourField.text
-            var intervalDays = intervalSchedulingDayField.text
+            let intervalHours = intervalSchedulingHourField.text
+            let intervalDays = intervalSchedulingDayField.text
             intervalSchedulingPreviewController.setIntervalAmount(intervalAmount: intervalDays!)
             intervalSchedulingPreviewController.setIntervalLength(intervalLength: intervalHours!)
+            intervalSchedulingPreviewController.setToDoStartDate(toDoStartDate: chosenWorkDate)
+            intervalSchedulingPreviewController.setToDoEndDate(toDoEndDate: chosenDueDate)
             
         } else {
             // Only prepare view controller when the save button is pressed

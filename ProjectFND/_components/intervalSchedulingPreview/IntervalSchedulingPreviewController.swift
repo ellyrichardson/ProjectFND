@@ -37,6 +37,9 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     private var coreToDoData: [NSManagedObject] = []
     private var intervalAmount: Int = 0
     private var intervalLength: Double = 0.0
+    private var dateOfTheDay: String = ""
+    private var toDoStartDate: Date = Date()
+    private var toDoEndDate: Date = Date()
     
     // Expand row buttons tracker assets
     
@@ -65,6 +68,8 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         }
         
         configureCalendarView()
+        // Determines the interval starting from the start date of ToDo
+        determineInterval(savedToDos: getToDoItems(), dateOfTheDay: getToDoStartDate())
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -295,12 +300,6 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         }
     }
     
-    // MARK: - Passing Data
-    
-    func setToDosToBeAdded(toDoItems: [ToDo]) {
-        self.toDosToBeAdded = toDoItems
-    }
-    
     // MARK: - Setters
     
     // USED HERE IN THIS CONTEXT
@@ -317,8 +316,26 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         }
     }
     
+    // USED HERE IN THIS CONTEXT
+    func setToDoStartDate(toDoStartDate: Date) {
+        self.toDoStartDate = toDoStartDate
+    }
+    
+    // USED HERE IN THIS CONTEXT
+    func setToDoEndDate(toDoEndDate: Date) {
+        self.toDoEndDate = toDoEndDate
+    }
+    
+    func setDateOfTheDay(dayOfTheDay: Date) {
+        
+    }
+    
     func setToDoItems(toDoItems: [ToDo]) {
         self.toDos = toDoItems
+    }
+    
+    func setToDosToBeAdded(toDoItems: [ToDo]) {
+        self.toDosToBeAdded = toDoItems
     }
     
     func setSelectedToDoIndex(toDoItemIndex: Int) {
@@ -338,6 +355,26 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     }
     
     // MARK: - Getters
+    
+    // USED HERE IN THIS CONTEXT
+    func getIntervalAmount() -> Int {
+        return self.intervalAmount
+    }
+    
+    // USED HERE IN THIS CONTEXT
+    func getIntervalLength() -> Double {
+        return self.intervalLength
+    }
+    
+    // USED HERE IN THIS CONTEXT
+    func getToDoStartDate() -> Date {
+        return self.toDoStartDate
+    }
+    
+    // USED HERE IN THIS CONTEXT
+    func getToDoEndDate() -> Date {
+        return self.toDoEndDate
+    }
     
     private func getToDoItemsByDay(dateChosen: Date) -> [ToDo] {
         return toDoProcessHelper.retrieveToDoItemsByDay(toDoDate: dateChosen, toDoItems: getToDoItems())
@@ -459,8 +496,36 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         }
     }
     
-    private func determineInterval() {
-        
+    private func determineInterval(savedToDos: [ToDo], dateOfTheDay: Date) {
+        formatter.dateFormat = "yyyy/MM/dd"
+        let stringDateOfTheDay: String = formatter.string(from: dateOfTheDay)
+        let actualDateOfTheDay: Date = formatter.date(from: stringDateOfTheDay)!
+        let intervalSchedCheckHelper = IntervalAvailabilitiesCheckingOperations()
+        let intervalSchedRetrivHelper = IntervalAvailabilitiesRetrievalOperations()
+        let toDoProcessHelper = ToDoProcessHelper()
+        var assignedIntervals: Int = 0
+        while assignedIntervals < 5 {
+            let toDoItemsForDay: [ToDo] = toDoProcessHelper.retrieveToDoItemsByDay(toDoDate: actualDateOfTheDay, toDoItems: savedToDos)
+            let timeSlotsOfAllToDoInDate = intervalSchedCheckHelper.getOccupiedTimeSlots(collectionOfToDosForTheDay: toDoItemsForDay, dayDateOfTheCollection: actualDateOfTheDay)
+            let availableTimeSlots = intervalSchedCheckHelper.getLongestAvailableConsecutiveTimeSlot(timeSlotDictionary: timeSlotsOfAllToDoInDate, dayToCheck: actualDateOfTheDay)
+            let longestTimeIntervalStartTime = intervalSchedRetrivHelper.getStartTimeOfConsecutiveTimeSlots(consecutiveTimeSlot: availableTimeSlots, dayOfConcern: actualDateOfTheDay)
+            let longestTimeIntervalEndTime = intervalSchedRetrivHelper.getEndTimeOfConsecutiveTimeSlots(consecutiveTimeSlot: availableTimeSlots, dayOfConcern: actualDateOfTheDay)
+            
+            //let cal = Calendar.current
+            //let diffDate = Calendar.current.dateComponents(<#T##components: Set<Calendar.Component>##Set<Calendar.Component>#>, from: longestTimeIntervalStartTime.getStartTime(), to: longestTimeIntervalEnd)
+            
+            let determinedInterval = (longestTimeIntervalEndTime.getStartTime().timeIntervalSince(longestTimeIntervalStartTime.getStartTime())/3600)
+            
+            print("YOOOOOOO")
+            print(determinedInterval)
+            
+            // NOTE: Don't know the return of the timeIntervalSince if it is in hours or seconds
+            if determinedInterval >= getIntervalLength() {
+                // TODO: Action here
+                
+                assignedIntervals += 1
+            }
+        }
     }
     
     @objc func onCheckBoxButtonTap(sender: CheckBoxButton) {
