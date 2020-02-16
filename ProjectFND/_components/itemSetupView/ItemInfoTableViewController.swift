@@ -178,6 +178,10 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
                 taskItemCells[0].collapsed = false
             } else {
                 taskItemCells[0].collapsed = true
+                // Uncollapse all other table rows
+                taskItemCells[1].collapsed = false
+                taskItemCells[2].collapsed = false
+                taskItemCells[3].collapsed = false
             }
             tableView.beginUpdates()
             tableView.endUpdates()
@@ -187,6 +191,11 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
                 taskItemCells[1].collapsed = false
             } else {
                 taskItemCells[1].collapsed = true
+                // Uncollapse all other table rows
+                taskItemCells[0].collapsed = false
+                taskItemCells[2].collapsed = false
+                taskItemCells[3].collapsed = false
+                taskItemCells[4].collapsed = false
             }
             tableView.beginUpdates()
             tableView.endUpdates()
@@ -196,6 +205,11 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
                 taskItemCells[2].collapsed = false
             } else {
                 taskItemCells[2].collapsed = true
+                // Uncollapse all other table rows
+                taskItemCells[0].collapsed = false
+                taskItemCells[1].collapsed = false
+                taskItemCells[3].collapsed = false
+                taskItemCells[4].collapsed = false
             }
             tableView.beginUpdates()
             tableView.endUpdates()
@@ -205,6 +219,11 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
                 taskItemCells[3].collapsed = false
             } else {
                 taskItemCells[3].collapsed = true
+                // Uncollapse all other table rows
+                taskItemCells[0].collapsed = false
+                taskItemCells[1].collapsed = false
+                taskItemCells[2].collapsed = false
+                taskItemCells[4].collapsed = false
             }
             tableView.beginUpdates()
             tableView.endUpdates()
@@ -214,6 +233,11 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
                 taskItemCells[4].collapsed = false
             } else {
                 taskItemCells[4].collapsed = true
+                // Uncollapse all other table rows
+                taskItemCells[0].collapsed = false
+                taskItemCells[1].collapsed = false
+                taskItemCells[2].collapsed = false
+                taskItemCells[3].collapsed = false
             }
             tableView.beginUpdates()
             tableView.endUpdates()
@@ -262,10 +286,21 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             }
             let intervalHours = intervalSchedulingHourField.text
             let intervalDays = intervalSchedulingDayField.text
+            let taskName = taskNameField.text
+            let taskDescription = taskDescriptionView.text
+            let workDate = chosenWorkDate
+            let estTime = estTimeField.text
+            let dueDate = chosenDueDate
+            
+            updateSaveButtonState()
+            navigationItem.title = taskName
+            
+            // Set the ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue
             intervalSchedulingPreviewController.setIntervalAmount(intervalAmount: intervalDays!)
             intervalSchedulingPreviewController.setIntervalLength(intervalLength: intervalHours!)
-            intervalSchedulingPreviewController.setToDoStartDate(toDoStartDate: chosenWorkDate)
-            intervalSchedulingPreviewController.setToDoEndDate(toDoEndDate: chosenDueDate)
+            intervalSchedulingPreviewController.setToDoStartDate(toDoStartDate: workDate)
+            intervalSchedulingPreviewController.setToDoEndDate(toDoEndDate: dueDate)
+            intervalSchedulingPreviewController.setToDoToBeIntervalized(toDo: ToDo(taskName: taskName!, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())!)
             
         } else {
             // Only prepare view controller when the save button is pressed

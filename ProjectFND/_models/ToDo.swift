@@ -48,6 +48,16 @@ class ToDo: NSObject, NSCoding {
         self.finished = finished
     }
     
+    override init() {
+        // Init stored properties
+        self.taskName = ""
+        self.taskDescription = ""
+        self.workDate = Date()
+        self.estTime = ""
+        self.dueDate = Date()
+        self.finished = false
+    }
+    
     // MARK: - NSCoding
     func encode(with aCoder: NSCoder) {
         aCoder.encode(taskName, forKey: PropertyKey.taskName)

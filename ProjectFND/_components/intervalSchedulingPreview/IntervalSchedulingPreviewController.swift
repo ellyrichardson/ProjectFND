@@ -38,8 +38,10 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     private var intervalAmount: Int = 0
     private var intervalLength: Double = 0.0
     private var dateOfTheDay: String = ""
+    private var toDoToBeIntervalized = ToDo()
     private var toDoStartDate: Date = Date()
     private var toDoEndDate: Date = Date()
+    private var toDoIntervalsToAssign = [ToDo]()
     
     // Expand row buttons tracker assets
     
@@ -326,6 +328,11 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         self.toDoEndDate = toDoEndDate
     }
     
+    // USED HERE IN THIS CONTEXT
+    func setToDoToBeIntervalized(toDo: ToDo) {
+        self.toDoToBeIntervalized = toDo
+    }
+    
     func setDateOfTheDay(dayOfTheDay: Date) {
         
     }
@@ -374,6 +381,16 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     // USED HERE IN THIS CONTEXT
     func getToDoEndDate() -> Date {
         return self.toDoEndDate
+    }
+    
+    // USED HERE IN THIS CONTEXT
+    func getToDoToBeIntervalized() -> ToDo {
+        return self.toDoToBeIntervalized
+    }
+    
+    // USED HERE IN THIS CONTEXT
+    func getToDoIntervalsToAssign() -> [ToDo] {
+        return self.toDoIntervalsToAssign
     }
     
     private func getToDoItemsByDay(dateChosen: Date) -> [ToDo] {
@@ -499,12 +516,12 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     private func determineInterval(savedToDos: [ToDo], dateOfTheDay: Date) {
         formatter.dateFormat = "yyyy/MM/dd"
         let stringDateOfTheDay: String = formatter.string(from: dateOfTheDay)
-        let actualDateOfTheDay: Date = formatter.date(from: stringDateOfTheDay)!
+        var actualDateOfTheDay: Date = formatter.date(from: stringDateOfTheDay)!
         let intervalSchedCheckHelper = IntervalAvailabilitiesCheckingOperations()
         let intervalSchedRetrivHelper = IntervalAvailabilitiesRetrievalOperations()
         let toDoProcessHelper = ToDoProcessHelper()
         var assignedIntervals: Int = 0
-        while assignedIntervals < 5 {
+        while assignedIntervals < getIntervalAmount() {
             let toDoItemsForDay: [ToDo] = toDoProcessHelper.retrieveToDoItemsByDay(toDoDate: actualDateOfTheDay, toDoItems: savedToDos)
             let timeSlotsOfAllToDoInDate = intervalSchedCheckHelper.getOccupiedTimeSlots(collectionOfToDosForTheDay: toDoItemsForDay, dayDateOfTheCollection: actualDateOfTheDay)
             let availableTimeSlots = intervalSchedCheckHelper.getLongestAvailableConsecutiveTimeSlot(timeSlotDictionary: timeSlotsOfAllToDoInDate, dayToCheck: actualDateOfTheDay)
@@ -514,18 +531,39 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
             //let cal = Calendar.current
             //let diffDate = Calendar.current.dateComponents(<#T##components: Set<Calendar.Component>##Set<Calendar.Component>#>, from: longestTimeIntervalStartTime.getStartTime(), to: longestTimeIntervalEnd)
             
-            let determinedInterval = (longestTimeIntervalEndTime.getStartTime().timeIntervalSince(longestTimeIntervalStartTime.getStartTime())/3600)
+            let determinedInterval = (longestTimeIntervalEndTime.getEndTime().timeIntervalSince(longestTimeIntervalStartTime.getStartTime())/3600)
             
             print("YOOOOOOO")
             print(determinedInterval)
             
+            let intervalName = getToDoToBeIntervalized().getTaskName()
+            let intervalDescription = getToDoToBeIntervalized().getTaskDescription()
+            let intervalStartDate = longestTimeIntervalStartTime.getStartTime()
+            let intervalDueDate = longestTimeIntervalEndTime.getStartTime()
+            let intervalStatus = getToDoToBeIntervalized().isFinished()
+            let intervalEstTime = getToDoToBeIntervalized().getEstTime()
             // NOTE: Don't know the return of the timeIntervalSince if it is in hours or seconds
             if determinedInterval >= getIntervalLength() {
                 // TODO: Action here
-                
+                toDoIntervalsToAssign.append(ToDo(taskName: intervalName, taskDescription: intervalDescription, workDate: intervalStartDate, estTime: intervalEstTime, dueDate: intervalDueDate, finished: intervalStatus)!)
                 assignedIntervals += 1
             }
+            if actualDateOfTheDay < getToDoToBeIntervalized().getEndDate() {
+                actualDateOfTheDay = Calendar.current.date(byAdding: .day, value: 1, to: actualDateOfTheDay)!
+            }
         }
+    }
+    
+    private func isToDoIntervalOnDay(toDoInterval: ToDo, dateOfDay: Date) -> Bool {
+        formatter.dateFormat = "yyyy/MM/dd"
+        let stringDateOfDay: String = formatter.string(from: dateOfDay)
+        let actualDateOfDay: Date = formatter.date(from: stringDateOfDay)!
+        let strToDoIntervalStartDate: String = formatter.string(from: toDoInterval.getStartDate())
+        let actToDoIntervalStartDate: Date = formatter.date(from: strToDoIntervalStartDate)!
+        if actToDoIntervalStartDate == actualDateOfDay {
+            return true
+        }
+        return false
     }
     
     @objc func onCheckBoxButtonTap(sender: CheckBoxButton) {
@@ -623,6 +661,8 @@ extension IntervalSchedulingPreviewController: JTAppleCalendarViewDelegate {
             cell = showCellIndicators(cell: cell, onProgress: onProgressToDoExist, finished: finishedToDoExist, overdue: overdueToDoExist)
         }
         
+        previewToDoIntervals(cell: &cell, dateChosen: date)
+        
         configureCell(cell: cell, cellState: cellState)
         return cell
     }
@@ -691,5 +731,12 @@ extension IntervalSchedulingPreviewController: JTAppleCalendarViewDelegate {
         }
         return cell
     }
-
+    
+    func previewToDoIntervals(cell: inout CalendarCell, dateChosen: Date) {
+        for toDoInterval in getToDoIntervalsToAssign() {
+            if isToDoIntervalOnDay(toDoInterval: toDoInterval, dateOfDay: dateChosen) {
+                cell.backgroundColor = UIColor(red:0.729, green:0.860, blue:0.354, alpha:1.0)
+            }
+        }
+    }
 }
