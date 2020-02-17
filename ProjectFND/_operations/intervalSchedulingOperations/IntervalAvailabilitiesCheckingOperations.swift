@@ -111,12 +111,6 @@ class IntervalAvailabilitiesCheckingOperations {
      TEST: Passed
      */
     func getLongestAvailableConsecutiveTimeSlot(timeSlotDictionary: [String: TimeSlot], dayToCheck: Date) -> [String: TimeSlot] {
-        var acceptedTimeSlotDict: [String: TimeSlot] = [String: TimeSlot]()
-        print("YEET")
-        print(timeSlotDictionary)
-        if timeSlotDictionary.count > 0 {
-            acceptedTimeSlotDict = timeSlotDictionary
-        }
         var tempSingleTimeSlotDictionary: [String: TimeSlot] = [String: TimeSlot]()
         var tempCollectionOfSingleTimeSlotDict: [[String: TimeSlot]] = [[String: TimeSlot]]()
         var timeSlotCodeHourIterator: Int = 0
