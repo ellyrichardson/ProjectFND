@@ -203,11 +203,6 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         cell.startDateLabel.text = workDateFormatter.string(from: toDoItems[indexPath.row].workDate)
         cell.estTimeLabel.text = toDoItems[indexPath.row].estTime
         cell.dueDateLabel.text = dueDateFormatter.string(from: toDoItems[indexPath.row].dueDate)
-        // Assigns an index to the CheckBox button of a row
-        cell.checkBoxButton.setToDoRowIndex(toDoRowIndex: indexPath.row)
-        // Sets the status of the CheckBox being pressed
-        cell.checkBoxButton.setPressedStatus(isPressed: toDoItems[indexPath.row].finished)
-        cell.checkBoxButton.addTarget(self, action: #selector(onCheckBoxButtonTap(sender:)), for: .touchUpInside)
         
         // If calendar day was changed, then make the state of to-be loaded expand row buttons false
         if getCalendarDayChanged() == true {
