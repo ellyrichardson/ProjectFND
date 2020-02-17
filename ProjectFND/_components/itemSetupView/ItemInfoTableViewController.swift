@@ -27,6 +27,8 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     
     private var taskItemCells = [StaticTableCell]()
     var toDo: ToDo?
+    var toDoIntervals: [ToDo] = [ToDo]()
+    var toDoIntervalsExist: Bool = false
     private var finished: Bool
     private var chosenWorkDate: Date
     private var chosenDueDate: Date
@@ -295,6 +297,8 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             updateSaveButtonState()
             navigationItem.title = taskName
             
+            // TODO: REMOVE TIGHT COUPLING!
+            
             // Set the ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue
             intervalSchedulingPreviewController.setIntervalAmount(intervalAmount: intervalDays!)
             intervalSchedulingPreviewController.setIntervalLength(intervalLength: intervalHours!)
@@ -321,6 +325,14 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             
             // Set the ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue
             toDo = ToDo(taskName: taskName!, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())
+        }
+    }
+    
+    // TODO: Remove tight coupling
+    @IBAction func unwindToItemInfo(sender:UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? IntervalSchedulingPreviewController {
+            self.toDoIntervalsExist = true
+            self.toDoIntervals  = sourceViewController.getToDoIntervalsToAssign()
         }
     }
     
@@ -370,5 +382,15 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         }
         // Enable save button if all conditions are met
         saveButton.isEnabled = true
+    }
+    
+    // MARK: - Getters
+    
+    func getToDoIntervals() -> [ToDo] {
+        return self.toDoIntervals
+    }
+    
+    func isToDoIntervalsExist() -> Bool {
+        return self.toDoIntervalsExist
     }
 }

@@ -21,6 +21,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     //@IBOutlet weak var toDoListTableView: UITableView!
     @IBOutlet weak var calendarView: JTAppleCalendarView!
     @IBOutlet weak var toDoListTableView: UITableView!
+    @IBOutlet weak var acceptButton: UIBarButtonItem!
     
     // Helpers
     
@@ -266,6 +267,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
+        /*
         switch(segue.identifier ?? "") {
         case "AddToDoItem":
             os_log("Adding a new ToDo item.", log: OSLog.default, type: .debug)
@@ -296,6 +298,15 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         default:
             fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")
         }
+ */
+        // Only prepare view controller when the save button is pressed
+        guard let button = sender as? UIBarButtonItem, button === acceptButton else {
+            os_log("The accept button was not pressed, ignoring intervals generated", log: OSLog.default,
+                   type: .debug)
+            return
+        }
+        
+        // Uses the toDoIntervalsToAssign for the unwindSegue
     }
     
     // MARK: - Setters

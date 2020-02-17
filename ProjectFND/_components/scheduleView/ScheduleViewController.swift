@@ -240,6 +240,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     // MARK: - Actions
     
     @IBAction func unwindToScheduleView(sender: UIStoryboardSegue) {
+        /*
         if let sourceViewController = sender.source as? ItemInfoTableViewController, let toDo = sourceViewController.toDo {
             if toDoListTableView.indexPathForSelectedRow != nil {
                 // Replaces the ToDo item in the original array of ToDos.
@@ -251,6 +252,32 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
                 print("ToDo Finished?")
                 print(toDo.finished)
                 toDoProcessHelper.saveToDos(toDoItem: toDo)
+            }
+        }
+ */
+        if let sourceViewController = sender.source as? ItemInfoTableViewController {
+            if sourceViewController.isToDoIntervalsExist() {
+                let toDoIntervals = sourceViewController.getToDoIntervals()
+                for toDo in toDoIntervals {
+                    addToDoItem(toDoItem: toDo)
+                    print("ToDo Finished?")
+                    print(toDo.finished)
+                    toDoProcessHelper.saveToDos(toDoItem: toDo)
+                }
+            }
+            else {
+                let toDo = sourceViewController.toDo
+                if toDoListTableView.indexPathForSelectedRow != nil {
+                    // Replaces the ToDo item in the original array of ToDos.
+                    toDoProcessHelper.updateToDo(toDoToUpdate: getToDoItemByIndex(toDoIndex: getSelectedToDoIndex()), newToDo: toDo!, updateType: 0)
+                    replaceToDoItemInBaseList(editedToDoItem: toDo!, editedToDoItemIndex: getSelectedToDoIndex())
+                    reloadTableViewData()
+                } else {
+                    addToDoItem(toDoItem: toDo!)
+                    print("ToDo Finished?")
+                    print(toDo!.finished)
+                    toDoProcessHelper.saveToDos(toDoItem: toDo!)
+                }
             }
         }
     }

@@ -1156,16 +1156,22 @@
                         <viewLayoutGuide key="safeArea" id="L5l-sE-gEo"/>
                     </view>
                     <navigationItem key="navigationItem" id="VaS-3z-XZa">
-                        <barButtonItem key="rightBarButtonItem" title="Accept" id="QLn-av-zQD"/>
+                        <barButtonItem key="rightBarButtonItem" title="Accept" id="QLn-av-zQD">
+                            <connections>
+                                <segue destination="o07-eC-kzU" kind="unwind" unwindAction="unwindToItemInfoWithSender:" id="F1X-WF-g4T"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="acceptButton" destination="QLn-av-zQD" id="d4K-gv-izS"/>
                         <outlet property="calendarView" destination="sh0-dO-jS7" id="UYw-61-JUN"/>
                         <outlet property="toDoListTableView" destination="Zyq-n4-ZfN" id="vQk-PP-gkG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wYS-Bb-NB0" sceneMemberID="firstResponder"/>
+                <exit id="o07-eC-kzU" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3894" y="131"/>
+            <point key="canvasLocation" x="2708" y="131"/>
         </scene>
     </scenes>
     <resources>
