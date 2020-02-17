@@ -566,11 +566,11 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
             let intervalStartDate = longestTimeIntervalStartTime.getStartTime()
             let intervalDueDate = longestTimeIntervalEndTime.getStartTime()
             let intervalStatus = getToDoToBeIntervalized().isFinished()
-            let intervalEstTime = getToDoToBeIntervalized().getEstTime()
+            //let intervalEstTime = getToDoToBeIntervalized().getEstTime()
             // NOTE: Don't know the return of the timeIntervalSince if it is in hours or seconds
             if determinedInterval >= getIntervalLength() {
                 // TODO: Action here
-                toDoIntervalsToAssign.append(ToDo(taskName: intervalName, taskDescription: intervalDescription, workDate: intervalStartDate, estTime: intervalEstTime, dueDate: intervalDueDate, finished: intervalStatus)!)
+                toDoIntervalsToAssign.append(ToDo(taskName: intervalName, taskDescription: intervalDescription, workDate: intervalStartDate, estTime: String(getIntervalLength()), dueDate: intervalDueDate, finished: intervalStatus)!)
                 assignedIntervals += 1
             }
             if actualDateOfTheDay < getToDoToBeIntervalized().getEndDate() {

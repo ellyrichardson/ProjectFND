@@ -111,6 +111,12 @@ class IntervalAvailabilitiesCheckingOperations {
      TEST: Passed
      */
     func getLongestAvailableConsecutiveTimeSlot(timeSlotDictionary: [String: TimeSlot], dayToCheck: Date) -> [String: TimeSlot] {
+        var acceptedTimeSlotDict: [String: TimeSlot] = [String: TimeSlot]()
+        print("YEET")
+        print(timeSlotDictionary)
+        if timeSlotDictionary.count > 0 {
+            acceptedTimeSlotDict = timeSlotDictionary
+        }
         var tempSingleTimeSlotDictionary: [String: TimeSlot] = [String: TimeSlot]()
         var tempCollectionOfSingleTimeSlotDict: [[String: TimeSlot]] = [[String: TimeSlot]]()
         var timeSlotCodeHourIterator: Int = 0
@@ -152,9 +158,15 @@ class IntervalAvailabilitiesCheckingOperations {
             // Iterates to the next codeHour possible by incrementing the timeSlotCodeHourIterator by 1
             timeSlotCodeHourIterator = timeSlotCodeHourIterator + 1
         }
-        
         // Gets the longest consecutive timeSlot
-        var longestConsecutiveTimeSlot: [String: TimeSlot] = tempCollectionOfSingleTimeSlotDict[0]
+        var longestConsecutiveTimeSlot: [String: TimeSlot] = [String: TimeSlot]()
+        if timeSlotDictionary.count > 0 {
+            longestConsecutiveTimeSlot = tempCollectionOfSingleTimeSlotDict[0]
+        }
+        // Use the singleTimeSlotDictionary if timeSlotDictionary is empty
+        else {
+            longestConsecutiveTimeSlot = tempSingleTimeSlotDictionary
+        }
         for timeSlotDict in tempCollectionOfSingleTimeSlotDict {
             if timeSlotDict.count > longestConsecutiveTimeSlot.count {
                 longestConsecutiveTimeSlot = timeSlotDict
