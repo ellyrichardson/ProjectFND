@@ -185,128 +185,129 @@
         <!--Ib Calendar Data Source-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ScheduleViewController" customModule="ProjectFND" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="ScheduleViewController" customModule="ProjectFND" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="viE-Pl-vKV">
-                                <rect key="frame" x="0.0" y="72" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="260"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="599-3L-iTF">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="13.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="27.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S  " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idt-8W-3gt">
-                                                <rect key="frame" x="0.0" y="0.0" width="45.5" height="13.5"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="45.700000000000003" id="gVI-tR-a0z"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="TimesNewRomanPS-BoldMT" family="Times New Roman" pointSize="12"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="45.5" height="27.5"/>
+                                                <color key="backgroundColor" name="AppOrange"/>
+                                                <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="15"/>
                                                 <color key="textColor" name="AppYellow"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="M" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dwc-ur-ag9">
-                                                <rect key="frame" x="45.5" y="0.0" width="46" height="13.5"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="45.700000000000003" id="hWf-OP-rkp"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="12"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="M" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dwc-ur-ag9">
+                                                <rect key="frame" x="45.5" y="0.0" width="46" height="27.5"/>
+                                                <color key="backgroundColor" name="AppYellow"/>
+                                                <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="T" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gq3-y7-cw4" userLabel="T">
-                                                <rect key="frame" x="91.5" y="0.0" width="45.5" height="13.5"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="45.700000000000003" id="ko7-bF-EY8"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="12"/>
+                                                <rect key="frame" x="91.5" y="0.0" width="45.5" height="27.5"/>
+                                                <color key="backgroundColor" name="AppGreen"/>
+                                                <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="W" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="imt-Iv-CPx" userLabel="W">
-                                                <rect key="frame" x="137" y="0.0" width="46" height="13.5"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="45.700000000000003" id="olE-5O-8WQ"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="12"/>
+                                                <rect key="frame" x="137" y="0.0" width="46" height="27.5"/>
+                                                <color key="backgroundColor" name="AppOrange"/>
+                                                <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="T" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zym-VT-9Io" userLabel="T">
-                                                <rect key="frame" x="183" y="0.0" width="45.5" height="13.5"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="45.700000000000003" id="UhN-Cq-cLC"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="12"/>
+                                                <rect key="frame" x="183" y="0.0" width="45.5" height="27.5"/>
+                                                <color key="backgroundColor" name="AppYellow"/>
+                                                <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="F" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KdX-fy-sVn" userLabel="F">
-                                                <rect key="frame" x="228.5" y="0.0" width="45.5" height="13.5"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="45.700000000000003" id="NaO-el-Rp9"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="12"/>
+                                                <rect key="frame" x="228.5" y="0.0" width="46" height="27.5"/>
+                                                <color key="backgroundColor" name="AppGreen"/>
+                                                <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vi6-BU-YBZ" userLabel="S">
-                                                <rect key="frame" x="274" y="0.0" width="46" height="13.5"/>
-                                                <fontDescription key="fontDescription" name="TimesNewRomanPS-BoldMT" family="Times New Roman" pointSize="12"/>
+                                                <rect key="frame" x="274.5" y="0.0" width="45.5" height="27.5"/>
+                                                <color key="backgroundColor" name="AppOrange"/>
+                                                <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="15"/>
                                                 <color key="textColor" name="AppYellow"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <constraints>
+                                            <constraint firstItem="dwc-ur-ag9" firstAttribute="width" secondItem="idt-8W-3gt" secondAttribute="width" id="0vz-AV-kKJ"/>
+                                            <constraint firstItem="gq3-y7-cw4" firstAttribute="leading" secondItem="dwc-ur-ag9" secondAttribute="trailing" id="26B-sb-l5b"/>
+                                            <constraint firstItem="Zym-VT-9Io" firstAttribute="width" secondItem="idt-8W-3gt" secondAttribute="width" id="E2y-5F-aqe"/>
+                                            <constraint firstItem="KdX-fy-sVn" firstAttribute="width" secondItem="idt-8W-3gt" secondAttribute="width" id="ENA-uy-wTz"/>
+                                            <constraint firstItem="KdX-fy-sVn" firstAttribute="leading" secondItem="Zym-VT-9Io" secondAttribute="trailing" id="Lke-Vf-iZw"/>
+                                            <constraint firstItem="imt-Iv-CPx" firstAttribute="leading" secondItem="gq3-y7-cw4" secondAttribute="trailing" id="NVv-lO-atK"/>
+                                            <constraint firstItem="Zym-VT-9Io" firstAttribute="leading" secondItem="imt-Iv-CPx" secondAttribute="trailing" id="Ngu-aw-S3u"/>
+                                            <constraint firstItem="gq3-y7-cw4" firstAttribute="width" secondItem="idt-8W-3gt" secondAttribute="width" id="O57-e2-WGN"/>
+                                            <constraint firstItem="imt-Iv-CPx" firstAttribute="width" secondItem="idt-8W-3gt" secondAttribute="width" id="Y3K-sM-out"/>
+                                            <constraint firstItem="dwc-ur-ag9" firstAttribute="leading" secondItem="idt-8W-3gt" secondAttribute="trailing" id="YIP-eu-Eac"/>
+                                            <constraint firstItem="vi6-BU-YBZ" firstAttribute="width" secondItem="idt-8W-3gt" secondAttribute="width" id="iSj-OJ-A9m"/>
+                                            <constraint firstItem="vi6-BU-YBZ" firstAttribute="leading" secondItem="KdX-fy-sVn" secondAttribute="trailing" id="xPf-Hk-ZgD"/>
+                                        </constraints>
                                     </stackView>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PDs-aS-qTz" userLabel="Calendar View" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
-                                        <rect key="frame" x="0.0" y="13.5" width="320" height="262.5"/>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bUx-wp-cNs">
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PDs-aS-qTz" userLabel="Calendar View" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
+                                        <rect key="frame" x="0.0" y="27.5" width="320" height="232.5"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ZM2-Yd-Mxw">
                                             <size key="itemSize" width="50" height="50"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" reuseIdentifier="CalendarCell" id="wHW-pf-hnw" customClass="CalendarCell" customModule="ProjectFND" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="45.700000000000003" height="45.700000000000003"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CalendarCell" id="wHW-pf-hnw" customClass="CalendarCell" customModule="ProjectFND" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="43" height="43"/>
+                                                <autoresizingMask key="autoresizingMask"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                                    <rect key="frame" x="0.0" y="0.0" width="45.700000000000003" height="45.700000000000003"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="43" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kqc-NC-t2c" userLabel="Selected View">
-                                                            <rect key="frame" x="4" y="4.5" width="37" height="37"/>
+                                                            <rect key="frame" x="3" y="3" width="37" height="37"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </view>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v3i-F9-fBN" userLabel="Top Indicator">
-                                                            <rect key="frame" x="12.5" y="8" width="19" height="8"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iZ9-Qi-9PX" userLabel="Top Left Indicator">
-                                                            <rect key="frame" x="6" y="10" width="19" height="8"/>
+                                                            <rect key="frame" x="4" y="9.5" width="19" height="8"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PVZ-Uv-mMH" userLabel="Bottom Indicator">
-                                                            <rect key="frame" x="12.5" y="29.5" width="19" height="8"/>
+                                                            <rect key="frame" x="12" y="30" width="19" height="8"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         </stackView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QvW-9w-CGe">
-                                                            <rect key="frame" x="8" y="16" width="28" height="14"/>
+                                                            <rect key="frame" x="7.5" y="15" width="28" height="14"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="12"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zN6-ej-M0S" userLabel="Top Right Indicator">
-                                                            <rect key="frame" x="19.5" y="10" width="19" height="8"/>
+                                                            <rect key="frame" x="20" y="9.5" width="19" height="8"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        </stackView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v3i-F9-fBN" userLabel="Top Indicator">
+                                                            <rect key="frame" x="12" y="5" width="19" height="8"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         </stackView>
                                                     </subviews>
                                                 </view>
-                                                <size key="customSize" width="45.700000000000003" height="45.700000000000003"/>
+                                                <size key="customSize" width="43" height="43"/>
                                                 <connections>
                                                     <outlet property="bottomIndicator" destination="PVZ-Uv-mMH" id="5I5-h7-YN0"/>
                                                     <outlet property="dateLabel" destination="QvW-9w-CGe" id="N8e-xJ-QA2"/>
@@ -319,7 +320,7 @@
                                         </cells>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cellSize">
-                                                <real key="value" value="45.700000000000003"/>
+                                                <real key="value" value="43"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -327,94 +328,96 @@
                                             <outlet property="ibCalendarDelegate" destination="BYZ-38-t0r" id="dAM-uC-fSK"/>
                                         </connections>
                                     </collectionView>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sYl-Eh-KfZ">
-                                        <rect key="frame" x="0.0" y="276" width="320" height="228"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="228" id="Gd8-kL-DxA"/>
-                                        </constraints>
-                                        <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ScheduleTableViewCell" rowHeight="84" id="5uS-bT-su0" customClass="ScheduleTableViewCell" customModule="ProjectFND" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="320" height="84"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5uS-bT-su0" id="MpH-B1-QHB" customClass="ScheduleTableViewCell" customModule="ProjectFND" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="84"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Start Time:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUa-SI-VXI">
-                                                            <rect key="frame" x="15" y="43" width="80" height="19"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="10"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Due Date:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9q8-SJ-SQ4">
-                                                            <rect key="frame" x="196" y="43" width="109" height="19"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="10"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Est. Time:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p4a-zy-V6N">
-                                                            <rect key="frame" x="108" y="43" width="75" height="19"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="10"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qpY-Y2-D8e" customClass="CheckBoxButton" customModule="ProjectFND" customModuleProvider="target">
-                                                            <rect key="frame" x="15" y="10" width="25" height="25"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <state key="normal" title="Check" image="UncheckBox"/>
-                                                        </button>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Task Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ou-jz-3c5">
-                                                            <rect key="frame" x="53" y="13" width="212" height="19"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="17"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="786-xC-cXL" customClass="ExpandButton" customModule="ProjectFND" customModuleProvider="target">
-                                                            <rect key="frame" x="279" y="10" width="26" height="25"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <state key="normal" title="Settings" image="ExpandToDo"/>
-                                                        </button>
-                                                    </subviews>
-                                                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                </tableViewCellContentView>
-                                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                <connections>
-                                                    <outlet property="checkBoxButton" destination="qpY-Y2-D8e" id="jLJ-bU-FG0"/>
-                                                    <outlet property="dueDateLabel" destination="9q8-SJ-SQ4" id="YDo-2Z-Ahd"/>
-                                                    <outlet property="estTimeLabel" destination="p4a-zy-V6N" id="9XK-m8-o7X"/>
-                                                    <outlet property="expandButton" destination="786-xC-cXL" id="Gz4-kx-mlc"/>
-                                                    <outlet property="startDateLabel" destination="XUa-SI-VXI" id="EQe-6v-1xb"/>
-                                                    <outlet property="taskNameLabel" destination="8ou-jz-3c5" id="Wdh-k5-XAX"/>
-                                                    <segue destination="knJ-Sz-Bcd" kind="show" identifier="ShowToDoItemDetails" id="Hmx-bT-i6Z"/>
-                                                </connections>
-                                            </tableViewCell>
-                                        </prototypes>
-                                        <connections>
-                                            <outlet property="dataSource" destination="BYZ-38-t0r" id="nzD-ks-epd"/>
-                                            <outlet property="delegate" destination="BYZ-38-t0r" id="Wma-h9-Il6"/>
-                                        </connections>
-                                    </tableView>
                                 </subviews>
-                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="PDs-aS-qTz" secondAttribute="trailing" id="1kH-eL-vAJ"/>
-                                    <constraint firstItem="PDs-aS-qTz" firstAttribute="leading" secondItem="viE-Pl-vKV" secondAttribute="leading" id="DuE-Pg-QqF"/>
-                                    <constraint firstItem="PDs-aS-qTz" firstAttribute="top" secondItem="599-3L-iTF" secondAttribute="bottom" id="Hbl-vt-4yT"/>
-                                    <constraint firstItem="599-3L-iTF" firstAttribute="top" secondItem="viE-Pl-vKV" secondAttribute="top" id="KNa-hq-61S"/>
-                                    <constraint firstAttribute="trailing" secondItem="599-3L-iTF" secondAttribute="trailing" id="Ks9-3n-Wva"/>
-                                    <constraint firstItem="599-3L-iTF" firstAttribute="leading" secondItem="viE-Pl-vKV" secondAttribute="leading" id="z59-0l-FEz"/>
+                                    <constraint firstAttribute="width" secondItem="viE-Pl-vKV" secondAttribute="height" multiplier="16:13" id="mib-cj-tEd"/>
                                 </constraints>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TASKS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QBd-dI-f6Q">
+                                <rect key="frame" x="0.0" y="332" width="320" height="23"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="QBd-dI-f6Q" secondAttribute="height" multiplier="320:23" id="tJH-yp-dfA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="13"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sYl-Eh-KfZ">
+                                <rect key="frame" x="16" y="361.5" width="288" height="157.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ScheduleTableViewCell" rowHeight="73" id="5uS-bT-su0" customClass="ScheduleTableViewCell" customModule="ProjectFND" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="288" height="73"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5uS-bT-su0" id="MpH-B1-QHB" customClass="ScheduleTableViewCell" customModule="ProjectFND" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="288" height="73"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Start Time:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUa-SI-VXI">
+                                                    <rect key="frame" x="15" y="43" width="61" height="19"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="10"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Est. Time:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p4a-zy-V6N">
+                                                    <rect key="frame" x="84" y="43" width="75" height="19"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="10"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qpY-Y2-D8e" customClass="CheckBoxButton" customModule="ProjectFND" customModuleProvider="target">
+                                                    <rect key="frame" x="4.5" y="5" width="25" height="25"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="Check" image="UncheckBox"/>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="786-xC-cXL" customClass="ExpandButton" customModule="ProjectFND" customModuleProvider="target">
+                                                    <rect key="frame" x="256" y="5" width="26" height="25"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="Settings" image="ExpandToDo"/>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Due Date:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9q8-SJ-SQ4">
+                                                    <rect key="frame" x="177" y="43" width="109" height="19"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="10"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Task Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ou-jz-3c5">
+                                                    <rect key="frame" x="38" y="11" width="210" height="16"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="11"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="checkBoxButton" destination="qpY-Y2-D8e" id="jLJ-bU-FG0"/>
+                                            <outlet property="dueDateLabel" destination="9q8-SJ-SQ4" id="YDo-2Z-Ahd"/>
+                                            <outlet property="estTimeLabel" destination="p4a-zy-V6N" id="9XK-m8-o7X"/>
+                                            <outlet property="expandButton" destination="786-xC-cXL" id="Gz4-kx-mlc"/>
+                                            <outlet property="startDateLabel" destination="XUa-SI-VXI" id="EQe-6v-1xb"/>
+                                            <outlet property="taskNameLabel" destination="8ou-jz-3c5" id="Wdh-k5-XAX"/>
+                                            <segue destination="knJ-Sz-Bcd" kind="show" identifier="ShowToDoItemDetails" id="Hmx-bT-i6Z"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="nzD-ks-epd"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Wma-h9-Il6"/>
+                                </connections>
+                            </tableView>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="viE-Pl-vKV" secondAttribute="bottom" constant="-8" id="9ZH-KE-bUI"/>
-                            <constraint firstItem="viE-Pl-vKV" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="DtJ-po-wp4"/>
-                            <constraint firstItem="viE-Pl-vKV" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="ofv-mq-MUt"/>
-                            <constraint firstItem="viE-Pl-vKV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="yU9-Z6-mve"/>
+                            <constraint firstItem="viE-Pl-vKV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="E82-u5-qPf"/>
+                            <constraint firstItem="sYl-Eh-KfZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="JAb-g6-N38"/>
+                            <constraint firstItem="QBd-dI-f6Q" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="LEJ-Ml-MUO"/>
+                            <constraint firstItem="sYl-Eh-KfZ" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Ubw-tZ-Ego"/>
+                            <constraint firstItem="QBd-dI-f6Q" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Usg-zg-DHt"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="sYl-Eh-KfZ" secondAttribute="trailing" constant="16" id="VAt-nm-fE4"/>
+                            <constraint firstItem="viE-Pl-vKV" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Vni-N6-uNC"/>
+                            <constraint firstItem="viE-Pl-vKV" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Y7b-1C-Ikg"/>
+                            <constraint firstItem="QBd-dI-f6Q" firstAttribute="top" secondItem="viE-Pl-vKV" secondAttribute="bottom" constant="8" id="oKb-6T-eQv"/>
+                            <constraint firstItem="sYl-Eh-KfZ" firstAttribute="top" secondItem="QBd-dI-f6Q" secondAttribute="bottom" constant="6.5" id="v7D-VZ-UE7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -1177,6 +1180,12 @@
     <resources>
         <image name="ExpandToDo" width="25" height="25"/>
         <image name="UncheckBox" width="25" height="25"/>
+        <namedColor name="AppGreen">
+            <color red="0.079999998211860657" green="0.64999997615814209" blue="0.41999998688697815" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppOrange">
+            <color red="1" green="0.40000000596046448" blue="0.18000000715255737" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="AppYellow">
             <color red="1" green="0.88999998569488525" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

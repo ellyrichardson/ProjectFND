@@ -649,12 +649,15 @@ extension IntervalSchedulingPreviewController: JTAppleCalendarViewDataSource {
 extension IntervalSchedulingPreviewController: JTAppleCalendarViewDelegate {
     func calendar(_ calendar: JTAppleCalendarView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTAppleCell {
         
+        /*
         var onProgressToDoExist: Bool = false
         var finishedToDoExist: Bool = false
         var overdueToDoExist: Bool = false
-        
+        */
+ 
         var cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "CalendarCell", for: indexPath) as! CalendarCell
         
+        /*
         // Hides the indicators initially.
         cell.bottomIndicator.isHidden = true
         cell.topIndicator.isHidden = true
@@ -685,6 +688,7 @@ extension IntervalSchedulingPreviewController: JTAppleCalendarViewDelegate {
             // Update the cell to have the indicators it needs.
             cell = showCellIndicators(cell: cell, onProgress: onProgressToDoExist, finished: finishedToDoExist, overdue: overdueToDoExist)
         }
+         */
         
         previewToDoIntervals(cell: &cell, dateChosen: date)
         
@@ -760,7 +764,8 @@ extension IntervalSchedulingPreviewController: JTAppleCalendarViewDelegate {
     func previewToDoIntervals(cell: inout CalendarCell, dateChosen: Date) {
         for toDoInterval in getToDoIntervalsToAssign() {
             if isToDoIntervalOnDay(toDoInterval: toDoInterval, dateOfDay: dateChosen) {
-                cell.backgroundColor = UIColor(red:0.729, green:0.860, blue:0.354, alpha:1.0)
+                //cell.backgroundColor = UIColor(red:0.729, green:0.860, blue:0.354, alpha:1.0)
+                cell.backgroundColor = UIColor(patternImage: UIImage(named: "PreviewIndicator")!)
             }
         }
     }

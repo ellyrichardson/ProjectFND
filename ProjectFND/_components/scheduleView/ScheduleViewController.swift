@@ -54,7 +54,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         // Do any additional setup after loading the view, typically from a nib.
         self.toDoListTableView.delegate = self
         self.toDoListTableView.dataSource = self
-        self.toDoListTableView.backgroundColor = UIColor.darkText
+        self.toDoListTableView.backgroundColor = UIColor.clear
         
         if let savedToDos = toDoProcessHelper.loadToDos() {
             setToDoItems(toDoItems: savedToDos)
@@ -74,10 +74,10 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         
         calendarView.minimumLineSpacing = 0
         calendarView.minimumInteritemSpacing = 0
-        
         calendarView.register(UINib(nibName: "CalendarHeader", bundle: Bundle.main),
                               forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                               withReuseIdentifier: "CalendarHeader")
+        calendarView.backgroundColor = UIColor.clear
         self.calendarView.scrollToDate(Date(),animateScroll: false)
         self.calendarView.selectDates([ Date() ])
         
@@ -176,14 +176,42 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             fatalError("The dequeued cell is not an instance of ScheduleTableViewCell.")
         }
         
+        /*
+        cell.contentView.layer.cornerRadius = 8
+        self.contentView.layer.borderWidth = 1.0
+        self.contentView.layer.borderColor = UIColor.clear.cgColor
+        cell.contentView.layer.masksToBounds = true
+        
+        cell.layer.shadowOffset = CGSize(width: -1, height: 1)
+        cell.layer.shadowOpacity = 5
+ */
+        
+        /*
+        // For tableViewCells spacing
+        cell.contentView.backgroundColor = UIColor.clear
+        
+        let whiteRoundedView : UIView = UIView(frame: CGRect(x: 10, y: 8, width: self.view.frame.size.width - 20, height: 120))
+        
+        whiteRoundedView.layer.backgroundColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [1.0, 1.0, 1.0, 0.9])
+        whiteRoundedView.layer.masksToBounds = false
+        whiteRoundedView.layer.cornerRadius = 2.0
+        whiteRoundedView.layer.shadowOffset = CGSize(width: -1, height: 1)
+        whiteRoundedView.layer.shadowOpacity = 0.2
+        
+        cell.contentView.addSubview(whiteRoundedView)
+        cell.contentView.sendSubviewToBack(whiteRoundedView)
+        // For tableViewCells spacing ^
+ */
+        
         
         // For making the rows oval.
-        cell.layer.cornerRadius = 23
-        cell.layer.masksToBounds = true
+        //cell.layer.cornerRadius = 23
+        //cell.layer.masksToBounds = true
         
         // Added borders for spacing of the table view cells.
-        cell.layer.borderWidth = 8.0
-        cell.layer.borderColor = UIColor.darkText.cgColor
+        //cell.layer.borderWidth = 8.0
+        //cell.layer.borderColor = UIColor.darkText.cgColor
+        //cell.layer.borderColor = UIColor.gray.cgColor
         
         // Retrieves sorted ToDo Items by date that fall under the chosen day in the calendar
         var toDoItems = getToDoItemsByDay(dateChosen: getSelectedDate())
@@ -211,7 +239,16 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-       cell.backgroundColor = colorForToDoRow(index: indexPath.row)
+        cell.contentView.layer.backgroundColor = colorForToDoRow(index: indexPath.row).cgColor
+        cell.layer.shadowColor = colorForToDoRow(index: indexPath.row).cgColor
+        cell.layer.backgroundColor = colorForToDoRow(index: indexPath.row).cgColor
+        // this will turn on `masksToBounds` just before showing the cell
+        cell.contentView.layer.masksToBounds = true
+        
+        // if this is not set `shadowPath` you'll notice laggy scrolling
+        // Mysterious code too.  It just make the stuff work
+        let radius = cell.contentView.layer.cornerRadius
+        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
@@ -486,6 +523,15 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             removeSelectedIndexPath(indexPathInt: indPath)
             reloadTableViewData()
         }
+    }
+    
+    // MARK: - Tableview Border
+    // Unused, but can be useful
+    func addTopBorderWithColor(_ objView : UIView, color: UIColor, width: CGFloat) {
+        let border = CALayer()
+        border.backgroundColor = color.cgColor
+        border.frame = CGRect(x: 0, y: 0, width: objView.frame.size.width, height: width)
+        objView.layer.addSublayer(border)
     }
 }
 
