@@ -62,7 +62,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         }
         
         configureCalendarView()
-        addBottomBorderWithColor(tasksLabelView, color: UIColor.lightGray, width: 1.00)
+        addTopBorderWithColor(self.toDoListTableView, color: UIColor.lightGray, width: 1.00)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -581,7 +581,8 @@ extension ScheduleViewController: JTAppleCalendarViewDataSource {
                                                  calendar: Calendar.current,
                                                  generateInDates: .forAllMonths,
                                                  generateOutDates: .tillEndOfRow,
-                                                 firstDayOfWeek: .sunday)
+                                                 firstDayOfWeek: .sunday,
+                                                 hasStrictBoundaries: true)
         return parameters
     }
 }
