@@ -649,7 +649,7 @@ extension ScheduleViewController: JTAppleCalendarViewDelegate {
     }
     
     func calendarSizeForMonths(_ calendar: JTAppleCalendarView?) -> MonthSize? {
-        return MonthSize(defaultSize: 40)
+        return MonthSize(defaultSize: 60)
     }
     
     func showCellIndicators(cell: CalendarCell, onProgress: Bool, finished: Bool, overdue: Bool) -> CalendarCell {

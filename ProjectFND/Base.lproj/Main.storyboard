@@ -193,79 +193,10 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="viE-Pl-vKV">
                                 <rect key="frame" x="0.0" y="64" width="320" height="260"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="599-3L-iTF">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="28"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S  " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idt-8W-3gt">
-                                                <rect key="frame" x="0.0" y="0.0" width="45.5" height="28"/>
-                                                <color key="backgroundColor" name="AppOrange"/>
-                                                <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="15"/>
-                                                <color key="textColor" name="AppYellow"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="M" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dwc-ur-ag9">
-                                                <rect key="frame" x="45.5" y="0.0" width="46" height="28"/>
-                                                <color key="backgroundColor" name="AppYellow"/>
-                                                <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="15"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="T" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gq3-y7-cw4" userLabel="T">
-                                                <rect key="frame" x="91.5" y="0.0" width="45.5" height="28"/>
-                                                <color key="backgroundColor" name="AppGreen"/>
-                                                <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="15"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="W" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="imt-Iv-CPx" userLabel="W">
-                                                <rect key="frame" x="137" y="0.0" width="46" height="28"/>
-                                                <color key="backgroundColor" name="AppOrange"/>
-                                                <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="15"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="T" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zym-VT-9Io" userLabel="T">
-                                                <rect key="frame" x="183" y="0.0" width="45.5" height="28"/>
-                                                <color key="backgroundColor" name="AppYellow"/>
-                                                <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="15"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="F" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KdX-fy-sVn" userLabel="F">
-                                                <rect key="frame" x="228.5" y="0.0" width="46" height="28"/>
-                                                <color key="backgroundColor" name="AppGreen"/>
-                                                <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="15"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vi6-BU-YBZ" userLabel="S">
-                                                <rect key="frame" x="274.5" y="0.0" width="45.5" height="28"/>
-                                                <color key="backgroundColor" name="AppOrange"/>
-                                                <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="15"/>
-                                                <color key="textColor" name="AppYellow"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstItem="dwc-ur-ag9" firstAttribute="width" secondItem="idt-8W-3gt" secondAttribute="width" id="0vz-AV-kKJ"/>
-                                            <constraint firstItem="gq3-y7-cw4" firstAttribute="leading" secondItem="dwc-ur-ag9" secondAttribute="trailing" id="26B-sb-l5b"/>
-                                            <constraint firstItem="Zym-VT-9Io" firstAttribute="width" secondItem="idt-8W-3gt" secondAttribute="width" id="E2y-5F-aqe"/>
-                                            <constraint firstItem="KdX-fy-sVn" firstAttribute="width" secondItem="idt-8W-3gt" secondAttribute="width" id="ENA-uy-wTz"/>
-                                            <constraint firstItem="KdX-fy-sVn" firstAttribute="leading" secondItem="Zym-VT-9Io" secondAttribute="trailing" id="Lke-Vf-iZw"/>
-                                            <constraint firstItem="imt-Iv-CPx" firstAttribute="leading" secondItem="gq3-y7-cw4" secondAttribute="trailing" id="NVv-lO-atK"/>
-                                            <constraint firstItem="Zym-VT-9Io" firstAttribute="leading" secondItem="imt-Iv-CPx" secondAttribute="trailing" id="Ngu-aw-S3u"/>
-                                            <constraint firstItem="gq3-y7-cw4" firstAttribute="width" secondItem="idt-8W-3gt" secondAttribute="width" id="O57-e2-WGN"/>
-                                            <constraint firstItem="imt-Iv-CPx" firstAttribute="width" secondItem="idt-8W-3gt" secondAttribute="width" id="Y3K-sM-out"/>
-                                            <constraint firstItem="dwc-ur-ag9" firstAttribute="leading" secondItem="idt-8W-3gt" secondAttribute="trailing" id="YIP-eu-Eac"/>
-                                            <constraint firstItem="vi6-BU-YBZ" firstAttribute="width" secondItem="idt-8W-3gt" secondAttribute="width" id="iSj-OJ-A9m"/>
-                                            <constraint firstItem="vi6-BU-YBZ" firstAttribute="leading" secondItem="KdX-fy-sVn" secondAttribute="trailing" id="xPf-Hk-ZgD"/>
-                                        </constraints>
-                                    </stackView>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PDs-aS-qTz" userLabel="Calendar View" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="232"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="260"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="PDs-aS-qTz" secondAttribute="height" multiplier="40:29" id="MyW-Ap-COd"/>
-                                            <constraint firstAttribute="width" secondItem="PDs-aS-qTz" secondAttribute="height" multiplier="40:29" id="wES-00-Lbx"/>
+                                            <constraint firstAttribute="width" secondItem="PDs-aS-qTz" secondAttribute="height" multiplier="16:13" id="sNz-Mp-taY"/>
                                         </constraints>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="ZM2-Yd-Mxw">
                                             <size key="itemSize" width="50" height="50"/>
@@ -334,9 +265,10 @@
                                     </collectionView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="PDs-aS-qTz" secondAttribute="trailing" id="BDt-EX-IBo"/>
-                                    <constraint firstAttribute="bottom" secondItem="PDs-aS-qTz" secondAttribute="bottom" id="MKS-XP-W5a"/>
-                                    <constraint firstItem="PDs-aS-qTz" firstAttribute="leading" secondItem="viE-Pl-vKV" secondAttribute="leading" id="ltU-Hh-NkK"/>
+                                    <constraint firstItem="PDs-aS-qTz" firstAttribute="leading" secondItem="viE-Pl-vKV" secondAttribute="leading" id="7qy-yY-bG7"/>
+                                    <constraint firstAttribute="trailing" secondItem="PDs-aS-qTz" secondAttribute="trailing" id="9qh-tK-eju"/>
+                                    <constraint firstItem="PDs-aS-qTz" firstAttribute="top" secondItem="viE-Pl-vKV" secondAttribute="top" id="NnP-2L-cTr"/>
+                                    <constraint firstAttribute="bottom" secondItem="PDs-aS-qTz" secondAttribute="bottom" id="iYn-tI-VLw"/>
                                     <constraint firstAttribute="width" secondItem="viE-Pl-vKV" secondAttribute="height" multiplier="16:13" id="zwG-zv-1kf"/>
                                 </constraints>
                             </stackView>
@@ -1200,12 +1132,6 @@
     <resources>
         <image name="ExpandToDo" width="25" height="25"/>
         <image name="UncheckBox" width="25" height="25"/>
-        <namedColor name="AppGreen">
-            <color red="0.079999998211860657" green="0.64999997615814209" blue="0.41999998688697815" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="AppOrange">
-            <color red="1" green="0.40000000596046448" blue="0.18000000715255737" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="AppYellow">
             <color red="1" green="0.88999998569488525" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
