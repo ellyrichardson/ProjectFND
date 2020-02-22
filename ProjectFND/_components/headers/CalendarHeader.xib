@@ -13,59 +13,50 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CalendarHeader" customModule="ProjectFND" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="71"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Znb-nZ-8Sv">
-                    <rect key="frame" x="0.0" y="9" width="375" height="33.5"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="Znb-nZ-8Sv" secondAttribute="height" multiplier="259:23" id="ELi-s2-elU"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="17"/>
-                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <stackView opaque="NO" contentMode="scaleToFill" spacing="29" translatesAutoresizingMaskIntoConstraints="NO" id="LQ6-8Y-Aa0">
-                    <rect key="frame" x="0.0" y="44.5" width="375" height="17.5"/>
+                    <rect key="frame" x="0.0" y="26" width="375" height="22"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SUN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z1O-LI-HAJ">
-                            <rect key="frame" x="0.0" y="0.0" width="28.5" height="17.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="28.5" height="22"/>
                             <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="11"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MON" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UOX-Jq-qzt">
-                            <rect key="frame" x="57.5" y="0.0" width="29" height="17.5"/>
+                            <rect key="frame" x="57.5" y="0.0" width="29" height="22"/>
                             <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="11"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TUE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cNH-v7-CME">
-                            <rect key="frame" x="115.5" y="0.0" width="28.5" height="17.5"/>
+                            <rect key="frame" x="115.5" y="0.0" width="28.5" height="22"/>
                             <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="11"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WED" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uep-b9-e2W">
-                            <rect key="frame" x="173" y="0.0" width="29" height="17.5"/>
+                            <rect key="frame" x="173" y="0.0" width="29" height="22"/>
                             <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="11"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="THU" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohe-fr-Lih">
-                            <rect key="frame" x="231" y="0.0" width="28.5" height="17.5"/>
+                            <rect key="frame" x="231" y="0.0" width="28.5" height="22"/>
                             <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="11"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FRI" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z6Z-Yl-Z1Y">
-                            <rect key="frame" x="288.5" y="0.0" width="29" height="17.5"/>
+                            <rect key="frame" x="288.5" y="0.0" width="29" height="22"/>
                             <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="11"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SAT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TV2-6G-aoN">
-                            <rect key="frame" x="346.5" y="0.0" width="28.5" height="17.5"/>
+                            <rect key="frame" x="346.5" y="0.0" width="28.5" height="22"/>
                             <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="11"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -76,8 +67,6 @@
                         <constraint firstItem="TV2-6G-aoN" firstAttribute="leading" secondItem="z6Z-Yl-Z1Y" secondAttribute="trailing" id="6bh-HE-GCW"/>
                         <constraint firstItem="UOX-Jq-qzt" firstAttribute="leading" secondItem="z1O-LI-HAJ" secondAttribute="trailing" id="8H1-Ao-sZW"/>
                         <constraint firstItem="ohe-fr-Lih" firstAttribute="leading" secondItem="Uep-b9-e2W" secondAttribute="trailing" id="8f5-j4-uPg"/>
-                        <constraint firstAttribute="trailing" secondItem="TV2-6G-aoN" secondAttribute="trailing" id="F2g-JY-4SE"/>
-                        <constraint firstItem="z1O-LI-HAJ" firstAttribute="leading" secondItem="LQ6-8Y-Aa0" secondAttribute="leading" id="GBF-U1-ztK"/>
                         <constraint firstItem="Uep-b9-e2W" firstAttribute="width" secondItem="z1O-LI-HAJ" secondAttribute="width" id="MxB-N2-ntT"/>
                         <constraint firstItem="ohe-fr-Lih" firstAttribute="width" secondItem="z1O-LI-HAJ" secondAttribute="width" id="ZzE-hb-k60"/>
                         <constraint firstItem="TV2-6G-aoN" firstAttribute="width" secondItem="z1O-LI-HAJ" secondAttribute="width" id="bwy-hl-kQc"/>
@@ -86,25 +75,36 @@
                         <constraint firstItem="cNH-v7-CME" firstAttribute="leading" secondItem="UOX-Jq-qzt" secondAttribute="trailing" id="hBd-so-vaX"/>
                         <constraint firstItem="cNH-v7-CME" firstAttribute="width" secondItem="z1O-LI-HAJ" secondAttribute="width" id="ih4-Bq-aUc"/>
                         <constraint firstItem="UOX-Jq-qzt" firstAttribute="width" secondItem="z1O-LI-HAJ" secondAttribute="width" id="s20-pK-xze"/>
+                        <constraint firstAttribute="width" secondItem="LQ6-8Y-Aa0" secondAttribute="height" multiplier="169:10" id="taP-By-b2w"/>
                     </constraints>
                 </stackView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Znb-nZ-8Sv">
+                    <rect key="frame" x="0.0" y="8" width="375" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="Znb-nZ-8Sv" secondAttribute="height" multiplier="125:6" id="ypN-42-i9d"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="17"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="LQ6-8Y-Aa0" firstAttribute="top" secondItem="Znb-nZ-8Sv" secondAttribute="bottom" constant="2" id="3f1-PO-AjS"/>
-                <constraint firstItem="Znb-nZ-8Sv" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="4is-dK-MUt"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="LQ6-8Y-Aa0" secondAttribute="trailing" id="5r2-fK-BM6"/>
-                <constraint firstItem="LQ6-8Y-Aa0" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="WTm-fA-vxX"/>
-                <constraint firstItem="Znb-nZ-8Sv" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="9" id="gjz-aO-eGq"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="LQ6-8Y-Aa0" secondAttribute="bottom" constant="9" id="vxd-Jj-ehU"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Znb-nZ-8Sv" secondAttribute="trailing" id="zWS-rI-hqH"/>
+                <constraint firstItem="LQ6-8Y-Aa0" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="AK7-fG-FGq"/>
+                <constraint firstItem="Znb-nZ-8Sv" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="8" id="DyX-T3-PCB"/>
+                <constraint firstItem="LQ6-8Y-Aa0" firstAttribute="top" secondItem="Znb-nZ-8Sv" secondAttribute="bottom" id="EzL-mW-Hef"/>
+                <constraint firstItem="LQ6-8Y-Aa0" firstAttribute="top" secondItem="Znb-nZ-8Sv" secondAttribute="bottom" id="HBm-Ar-ENb"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="LQ6-8Y-Aa0" secondAttribute="trailing" id="L0G-gH-swH"/>
+                <constraint firstItem="Znb-nZ-8Sv" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="d0q-kg-3on"/>
+                <constraint firstItem="Znb-nZ-8Sv" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="jH6-OQ-VZS"/>
+                <constraint firstItem="LQ6-8Y-Aa0" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="kL6-oS-mer"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="title" destination="Znb-nZ-8Sv" id="Boo-SR-tnV"/>
             </connections>
-            <point key="canvasLocation" x="92" y="35.532233883058474"/>
+            <point key="canvasLocation" x="41" y="18"/>
         </view>
     </objects>
 </document>

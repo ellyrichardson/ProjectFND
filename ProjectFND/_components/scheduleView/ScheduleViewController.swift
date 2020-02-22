@@ -159,11 +159,14 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        // For dynamic height based on device
+        //let heightRatio = UIScreen.main.bounds.height / 580
         if selectedIndexPaths.count > 0 {
             if selectedIndexPaths.contains(indexPath) {
                 return 70
             }
         }
+        //return 45 * heightRatio
         return 45
     }
     
@@ -649,7 +652,14 @@ extension ScheduleViewController: JTAppleCalendarViewDelegate {
     }
     
     func calendarSizeForMonths(_ calendar: JTAppleCalendarView?) -> MonthSize? {
-        return MonthSize(defaultSize: 60)
+        return MonthSize(defaultSize: 75)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let height = view.frame.size.height
+        let width = view.frame.size.width
+        // in case you you want the cell to be 40% of your controllers view
+        return CGSize(width: width * 0.4, height: height * 0.4)
     }
     
     func showCellIndicators(cell: CalendarCell, onProgress: Bool, finished: Bool, overdue: Bool) -> CalendarCell {

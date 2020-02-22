@@ -41,6 +41,10 @@ class ScheduleTableViewCell: UITableViewCell, UITableViewDelegate {
         //self.layer.cornerRadius = 8
         self.contentView.layer.masksToBounds = true
         self.contentView.layer.cornerRadius = 8
+        /*
+        let heightRatio = UIScreen.main.bounds.height / 580
+        self.taskNameLabel.font = self.taskNameLabel.font.withSize(heightRatio)
+ */
         
         /*
         self.layer.shadowOffset = CGSize(width: -1, height: 1)
