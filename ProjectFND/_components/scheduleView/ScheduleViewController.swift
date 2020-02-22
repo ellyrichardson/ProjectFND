@@ -20,6 +20,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBOutlet weak var calendarView: JTAppleCalendarView!
     @IBOutlet weak var toDoListTableView: UITableView!
+    @IBOutlet weak var tasksLabelView: UIView!
     
     // Helpers
     
@@ -61,6 +62,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         }
         
         configureCalendarView()
+        addBottomBorderWithColor(tasksLabelView, color: UIColor.lightGray, width: 1.00)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,6 +74,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     func configureCalendarView(){
         
+        //calendarView.collectionView(calendarView, numberOfItemsInSection: 31)
         calendarView.minimumLineSpacing = 0
         calendarView.minimumInteritemSpacing = 0
         calendarView.register(UINib(nibName: "CalendarHeader", bundle: Bundle.main),
@@ -525,12 +528,33 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    // MARK: - Tableview Border
+    // MARK: - View Border
     // Unused, but can be useful
     func addTopBorderWithColor(_ objView : UIView, color: UIColor, width: CGFloat) {
         let border = CALayer()
         border.backgroundColor = color.cgColor
         border.frame = CGRect(x: 0, y: 0, width: objView.frame.size.width, height: width)
+        objView.layer.addSublayer(border)
+    }
+    
+    func addRightBorderWithColor(_ objView : UIView, color: UIColor, width: CGFloat) {
+        let border = CALayer()
+        border.backgroundColor = color.cgColor
+        border.frame = CGRect(x: objView.frame.size.width - width, y: 0, width: width, height: objView.frame.size.height)
+        objView.layer.addSublayer(border)
+    }
+    
+    func addBottomBorderWithColor(_ objView : UIView, color: UIColor, width: CGFloat) {
+        let border = CALayer()
+        border.backgroundColor = color.cgColor
+        border.frame = CGRect(x: 0, y: objView.frame.size.height - width, width: objView.frame.size.width, height: width)
+        objView.layer.addSublayer(border)
+    }
+    
+    func addLeftBorderWithColor(_ objView : UIView, color: UIColor, width: CGFloat) {
+        let border = CALayer()
+        border.backgroundColor = color.cgColor
+        border.frame = CGRect(x: 0, y: 0, width: width, height: objView.frame.size.height)
         objView.layer.addSublayer(border)
     }
 }
@@ -557,8 +581,7 @@ extension ScheduleViewController: JTAppleCalendarViewDataSource {
                                                  calendar: Calendar.current,
                                                  generateInDates: .forAllMonths,
                                                  generateOutDates: .tillEndOfRow,
-                                                 firstDayOfWeek: .sunday,
-                                                 hasStrictBoundaries: true)
+                                                 firstDayOfWeek: .sunday)
         return parameters
     }
 }
@@ -620,7 +643,7 @@ extension ScheduleViewController: JTAppleCalendarViewDelegate {
         let date = range.start
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM YYYY"
-        (header as! CalendarHeader).title.text = formatter.string(from: date)
+        (header as! CalendarHeader).title.text = formatter.string(from: date).uppercased()
         return header
     }
     
