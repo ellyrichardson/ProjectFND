@@ -163,11 +163,12 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         //let heightRatio = UIScreen.main.bounds.height / 580
         if selectedIndexPaths.count > 0 {
             if selectedIndexPaths.contains(indexPath) {
-                return 70
+                return 87
+                
             }
         }
         //return 45 * heightRatio
-        return 45
+        return 55
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

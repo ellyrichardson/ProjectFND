@@ -195,7 +195,7 @@
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PDs-aS-qTz" userLabel="Calendar View" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="436.66666666666669"/>
-                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="ZM2-Yd-Mxw">
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="ZM2-Yd-Mxw">
                                             <size key="itemSize" width="50" height="50"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -266,48 +266,72 @@
                                 <rect key="frame" x="16" y="551" width="382" height="262"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ScheduleTableViewCell" rowHeight="73" id="5uS-bT-su0" customClass="ScheduleTableViewCell" customModule="ProjectFND" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="382" height="73"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ScheduleTableViewCell" rowHeight="87" id="5uS-bT-su0" customClass="ScheduleTableViewCell" customModule="ProjectFND" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="382" height="87"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5uS-bT-su0" id="MpH-B1-QHB" customClass="ScheduleTableViewCell" customModule="ProjectFND" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="382" height="73"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5uS-bT-su0" id="MpH-B1-QHB" customClass="UITableViewCellContentView">
+                                            <rect key="frame" x="0.0" y="0.0" width="382" height="87"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Start Time:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUa-SI-VXI">
-                                                    <rect key="frame" x="15" y="43" width="61" height="19"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="10"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start Time:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUa-SI-VXI">
+                                                    <rect key="frame" x="10.000000000000007" y="55" width="115.66666666666669" height="22"/>
+                                                    <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="12"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Est. Time:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p4a-zy-V6N">
-                                                    <rect key="frame" x="84" y="43" width="75" height="19"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="10"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qpY-Y2-D8e" customClass="CheckBoxButton" customModule="ProjectFND" customModuleProvider="target">
-                                                    <rect key="frame" x="4.5" y="5" width="25" height="25"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qpY-Y2-D8e" customClass="CheckBoxButton" customModule="ProjectFND" customModuleProvider="target">
+                                                    <rect key="frame" x="10" y="10" width="25" height="25"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="25" id="IEC-bb-7lh"/>
+                                                    </constraints>
                                                     <state key="normal" title="Check" image="UncheckBox"/>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Due Date:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9q8-SJ-SQ4">
-                                                    <rect key="frame" x="177" y="43" width="109" height="19"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="10"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due Date:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9q8-SJ-SQ4">
+                                                    <rect key="frame" x="256.33333333333331" y="55" width="115.66666666666669" height="22"/>
+                                                    <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="12"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Task Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ou-jz-3c5">
-                                                    <rect key="frame" x="38" y="11" width="304" height="16"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="11"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="786-xC-cXL" customClass="ExpandButton" customModule="ProjectFND" customModuleProvider="target">
-                                                    <rect key="frame" x="350" y="7" width="26" height="25"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="786-xC-cXL" customClass="ExpandButton" customModule="ProjectFND" customModuleProvider="target">
+                                                    <rect key="frame" x="347" y="10" width="25" height="25"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="25" id="ga5-qh-KaV"/>
+                                                        <constraint firstAttribute="width" constant="25" id="rgp-QK-dIg"/>
+                                                    </constraints>
                                                     <state key="normal" title="Settings" image="ExpandToDo"/>
                                                 </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ou-jz-3c5">
+                                                    <rect key="frame" x="43" y="16" width="296" height="18"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="18" id="jMD-Kq-SaA"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="15"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Est. Time:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p4a-zy-V6N">
+                                                    <rect key="frame" x="133.33333333333334" y="55" width="115.66666666666666" height="22"/>
+                                                    <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="12"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="786-xC-cXL" secondAttribute="trailing" constant="10" id="1y4-GG-Tlp"/>
+                                                <constraint firstItem="8ou-jz-3c5" firstAttribute="top" secondItem="MpH-B1-QHB" secondAttribute="topMargin" constant="5" id="5kB-up-uYg"/>
+                                                <constraint firstItem="786-xC-cXL" firstAttribute="leading" secondItem="8ou-jz-3c5" secondAttribute="trailing" constant="8" id="DMp-hP-cC9"/>
+                                                <constraint firstAttribute="trailing" secondItem="9q8-SJ-SQ4" secondAttribute="trailing" constant="10" id="FVP-62-OdD"/>
+                                                <constraint firstItem="p4a-zy-V6N" firstAttribute="leading" secondItem="XUa-SI-VXI" secondAttribute="trailing" constant="7.5" id="Fcs-tb-x63"/>
+                                                <constraint firstItem="8ou-jz-3c5" firstAttribute="leading" secondItem="qpY-Y2-D8e" secondAttribute="trailing" constant="8" id="JL0-It-d9R"/>
+                                                <constraint firstItem="9q8-SJ-SQ4" firstAttribute="leading" secondItem="p4a-zy-V6N" secondAttribute="trailing" constant="7.5" id="Kdr-FP-Uxo"/>
+                                                <constraint firstItem="9q8-SJ-SQ4" firstAttribute="top" secondItem="786-xC-cXL" secondAttribute="bottom" constant="20" id="ORN-hO-zD1"/>
+                                                <constraint firstItem="9q8-SJ-SQ4" firstAttribute="width" secondItem="XUa-SI-VXI" secondAttribute="width" id="SYk-dF-oe6"/>
+                                                <constraint firstItem="qpY-Y2-D8e" firstAttribute="leading" secondItem="MpH-B1-QHB" secondAttribute="leading" constant="10" id="UvI-l8-DXt"/>
+                                                <constraint firstItem="XUa-SI-VXI" firstAttribute="leading" secondItem="MpH-B1-QHB" secondAttribute="leading" constant="10" id="Wbk-NC-0NC"/>
+                                                <constraint firstItem="786-xC-cXL" firstAttribute="top" secondItem="MpH-B1-QHB" secondAttribute="top" constant="10" id="aKk-5b-ZSK"/>
+                                                <constraint firstItem="p4a-zy-V6N" firstAttribute="height" secondItem="XUa-SI-VXI" secondAttribute="height" id="dsV-Ha-MOy"/>
+                                                <constraint firstItem="p4a-zy-V6N" firstAttribute="width" secondItem="XUa-SI-VXI" secondAttribute="width" id="kEf-Z6-nhA"/>
+                                                <constraint firstItem="XUa-SI-VXI" firstAttribute="top" secondItem="qpY-Y2-D8e" secondAttribute="bottom" constant="20" id="mVA-d4-uAv"/>
+                                                <constraint firstItem="qpY-Y2-D8e" firstAttribute="top" secondItem="MpH-B1-QHB" secondAttribute="top" constant="10" id="pXY-Ru-zHN"/>
+                                                <constraint firstItem="p4a-zy-V6N" firstAttribute="top" secondItem="8ou-jz-3c5" secondAttribute="bottom" constant="21" id="qCo-KH-DZA"/>
+                                                <constraint firstItem="9q8-SJ-SQ4" firstAttribute="height" secondItem="XUa-SI-VXI" secondAttribute="height" id="wmv-qr-kWb"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="checkBoxButton" destination="qpY-Y2-D8e" id="jLJ-bU-FG0"/>
