@@ -303,11 +303,11 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="18" id="jMD-Kq-SaA"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="15"/>
+                                                    <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="15"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Est. Time:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p4a-zy-V6N">
-                                                    <rect key="frame" x="133.33333333333334" y="55" width="115.66666666666666" height="22"/>
+                                                    <rect key="frame" x="133.33333333333334" y="58" width="115.66666666666666" height="22"/>
                                                     <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="12"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -329,7 +329,7 @@
                                                 <constraint firstItem="p4a-zy-V6N" firstAttribute="width" secondItem="XUa-SI-VXI" secondAttribute="width" id="kEf-Z6-nhA"/>
                                                 <constraint firstItem="XUa-SI-VXI" firstAttribute="top" secondItem="qpY-Y2-D8e" secondAttribute="bottom" constant="20" id="mVA-d4-uAv"/>
                                                 <constraint firstItem="qpY-Y2-D8e" firstAttribute="top" secondItem="MpH-B1-QHB" secondAttribute="top" constant="10" id="pXY-Ru-zHN"/>
-                                                <constraint firstItem="p4a-zy-V6N" firstAttribute="top" secondItem="8ou-jz-3c5" secondAttribute="bottom" constant="21" id="qCo-KH-DZA"/>
+                                                <constraint firstItem="p4a-zy-V6N" firstAttribute="top" secondItem="8ou-jz-3c5" secondAttribute="bottom" constant="24" id="qCo-KH-DZA"/>
                                                 <constraint firstItem="9q8-SJ-SQ4" firstAttribute="height" secondItem="XUa-SI-VXI" secondAttribute="height" id="wmv-qr-kWb"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -407,8 +407,8 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="wLi-et-GVt">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="separatorColor" name="AppYellow"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <sections>
                             <tableViewSection id="08M-DT-dIV">
                                 <cells>
@@ -420,35 +420,51 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xDh-ze-n2y">
-                                                    <rect key="frame" x="20" y="17" width="374" height="17"/>
-                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="15"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                    <rect key="frame" x="20" y="17" width="374" height="27.333333333333329"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="27.329999999999998" id="x9g-fT-UU0"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="15"/>
+                                                    <color key="textColor" name="AppYellow"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Task Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wzx-Wt-DvB">
-                                                    <rect key="frame" x="16" y="63" width="288" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="15"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Task Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wzx-Wt-DvB">
+                                                    <rect key="frame" x="20" y="63" width="374" height="32"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="32" id="dE5-zL-P7y"/>
+                                                    </constraints>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Task Description" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="3IJ-fw-sUJ">
-                                                    <rect key="frame" x="16" y="103" width="288" height="95"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="15"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Task Description" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="3IJ-fw-sUJ">
+                                                    <rect key="frame" x="20" y="105" width="374" height="95"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="95" id="9dc-FB-CqQ"/>
+                                                    </constraints>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="3IJ-fw-sUJ" firstAttribute="leading" secondItem="zck-uC-dN7" secondAttribute="leading" constant="20" id="2Sy-Aa-d9O"/>
                                                 <constraint firstItem="xDh-ze-n2y" firstAttribute="top" secondItem="zck-uC-dN7" secondAttribute="topMargin" constant="6" id="86s-za-PiD"/>
                                                 <constraint firstItem="xDh-ze-n2y" firstAttribute="leading" secondItem="zck-uC-dN7" secondAttribute="leadingMargin" id="A8d-VY-VFZ"/>
+                                                <constraint firstItem="xDh-ze-n2y" firstAttribute="trailing" secondItem="zck-uC-dN7" secondAttribute="trailingMargin" id="JfK-GV-M5Z"/>
                                                 <constraint firstItem="xDh-ze-n2y" firstAttribute="trailing" secondItem="zck-uC-dN7" secondAttribute="trailingMargin" id="Nhu-z9-wRd"/>
+                                                <constraint firstItem="Wzx-Wt-DvB" firstAttribute="trailing" secondItem="zck-uC-dN7" secondAttribute="trailingMargin" id="Omq-qm-vkS"/>
+                                                <constraint firstItem="xDh-ze-n2y" firstAttribute="top" secondItem="zck-uC-dN7" secondAttribute="topMargin" constant="6" id="Vsk-or-Vab"/>
+                                                <constraint firstItem="Wzx-Wt-DvB" firstAttribute="leading" secondItem="zck-uC-dN7" secondAttribute="leadingMargin" id="ZFW-lk-7lW"/>
+                                                <constraint firstItem="Wzx-Wt-DvB" firstAttribute="top" secondItem="xDh-ze-n2y" secondAttribute="bottom" constant="18.670000000000002" id="eir-62-cf7"/>
+                                                <constraint firstItem="xDh-ze-n2y" firstAttribute="leading" secondItem="zck-uC-dN7" secondAttribute="leadingMargin" id="lVC-W2-TJw"/>
+                                                <constraint firstAttribute="trailing" secondItem="3IJ-fw-sUJ" secondAttribute="trailing" constant="20" id="rZU-jG-0rr"/>
+                                                <constraint firstItem="3IJ-fw-sUJ" firstAttribute="top" secondItem="Wzx-Wt-DvB" secondAttribute="bottom" constant="10" id="vhy-1J-94k"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="95" id="TBy-oB-2gj">
                                         <rect key="frame" x="0.0" y="209" width="414" height="95"/>
@@ -458,27 +474,38 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time Estimate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k3b-7f-PH6">
-                                                    <rect key="frame" x="20" y="17" width="374" height="17"/>
-                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="15"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                    <rect key="frame" x="20" y="17" width="374" height="27.333333333333329"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="27.329999999999998" id="nm4-B4-QYs"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="15"/>
+                                                    <color key="textColor" name="AppOrange"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="E.g. 5 Hours" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xA8-Rd-roU">
-                                                    <rect key="frame" x="16" y="54" width="288" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="15"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="E.g. 5 Hours" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xA8-Rd-roU">
+                                                    <rect key="frame" x="20" y="54" width="374" height="30"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="TK8-a0-TF5"/>
+                                                    </constraints>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="xA8-Rd-roU" firstAttribute="leading" secondItem="icF-bE-HGk" secondAttribute="leadingMargin" id="4wP-IT-dXM"/>
+                                                <constraint firstItem="xA8-Rd-roU" firstAttribute="trailing" secondItem="icF-bE-HGk" secondAttribute="trailingMargin" id="9fL-X8-Mkc"/>
+                                                <constraint firstItem="k3b-7f-PH6" firstAttribute="leading" secondItem="icF-bE-HGk" secondAttribute="leadingMargin" id="O51-xY-PhY"/>
                                                 <constraint firstItem="k3b-7f-PH6" firstAttribute="trailing" secondItem="icF-bE-HGk" secondAttribute="trailingMargin" id="Pcp-2H-gdO"/>
+                                                <constraint firstItem="k3b-7f-PH6" firstAttribute="trailing" secondItem="icF-bE-HGk" secondAttribute="trailingMargin" id="SIa-6o-3pI"/>
+                                                <constraint firstItem="k3b-7f-PH6" firstAttribute="top" secondItem="icF-bE-HGk" secondAttribute="topMargin" constant="6" id="eZs-GR-Z4t"/>
+                                                <constraint firstItem="xA8-Rd-roU" firstAttribute="top" secondItem="k3b-7f-PH6" secondAttribute="bottom" constant="9.6699999999999999" id="kwf-6V-OuO"/>
                                                 <constraint firstItem="k3b-7f-PH6" firstAttribute="top" secondItem="icF-bE-HGk" secondAttribute="topMargin" constant="6" id="n7S-LV-ak3"/>
                                                 <constraint firstItem="k3b-7f-PH6" firstAttribute="leading" secondItem="icF-bE-HGk" secondAttribute="leadingMargin" id="vpY-tC-69E"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="181" id="Zui-2p-RUy">
                                         <rect key="frame" x="0.0" y="304" width="414" height="181"/>
@@ -488,14 +515,17 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DvV-uM-YSt">
-                                                    <rect key="frame" x="20" y="18" width="374" height="17"/>
-                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="15"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                    <rect key="frame" x="20" y="17" width="374" height="27.333333333333329"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="27.329999999999998" id="AD2-7j-44S"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="27.329999999999998" id="gXL-3B-XM2"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="15"/>
+                                                    <color key="textColor" name="AppGreen"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="T3m-eA-xYy">
+                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="T3m-eA-xYy">
                                                     <rect key="frame" x="0.0" y="49" width="414" height="122"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <date key="date" timeIntervalSinceReferenceDate="589345435.80892205">
                                                         <!--2019-09-05 03:03:55 +0000-->
                                                     </date>
@@ -504,31 +534,40 @@
                                                     </connections>
                                                 </datePicker>
                                             </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstItem="DvV-uM-YSt" firstAttribute="top" secondItem="RQB-b7-Gcg" secondAttribute="topMargin" constant="7" id="051-JR-nwg"/>
-                                                <constraint firstItem="DvV-uM-YSt" firstAttribute="leading" secondItem="RQB-b7-Gcg" secondAttribute="leadingMargin" id="Pwx-vz-zt8"/>
-                                                <constraint firstItem="DvV-uM-YSt" firstAttribute="trailing" secondItem="RQB-b7-Gcg" secondAttribute="trailingMargin" id="qv2-pg-PPI"/>
+                                                <constraint firstItem="DvV-uM-YSt" firstAttribute="trailing" secondItem="RQB-b7-Gcg" secondAttribute="trailingMargin" id="9aV-r6-AK8"/>
+                                                <constraint firstAttribute="bottom" secondItem="T3m-eA-xYy" secondAttribute="bottom" constant="9.6699999999999999" id="Qv7-5h-xQI"/>
+                                                <constraint firstItem="DvV-uM-YSt" firstAttribute="top" secondItem="RQB-b7-Gcg" secondAttribute="topMargin" constant="6" id="gZt-dr-iMf"/>
+                                                <constraint firstItem="T3m-eA-xYy" firstAttribute="top" secondItem="DvV-uM-YSt" secondAttribute="bottom" constant="4.6699999999999999" id="mXj-gd-CT2"/>
+                                                <constraint firstItem="DvV-uM-YSt" firstAttribute="leading" secondItem="RQB-b7-Gcg" secondAttribute="leadingMargin" id="oug-6g-b0n"/>
+                                                <constraint firstItem="T3m-eA-xYy" firstAttribute="leading" secondItem="RQB-b7-Gcg" secondAttribute="leading" id="qE5-5V-iBN"/>
+                                                <constraint firstAttribute="trailing" secondItem="T3m-eA-xYy" secondAttribute="trailing" id="vgH-Xt-Xto"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="183" id="dCz-cN-nKh">
-                                        <rect key="frame" x="0.0" y="485" width="414" height="183"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="165" id="dCz-cN-nKh">
+                                        <rect key="frame" x="0.0" y="485" width="414" height="165"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dCz-cN-nKh" id="iRa-F0-G9x">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="182.66666666666666"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="164.66666666666666"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="End Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="31v-Jj-QEE">
-                                                    <rect key="frame" x="20" y="19" width="374" height="17"/>
-                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="15"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                    <rect key="frame" x="20" y="17" width="374" height="27.333333333333329"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="27.329999999999998" id="DrN-B9-x1o"/>
+                                                        <constraint firstAttribute="height" constant="27.329999999999998" id="nve-Ct-tfP"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="15"/>
+                                                    <color key="textColor" name="AppYellow"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="kqk-Fa-P5l">
-                                                    <rect key="frame" x="0.0" y="50" width="414" height="119"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="kqk-Fa-P5l">
+                                                    <rect key="frame" x="0.0" y="49" width="414" height="108"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="108" id="5nL-WF-YwJ"/>
+                                                    </constraints>
                                                     <date key="date" timeIntervalSinceReferenceDate="589345435.80892205">
                                                         <!--2019-09-05 03:03:55 +0000-->
                                                     </date>
@@ -538,51 +577,62 @@
                                                 </datePicker>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="31v-Jj-QEE" firstAttribute="top" secondItem="iRa-F0-G9x" secondAttribute="topMargin" constant="8" id="7pa-Xb-spX"/>
-                                                <constraint firstItem="31v-Jj-QEE" firstAttribute="leading" secondItem="iRa-F0-G9x" secondAttribute="leadingMargin" id="XvY-H6-B2g"/>
-                                                <constraint firstItem="31v-Jj-QEE" firstAttribute="trailing" secondItem="iRa-F0-G9x" secondAttribute="trailingMargin" id="jFS-Sl-7Gn"/>
+                                                <constraint firstItem="31v-Jj-QEE" firstAttribute="leading" secondItem="iRa-F0-G9x" secondAttribute="leadingMargin" id="6rM-y5-o54"/>
+                                                <constraint firstItem="31v-Jj-QEE" firstAttribute="trailing" secondItem="iRa-F0-G9x" secondAttribute="trailingMargin" id="C94-f3-cgQ"/>
+                                                <constraint firstItem="31v-Jj-QEE" firstAttribute="trailing" secondItem="iRa-F0-G9x" secondAttribute="trailingMargin" id="CFW-qu-ErT"/>
+                                                <constraint firstAttribute="trailing" secondItem="kqk-Fa-P5l" secondAttribute="trailing" id="kO0-QM-6W4"/>
+                                                <constraint firstItem="31v-Jj-QEE" firstAttribute="top" secondItem="iRa-F0-G9x" secondAttribute="topMargin" constant="6" id="p1Q-nL-33j"/>
+                                                <constraint firstItem="kqk-Fa-P5l" firstAttribute="leading" secondItem="iRa-F0-G9x" secondAttribute="leading" id="p2o-dG-M3U"/>
+                                                <constraint firstItem="31v-Jj-QEE" firstAttribute="leading" secondItem="iRa-F0-G9x" secondAttribute="leadingMargin" id="pL2-kV-XNZ"/>
+                                                <constraint firstItem="kqk-Fa-P5l" firstAttribute="top" secondItem="31v-Jj-QEE" secondAttribute="bottom" constant="4.6699999999999999" id="qcM-zD-fQy"/>
+                                                <constraint firstItem="31v-Jj-QEE" firstAttribute="top" secondItem="iRa-F0-G9x" secondAttribute="topMargin" constant="6" id="vPq-Iw-NEt"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="178" id="SDw-Tp-o25">
-                                        <rect key="frame" x="0.0" y="668" width="414" height="178"/>
+                                        <rect key="frame" x="0.0" y="650" width="414" height="178"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SDw-Tp-o25" id="tKK-Zf-FIy">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="177.66666666666666"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Interval Scheduling" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idZ-LV-EGz">
-                                                    <rect key="frame" x="20" y="17" width="374" height="17"/>
-                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="15"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                    <rect key="frame" x="20" y="17" width="374" height="27.333333333333329"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="27.329999999999998" id="Fwy-fc-Q9S"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="15"/>
+                                                    <color key="textColor" name="AppOrange"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hours" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ar-hh-YQP">
                                                     <rect key="frame" x="36" y="49" width="67" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="15"/>
-                                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Days" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G6m-gm-QVN">
                                                     <rect key="frame" x="198" y="49" width="67" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="15"/>
-                                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="E.g. 10 Hrs" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CWO-6e-a98">
                                                     <rect key="frame" x="36" y="74" width="86" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                                 <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="E.g. 8 Days" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vkm-ct-hNM">
                                                     <rect key="frame" x="198" y="74" width="86" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -599,10 +649,13 @@
                                             <constraints>
                                                 <constraint firstItem="idZ-LV-EGz" firstAttribute="top" secondItem="tKK-Zf-FIy" secondAttribute="topMargin" constant="6" id="4n7-3s-dIf"/>
                                                 <constraint firstItem="idZ-LV-EGz" firstAttribute="leading" secondItem="tKK-Zf-FIy" secondAttribute="leadingMargin" id="6fL-sM-ZmC"/>
+                                                <constraint firstItem="idZ-LV-EGz" firstAttribute="trailing" secondItem="tKK-Zf-FIy" secondAttribute="trailingMargin" id="OID-nf-Z71"/>
                                                 <constraint firstItem="idZ-LV-EGz" firstAttribute="trailing" secondItem="tKK-Zf-FIy" secondAttribute="trailingMargin" id="Rnb-hV-oMD"/>
+                                                <constraint firstItem="idZ-LV-EGz" firstAttribute="top" secondItem="tKK-Zf-FIy" secondAttribute="topMargin" constant="6" id="VWn-Dd-Bhb"/>
+                                                <constraint firstItem="idZ-LV-EGz" firstAttribute="leading" secondItem="tKK-Zf-FIy" secondAttribute="leadingMargin" id="unS-cL-Ybr"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -643,7 +696,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hy8-v7-Zgd" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="CAs-7G-vcQ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1565.625" y="130.98591549295776"/>
+            <point key="canvasLocation" x="1565.217391304348" y="130.58035714285714"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xyM-nP-0YY">
@@ -971,7 +1024,7 @@
                                     </stackView>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sh0-dO-jS7" userLabel="Calendar View" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
                                         <rect key="frame" x="0.0" y="13.333333333333314" width="414" height="566.66666666666674"/>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="H8D-vG-Vks">
                                             <size key="itemSize" width="50" height="50"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -1143,6 +1196,12 @@
     <resources>
         <image name="ExpandToDo" width="25" height="25"/>
         <image name="UncheckBox" width="25" height="25"/>
+        <namedColor name="AppGreen">
+            <color red="0.079999998211860657" green="0.64999997615814209" blue="0.41999998688697815" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppOrange">
+            <color red="1" green="0.40000000596046448" blue="0.18000000715255737" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="AppYellow">
             <color red="1" green="0.88999998569488525" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
