@@ -953,225 +953,151 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="tWK-YP-afU">
-                                <rect key="frame" x="0.0" y="96" width="414" height="808"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vN0-5m-jNg">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="13.333333333333334"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S  " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QiV-Tf-nYz">
-                                                <rect key="frame" x="0.0" y="0.0" width="45.666666666666664" height="13.333333333333334"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="45.700000000000003" id="MaH-tr-qdl"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="TimesNewRomanPS-BoldMT" family="Times New Roman" pointSize="12"/>
-                                                <color key="textColor" name="AppYellow"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="M" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WCg-V7-IzG">
-                                                <rect key="frame" x="45.666666666666671" y="0.0" width="45.666666666666671" height="13.333333333333334"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="45.700000000000003" id="cMt-v8-hOi"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="12"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="T" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ffU-mG-2Zk" userLabel="T">
-                                                <rect key="frame" x="91.333333333333329" y="0.0" width="45.666666666666671" height="13.333333333333334"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="45.700000000000003" id="s6b-jq-LwR"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="12"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="W" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7yw-as-YzQ" userLabel="W">
-                                                <rect key="frame" x="137" y="0.0" width="45.666666666666657" height="13.333333333333334"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="45.700000000000003" id="vG5-LM-4Um"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="12"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="T" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pT0-vz-Wem" userLabel="T">
-                                                <rect key="frame" x="182.66666666666666" y="0.0" width="46" height="13.333333333333334"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="45.700000000000003" id="lpH-fY-JqB"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="12"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="F" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tdn-WJ-KVq" userLabel="F">
-                                                <rect key="frame" x="228.66666666666666" y="0.0" width="45.666666666666657" height="13.333333333333334"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="45.700000000000003" id="Z4G-ZT-G4S"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="12"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sHS-u7-qXH" userLabel="S">
-                                                <rect key="frame" x="274.33333333333331" y="0.0" width="139.66666666666669" height="13.333333333333334"/>
-                                                <fontDescription key="fontDescription" name="TimesNewRomanPS-BoldMT" family="Times New Roman" pointSize="12"/>
-                                                <color key="textColor" name="AppYellow"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zyq-n4-ZfN">
+                                <rect key="frame" x="0.0" y="542" width="414" height="253"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ScheduleTableViewCell" rowHeight="84" id="nhC-eI-iDB" customClass="ScheduleTableViewCell" customModule="ProjectFND" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="84"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nhC-eI-iDB" id="hEg-00-QYJ" customClass="ScheduleTableViewCell" customModule="ProjectFND" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="83.666666666666671"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Start Time:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NGg-Si-oaX">
+                                                    <rect key="frame" x="15" y="43" width="80" height="19"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="10"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Due Date:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOf-FW-yrQ">
+                                                    <rect key="frame" x="196" y="43" width="109" height="19"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="10"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Est. Time:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3xr-sl-cqT">
+                                                    <rect key="frame" x="108" y="43" width="75" height="19"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="10"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="En6-PY-83y" customClass="ExpandButton" customModule="ProjectFND" customModuleProvider="target">
+                                                    <rect key="frame" x="279" y="10" width="26" height="25"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="Settings" image="ExpandToDo"/>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Task Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iH4-MY-efW">
+                                                    <rect key="frame" x="15" y="13" width="212" height="19"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </tableViewCellContentView>
                                         <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
-                                    </stackView>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sh0-dO-jS7" userLabel="Calendar View" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
-                                        <rect key="frame" x="0.0" y="13.333333333333314" width="414" height="566.66666666666674"/>
-                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="H8D-vG-Vks">
-                                            <size key="itemSize" width="50" height="50"/>
-                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        </collectionViewFlowLayout>
-                                        <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" reuseIdentifier="CalendarCell" id="TrB-TD-xVx" customClass="CalendarCell" customModule="ProjectFND" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="45.700000000000003" height="45.700000000000003"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                                    <rect key="frame" x="0.0" y="0.0" width="45.700000000000003" height="45.700000000000003"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <subviews>
-                                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zdL-vo-8hr" userLabel="Selected View">
-                                                            <rect key="frame" x="4" y="4.5" width="37" height="37"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        </view>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jKP-fy-O4j" userLabel="Top Indicator">
-                                                            <rect key="frame" x="12.5" y="8" width="19" height="8"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        </stackView>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1bO-Lf-9tw" userLabel="Top Left Indicator">
-                                                            <rect key="frame" x="6" y="10" width="19" height="8"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        </stackView>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PSs-h2-zj9" userLabel="Bottom Indicator">
-                                                            <rect key="frame" x="12.5" y="29.5" width="19" height="8"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        </stackView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JCp-hg-WhY">
-                                                            <rect key="frame" x="8" y="16" width="28" height="14"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="12"/>
-                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VE2-bL-yMF" userLabel="Top Right Indicator">
-                                                            <rect key="frame" x="19.5" y="10" width="19" height="8"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        </stackView>
-                                                    </subviews>
+                                        <connections>
+                                            <outlet property="dueDateLabel" destination="mOf-FW-yrQ" id="LyC-bU-cZr"/>
+                                            <outlet property="estTimeLabel" destination="3xr-sl-cqT" id="oi3-wz-RIv"/>
+                                            <outlet property="expandButton" destination="En6-PY-83y" id="un1-hm-2F3"/>
+                                            <outlet property="startDateLabel" destination="NGg-Si-oaX" id="1Ku-gO-I7p"/>
+                                            <outlet property="taskNameLabel" destination="iH4-MY-efW" id="c6k-0F-cwB"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="kd2-te-07V" id="P9t-T5-F5Z"/>
+                                    <outlet property="delegate" destination="kd2-te-07V" id="A6q-tN-Lpx"/>
+                                </connections>
+                            </tableView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sh0-dO-jS7" userLabel="Calendar View" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
+                                <rect key="frame" x="0.0" y="88" width="414" height="424"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="H8D-vG-Vks">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CalendarCell" id="TrB-TD-xVx" customClass="CalendarCell" customModule="ProjectFND" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="45.700000000000003" height="45.700000000000003"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="45.700000000000003" height="45.700000000000003"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zdL-vo-8hr" userLabel="Selected View">
+                                                    <rect key="frame" x="4" y="4.5" width="37" height="37"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
-                                                <size key="customSize" width="45.700000000000003" height="45.700000000000003"/>
-                                                <connections>
-                                                    <outlet property="bottomIndicator" destination="PSs-h2-zj9" id="zpI-Gy-BKR"/>
-                                                    <outlet property="dateLabel" destination="JCp-hg-WhY" id="rMy-JO-TMz"/>
-                                                    <outlet property="selectedView" destination="zdL-vo-8hr" id="CmB-Up-W3k"/>
-                                                    <outlet property="topIndicator" destination="jKP-fy-O4j" id="m1O-c4-flE"/>
-                                                    <outlet property="topLeftIndicator" destination="1bO-Lf-9tw" id="IRt-1H-Cpw"/>
-                                                    <outlet property="topRightIndicator" destination="VE2-bL-yMF" id="P7r-Kh-kNi"/>
-                                                </connections>
-                                            </collectionViewCell>
-                                        </cells>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cellSize">
-                                                <real key="value" value="45.700000000000003"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
+                                                <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jKP-fy-O4j" userLabel="Top Indicator">
+                                                    <rect key="frame" x="12.5" y="8" width="19" height="8"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1bO-Lf-9tw" userLabel="Top Left Indicator">
+                                                    <rect key="frame" x="6" y="10" width="19" height="8"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PSs-h2-zj9" userLabel="Bottom Indicator">
+                                                    <rect key="frame" x="12.5" y="29.5" width="19" height="8"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </stackView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JCp-hg-WhY">
+                                                    <rect key="frame" x="8" y="16" width="28" height="14"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="12"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VE2-bL-yMF" userLabel="Top Right Indicator">
+                                                    <rect key="frame" x="19.5" y="10" width="19" height="8"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </stackView>
+                                            </subviews>
+                                        </view>
+                                        <size key="customSize" width="45.700000000000003" height="45.700000000000003"/>
                                         <connections>
-                                            <outlet property="ibCalendarDataSource" destination="kd2-te-07V" id="0st-9E-vB3"/>
-                                            <outlet property="ibCalendarDelegate" destination="kd2-te-07V" id="u9S-Vb-K4M"/>
+                                            <outlet property="bottomIndicator" destination="PSs-h2-zj9" id="zpI-Gy-BKR"/>
+                                            <outlet property="dateLabel" destination="JCp-hg-WhY" id="rMy-JO-TMz"/>
+                                            <outlet property="selectedView" destination="zdL-vo-8hr" id="CmB-Up-W3k"/>
+                                            <outlet property="topIndicator" destination="jKP-fy-O4j" id="m1O-c4-flE"/>
+                                            <outlet property="topLeftIndicator" destination="1bO-Lf-9tw" id="IRt-1H-Cpw"/>
+                                            <outlet property="topRightIndicator" destination="VE2-bL-yMF" id="P7r-Kh-kNi"/>
                                         </connections>
-                                    </collectionView>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zyq-n4-ZfN">
-                                        <rect key="frame" x="0.0" y="580" width="414" height="228"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="228" id="SYz-IQ-RIM"/>
-                                        </constraints>
-                                        <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ScheduleTableViewCell" rowHeight="84" id="nhC-eI-iDB" customClass="ScheduleTableViewCell" customModule="ProjectFND" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="414" height="84"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nhC-eI-iDB" id="hEg-00-QYJ" customClass="ScheduleTableViewCell" customModule="ProjectFND" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="83.666666666666671"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Start Time:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NGg-Si-oaX">
-                                                            <rect key="frame" x="15" y="43" width="80" height="19"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="10"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Due Date:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOf-FW-yrQ">
-                                                            <rect key="frame" x="196" y="43" width="109" height="19"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="10"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Est. Time:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3xr-sl-cqT">
-                                                            <rect key="frame" x="108" y="43" width="75" height="19"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="10"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="En6-PY-83y" customClass="ExpandButton" customModule="ProjectFND" customModuleProvider="target">
-                                                            <rect key="frame" x="279" y="10" width="26" height="25"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <state key="normal" title="Settings" image="ExpandToDo"/>
-                                                        </button>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Task Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iH4-MY-efW">
-                                                            <rect key="frame" x="15" y="13" width="212" height="19"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="17"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                </tableViewCellContentView>
-                                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                <connections>
-                                                    <outlet property="dueDateLabel" destination="mOf-FW-yrQ" id="LyC-bU-cZr"/>
-                                                    <outlet property="estTimeLabel" destination="3xr-sl-cqT" id="oi3-wz-RIv"/>
-                                                    <outlet property="expandButton" destination="En6-PY-83y" id="un1-hm-2F3"/>
-                                                    <outlet property="startDateLabel" destination="NGg-Si-oaX" id="1Ku-gO-I7p"/>
-                                                    <outlet property="taskNameLabel" destination="iH4-MY-efW" id="c6k-0F-cwB"/>
-                                                </connections>
-                                            </tableViewCell>
-                                        </prototypes>
-                                        <connections>
-                                            <outlet property="dataSource" destination="kd2-te-07V" id="P9t-T5-F5Z"/>
-                                            <outlet property="delegate" destination="kd2-te-07V" id="A6q-tN-Lpx"/>
-                                        </connections>
-                                    </tableView>
+                                    </collectionViewCell>
+                                </cells>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cellSize">
+                                        <real key="value" value="45.700000000000003"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="ibCalendarDataSource" destination="kd2-te-07V" id="0st-9E-vB3"/>
+                                    <outlet property="ibCalendarDelegate" destination="kd2-te-07V" id="u9S-Vb-K4M"/>
+                                </connections>
+                            </collectionView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="591-eh-IJA" userLabel="TasksLabelView">
+                                <rect key="frame" x="0.0" y="514" width="414" height="26.333333333333371"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TASKS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aBx-Nb-3z5">
+                                        <rect key="frame" x="0.0" y="5.666666666666667" width="36.666666666666664" height="15.333333333333332"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="13"/>
+                                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
-                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <constraints>
-                                    <constraint firstItem="sh0-dO-jS7" firstAttribute="leading" secondItem="tWK-YP-afU" secondAttribute="leading" id="1cn-1M-Vve"/>
-                                    <constraint firstItem="sh0-dO-jS7" firstAttribute="top" secondItem="vN0-5m-jNg" secondAttribute="bottom" id="9Pa-9B-jgw"/>
-                                    <constraint firstItem="vN0-5m-jNg" firstAttribute="leading" secondItem="tWK-YP-afU" secondAttribute="leading" id="QwD-Rt-yoa"/>
-                                    <constraint firstAttribute="trailing" secondItem="sh0-dO-jS7" secondAttribute="trailing" id="XHy-PL-7Cb"/>
-                                    <constraint firstAttribute="trailing" secondItem="vN0-5m-jNg" secondAttribute="trailing" id="cjH-z8-wLm"/>
-                                    <constraint firstItem="vN0-5m-jNg" firstAttribute="top" secondItem="tWK-YP-afU" secondAttribute="top" id="okH-Qi-TOH"/>
-                                </constraints>
-                            </stackView>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <constraints>
-                            <constraint firstItem="tWK-YP-afU" firstAttribute="trailing" secondItem="L5l-sE-gEo" secondAttribute="trailing" id="CSt-aX-V5T"/>
-                            <constraint firstItem="tWK-YP-afU" firstAttribute="leading" secondItem="L5l-sE-gEo" secondAttribute="leading" id="Nlh-HL-cij"/>
-                            <constraint firstItem="tWK-YP-afU" firstAttribute="top" secondItem="L5l-sE-gEo" secondAttribute="top" constant="8" id="SKD-OD-ZMX"/>
-                            <constraint firstAttribute="bottom" secondItem="tWK-YP-afU" secondAttribute="bottom" constant="-8" id="kjx-1P-Mf6"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="L5l-sE-gEo"/>
                     </view>
                     <navigationItem key="navigationItem" id="VaS-3z-XZa">
@@ -1190,7 +1116,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wYS-Bb-NB0" sceneMemberID="firstResponder"/>
                 <exit id="o07-eC-kzU" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2708" y="131"/>
+            <point key="canvasLocation" x="2707.2463768115945" y="130.58035714285714"/>
         </scene>
     </scenes>
     <resources>
