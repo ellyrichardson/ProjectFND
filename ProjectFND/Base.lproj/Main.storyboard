@@ -191,8 +191,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PDs-aS-qTz" userLabel="Calendar View" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
-                                <rect key="frame" x="0.0" y="88" width="414" height="437"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="ZM2-Yd-Mxw">
+                                <rect key="frame" x="0.0" y="88" width="414" height="333"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="ZM2-Yd-Mxw">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -211,6 +211,13 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QvW-9w-CGe">
+                                                    <rect key="frame" x="4" y="14" width="35" height="14"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="14"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iZ9-Qi-9PX" userLabel="Top Left Indicator">
                                                     <rect key="frame" x="4" y="9.5" width="19" height="8"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -219,13 +226,6 @@
                                                     <rect key="frame" x="12" y="30" width="19" height="8"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </stackView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QvW-9w-CGe">
-                                                    <rect key="frame" x="7.5" y="15" width="28" height="14"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="12"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zN6-ej-M0S" userLabel="Top Right Indicator">
                                                     <rect key="frame" x="20" y="9.5" width="19" height="8"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -258,7 +258,7 @@
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ULd-FF-QdY" userLabel="TasksLabelView">
-                                <rect key="frame" x="0.0" y="525" width="414" height="26"/>
+                                <rect key="frame" x="0.0" y="421" width="414" height="26"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TASKS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QBd-dI-f6Q">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="26"/>
@@ -276,19 +276,26 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sYl-Eh-KfZ">
-                                <rect key="frame" x="16" y="551" width="382" height="262"/>
+                                <rect key="frame" x="16" y="447" width="382" height="366"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ScheduleTableViewCell" rowHeight="87" id="5uS-bT-su0" customClass="ScheduleTableViewCell" customModule="ProjectFND" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="382" height="87"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ScheduleTableViewCell" rowHeight="148" id="5uS-bT-su0" customClass="ScheduleTableViewCell" customModule="ProjectFND" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="382" height="148"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5uS-bT-su0" id="MpH-B1-QHB" customClass="UITableViewCellContentView">
-                                            <rect key="frame" x="0.0" y="0.0" width="382" height="87"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="382" height="148"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start Time:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUa-SI-VXI">
-                                                    <rect key="frame" x="10.000000000000007" y="55" width="115.66666666666669" height="22"/>
-                                                    <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="12"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="XX:XX XX" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUa-SI-VXI">
+                                                    <rect key="frame" x="10" y="85" width="64" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="13"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Personal" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PXt-og-tlY">
+                                                    <rect key="frame" x="10" y="55" width="115.66666666666669" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="13"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qpY-Y2-D8e" customClass="CheckBoxButton" customModule="ProjectFND" customModuleProvider="target">
@@ -298,9 +305,10 @@
                                                     </constraints>
                                                     <state key="normal" title="Check" image="UncheckBox"/>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due Date:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9q8-SJ-SQ4">
-                                                    <rect key="frame" x="256.33333333333331" y="55" width="115.66666666666669" height="22"/>
-                                                    <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="12"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="XX:XX XX" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9q8-SJ-SQ4">
+                                                    <rect key="frame" x="95" y="85" width="66" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="13"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="786-xC-cXL" customClass="ExpandButton" customModule="ProjectFND" customModuleProvider="target">
@@ -319,9 +327,16 @@
                                                     <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="15"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Est. Time:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p4a-zy-V6N">
-                                                    <rect key="frame" x="133.33333333333334" y="58" width="115.66666666666666" height="22"/>
-                                                    <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="12"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Est. Time:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p4a-zy-V6N">
+                                                    <rect key="frame" x="10" y="115" width="45" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="13"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qPA-uZ-bNk">
+                                                    <rect key="frame" x="82" y="85" width="5" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="13"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -329,21 +344,10 @@
                                                 <constraint firstAttribute="trailing" secondItem="786-xC-cXL" secondAttribute="trailing" constant="10" id="1y4-GG-Tlp"/>
                                                 <constraint firstItem="8ou-jz-3c5" firstAttribute="top" secondItem="MpH-B1-QHB" secondAttribute="topMargin" constant="5" id="5kB-up-uYg"/>
                                                 <constraint firstItem="786-xC-cXL" firstAttribute="leading" secondItem="8ou-jz-3c5" secondAttribute="trailing" constant="8" id="DMp-hP-cC9"/>
-                                                <constraint firstAttribute="trailing" secondItem="9q8-SJ-SQ4" secondAttribute="trailing" constant="10" id="FVP-62-OdD"/>
-                                                <constraint firstItem="p4a-zy-V6N" firstAttribute="leading" secondItem="XUa-SI-VXI" secondAttribute="trailing" constant="7.5" id="Fcs-tb-x63"/>
                                                 <constraint firstItem="8ou-jz-3c5" firstAttribute="leading" secondItem="qpY-Y2-D8e" secondAttribute="trailing" constant="8" id="JL0-It-d9R"/>
-                                                <constraint firstItem="9q8-SJ-SQ4" firstAttribute="leading" secondItem="p4a-zy-V6N" secondAttribute="trailing" constant="7.5" id="Kdr-FP-Uxo"/>
-                                                <constraint firstItem="9q8-SJ-SQ4" firstAttribute="top" secondItem="786-xC-cXL" secondAttribute="bottom" constant="20" id="ORN-hO-zD1"/>
-                                                <constraint firstItem="9q8-SJ-SQ4" firstAttribute="width" secondItem="XUa-SI-VXI" secondAttribute="width" id="SYk-dF-oe6"/>
                                                 <constraint firstItem="qpY-Y2-D8e" firstAttribute="leading" secondItem="MpH-B1-QHB" secondAttribute="leading" constant="10" id="UvI-l8-DXt"/>
-                                                <constraint firstItem="XUa-SI-VXI" firstAttribute="leading" secondItem="MpH-B1-QHB" secondAttribute="leading" constant="10" id="Wbk-NC-0NC"/>
                                                 <constraint firstItem="786-xC-cXL" firstAttribute="top" secondItem="MpH-B1-QHB" secondAttribute="top" constant="10" id="aKk-5b-ZSK"/>
-                                                <constraint firstItem="p4a-zy-V6N" firstAttribute="height" secondItem="XUa-SI-VXI" secondAttribute="height" id="dsV-Ha-MOy"/>
-                                                <constraint firstItem="p4a-zy-V6N" firstAttribute="width" secondItem="XUa-SI-VXI" secondAttribute="width" id="kEf-Z6-nhA"/>
-                                                <constraint firstItem="XUa-SI-VXI" firstAttribute="top" secondItem="qpY-Y2-D8e" secondAttribute="bottom" constant="20" id="mVA-d4-uAv"/>
                                                 <constraint firstItem="qpY-Y2-D8e" firstAttribute="top" secondItem="MpH-B1-QHB" secondAttribute="top" constant="10" id="pXY-Ru-zHN"/>
-                                                <constraint firstItem="p4a-zy-V6N" firstAttribute="top" secondItem="8ou-jz-3c5" secondAttribute="bottom" constant="24" id="qCo-KH-DZA"/>
-                                                <constraint firstItem="9q8-SJ-SQ4" firstAttribute="height" secondItem="XUa-SI-VXI" secondAttribute="height" id="wmv-qr-kWb"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -370,7 +374,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="sYl-Eh-KfZ" secondAttribute="trailing" constant="16" id="N3f-uk-QTA"/>
                             <constraint firstItem="sYl-Eh-KfZ" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="QDT-8c-rgR"/>
                             <constraint firstItem="sYl-Eh-KfZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="RVp-IP-pTN"/>
-                            <constraint firstItem="sYl-Eh-KfZ" firstAttribute="height" secondItem="PDs-aS-qTz" secondAttribute="height" multiplier="0.6" id="W4G-bp-CAZ"/>
+                            <constraint firstItem="sYl-Eh-KfZ" firstAttribute="height" secondItem="PDs-aS-qTz" secondAttribute="height" multiplier="1.1" id="W4G-bp-CAZ"/>
                             <constraint firstItem="PDs-aS-qTz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ZlN-A4-1GG"/>
                             <constraint firstItem="ULd-FF-QdY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="bRb-KF-N2p"/>
                             <constraint firstItem="PDs-aS-qTz" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="jHi-XR-Rom"/>
@@ -1026,43 +1030,60 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ScheduleTableViewCell" rowHeight="84" id="nhC-eI-iDB" customClass="ScheduleTableViewCell" customModule="ProjectFND" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="382" height="84"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nhC-eI-iDB" id="hEg-00-QYJ" customClass="ScheduleTableViewCell" customModule="ProjectFND" customModuleProvider="target">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nhC-eI-iDB" id="hEg-00-QYJ" customClass="UITableViewCellContentView">
                                             <rect key="frame" x="0.0" y="0.0" width="382" height="83.666666666666671"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Start Time:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NGg-Si-oaX">
-                                                    <rect key="frame" x="15" y="43" width="80" height="19"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="10"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start Time:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NGg-Si-oaX">
+                                                    <rect key="frame" x="10" y="52" width="114" height="21.666666666666671"/>
+                                                    <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="12"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Due Date:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOf-FW-yrQ">
-                                                    <rect key="frame" x="196" y="43" width="109" height="19"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="10"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due Date:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOf-FW-yrQ">
+                                                    <rect key="frame" x="258" y="52" width="114" height="21.666666666666671"/>
+                                                    <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="12"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Est. Time:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3xr-sl-cqT">
-                                                    <rect key="frame" x="108" y="43" width="75" height="19"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="10"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="En6-PY-83y" customClass="ExpandButton" customModule="ProjectFND" customModuleProvider="target">
-                                                    <rect key="frame" x="279" y="10" width="26" height="25"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="En6-PY-83y" customClass="ExpandButton" customModule="ProjectFND" customModuleProvider="target">
+                                                    <rect key="frame" x="346" y="10" width="26" height="25"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="26" id="6oZ-MZ-a4G"/>
+                                                        <constraint firstAttribute="height" constant="25" id="xxL-29-hVT"/>
+                                                    </constraints>
                                                     <state key="normal" title="Settings" image="ExpandToDo"/>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Task Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iH4-MY-efW">
-                                                    <rect key="frame" x="15" y="13" width="212" height="19"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iH4-MY-efW">
+                                                    <rect key="frame" x="10" y="13" width="74" height="19"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="19" id="QA9-h0-g3r"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="15"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Est. Time:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3xr-sl-cqT">
+                                                    <rect key="frame" x="134" y="52" width="114" height="21.666666666666671"/>
+                                                    <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="12"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <constraints>
+                                                <constraint firstItem="mOf-FW-yrQ" firstAttribute="width" secondItem="NGg-Si-oaX" secondAttribute="width" id="A2e-un-Ibu"/>
+                                                <constraint firstItem="mOf-FW-yrQ" firstAttribute="leading" secondItem="3xr-sl-cqT" secondAttribute="trailing" constant="10" id="C98-V4-KyJ"/>
+                                                <constraint firstAttribute="bottom" secondItem="NGg-Si-oaX" secondAttribute="bottom" constant="10" id="Gta-Ng-jPz"/>
+                                                <constraint firstItem="3xr-sl-cqT" firstAttribute="width" secondItem="NGg-Si-oaX" secondAttribute="width" id="SGQ-SV-6gb"/>
+                                                <constraint firstAttribute="bottom" secondItem="3xr-sl-cqT" secondAttribute="bottom" constant="10" id="WWI-fv-A9C"/>
+                                                <constraint firstItem="iH4-MY-efW" firstAttribute="leading" secondItem="hEg-00-QYJ" secondAttribute="leading" constant="10" id="YEG-NF-1R6"/>
+                                                <constraint firstItem="3xr-sl-cqT" firstAttribute="height" secondItem="NGg-Si-oaX" secondAttribute="height" id="Zz6-7a-PCw"/>
+                                                <constraint firstAttribute="bottom" secondItem="mOf-FW-yrQ" secondAttribute="bottom" constant="10" id="aOn-NW-yRZ"/>
+                                                <constraint firstItem="mOf-FW-yrQ" firstAttribute="height" secondItem="NGg-Si-oaX" secondAttribute="height" id="b3c-uY-T1p"/>
+                                                <constraint firstAttribute="trailing" secondItem="En6-PY-83y" secondAttribute="trailing" constant="10" id="cTH-09-n8L"/>
+                                                <constraint firstAttribute="trailing" secondItem="mOf-FW-yrQ" secondAttribute="trailing" constant="10" id="g5V-dq-IfP"/>
+                                                <constraint firstItem="3xr-sl-cqT" firstAttribute="leading" secondItem="NGg-Si-oaX" secondAttribute="trailing" constant="10" id="hHl-K7-FA8"/>
+                                                <constraint firstItem="NGg-Si-oaX" firstAttribute="leading" secondItem="hEg-00-QYJ" secondAttribute="leading" constant="10" id="lfr-iw-7GZ"/>
+                                                <constraint firstItem="En6-PY-83y" firstAttribute="top" secondItem="hEg-00-QYJ" secondAttribute="top" constant="10" id="r2Z-Z3-no2"/>
+                                                <constraint firstItem="iH4-MY-efW" firstAttribute="top" secondItem="hEg-00-QYJ" secondAttribute="top" constant="13" id="vSV-tC-k5C"/>
+                                            </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <connections>
                                             <outlet property="dueDateLabel" destination="mOf-FW-yrQ" id="LyC-bU-cZr"/>
                                             <outlet property="estTimeLabel" destination="3xr-sl-cqT" id="oi3-wz-RIv"/>
@@ -1096,7 +1117,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Zyq-n4-ZfN" firstAttribute="top" secondItem="591-eh-IJA" secondAttribute="bottom" id="79t-OC-Lky"/>
                             <constraint firstItem="591-eh-IJA" firstAttribute="leading" secondItem="L5l-sE-gEo" secondAttribute="leading" id="9CP-Wi-ILY"/>

@@ -81,6 +81,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
                               forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                               withReuseIdentifier: "CalendarHeader")
         calendarView.backgroundColor = UIColor.clear
+        calendarView.cellSize = calendarView.contentSize.width
         self.calendarView.scrollToDate(Date(),animateScroll: false)
         self.calendarView.selectDates([ Date() ])
         
@@ -163,7 +164,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         //let heightRatio = UIScreen.main.bounds.height / 580
         if selectedIndexPaths.count > 0 {
             if selectedIndexPaths.contains(indexPath) {
-                return 87
+                return 120
                 
             }
         }
@@ -176,7 +177,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         
         let dueDateFormatter = DateFormatter()
         let workDateFormatter = DateFormatter()
-        dueDateFormatter.dateFormat = "M/d/yy, h:mm a"
+        //dueDateFormatter.dateFormat = "M/d/yy, h:mm a"
+        dueDateFormatter.dateFormat = "h:mm a"
         workDateFormatter.dateFormat = "h:mm a"
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: dateCellIdentifier, for: indexPath) as? ScheduleTableViewCell else {
@@ -654,13 +656,6 @@ extension ScheduleViewController: JTAppleCalendarViewDelegate {
     
     func calendarSizeForMonths(_ calendar: JTAppleCalendarView?) -> MonthSize? {
         return MonthSize(defaultSize: 75)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let height = view.frame.size.height
-        let width = view.frame.size.width
-        // in case you you want the cell to be 40% of your controllers view
-        return CGSize(width: width * 0.4, height: height * 0.4)
     }
     
     func showCellIndicators(cell: CalendarCell, onProgress: Bool, finished: Bool, overdue: Bool) -> CalendarCell {
