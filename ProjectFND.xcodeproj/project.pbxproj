@@ -11,6 +11,7 @@
 		214E0AEC233552FE00398AC5 /* ExpandButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214E0AEB233552FE00398AC5 /* ExpandButton.swift */; };
 		214F4F7B23D50DEC00391D7A /* TimeSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214F4F7A23D50DEC00391D7A /* TimeSlot.swift */; };
 		217477CF23D5282B001CA394 /* IntervalAvailabilitiesCheckingOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217477CE23D5282B001CA394 /* IntervalAvailabilitiesCheckingOperations.swift */; };
+		2191FDD8240B2C6F003774F2 /* TableViewAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2191FDD7240B2C6F003774F2 /* TableViewAnimations.swift */; };
 		219A6568232B12B10062BF84 /* ToDoProcessHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219A6567232B12B10062BF84 /* ToDoProcessHelper.swift */; };
 		219A656D232B19150062BF84 /* FNDTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219A656C232B19150062BF84 /* FNDTableViewCell.swift */; };
 		219CA4A92326C904003ACBDE /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219CA4A82326C904003ACBDE /* TableViewCell.swift */; };
@@ -57,6 +58,7 @@
 		214E0AEB233552FE00398AC5 /* ExpandButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandButton.swift; sourceTree = "<group>"; };
 		214F4F7A23D50DEC00391D7A /* TimeSlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSlot.swift; sourceTree = "<group>"; };
 		217477CE23D5282B001CA394 /* IntervalAvailabilitiesCheckingOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalAvailabilitiesCheckingOperations.swift; sourceTree = "<group>"; };
+		2191FDD7240B2C6F003774F2 /* TableViewAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewAnimations.swift; sourceTree = "<group>"; };
 		219A6567232B12B10062BF84 /* ToDoProcessHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoProcessHelper.swift; sourceTree = "<group>"; };
 		219A656C232B19150062BF84 /* FNDTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FNDTableViewCell.swift; sourceTree = "<group>"; };
 		219CA4A82326C904003ACBDE /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
@@ -126,6 +128,15 @@
 				21BC58AD23E629CA00015ECE /* IntervalAvailabilitiesRetrievingOperations.swift */,
 			);
 			path = intervalSchedulingOperations;
+			sourceTree = "<group>";
+		};
+		2191FDD6240B2C52003774F2 /* animations */ = {
+			isa = PBXGroup;
+			children = (
+				2191FDD7240B2C6F003774F2 /* TableViewAnimations.swift */,
+			);
+			name = animations;
+			path = headers/animations;
 			sourceTree = "<group>";
 		};
 		219A6566232B12750062BF84 /* _operations */ = {
@@ -213,6 +224,7 @@
 				21A4D1292320AE5800B5B52A /* itemSetupView */,
 				21A4D128231EE13E00B5B52A /* scheduleView */,
 				21A4D11A231ECD8600B5B52A /* buttons */,
+				2191FDD6240B2C52003774F2 /* animations */,
 				21A4D117231ECD6600B5B52A /* headers */,
 			);
 			path = _components;
@@ -521,6 +533,7 @@
 				21C8DA88237916A90084E2D6 /* ToDoDateSection.swift in Sources */,
 				21A4D124231ECE9A00B5B52A /* ToDo.swift in Sources */,
 				21C8DA8A23791A900084E2D6 /* ToDoDeadlineGroupCell.swift in Sources */,
+				2191FDD8240B2C6F003774F2 /* TableViewAnimations.swift in Sources */,
 				219A656D232B19150062BF84 /* FNDTableViewCell.swift in Sources */,
 				21A4D122231ECE2300B5B52A /* CalendarHeader.swift in Sources */,
 				219A6568232B12B10062BF84 /* ToDoProcessHelper.swift in Sources */,

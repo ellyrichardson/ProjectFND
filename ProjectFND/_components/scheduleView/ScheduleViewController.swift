@@ -34,6 +34,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     private var selectedIndexPath: IndexPath?
     private var selectedIndexPaths: [IndexPath] = [IndexPath]()
     private var coreToDoData: [NSManagedObject] = []
+    private var checkButtonTapped: Int =  -1
     
     // Expand row buttons tracker assets
     
@@ -147,7 +148,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             // To track if the selected day in the calendar was changed
             setCalendarDayChanged(didChange: true)
             reloadTableViewData()
-            // To track how many expand row buttons will be reset if the selected was changed
+            // To track how many expand row buttons will be reset if the selected day was changed
             setRemainingExpandButtonsToReset(remainingButtons: getToDoItemsByDay(dateChosen: getSelectedDate()).count)
         }
     }
@@ -231,8 +232,17 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         // Assigns an index to the CheckBox button of a row
         cell.checkBoxButton.setToDoRowIndex(toDoRowIndex: indexPath.row)
         // Sets the status of the CheckBox being pressed
+        cell.checkBoxButton.tag = indexPath.row
         cell.checkBoxButton.setPressedStatus(isPressed: toDoItems[indexPath.row].finished)
         cell.checkBoxButton.addTarget(self, action: #selector(onCheckBoxButtonTap(sender:)), for: .touchUpInside)
+        
+        /*
+        if checkButtonTapped {
+            cell.contentView.layer.backgroundColor = colorForToDoRow(index: selectedToDoIndex).cgColor
+            self.selectedToDoIndex = -1
+            self.checkButtonTapped = false
+        }
+ */
         
         // If calendar day was changed, then make the state of to-be loaded expand row buttons false
         if getCalendarDayChanged() == true {
@@ -248,9 +258,25 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        print("Value of checkButtonTapped "  +  String(checkButtonTapped))
+        print("Value of indexPath.row "  +  String(indexPath.row))
+        print("Value of indexPath.section "  +  String(indexPath.section))
+
+        if checkButtonTapped == indexPath.row {
+            TableViewAnimations.makeCellMoveUpWithFade(cell: cell, indexPath: indexPath)
+            checkButtonTapped = -1
+        }
+        else {
+            TableViewAnimations.makeCellSlide(cell: cell, indexPath: indexPath, tableView: toDoListTableView)
+        }
+        
         cell.contentView.layer.backgroundColor = colorForToDoRow(index: indexPath.row).cgColor
-        cell.layer.shadowColor = colorForToDoRow(index: indexPath.row).cgColor
+        //cell.contentView.layer.backgroundColor = UIColor.lightGray.cgColor
+        //cell.layer.shadowColor = colorForToDoRow(index: indexPath.row).cgColor
         cell.layer.backgroundColor = colorForToDoRow(index: indexPath.row).cgColor
+        /*
+        addGradientBackground(cell: cell, firstColor: UIColor(red:0.08, green:0.65, blue:0.42, alpha:1.0), secondColor: UIColor(red:0.08, green:0.95, blue:0.42, alpha:1.0))
+ */
         // this will turn on `masksToBounds` just before showing the cell
         cell.contentView.layer.masksToBounds = true
         
@@ -258,6 +284,46 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         // Mysterious code too.  It just make the stuff work
         let radius = cell.contentView.layer.cornerRadius
         cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
+        
+        /*
+         NOTE: This is the tableViewCells animation, could be moved in a framework (BELOW)
+ 
+        cell.transform = CGAffineTransform(translationX: 0, y: cell.frame.height / 2)
+        cell.alpha = 0
+        
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0.05 * Double(indexPath.row),
+            options: [.curveEaseInOut],
+            animations: {
+                cell.transform = CGAffineTransform(translationX: 0, y: 0)
+                cell.alpha = 1
+        })
+        
+         NOTE: This is the tableViewCells animation, could be moved in a framework (BELOW)
+         */
+        
+        /*
+        cell.alpha = 0
+        
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0.05 * Double(indexPath.row),
+            animations: {
+                cell.alpha = 1
+        })
+ */
+    }
+    
+    func addGradientBackground(cell: UITableViewCell, firstColor: UIColor, secondColor: UIColor){
+        cell.contentView.clipsToBounds = true
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [firstColor.cgColor, secondColor.cgColor]
+        gradientLayer.frame = cell.bounds
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 0)
+        print(gradientLayer.frame)
+        cell.contentView.layer.insertSublayer(gradientLayer, at: 0)
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
@@ -514,10 +580,17 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         let newToDoItem: ToDo = toDoItemsByDay[sender.getToDoRowIndex()]
         
         newToDoItem.finished = !newToDoItem.finished
-        
+        //toDoListTableView.cellForRow(at: <#T##IndexPath#>)
         toDoProcessHelper.updateToDo(toDoToUpdate: toDoItemToUpdate, newToDo: newToDoItem, updateType: 1)
-        reloadTableViewData()
-        reloadCalendarViewData()
+        self.checkButtonTapped = sender.tag
+        let indexPath = IndexPath(item: self.checkButtonTapped, section: 0)
+        self.toDoListTableView.reloadRows(at: [indexPath], with: .top)
+        //self.selectedToDoIndex = sender.tag
+        
+        //self.toDoListTableView.beginUpdates()
+        //self.toDoListTableView.endUpdates()
+        //reloadTableViewData()
+        //reloadCalendarViewData()
     }
     
     @objc func onExpandRowButtonTap(sender: ExpandButton) {
@@ -526,11 +599,15 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         // If there is no expanded row yet
         if !getSelectedIndexPaths().contains(buttonIndexPath) {
             addSelectedIndexPath(indexPath: buttonIndexPath)
-            reloadTableViewData()
+            self.toDoListTableView.beginUpdates()
+            self.toDoListTableView.endUpdates()
+            //reloadTableViewData()
         } else {
             let indPath: Int = selectedIndexPaths.firstIndex(of: buttonIndexPath)!
             removeSelectedIndexPath(indexPathInt: indPath)
-            reloadTableViewData()
+            self.toDoListTableView.beginUpdates()
+            self.toDoListTableView.endUpdates()
+            //reloadTableViewData()
         }
     }
     

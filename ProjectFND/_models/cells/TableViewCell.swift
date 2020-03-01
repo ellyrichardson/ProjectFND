@@ -21,6 +21,9 @@ class ScheduleTableViewCell: UITableViewCell, UITableViewDelegate {
     @IBOutlet weak var checkBoxButton: CheckBoxButton!
     @IBOutlet weak var expandButton: ExpandButton!
     
+    // Unused - I think
+    private var checkButtonPressed = Bool()
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -77,6 +80,14 @@ class ScheduleTableViewCell: UITableViewCell, UITableViewDelegate {
             frame.size.height -= 2 * 5
             super.frame = frame
         }
+    }
+    
+    func setCheckButtonStatus(isPressed: Bool) {
+        self.checkButtonPressed = isPressed
+    }
+    
+    func getCheckButtonStatus() -> Bool {
+        return self.checkButtonPressed
     }
 }
 
