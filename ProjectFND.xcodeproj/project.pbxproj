@@ -10,11 +10,12 @@
 		214E0AE9233552C700398AC5 /* TransformingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214E0AE8233552C700398AC5 /* TransformingButton.swift */; };
 		214E0AEC233552FE00398AC5 /* ExpandButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214E0AEB233552FE00398AC5 /* ExpandButton.swift */; };
 		214F4F7B23D50DEC00391D7A /* TimeSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214F4F7A23D50DEC00391D7A /* TimeSlot.swift */; };
+		21521C45240E0D3A00FC8A8A /* GeneralViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21521C44240E0D3A00FC8A8A /* GeneralViewUtils.swift */; };
+		21521C47240E106D00FC8A8A /* ToDoTableViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21521C46240E106D00FC8A8A /* ToDoTableViewUtils.swift */; };
+		21521C49240E11C600FC8A8A /* CalendarViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21521C48240E11C600FC8A8A /* CalendarViewUtils.swift */; };
 		217477CF23D5282B001CA394 /* IntervalAvailabilitiesCheckingOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217477CE23D5282B001CA394 /* IntervalAvailabilitiesCheckingOperations.swift */; };
-		2191FDD8240B2C6F003774F2 /* TableViewAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2191FDD7240B2C6F003774F2 /* TableViewAnimations.swift */; };
-		219A6568232B12B10062BF84 /* ToDoProcessHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219A6567232B12B10062BF84 /* ToDoProcessHelper.swift */; };
-		219A656D232B19150062BF84 /* FNDTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219A656C232B19150062BF84 /* FNDTableViewCell.swift */; };
-		219CA4A92326C904003ACBDE /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219CA4A82326C904003ACBDE /* TableViewCell.swift */; };
+		219A6568232B12B10062BF84 /* ToDoProcessUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219A6567232B12B10062BF84 /* ToDoProcessUtils.swift */; };
+		219CA4A92326C904003ACBDE /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219CA4A82326C904003ACBDE /* ScheduleTableViewCell.swift */; };
 		219CA4AB2326CA18003ACBDE /* CheckBoxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219CA4AA2326CA18003ACBDE /* CheckBoxButton.swift */; };
 		219CEE6C234FD21000A9E819 /* ProjectFND.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 219CEE6A234FD21000A9E819 /* ProjectFND.xcdatamodeld */; };
 		21A4D0F7231ECC3600B5B52A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D0F6231ECC3600B5B52A /* AppDelegate.swift */; };
@@ -29,14 +30,14 @@
 		21A4D12D2320B6E400B5B52A /* ItemInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D12C2320B6E400B5B52A /* ItemInfoTableViewController.swift */; };
 		21A4D12F2320B9F600B5B52A /* StaticTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D12E2320B9F600B5B52A /* StaticTableCell.swift */; };
 		21A4D1322320CDC000B5B52A /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D1312320CDC000B5B52A /* CalendarCell.swift */; };
-		21B8965323D3B7E100D49827 /* DateFormattingOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8965223D3B7E100D49827 /* DateFormattingOperations.swift */; };
-		21B8965623D3BC8000D49827 /* DateArithmeticOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8965523D3BC8000D49827 /* DateArithmeticOperations.swift */; };
+		21B8965323D3B7E100D49827 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8965223D3B7E100D49827 /* DateUtils.swift */; };
+		21B8965623D3BC8000D49827 /* DateArithmeticUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8965523D3BC8000D49827 /* DateArithmeticUtils.swift */; };
 		21BC58AE23E629CA00015ECE /* IntervalAvailabilitiesRetrievingOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BC58AD23E629CA00015ECE /* IntervalAvailabilitiesRetrievingOperations.swift */; };
 		21BC58B023E63A4500015ECE /* IntervalAvailabilitiesRetrievalOperationsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BC58AF23E63A4500015ECE /* IntervalAvailabilitiesRetrievalOperationsTest.swift */; };
 		21C8DA84237915990084E2D6 /* DeadlinesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C8DA82237915990084E2D6 /* DeadlinesTableViewController.swift */; };
 		21C8DA85237915990084E2D6 /* DeadlinesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21C8DA83237915990084E2D6 /* DeadlinesTableViewController.xib */; };
 		21C8DA88237916A90084E2D6 /* ToDoDateSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C8DA87237916A90084E2D6 /* ToDoDateSection.swift */; };
-		21C8DA8A23791A900084E2D6 /* ToDoDeadlineGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C8DA8923791A900084E2D6 /* ToDoDeadlineGroupCell.swift */; };
+		21C8DA8A23791A900084E2D6 /* DeadlineGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C8DA8923791A900084E2D6 /* DeadlineGroupCell.swift */; };
 		21F7013E23F26177001942D6 /* IntervalSchedulingPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7013C23F26177001942D6 /* IntervalSchedulingPreviewController.swift */; };
 		21F7013F23F26177001942D6 /* IntervalSchedulingPreviewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21F7013D23F26177001942D6 /* IntervalSchedulingPreviewController.xib */; };
 		261DC6B2FA6BB83E89F1A698 /* Pods_ProjectFND.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3C362EFBC6B218F41C2F34B /* Pods_ProjectFND.framework */; };
@@ -57,11 +58,12 @@
 		214E0AE8233552C700398AC5 /* TransformingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformingButton.swift; sourceTree = "<group>"; };
 		214E0AEB233552FE00398AC5 /* ExpandButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandButton.swift; sourceTree = "<group>"; };
 		214F4F7A23D50DEC00391D7A /* TimeSlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSlot.swift; sourceTree = "<group>"; };
+		21521C44240E0D3A00FC8A8A /* GeneralViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralViewUtils.swift; sourceTree = "<group>"; };
+		21521C46240E106D00FC8A8A /* ToDoTableViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTableViewUtils.swift; sourceTree = "<group>"; };
+		21521C48240E11C600FC8A8A /* CalendarViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewUtils.swift; sourceTree = "<group>"; };
 		217477CE23D5282B001CA394 /* IntervalAvailabilitiesCheckingOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalAvailabilitiesCheckingOperations.swift; sourceTree = "<group>"; };
-		2191FDD7240B2C6F003774F2 /* TableViewAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewAnimations.swift; sourceTree = "<group>"; };
-		219A6567232B12B10062BF84 /* ToDoProcessHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoProcessHelper.swift; sourceTree = "<group>"; };
-		219A656C232B19150062BF84 /* FNDTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FNDTableViewCell.swift; sourceTree = "<group>"; };
-		219CA4A82326C904003ACBDE /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		219A6567232B12B10062BF84 /* ToDoProcessUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoProcessUtils.swift; sourceTree = "<group>"; };
+		219CA4A82326C904003ACBDE /* ScheduleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCell.swift; sourceTree = "<group>"; };
 		219CA4AA2326CA18003ACBDE /* CheckBoxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxButton.swift; sourceTree = "<group>"; };
 		219CEE6B234FD21000A9E819 /* ProjectFND.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProjectFND.xcdatamodel; sourceTree = "<group>"; };
 		21A4D0F3231ECC3600B5B52A /* ProjectFND.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectFND.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,14 +82,14 @@
 		21A4D12C2320B6E400B5B52A /* ItemInfoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemInfoTableViewController.swift; sourceTree = "<group>"; };
 		21A4D12E2320B9F600B5B52A /* StaticTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticTableCell.swift; sourceTree = "<group>"; };
 		21A4D1312320CDC000B5B52A /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
-		21B8965223D3B7E100D49827 /* DateFormattingOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormattingOperations.swift; sourceTree = "<group>"; };
-		21B8965523D3BC8000D49827 /* DateArithmeticOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateArithmeticOperations.swift; sourceTree = "<group>"; };
+		21B8965223D3B7E100D49827 /* DateUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
+		21B8965523D3BC8000D49827 /* DateArithmeticUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateArithmeticUtils.swift; sourceTree = "<group>"; };
 		21BC58AD23E629CA00015ECE /* IntervalAvailabilitiesRetrievingOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalAvailabilitiesRetrievingOperations.swift; sourceTree = "<group>"; };
 		21BC58AF23E63A4500015ECE /* IntervalAvailabilitiesRetrievalOperationsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalAvailabilitiesRetrievalOperationsTest.swift; sourceTree = "<group>"; };
 		21C8DA82237915990084E2D6 /* DeadlinesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadlinesTableViewController.swift; sourceTree = "<group>"; };
 		21C8DA83237915990084E2D6 /* DeadlinesTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeadlinesTableViewController.xib; sourceTree = "<group>"; };
 		21C8DA87237916A90084E2D6 /* ToDoDateSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDateSection.swift; sourceTree = "<group>"; };
-		21C8DA8923791A900084E2D6 /* ToDoDeadlineGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDeadlineGroupCell.swift; sourceTree = "<group>"; };
+		21C8DA8923791A900084E2D6 /* DeadlineGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadlineGroupCell.swift; sourceTree = "<group>"; };
 		21F7013C23F26177001942D6 /* IntervalSchedulingPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalSchedulingPreviewController.swift; sourceTree = "<group>"; };
 		21F7013D23F26177001942D6 /* IntervalSchedulingPreviewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IntervalSchedulingPreviewController.xib; sourceTree = "<group>"; };
 		C3C362EFBC6B218F41C2F34B /* Pods_ProjectFND.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectFND.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,59 +115,84 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		214E0AEA233552E600398AC5 /* expandButton */ = {
+		21521C43240E0CC600FC8A8A /* utilities */ = {
 			isa = PBXGroup;
 			children = (
-				214E0AEB233552FE00398AC5 /* ExpandButton.swift */,
+				21B8965523D3BC8000D49827 /* DateArithmeticUtils.swift */,
+				21B8965223D3B7E100D49827 /* DateUtils.swift */,
+				219A6567232B12B10062BF84 /* ToDoProcessUtils.swift */,
+				21521C44240E0D3A00FC8A8A /* GeneralViewUtils.swift */,
+				21521C46240E106D00FC8A8A /* ToDoTableViewUtils.swift */,
+				21521C48240E11C600FC8A8A /* CalendarViewUtils.swift */,
 			);
-			path = expandButton;
+			path = utilities;
 			sourceTree = "<group>";
 		};
-		214F4F7723D50C9B00391D7A /* intervalSchedulingOperations */ = {
+		21521C4A240E17D200FC8A8A /* views */ = {
+			isa = PBXGroup;
+			children = (
+				21A4D12C2320B6E400B5B52A /* ItemInfoTableViewController.swift */,
+				21C8DA82237915990084E2D6 /* DeadlinesTableViewController.swift */,
+				21F7013C23F26177001942D6 /* IntervalSchedulingPreviewController.swift */,
+				21A4D0F8231ECC3600B5B52A /* ScheduleViewController.swift */,
+				21521C4C240E17F300FC8A8A /* xibs */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		21521C4C240E17F300FC8A8A /* xibs */ = {
+			isa = PBXGroup;
+			children = (
+				21C8DA83237915990084E2D6 /* DeadlinesTableViewController.xib */,
+				21F7013D23F26177001942D6 /* IntervalSchedulingPreviewController.xib */,
+			);
+			path = xibs;
+			sourceTree = "<group>";
+		};
+		21521C4D240E190700FC8A8A /* cells */ = {
+			isa = PBXGroup;
+			children = (
+				21C8DA8923791A900084E2D6 /* DeadlineGroupCell.swift */,
+				21A4D12E2320B9F600B5B52A /* StaticTableCell.swift */,
+				219CA4A82326C904003ACBDE /* ScheduleTableViewCell.swift */,
+				21A4D1312320CDC000B5B52A /* CalendarCell.swift */,
+			);
+			path = cells;
+			sourceTree = "<group>";
+		};
+		21521C4E240E191E00FC8A8A /* headers */ = {
+			isa = PBXGroup;
+			children = (
+				21A4D11F231ECE1300B5B52A /* CalendarHeader.xib */,
+				21A4D121231ECE2300B5B52A /* CalendarHeader.swift */,
+			);
+			path = headers;
+			sourceTree = "<group>";
+		};
+		21521C4F240E1BAD00FC8A8A /* sections */ = {
+			isa = PBXGroup;
+			children = (
+				21C8DA87237916A90084E2D6 /* ToDoDateSection.swift */,
+			);
+			path = sections;
+			sourceTree = "<group>";
+		};
+		21521C50240E1BEC00FC8A8A /* models */ = {
+			isa = PBXGroup;
+			children = (
+				21A4D123231ECE9A00B5B52A /* ToDo.swift */,
+				214F4F7A23D50DEC00391D7A /* TimeSlot.swift */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
+		219A6566232B12750062BF84 /* operations */ = {
 			isa = PBXGroup;
 			children = (
 				217477CE23D5282B001CA394 /* IntervalAvailabilitiesCheckingOperations.swift */,
 				21BC58AD23E629CA00015ECE /* IntervalAvailabilitiesRetrievingOperations.swift */,
 			);
-			path = intervalSchedulingOperations;
-			sourceTree = "<group>";
-		};
-		2191FDD6240B2C52003774F2 /* animations */ = {
-			isa = PBXGroup;
-			children = (
-				2191FDD7240B2C6F003774F2 /* TableViewAnimations.swift */,
-			);
-			name = animations;
-			path = headers/animations;
-			sourceTree = "<group>";
-		};
-		219A6566232B12750062BF84 /* _operations */ = {
-			isa = PBXGroup;
-			children = (
-				214F4F7723D50C9B00391D7A /* intervalSchedulingOperations */,
-				21B8965723D3BD9700D49827 /* toDoProcesses */,
-				21B8965423D3BC1B00D49827 /* dateOperations */,
-			);
-			path = _operations;
-			sourceTree = "<group>";
-		};
-		219A6569232B18910062BF84 /* cells */ = {
-			isa = PBXGroup;
-			children = (
-				219CA4A82326C904003ACBDE /* TableViewCell.swift */,
-				21A4D12E2320B9F600B5B52A /* StaticTableCell.swift */,
-				21C8DA8923791A900084E2D6 /* ToDoDeadlineGroupCell.swift */,
-				219A656A232B18C80062BF84 /* tableViewCells */,
-			);
-			path = cells;
-			sourceTree = "<group>";
-		};
-		219A656A232B18C80062BF84 /* tableViewCells */ = {
-			isa = PBXGroup;
-			children = (
-				219A656C232B19150062BF84 /* FNDTableViewCell.swift */,
-			);
-			path = tableViewCells;
+			path = operations;
 			sourceTree = "<group>";
 		};
 		21A4D0EA231ECC3600B5B52A = {
@@ -192,9 +219,11 @@
 		21A4D0F5231ECC3600B5B52A /* ProjectFND */ = {
 			isa = PBXGroup;
 			children = (
-				219A6566232B12750062BF84 /* _operations */,
-				21A4D116231ECD5A00B5B52A /* _components */,
-				21A4D11B231ECDA100B5B52A /* _models */,
+				21521C50240E1BEC00FC8A8A /* models */,
+				21521C4A240E17D200FC8A8A /* views */,
+				219A6566232B12750062BF84 /* operations */,
+				21521C43240E0CC600FC8A8A /* utilities */,
+				21A4D1302320CDAF00B5B52A /* components */,
 				21A4D0F6231ECC3600B5B52A /* AppDelegate.swift */,
 				21A4D0FA231ECC3600B5B52A /* Main.storyboard */,
 				21A4D0FD231ECC3600B5B52A /* Assets.xcassets */,
@@ -214,141 +243,25 @@
 			path = ProjectFNDTests;
 			sourceTree = "<group>";
 		};
-		21A4D116231ECD5A00B5B52A /* _components */ = {
-			isa = PBXGroup;
-			children = (
-				21F7013B23F2613F001942D6 /* intervalSchedulingPreview */,
-				21B8965823D3BE7400D49827 /* dayActivitiesTracker */,
-				21C8DA86237915B10084E2D6 /* deadlinesView */,
-				21A4D1302320CDAF00B5B52A /* cells */,
-				21A4D1292320AE5800B5B52A /* itemSetupView */,
-				21A4D128231EE13E00B5B52A /* scheduleView */,
-				21A4D11A231ECD8600B5B52A /* buttons */,
-				2191FDD6240B2C52003774F2 /* animations */,
-				21A4D117231ECD6600B5B52A /* headers */,
-			);
-			path = _components;
-			sourceTree = "<group>";
-		};
-		21A4D117231ECD6600B5B52A /* headers */ = {
-			isa = PBXGroup;
-			children = (
-				21A4D121231ECE2300B5B52A /* CalendarHeader.swift */,
-				21A4D11F231ECE1300B5B52A /* CalendarHeader.xib */,
-			);
-			path = headers;
-			sourceTree = "<group>";
-		};
 		21A4D11A231ECD8600B5B52A /* buttons */ = {
 			isa = PBXGroup;
 			children = (
 				214E0AE8233552C700398AC5 /* TransformingButton.swift */,
-				21A4D125231ECEB600B5B52A /* checkBox */,
-				214E0AEA233552E600398AC5 /* expandButton */,
+				219CA4AA2326CA18003ACBDE /* CheckBoxButton.swift */,
+				214E0AEB233552FE00398AC5 /* ExpandButton.swift */,
 			);
 			path = buttons;
 			sourceTree = "<group>";
 		};
-		21A4D11B231ECDA100B5B52A /* _models */ = {
+		21A4D1302320CDAF00B5B52A /* components */ = {
 			isa = PBXGroup;
 			children = (
-				21A4D123231ECE9A00B5B52A /* ToDo.swift */,
-				219A6569232B18910062BF84 /* cells */,
-				21C8DA87237916A90084E2D6 /* ToDoDateSection.swift */,
-				214F4F7A23D50DEC00391D7A /* TimeSlot.swift */,
+				21521C4F240E1BAD00FC8A8A /* sections */,
+				21A4D11A231ECD8600B5B52A /* buttons */,
+				21521C4E240E191E00FC8A8A /* headers */,
+				21521C4D240E190700FC8A8A /* cells */,
 			);
-			path = _models;
-			sourceTree = "<group>";
-		};
-		21A4D125231ECEB600B5B52A /* checkBox */ = {
-			isa = PBXGroup;
-			children = (
-				219CA4AA2326CA18003ACBDE /* CheckBoxButton.swift */,
-			);
-			path = checkBox;
-			sourceTree = "<group>";
-		};
-		21A4D128231EE13E00B5B52A /* scheduleView */ = {
-			isa = PBXGroup;
-			children = (
-				21A4D0F8231ECC3600B5B52A /* ScheduleViewController.swift */,
-			);
-			path = scheduleView;
-			sourceTree = "<group>";
-		};
-		21A4D1292320AE5800B5B52A /* itemSetupView */ = {
-			isa = PBXGroup;
-			children = (
-				21A4D12C2320B6E400B5B52A /* ItemInfoTableViewController.swift */,
-			);
-			path = itemSetupView;
-			sourceTree = "<group>";
-		};
-		21A4D1302320CDAF00B5B52A /* cells */ = {
-			isa = PBXGroup;
-			children = (
-				21A4D1312320CDC000B5B52A /* CalendarCell.swift */,
-			);
-			path = cells;
-			sourceTree = "<group>";
-		};
-		21B774D823A7F8B00009923C /* scheduleIntervalsOperations */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = scheduleIntervalsOperations;
-			sourceTree = "<group>";
-		};
-		21B8965423D3BC1B00D49827 /* dateOperations */ = {
-			isa = PBXGroup;
-			children = (
-				21B8965223D3B7E100D49827 /* DateFormattingOperations.swift */,
-				21B8965523D3BC8000D49827 /* DateArithmeticOperations.swift */,
-			);
-			path = dateOperations;
-			sourceTree = "<group>";
-		};
-		21B8965723D3BD9700D49827 /* toDoProcesses */ = {
-			isa = PBXGroup;
-			children = (
-				219A6567232B12B10062BF84 /* ToDoProcessHelper.swift */,
-			);
-			path = toDoProcesses;
-			sourceTree = "<group>";
-		};
-		21B8965823D3BE7400D49827 /* dayActivitiesTracker */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = dayActivitiesTracker;
-			sourceTree = "<group>";
-		};
-		21C4B005237BE90300EA3688 /* newDeadlineView */ = {
-			isa = PBXGroup;
-			children = (
-				21B774D823A7F8B00009923C /* scheduleIntervalsOperations */,
-			);
-			path = newDeadlineView;
-			sourceTree = "<group>";
-		};
-		21C8DA86237915B10084E2D6 /* deadlinesView */ = {
-			isa = PBXGroup;
-			children = (
-				21C4B005237BE90300EA3688 /* newDeadlineView */,
-				21C8DA82237915990084E2D6 /* DeadlinesTableViewController.swift */,
-				21C8DA83237915990084E2D6 /* DeadlinesTableViewController.xib */,
-			);
-			name = deadlinesView;
-			path = "New Group";
-			sourceTree = "<group>";
-		};
-		21F7013B23F2613F001942D6 /* intervalSchedulingPreview */ = {
-			isa = PBXGroup;
-			children = (
-				21F7013C23F26177001942D6 /* IntervalSchedulingPreviewController.swift */,
-				21F7013D23F26177001942D6 /* IntervalSchedulingPreviewController.xib */,
-			);
-			path = intervalSchedulingPreview;
+			path = components;
 			sourceTree = "<group>";
 		};
 		D06ACD0C06D5B8187C47A8F8 /* Frameworks */ = {
@@ -517,14 +430,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				21A4D12D2320B6E400B5B52A /* ItemInfoTableViewController.swift in Sources */,
-				219CA4A92326C904003ACBDE /* TableViewCell.swift in Sources */,
+				219CA4A92326C904003ACBDE /* ScheduleTableViewCell.swift in Sources */,
 				21A4D1322320CDC000B5B52A /* CalendarCell.swift in Sources */,
+				21521C49240E11C600FC8A8A /* CalendarViewUtils.swift in Sources */,
 				21C8DA84237915990084E2D6 /* DeadlinesTableViewController.swift in Sources */,
-				21B8965323D3B7E100D49827 /* DateFormattingOperations.swift in Sources */,
+				21B8965323D3B7E100D49827 /* DateUtils.swift in Sources */,
 				21A4D0F9231ECC3600B5B52A /* ScheduleViewController.swift in Sources */,
+				21521C45240E0D3A00FC8A8A /* GeneralViewUtils.swift in Sources */,
 				217477CF23D5282B001CA394 /* IntervalAvailabilitiesCheckingOperations.swift in Sources */,
 				214F4F7B23D50DEC00391D7A /* TimeSlot.swift in Sources */,
-				21B8965623D3BC8000D49827 /* DateArithmeticOperations.swift in Sources */,
+				21B8965623D3BC8000D49827 /* DateArithmeticUtils.swift in Sources */,
+				21521C47240E106D00FC8A8A /* ToDoTableViewUtils.swift in Sources */,
 				219CEE6C234FD21000A9E819 /* ProjectFND.xcdatamodeld in Sources */,
 				219CA4AB2326CA18003ACBDE /* CheckBoxButton.swift in Sources */,
 				214E0AE9233552C700398AC5 /* TransformingButton.swift in Sources */,
@@ -532,11 +448,9 @@
 				214E0AEC233552FE00398AC5 /* ExpandButton.swift in Sources */,
 				21C8DA88237916A90084E2D6 /* ToDoDateSection.swift in Sources */,
 				21A4D124231ECE9A00B5B52A /* ToDo.swift in Sources */,
-				21C8DA8A23791A900084E2D6 /* ToDoDeadlineGroupCell.swift in Sources */,
-				2191FDD8240B2C6F003774F2 /* TableViewAnimations.swift in Sources */,
-				219A656D232B19150062BF84 /* FNDTableViewCell.swift in Sources */,
+				21C8DA8A23791A900084E2D6 /* DeadlineGroupCell.swift in Sources */,
 				21A4D122231ECE2300B5B52A /* CalendarHeader.swift in Sources */,
-				219A6568232B12B10062BF84 /* ToDoProcessHelper.swift in Sources */,
+				219A6568232B12B10062BF84 /* ToDoProcessUtils.swift in Sources */,
 				21A4D0F7231ECC3600B5B52A /* AppDelegate.swift in Sources */,
 				21F7013E23F26177001942D6 /* IntervalSchedulingPreviewController.swift in Sources */,
 				21A4D12F2320B9F600B5B52A /* StaticTableCell.swift in Sources */,
