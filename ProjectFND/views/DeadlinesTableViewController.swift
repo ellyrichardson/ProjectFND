@@ -73,7 +73,7 @@ class DeadlinesTableViewController: UITableViewController {
         dueDateFormatter.dateFormat = "M/d/yy, h:mm a"
         workDateFormatter.dateFormat = "h:mm a"
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: dateCellIdentifier, for: indexPath) as? ToDoDeadlineGroupCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: dateCellIdentifier, for: indexPath) as? DeadlineGroupCell else {
             fatalError("The dequeued cell is not an instance of ToDoTableViewCell.")
         }
         

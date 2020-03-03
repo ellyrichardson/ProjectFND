@@ -11,7 +11,7 @@ import UIKit
 import os.log
 
 class IntervalAvailabilitiesRetrievalOperations {
-    var dateArithmeticOps = DateArithmeticUtils()
+    var dateArithmeticOps = DateUtils()
     //private var allOfTheToDos: [ToDo]
     
     // MARK: Essential Functions

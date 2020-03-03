@@ -11,7 +11,7 @@ import UIKit
 import os.log
 
 class IntervalAvailabilitiesCheckingOperations {
-    var dateArithmeticOps = DateArithmeticUtils()
+    var dateArithmeticOps = DateUtils()
     
     // MARK: Essential Functions
     

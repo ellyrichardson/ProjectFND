@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ToDoDeadlineGroupCell: UITableViewCell, UITableViewDelegate {
+class DeadlineGroupCell: UITableViewCell, UITableViewDelegate {
     /*var toDos = [ToDo]()
      var toDoSubMenuTable: UITableView?*/
     
