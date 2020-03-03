@@ -11,7 +11,7 @@ import UIKit
 import os.log
 
 class IntervalAvailabilitiesCheckingOperations {
-    var dateArithmeticOps = DateArithmeticOperations()
+    var dateArithmeticOps = DateArithmeticUtils()
     
     // MARK: Essential Functions
     
@@ -67,7 +67,7 @@ class IntervalAvailabilitiesCheckingOperations {
      TEST: Untested
      */
     func getAvailableTimeSlotsForDay(dayToCheck: Date, toDoItemsForDay: [ToDo]) -> [String: TimeSlot] {
-        let toDoProcessHelper = ToDoProcessHelper()
+        let toDoProcessHelper = ToDoProcessUtils()
         // Gets all the ToDos from the collection of the ToDos that belongs to the dayToCheck
         let toDosForTheDay: [ToDo] = toDoProcessHelper.retrieveToDoItemsByDay(toDoDate: dayToCheck, toDoItems: toDoItemsForDay)
         //let toDosForTheDay: [ToDo] = toDoItemsForDay

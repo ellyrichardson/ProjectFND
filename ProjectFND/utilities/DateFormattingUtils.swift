@@ -10,7 +10,7 @@ import CoreData
 import UIKit
 import os.log
 
-class DateFormattingOperations{
+class DateFormattingUtils{
     func changeDateFormatToMDYY(dateToChange: Date) -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "M/d/yy"

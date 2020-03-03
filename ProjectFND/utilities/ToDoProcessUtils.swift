@@ -10,7 +10,7 @@ import CoreData
 import UIKit
 import os.log
 
-class ToDoProcessHelper {
+class ToDoProcessUtils {
     // Sorts ToDo items by date
     func sortToDoItemsByDate(toDoItems: [ToDo]) -> [ToDo] {
         var toDosToBeSorted = toDoItems
@@ -177,4 +177,37 @@ class ToDoProcessHelper {
         }
     }
     
+    func addToDoItem(toDoItemToAdd: ToDo, toDoItemCollection: inout [ToDo]) {
+        toDoItemCollection.append(toDoItemToAdd)
+    }
+    
+    func removeToDoItem(toDoItemIndexToRemove: Int, toDoItemCollection: inout [ToDo]) {
+        toDoItemCollection.remove(at: toDoItemIndexToRemove)
+    }
+    
+    func addSelectedIndexPath(indexPath: IndexPath, selectedIndexPaths: inout [IndexPath]) {
+        selectedIndexPaths.append(indexPath)
+    }
+    
+    func removeSelectedIndexPath(indexPathAsInt: Int, selectedIndexPaths: inout [IndexPath]) {
+        selectedIndexPaths.remove(at: indexPathAsInt)
+    }
+    
+    func removeAllSelectedIndexPaths(selectedIndexPaths: inout [IndexPath]) {
+        selectedIndexPaths.removeAll()
+    }
+    
+    // Retrieves the index of the ToDo from the base ToDo List instead of by day
+    func retrieveRealIndexOfToDo(toDoItem: ToDo, toDoItemCollection: [ToDo]) -> Int {
+        let toDoItems: [ToDo] = toDoItemCollection
+        let retrievedIndex: Int = toDoItems.firstIndex(of: toDoItem)!
+        return retrievedIndex
+    }
+    
+    // Replaces a ToDo item based on its index from an array
+    func replaceToDoItemInBaseList(editedToDoItem: ToDo, editedToDoItemIndex: Int, toDoItemCollection: inout [ToDo]) {
+        //self.toDos[editedToDoItemIndex] = editedToDoItem
+        removeToDoItem(toDoItemIndexToRemove: editedToDoItemIndex, toDoItemCollection: &toDoItemCollection)
+        addToDoItem(toDoItemToAdd: editedToDoItem, toDoItemCollection: &toDoItemCollection)
+    }
 }

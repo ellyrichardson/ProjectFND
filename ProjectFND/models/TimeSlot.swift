@@ -39,7 +39,7 @@ class TimeSlot {
     
     
     init?(timeSlotCode: String, timeSlotCodeDay: Date) {
-        let dateArithmeticOps = DateArithmeticOperations()
+        let dateArithmeticOps = DateArithmeticUtils()
         self.startOfTimeSlot = Date()
         self.endOfTimeSlot = Date()
         //self.timeLength = 0.0

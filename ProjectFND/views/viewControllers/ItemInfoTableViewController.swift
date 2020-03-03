@@ -155,21 +155,17 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         endDateLabel.text = "End Date: " + strDate
     }
     
+    /*
     @IBAction func setupIntervalSchedule(_ sender: UIButton) {
-        var toDoProcessHelper = ToDoProcessHelper()
+        var toDoProcessHelper = ToDoProcessUtils()
         
         var intervalHours = intervalSchedulingHourField.text
         var intervalDays = intervalSchedulingDayField.text
         
         // Send the interval hours and days from here to next view!
-        
-        /*
-        guard let itemInfoTableViewController = segue.destination as? IntervalSchedulingPreviewController else {
-            fatalError("Unexpected destination: \(segue.destination)")
-        }
- */
+ 
     }
-
+*/
     
     // MARK: - Table view data source
     

@@ -10,7 +10,7 @@ import CoreData
 import UIKit
 import os.log
 
-class DateArithmeticOperations {
+class DateArithmeticUtils {
     func addMinutesToDate(date: Date, minutes: Double) -> Date {
         // Adds minutes (minutes * 60) to the date that needs to increase
         return date.addingTimeInterval(minutes * 60.0)
