@@ -550,6 +550,9 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
             let toDoItemsForDay: [ToDo] = toDoProcessHelper.retrieveToDoItemsByDay(toDoDate: actualDateOfTheDay, toDoItems: savedToDos)
             let timeSlotsOfAllToDoInDate = intervalSchedCheckHelper.getOccupiedTimeSlots(collectionOfToDosForTheDay: toDoItemsForDay, dayDateOfTheCollection: actualDateOfTheDay)
             let availableTimeSlots = intervalSchedCheckHelper.getLongestAvailableConsecutiveTimeSlot(timeSlotDictionary: timeSlotsOfAllToDoInDate, dayToCheck: actualDateOfTheDay)
+            if availableTimeSlots.count == 0 {
+                print("AvailableTimeSlots Less than 0")
+            }
             let longestTimeIntervalStartTime = intervalSchedRetrivHelper.getStartTimeOfConsecutiveTimeSlots(consecutiveTimeSlot: availableTimeSlots, dayOfConcern: actualDateOfTheDay)
             let longestTimeIntervalEndTime = intervalSchedRetrivHelper.getEndTimeOfConsecutiveTimeSlots(consecutiveTimeSlot: availableTimeSlots, dayOfConcern: actualDateOfTheDay)
             
