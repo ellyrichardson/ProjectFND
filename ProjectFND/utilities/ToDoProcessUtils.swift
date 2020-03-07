@@ -12,7 +12,7 @@ import os.log
 
 class ToDoProcessUtils {
     // Sorts ToDo items by date
-    func sortToDoItemsByDate(toDoItems: [ToDo]) -> [ToDo] {
+    static func sortToDoItemsByDate(toDoItems: [ToDo]) -> [ToDo] {
         var toDosToBeSorted = toDoItems
         toDosToBeSorted = toDosToBeSorted.sorted(by: {
             $1.workDate > $0.workDate
@@ -21,7 +21,7 @@ class ToDoProcessUtils {
     }
     
     // Gets ToDo items that meets the day selected in calendar
-    func retrieveToDoItemsByDay(toDoDate: Date, toDoItems: [ToDo]) -> [ToDo] {
+    static func retrieveToDoItemsByDay(toDoDate: Date, toDoItems: [ToDo]) -> [ToDo] {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "M/d/yy"
         var matchedToDosByDate: [ToDo] = [ToDo]()
@@ -33,7 +33,7 @@ class ToDoProcessUtils {
         return sortToDoItemsByDate(toDoItems: matchedToDosByDate)
     }
     
-    func loadToDos() -> [ToDo]? {
+    static func loadToDos() -> [ToDo]? {
         var loadedToDos: [ToDo] = [ToDo]()
         var loadedToDo: ToDo?
         
@@ -65,7 +65,7 @@ class ToDoProcessUtils {
         return loadedToDos
     }
     
-    func saveToDos(toDoItem: ToDo) {
+    static func saveToDos(toDoItem: ToDo) {
         // Container is set up in the AppDelegate so it needs to refer to that container.
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else  { return }
         
@@ -91,7 +91,7 @@ class ToDoProcessUtils {
         }
     }
     
-    func updateToDo(toDoToUpdate: ToDo, newToDo: ToDo, updateType: Int) {
+    static func updateToDo(toDoToUpdate: ToDo, newToDo: ToDo, updateType: Int) {
         // Container is set up in the AppDelegate so it needs to refer to that container.
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else  { return }
         
@@ -138,7 +138,7 @@ class ToDoProcessUtils {
         }
     }
     
-    func deleteToDo(toDoToDelete: ToDo) {
+    static func deleteToDo(toDoToDelete: ToDo) {
         // Container is set up in the AppDelegate so it needs to refer to that container.
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else  { return }
         
@@ -177,35 +177,35 @@ class ToDoProcessUtils {
         }
     }
     
-    func addToDoItem(toDoItemToAdd: ToDo, toDoItemCollection: inout [ToDo]) {
+    static func addToDoItem(toDoItemToAdd: ToDo, toDoItemCollection: inout [ToDo]) {
         toDoItemCollection.append(toDoItemToAdd)
     }
     
-    func removeToDoItem(toDoItemIndexToRemove: Int, toDoItemCollection: inout [ToDo]) {
+    static func removeToDoItem(toDoItemIndexToRemove: Int, toDoItemCollection: inout [ToDo]) {
         toDoItemCollection.remove(at: toDoItemIndexToRemove)
     }
     
-    func addSelectedIndexPath(indexPath: IndexPath, selectedIndexPaths: inout [IndexPath]) {
+    static func addSelectedIndexPath(indexPath: IndexPath, selectedIndexPaths: inout [IndexPath]) {
         selectedIndexPaths.append(indexPath)
     }
     
-    func removeSelectedIndexPath(indexPathAsInt: Int, selectedIndexPaths: inout [IndexPath]) {
+    static func removeSelectedIndexPath(indexPathAsInt: Int, selectedIndexPaths: inout [IndexPath]) {
         selectedIndexPaths.remove(at: indexPathAsInt)
     }
     
-    func removeAllSelectedIndexPaths(selectedIndexPaths: inout [IndexPath]) {
+    static func removeAllSelectedIndexPaths(selectedIndexPaths: inout [IndexPath]) {
         selectedIndexPaths.removeAll()
     }
     
     // Retrieves the index of the ToDo from the base ToDo List instead of by day
-    func retrieveRealIndexOfToDo(toDoItem: ToDo, toDoItemCollection: [ToDo]) -> Int {
+    static func retrieveRealIndexOfToDo(toDoItem: ToDo, toDoItemCollection: [ToDo]) -> Int {
         let toDoItems: [ToDo] = toDoItemCollection
         let retrievedIndex: Int = toDoItems.firstIndex(of: toDoItem)!
         return retrievedIndex
     }
     
     // Replaces a ToDo item based on its index from an array
-    func replaceToDoItemInBaseList(editedToDoItem: ToDo, editedToDoItemIndex: Int, toDoItemCollection: inout [ToDo]) {
+    static func replaceToDoItemInBaseList(editedToDoItem: ToDo, editedToDoItemIndex: Int, toDoItemCollection: inout [ToDo]) {
         //self.toDos[editedToDoItemIndex] = editedToDoItem
         removeToDoItem(toDoItemIndexToRemove: editedToDoItemIndex, toDoItemCollection: &toDoItemCollection)
         addToDoItem(toDoItemToAdd: editedToDoItem, toDoItemCollection: &toDoItemCollection)

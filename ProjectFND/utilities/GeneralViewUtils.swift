@@ -12,41 +12,41 @@ import os.log
 
 class GeneralViewUtils {
     
-    func reloadTableViewData(tableView: UITableView) {
+    static func reloadTableViewData(tableView: UITableView) {
         DispatchQueue.main.async {
             tableView.reloadData()
         }
     }
     
-    func reloadCollectionViewData(collectionView: UICollectionView) {
+    static func reloadCollectionViewData(collectionView: UICollectionView) {
         DispatchQueue.main.async {
             collectionView.reloadData()
         }
     }
     
     // MARK: - View Border
-    func addTopBorderWithColor(_ objView : UIView, color: UIColor, width: CGFloat) {
+    static func addTopBorderWithColor(_ objView : UIView, color: UIColor, width: CGFloat) {
         let border = CALayer()
         border.backgroundColor = color.cgColor
         border.frame = CGRect(x: 0, y: 0, width: objView.frame.size.width, height: width)
         objView.layer.addSublayer(border)
     }
     
-    func addRightBorderWithColor(_ objView : UIView, color: UIColor, width: CGFloat) {
+    static func addRightBorderWithColor(_ objView : UIView, color: UIColor, width: CGFloat) {
         let border = CALayer()
         border.backgroundColor = color.cgColor
         border.frame = CGRect(x: objView.frame.size.width - width, y: 0, width: width, height: objView.frame.size.height)
         objView.layer.addSublayer(border)
     }
     
-    func addBottomBorderWithColor(_ objView : UIView, color: UIColor, width: CGFloat) {
+    static func addBottomBorderWithColor(_ objView : UIView, color: UIColor, width: CGFloat) {
         let border = CALayer()
         border.backgroundColor = color.cgColor
         border.frame = CGRect(x: 0, y: objView.frame.size.height - width, width: objView.frame.size.width, height: width)
         objView.layer.addSublayer(border)
     }
     
-    func addLeftBorderWithColor(_ objView : UIView, color: UIColor, width: CGFloat) {
+    static func addLeftBorderWithColor(_ objView : UIView, color: UIColor, width: CGFloat) {
         let border = CALayer()
         border.backgroundColor = color.cgColor
         border.frame = CGRect(x: 0, y: 0, width: width, height: objView.frame.size.height)
@@ -54,7 +54,7 @@ class GeneralViewUtils {
     }
     
     // MARL: - Background
-    func addGradientBackground(cell: UITableViewCell, firstColor: UIColor, secondColor: UIColor){
+    static func addGradientBackground(cell: UITableViewCell, firstColor: UIColor, secondColor: UIColor){
         cell.contentView.clipsToBounds = true
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [firstColor.cgColor, secondColor.cgColor]

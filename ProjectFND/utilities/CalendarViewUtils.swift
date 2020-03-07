@@ -12,7 +12,7 @@ import os.log
 import JTAppleCalendar
 
 class CalendarViewUtils {
-    func showCellIndicators(cell: CalendarCell, onProgress: Bool, finished: Bool, overdue: Bool) -> CalendarCell {
+    static func showCellIndicators(cell: CalendarCell, onProgress: Bool, finished: Bool, overdue: Bool) -> CalendarCell {
         // Yellow indicator only
         if onProgress == true && finished == false && overdue == false {
             cell.bottomIndicator.isHidden = false

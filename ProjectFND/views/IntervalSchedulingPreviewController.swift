@@ -66,7 +66,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         self.toDoListTableView.dataSource = self
         self.toDoListTableView.backgroundColor = UIColor.clear
         
-        if let savedToDos = toDoProcessHelper.loadToDos() {
+        if let savedToDos = ToDoProcessUtils.loadToDos() {
             setToDoItems(toDoItems: savedToDos)
         }
         
@@ -229,7 +229,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         if editingStyle == .delete {
             let toDoToBeDeleted: [ToDo] = getToDoItemsByDay(dateChosen: getSelectedDate())
             let toDoRealIndex = retrieveRealIndexOfToDo(toDoItem: toDoToBeDeleted[indexPath.row])
-            toDoProcessHelper.deleteToDo(toDoToDelete: getToDoItems()[toDoRealIndex])
+            ToDoProcessUtils.deleteToDo(toDoToDelete: getToDoItems()[toDoRealIndex])
             removeToDoItem(toDoIndex: toDoRealIndex)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
@@ -243,14 +243,14 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         if let sourceViewController = sender.source as? ItemInfoTableViewController, let toDo = sourceViewController.toDo {
             if toDoListTableView.indexPathForSelectedRow != nil {
                 // Replaces the ToDo item in the original array of ToDos.
-                toDoProcessHelper.updateToDo(toDoToUpdate: getToDoItemByIndex(toDoIndex: getSelectedToDoIndex()), newToDo: toDo, updateType: 0)
+                ToDoProcessUtils.updateToDo(toDoToUpdate: getToDoItemByIndex(toDoIndex: getSelectedToDoIndex()), newToDo: toDo, updateType: 0)
                 replaceToDoItemInBaseList(editedToDoItem: toDo, editedToDoItemIndex: getSelectedToDoIndex())
                 reloadTableViewData()
             } else {
                 addToDoItem(toDoItem: toDo)
                 print("ToDo Finished?")
                 print(toDo.finished)
-                toDoProcessHelper.saveToDos(toDoItem: toDo)
+                ToDoProcessUtils.saveToDos(toDoItem: toDo)
             }
         }
     }
@@ -393,7 +393,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     }
     
     private func getToDoItemsByDay(dateChosen: Date) -> [ToDo] {
-        return toDoProcessHelper.retrieveToDoItemsByDay(toDoDate: dateChosen, toDoItems: getToDoItems())
+        return ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: dateChosen, toDoItems: getToDoItems())
     }
     
     func getToDoItems() -> [ToDo] {
@@ -536,10 +536,9 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         var actualDateOfTheDay: Date = formatter.date(from: stringDateOfTheDay)!
         let intervalSchedCheckHelper = IntervalAvailabilitiesCheckingOperations()
         let intervalSchedRetrivHelper = IntervalAvailabilitiesRetrievalOperations()
-        let toDoProcessHelper = ToDoProcessUtils()
         var assignedIntervals: Int = 0
         while assignedIntervals < getIntervalAmount() {
-            let toDoItemsForDay: [ToDo] = toDoProcessHelper.retrieveToDoItemsByDay(toDoDate: actualDateOfTheDay, toDoItems: savedToDos)
+            let toDoItemsForDay: [ToDo] = ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: actualDateOfTheDay, toDoItems: savedToDos)
             let timeSlotsOfAllToDoInDate = intervalSchedCheckHelper.getOccupiedTimeSlots(collectionOfToDosForTheDay: toDoItemsForDay, dayDateOfTheCollection: actualDateOfTheDay)
             let availableTimeSlots = intervalSchedCheckHelper.getLongestAvailableConsecutiveTimeSlot(timeSlotDictionary: timeSlotsOfAllToDoInDate, dayToCheck: actualDateOfTheDay)
             if availableTimeSlots.count == 0 {
@@ -593,7 +592,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         
         newToDoItem.finished = !newToDoItem.finished
         
-        toDoProcessHelper.updateToDo(toDoToUpdate: toDoItemToUpdate, newToDo: newToDoItem, updateType: 1)
+        ToDoProcessUtils.updateToDo(toDoToUpdate: toDoItemToUpdate, newToDo: newToDoItem, updateType: 1)
         //reloadTableViewData()
         //reloadCalendarViewData()
     }

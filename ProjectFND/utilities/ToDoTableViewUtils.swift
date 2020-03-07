@@ -12,7 +12,8 @@ import os.log
 
 class ToDoTableViewUtils {
     
-    func colorForToDoRow(toDoRowIndex: Int, toDoItems: [ToDo]) -> UIColor {
+    // Sets the appropriate row color if the ToDo is finished, late, or neutral status
+    static func colorForToDoRow(toDoRowIndex: Int, toDoItems: [ToDo]) -> UIColor {
         let currentDate = Date()
         let dateFormatter = DateFormatter()
         
