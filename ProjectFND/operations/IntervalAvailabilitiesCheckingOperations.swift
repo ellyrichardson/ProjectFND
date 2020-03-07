@@ -152,9 +152,23 @@ class IntervalAvailabilitiesCheckingOperations {
             // Iterates to the next codeHour possible by incrementing the timeSlotCodeHourIterator by 1
             timeSlotCodeHourIterator = timeSlotCodeHourIterator + 1
         }
+        
+        // NOTE: PROBLEM IN THIS CODE! COULD BE BECAUSE OF THE MIDNIGHT, OR ALSO BECAUSE EMPTY tempSingleTimeSlotDictionary ARE BEING APPENDED AS WELL TO THE tempCollectionOfSingleTimeSlotDict.
+        // NOTE: IT FAILS BECAUSE IF ONLY THE MIDNIGHT IS  OCCUPIED,AND THE REST OF THE DAY IS NOT, THERE IS NO ASSIGNING TO THE tempCollectionOfSingleTimeSlotDict, AND the timeSingleTimeSlotDictionary JUST KEEPS INCREASING AND ITS VALUE DON'T GET PASSED.
+        // NOTE: THIS MAY BE FIXED NOW, I can assign automatically even if only midnight was assigned.
+        tempCollectionOfSingleTimeSlotDict.append(tempSingleTimeSlotDictionary)
+        
         // Gets the longest consecutive timeSlot
         var longestConsecutiveTimeSlot: [String: TimeSlot] = [String: TimeSlot]()
         if timeSlotDictionary.count > 0 {
+            // ERROR: ERROR HERE! IF THE MIDNIGHT (12:00 AM) OR THE COLLECTION[0] IS OCCUPIED ALREADY, THIS SCHEDULING FAILS!
+            /*
+            for tempSingleCollection in tempCollectionOfSingleTimeSlotDict {
+                if tempSingleCollection.count > 0 {
+                    longestConsecutiveTimeSlot = tempSingleCollection
+                }
+            }
+ */
             longestConsecutiveTimeSlot = tempCollectionOfSingleTimeSlotDict[0]
         }
         // Use the singleTimeSlotDictionary if timeSlotDictionary is empty

@@ -155,7 +155,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         endDateLabel.text = "End Date: " + strDate
     }
     
-    /*
+    // NOTE: Don't delete this!
     @IBAction func setupIntervalSchedule(_ sender: UIButton) {
         var toDoProcessHelper = ToDoProcessUtils()
         
@@ -165,7 +165,6 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         // Send the interval hours and days from here to next view!
  
     }
-*/
     
     // MARK: - Table view data source
     

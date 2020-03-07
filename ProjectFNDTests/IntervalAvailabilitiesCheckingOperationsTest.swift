@@ -16,7 +16,7 @@ class IntervalAvailabilitiesCheckingOperationsTest: XCTestCase {
     
     var arrayOfToDos: [ToDo] = [ToDo]()
     let intervalAvailabilitiesHelper = IntervalAvailabilitiesCheckingOperations.init()
-    let toDoProcessHelper = ToDoProcessHelper()
+    let toDoProcessHelper = ToDoProcessUtils()
     let formatter = DateFormatter()
     
     override func setUp() {
