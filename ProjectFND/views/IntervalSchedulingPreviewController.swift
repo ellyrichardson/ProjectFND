@@ -58,13 +58,13 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         let nav = self.navigationController?.navigationBar
         
         // Sets the navigation bar to color black with tintColor of yellow.
-        nav?.barStyle = UIBarStyle.black
+        nav?.barStyle = UIBarStyle.blackOpaque
         nav?.tintColor = UIColor(red:1.00, green:0.89, blue:0.00, alpha:1.0)
         
         // Do any additional setup after loading the view, typically from a nib.
         self.toDoListTableView.delegate = self
         self.toDoListTableView.dataSource = self
-        self.toDoListTableView.backgroundColor = UIColor.darkText
+        self.toDoListTableView.backgroundColor = UIColor.clear
         
         if let savedToDos = toDoProcessHelper.loadToDos() {
             setToDoItems(toDoItems: savedToDos)
@@ -91,6 +91,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         calendarView.register(UINib(nibName: "CalendarHeader", bundle: Bundle.main),
                               forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                               withReuseIdentifier: "CalendarHeader")
+        calendarView.cellSize = calendarView.contentSize.width
         self.calendarView.scrollToDate(Date(),animateScroll: false)
         self.calendarView.selectDates([ Date() ])
         
@@ -171,10 +172,10 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if selectedIndexPaths.count > 0 {
             if selectedIndexPaths.contains(indexPath) {
-                return 70
+                return 120
             }
         }
-        return 45
+        return 55
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -182,23 +183,13 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         
         let dueDateFormatter = DateFormatter()
         let workDateFormatter = DateFormatter()
-        dueDateFormatter.dateFormat = "M/d/yy, h:mm a"
+        dueDateFormatter.dateFormat = "h:mm a"
         workDateFormatter.dateFormat = "h:mm a"
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: dateCellIdentifier, for: indexPath) as? ScheduleTableViewCell else {
             fatalError("The dequeued cell is not an instance of ScheduleTableViewCell.")
         }
         
-        
-        // For making the rows oval.
-        cell.layer.cornerRadius = 23
-        cell.layer.masksToBounds = true
-        
-        // Added borders for spacing of the table view cells.
-        cell.layer.borderWidth = 8.0
-        cell.layer.borderColor = UIColor.darkText.cgColor
-        
-        // Retrieves sorted ToDo Items by date that fall under the chosen day in the calendar
         var toDoItems = getToDoItemsByDay(dateChosen: getSelectedDate())
         cell.taskNameLabel.text = toDoItems[indexPath.row].taskName
         cell.startDateLabel.text = workDateFormatter.string(from: toDoItems[indexPath.row].workDate)
@@ -219,18 +210,19 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        ToDoTableViewUtils.makeCellMoveUpWithFade(cell: cell, indexPath: indexPath)
         cell.backgroundColor = colorForToDoRow(index: indexPath.row)
-    }
-    
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let deleteButton = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
-            self.toDoListTableView.dataSource?.tableView!(self.toDoListTableView, commit: .delete, forRowAt: indexPath)
-            return
-        }
-        // Makes the backgroundColor of deleteButton black and its title "Remove".
-        deleteButton.backgroundColor = UIColor.black
-        deleteButton.title = "Remove"
-        return [deleteButton]
+        cell.layer.backgroundColor = colorForToDoRow(index: indexPath.row).cgColor
+        
+        // This will turn on `masksToBounds` just before showing the cell
+        cell.contentView.layer.masksToBounds = true
+        
+        /*
+         NOTE: If this is not set `shadowPath` you'll notice laggy scrolling. Mysterious code too.  It just make the shadow stuff work
+         */
+        let radius = cell.contentView.layer.cornerRadius
+        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -602,8 +594,8 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         newToDoItem.finished = !newToDoItem.finished
         
         toDoProcessHelper.updateToDo(toDoToUpdate: toDoItemToUpdate, newToDo: newToDoItem, updateType: 1)
-        reloadTableViewData()
-        reloadCalendarViewData()
+        //reloadTableViewData()
+        //reloadCalendarViewData()
     }
     
     @objc func onExpandRowButtonTap(sender: ExpandButton) {
@@ -612,11 +604,15 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         // If there is no expanded row yet
         if !getSelectedIndexPaths().contains(buttonIndexPath) {
             addSelectedIndexPath(indexPath: buttonIndexPath)
-            reloadTableViewData()
+            self.toDoListTableView.beginUpdates()
+            self.toDoListTableView.endUpdates()
+            //reloadTableViewData()
         } else {
             let indPath: Int = selectedIndexPaths.firstIndex(of: buttonIndexPath)!
             removeSelectedIndexPath(indexPathInt: indPath)
-            reloadTableViewData()
+            self.toDoListTableView.beginUpdates()
+            self.toDoListTableView.endUpdates()
+            //reloadTableViewData()
         }
     }
 }
@@ -768,6 +764,7 @@ extension IntervalSchedulingPreviewController: JTAppleCalendarViewDelegate {
         for toDoInterval in getToDoIntervalsToAssign() {
             if isToDoIntervalOnDay(toDoInterval: toDoInterval, dateOfDay: dateChosen) {
                 //cell.backgroundColor = UIColor(red:0.729, green:0.860, blue:0.354, alpha:1.0)
+                //cell.dateLabel.textColor = UIColor(red:0.729, green:0.860, blue:0.354, alpha:1.0)
                 cell.backgroundColor = UIColor(patternImage: UIImage(named: "PreviewIndicator")!)
             }
         }

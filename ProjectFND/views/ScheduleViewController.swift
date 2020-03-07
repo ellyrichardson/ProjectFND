@@ -161,15 +161,12 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        // For dynamic height based on device
-        //let heightRatio = UIScreen.main.bounds.height / 580
         if selectedIndexPaths.count > 0 {
             if selectedIndexPaths.contains(indexPath) {
                 return 120
                 
             }
         }
-        //return 45 * heightRatio
         return 55
     }
     
@@ -178,50 +175,12 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         
         let dueDateFormatter = DateFormatter()
         let workDateFormatter = DateFormatter()
-        //dueDateFormatter.dateFormat = "M/d/yy, h:mm a"
         dueDateFormatter.dateFormat = "h:mm a"
         workDateFormatter.dateFormat = "h:mm a"
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: dateCellIdentifier, for: indexPath) as? ScheduleTableViewCell else {
             fatalError("The dequeued cell is not an instance of ScheduleTableViewCell.")
         }
-        
-        /*
-        cell.contentView.layer.cornerRadius = 8
-        self.contentView.layer.borderWidth = 1.0
-        self.contentView.layer.borderColor = UIColor.clear.cgColor
-        cell.contentView.layer.masksToBounds = true
-        
-        cell.layer.shadowOffset = CGSize(width: -1, height: 1)
-        cell.layer.shadowOpacity = 5
- */
-        
-        /*
-        // For tableViewCells spacing
-        cell.contentView.backgroundColor = UIColor.clear
-        
-        let whiteRoundedView : UIView = UIView(frame: CGRect(x: 10, y: 8, width: self.view.frame.size.width - 20, height: 120))
-        
-        whiteRoundedView.layer.backgroundColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [1.0, 1.0, 1.0, 0.9])
-        whiteRoundedView.layer.masksToBounds = false
-        whiteRoundedView.layer.cornerRadius = 2.0
-        whiteRoundedView.layer.shadowOffset = CGSize(width: -1, height: 1)
-        whiteRoundedView.layer.shadowOpacity = 0.2
-        
-        cell.contentView.addSubview(whiteRoundedView)
-        cell.contentView.sendSubviewToBack(whiteRoundedView)
-        // For tableViewCells spacing ^
- */
-        
-        
-        // For making the rows oval.
-        //cell.layer.cornerRadius = 23
-        //cell.layer.masksToBounds = true
-        
-        // Added borders for spacing of the table view cells.
-        //cell.layer.borderWidth = 8.0
-        //cell.layer.borderColor = UIColor.darkText.cgColor
-        //cell.layer.borderColor = UIColor.gray.cgColor
         
         // Retrieves sorted ToDo Items by date that fall under the chosen day in the calendar
         var toDoItems = getToDoItemsByDay(dateChosen: getSelectedDate())
@@ -235,14 +194,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         cell.checkBoxButton.tag = indexPath.row
         cell.checkBoxButton.setPressedStatus(isPressed: toDoItems[indexPath.row].finished)
         cell.checkBoxButton.addTarget(self, action: #selector(onCheckBoxButtonTap(sender:)), for: .touchUpInside)
-        
-        /*
-        if checkButtonTapped {
-            cell.contentView.layer.backgroundColor = colorForToDoRow(index: selectedToDoIndex).cgColor
-            self.selectedToDoIndex = -1
-            self.checkButtonTapped = false
-        }
- */
         
         // If calendar day was changed, then make the state of to-be loaded expand row buttons false
         if getCalendarDayChanged() == true {
@@ -271,48 +222,15 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         }
         
         cell.contentView.layer.backgroundColor = colorForToDoRow(index: indexPath.row).cgColor
-        //cell.contentView.layer.backgroundColor = UIColor.lightGray.cgColor
-        //cell.layer.shadowColor = colorForToDoRow(index: indexPath.row).cgColor
         cell.layer.backgroundColor = colorForToDoRow(index: indexPath.row).cgColor
-        /*
-        addGradientBackground(cell: cell, firstColor: UIColor(red:0.08, green:0.65, blue:0.42, alpha:1.0), secondColor: UIColor(red:0.08, green:0.95, blue:0.42, alpha:1.0))
- */
-        // this will turn on `masksToBounds` just before showing the cell
+        // This will turn on `masksToBounds` just before showing the cell
         cell.contentView.layer.masksToBounds = true
         
-        // if this is not set `shadowPath` you'll notice laggy scrolling
-        // Mysterious code too.  It just make the stuff work
+        /*
+         NOTE: If this is not set `shadowPath` you'll notice laggy scrolling. Mysterious code too.  It just make the shadow stuff work
+         */
         let radius = cell.contentView.layer.cornerRadius
         cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
-        
-        /*
-         NOTE: This is the tableViewCells animation, could be moved in a framework (BELOW)
- 
-        cell.transform = CGAffineTransform(translationX: 0, y: cell.frame.height / 2)
-        cell.alpha = 0
-        
-        UIView.animate(
-            withDuration: 0.5,
-            delay: 0.05 * Double(indexPath.row),
-            options: [.curveEaseInOut],
-            animations: {
-                cell.transform = CGAffineTransform(translationX: 0, y: 0)
-                cell.alpha = 1
-        })
-        
-         NOTE: This is the tableViewCells animation, could be moved in a framework (BELOW)
-         */
-        
-        /*
-        cell.alpha = 0
-        
-        UIView.animate(
-            withDuration: 0.5,
-            delay: 0.05 * Double(indexPath.row),
-            animations: {
-                cell.alpha = 1
-        })
- */
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
@@ -556,17 +474,10 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         let newToDoItem: ToDo = toDoItemsByDay[sender.getToDoRowIndex()]
         
         newToDoItem.finished = !newToDoItem.finished
-        //toDoListTableView.cellForRow(at: <#T##IndexPath#>)
         toDoProcessHelper.updateToDo(toDoToUpdate: toDoItemToUpdate, newToDo: newToDoItem, updateType: 1)
         self.checkButtonTapped = sender.tag
         let indexPath = IndexPath(item: self.checkButtonTapped, section: 0)
         self.toDoListTableView.reloadRows(at: [indexPath], with: .top)
-        //self.selectedToDoIndex = sender.tag
-        
-        //self.toDoListTableView.beginUpdates()
-        //self.toDoListTableView.endUpdates()
-        //reloadTableViewData()
-        //reloadCalendarViewData()
     }
     
     @objc func onExpandRowButtonTap(sender: ExpandButton) {
