@@ -26,6 +26,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     // Helpers
     
     var toDoProcessHelper: ToDoProcessUtils = ToDoProcessUtils()
+    var loadingScreen: LoadingScreen = LoadingScreen()
     
     // Properties
     
@@ -72,9 +73,18 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         
         configureCalendarView()
         // Determines the interval starting from the start date of ToDo
-        determineInterval(savedToDos: getToDoItems(), dateOfTheDay: getToDoStartDate())
-        //GeneralViewUtils.
-        ToDoProcessUtils.addToDoArrayToAToDoArray(toDoArray: &self.toDos, toDosToBeAdded: getToDoIntervalsToAssign())
+        loadingScreen.showSpinner(onView: self.view)
+        DispatchQueue.global(qos: .background).async {
+            print("This is run on the background queue")
+            
+            self.determineInterval(savedToDos: self.getToDoItems(), dateOfTheDay: self.getToDoStartDate())
+            
+            DispatchQueue.main.async {
+                self.loadingScreen.removeSpinner()
+                GeneralViewUtils.reloadCollectionViewData(collectionView: self.calendarView)
+                GeneralViewUtils.reloadTableViewData(tableView: self.toDoListTableView)
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -406,6 +416,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         }
     }
     
+    // NOTE: Refactor this function
     private func determineInterval(savedToDos: [ToDo], dateOfTheDay: Date) {
         formatter.dateFormat = "yyyy/MM/dd"
         let stringDateOfTheDay: String = formatter.string(from: dateOfTheDay)
@@ -447,6 +458,8 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
                 actualDateOfTheDay = Calendar.current.date(byAdding: .day, value: 1, to: actualDateOfTheDay)!
             }
         }
+        ToDoProcessUtils.addToDoArrayToAToDoArray(toDoArray: &self.toDos, toDosToBeAdded: self.getToDoIntervalsToAssign())
+        //loadingScreen.removeSpinner()
     }
     
     private func isToDoIntervalOnDay(toDoInterval: ToDo, dateOfDay: Date) -> Bool {
