@@ -221,7 +221,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             ToDoTableViewUtils.makeCellSlide(cell: cell, indexPath: indexPath, tableView: toDoListTableView)
         }
         
-        //cell.contentView.layer.backgroundColor = colorForToDoRow(index: indexPath.row).cgColor
         cell.contentView.layer.backgroundColor = ToDoTableViewUtils.colorForToDoRow(toDoRowIndex: indexPath.row, toDoItems: getToDoItemsByDay(dateChosen: getSelectedDate())).cgColor
         cell.layer.backgroundColor = ToDoTableViewUtils.colorForToDoRow(toDoRowIndex: indexPath.row, toDoItems: getToDoItemsByDay(dateChosen: getSelectedDate())).cgColor
         // This will turn on `masksToBounds` just before showing the cell

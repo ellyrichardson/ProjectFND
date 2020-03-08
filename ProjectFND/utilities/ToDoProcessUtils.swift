@@ -189,6 +189,10 @@ class ToDoProcessUtils {
         selectedIndexPaths.append(indexPath)
     }
     
+    static func addToDoArrayToAToDoArray(toDoArray: inout [ToDo], toDosToBeAdded: [ToDo]) {
+        toDoArray.append(contentsOf: toDosToBeAdded)
+    }
+    
     static func removeSelectedIndexPath(indexPathAsInt: Int, selectedIndexPaths: inout [IndexPath]) {
         selectedIndexPaths.remove(at: indexPathAsInt)
     }
