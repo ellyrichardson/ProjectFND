@@ -67,9 +67,9 @@ class IntervalAvailabilitiesCheckingOperations {
      TEST: Untested
      */
     func getAvailableTimeSlotsForDay(dayToCheck: Date, toDoItemsForDay: [ToDo]) -> [String: TimeSlot] {
-        let toDoProcessHelper = ToDoProcessUtils()
+        //let toDoProcessHelper = ToDoProcessUtils()
         // Gets all the ToDos from the collection of the ToDos that belongs to the dayToCheck
-        let toDosForTheDay: [ToDo] = toDoProcessHelper.retrieveToDoItemsByDay(toDoDate: dayToCheck, toDoItems: toDoItemsForDay)
+        let toDosForTheDay: [ToDo] = ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: dayToCheck, toDoItems: toDoItemsForDay)
         //let toDosForTheDay: [ToDo] = toDoItemsForDay
         // Gets all the occupied timeSlots as a dictionary for the dayToCheck
         var occupiedTimeSlotsDictionary: [String:TimeSlot] = getOccupiedTimeSlots(collectionOfToDosForTheDay: toDosForTheDay, dayDateOfTheCollection: dayToCheck)

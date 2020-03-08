@@ -58,19 +58,19 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         self.toDoListTableView.dataSource = self
         self.toDoListTableView.backgroundColor = UIColor.clear
         
-        if let savedToDos = toDoProcessHelper.loadToDos() {
+        if let savedToDos = ToDoProcessUtils.loadToDos() {
             setToDoItems(toDoItems: savedToDos)
         }
         
         configureCalendarView()
-        addTopBorderWithColor(self.toDoListTableView, color: UIColor.lightGray, width: 1.00)
+        GeneralViewUtils.addTopBorderWithColor(self.toDoListTableView, color: UIColor.lightGray, width: 1.00)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        reloadCalendarViewData()
-        reloadTableViewData()
+        GeneralViewUtils.reloadCollectionViewData(collectionView: self.calendarView)
+        GeneralViewUtils.reloadTableViewData(tableView: self.toDoListTableView)
     }
     
     func configureCalendarView(){
@@ -111,7 +111,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         
         if cellState.isSelected {
             currentCell.dateLabel.textColor = UIColor.black
-            reloadTableViewData()
+            GeneralViewUtils.reloadTableViewData(tableView: self.toDoListTableView)
         } else {
             if cellState.dateBelongsTo == .thisMonth && cellState.date > Date()  {
                 currentCell.dateLabel.textColor = UIColor.white
@@ -144,10 +144,10 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     func configureSelectedDay(cell: JTAppleCell?, cellState: CellState) {
         if cellState.isSelected{
             setSelectedDate(selectedDate: cellState.date)
-            removeAllSelectedIndexPaths()
+            ToDoProcessUtils.removeAllSelectedIndexPaths(selectedIndexPaths: &selectedIndexPaths)
             // To track if the selected day in the calendar was changed
             setCalendarDayChanged(didChange: true)
-            reloadTableViewData()
+            GeneralViewUtils.reloadTableViewData(tableView: self.toDoListTableView)
             // To track how many expand row buttons will be reset if the selected day was changed
             setRemainingExpandButtonsToReset(remainingButtons: getToDoItemsByDay(dateChosen: getSelectedDate()).count)
         }
@@ -221,8 +221,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             ToDoTableViewUtils.makeCellSlide(cell: cell, indexPath: indexPath, tableView: toDoListTableView)
         }
         
-        cell.contentView.layer.backgroundColor = colorForToDoRow(index: indexPath.row).cgColor
-        cell.layer.backgroundColor = colorForToDoRow(index: indexPath.row).cgColor
+        cell.contentView.layer.backgroundColor = ToDoTableViewUtils.colorForToDoRow(toDoRowIndex: indexPath.row, toDoItems: getToDoItemsByDay(dateChosen: getSelectedDate())).cgColor
+        cell.layer.backgroundColor = ToDoTableViewUtils.colorForToDoRow(toDoRowIndex: indexPath.row, toDoItems: getToDoItemsByDay(dateChosen: getSelectedDate())).cgColor
         // This will turn on `masksToBounds` just before showing the cell
         cell.contentView.layer.masksToBounds = true
         
@@ -247,9 +247,9 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let toDoToBeDeleted: [ToDo] = getToDoItemsByDay(dateChosen: getSelectedDate())
-            let toDoRealIndex = retrieveRealIndexOfToDo(toDoItem: toDoToBeDeleted[indexPath.row])
-            toDoProcessHelper.deleteToDo(toDoToDelete: getToDoItems()[toDoRealIndex])
-            removeToDoItem(toDoIndex: toDoRealIndex)
+            let toDoRealIndex = ToDoProcessUtils.retrieveRealIndexOfToDo(toDoItem: toDoToBeDeleted[indexPath.row], toDoItemCollection: self.toDos)
+            ToDoProcessUtils.deleteToDo(toDoToDelete: getToDoItems()[toDoRealIndex])
+            ToDoProcessUtils.removeToDoItem(toDoItemIndexToRemove: toDoRealIndex, toDoItemCollection: &self.toDos)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -263,24 +263,24 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             if sourceViewController.isToDoIntervalsExist() {
                 let toDoIntervals = sourceViewController.getToDoIntervals()
                 for toDo in toDoIntervals {
-                    addToDoItem(toDoItem: toDo)
+                    ToDoProcessUtils.addToDoItem(toDoItemToAdd: toDo, toDoItemCollection: &self.toDos)
                     print("ToDo Finished?")
                     print(toDo.finished)
-                    toDoProcessHelper.saveToDos(toDoItem: toDo)
+                    ToDoProcessUtils.saveToDos(toDoItem: toDo)
                 }
             }
             else {
                 let toDo = sourceViewController.toDo
                 if toDoListTableView.indexPathForSelectedRow != nil {
                     // Replaces the ToDo item in the original array of ToDos.
-                    toDoProcessHelper.updateToDo(toDoToUpdate: getToDoItemByIndex(toDoIndex: getSelectedToDoIndex()), newToDo: toDo!, updateType: 0)
-                    replaceToDoItemInBaseList(editedToDoItem: toDo!, editedToDoItemIndex: getSelectedToDoIndex())
-                    reloadTableViewData()
+                    ToDoProcessUtils.updateToDo(toDoToUpdate: getToDoItemByIndex(toDoIndex: getSelectedToDoIndex()), newToDo: toDo!, updateType: 0)
+                    ToDoProcessUtils.replaceToDoItemInBaseList(editedToDoItem: toDo!, editedToDoItemIndex: getSelectedToDoIndex(), toDoItemCollection: &self.toDos)
+                    GeneralViewUtils.reloadTableViewData(tableView: self.toDoListTableView)
                 } else {
-                    addToDoItem(toDoItem: toDo!)
+                    ToDoProcessUtils.addToDoItem(toDoItemToAdd: toDo!, toDoItemCollection: &self.toDos)
                     print("ToDo Finished?")
                     print(toDo!.finished)
-                    toDoProcessHelper.saveToDos(toDoItem: toDo!)
+                    ToDoProcessUtils.saveToDos(toDoItem: toDo!)
                 }
             }
         }
@@ -315,7 +315,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             // Sets the finish status of the todo in the itemInfoTableViewController to avoid its reset
             itemInfoTableViewController.setIsFinished(isFinished: selectedToDoItem.finished)
             // Retrieves the index of the selected toDo
-            setSelectedToDoIndex(toDoItemIndex: retrieveRealIndexOfToDo(toDoItem: selectedToDoItem))
+            setSelectedToDoIndex(toDoItemIndex: ToDoProcessUtils.retrieveRealIndexOfToDo(toDoItem: selectedToDoItem, toDoItemCollection: getToDoItemsByDay(dateChosen: getSelectedDate())))
             os_log("Showing details for the selected ToDo item.", log: OSLog.default, type: .debug)
         default:
             fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")
@@ -347,7 +347,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     // MARK: - Getters
     
     private func getToDoItemsByDay(dateChosen: Date) -> [ToDo] {
-        return toDoProcessHelper.retrieveToDoItemsByDay(toDoDate: dateChosen, toDoItems: getToDoItems())
+        return ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: dateChosen, toDoItems: getToDoItems())
     }
     
     func getToDoItems() -> [ToDo] {
@@ -380,56 +380,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         return self.remainingExpandButtonsToReset
     }
     
-    // MARK: - Private Methods
-    
-    // TODO: Put this function in its own helper
-    private func reloadTableViewData() {
-        DispatchQueue.main.async {
-            self.toDoListTableView.reloadData()
-        }
-    }
-    
-    // TODO: Put this function in its own helper
-    private func reloadCalendarViewData() {
-        DispatchQueue.main.async {
-            self.calendarView.reloadData()
-        }
-    }
-    
-    private func addToDoItem(toDoItem: ToDo) {
-        self.toDos.append(toDoItem)
-    }
-    
-    private func removeToDoItem(toDoIndex: Int) {
-        self.toDos.remove(at: toDoIndex)
-    }
-    
-    private func addSelectedIndexPath(indexPath: IndexPath) {
-        selectedIndexPaths.append(indexPath)
-    }
-    
-    private func removeSelectedIndexPath(indexPathInt: Int) {
-        selectedIndexPaths.remove(at: indexPathInt)
-    }
-    
-    private func removeAllSelectedIndexPaths() {
-        selectedIndexPaths.removeAll()
-    }
-    
-    // Retrieves the index of the ToDo from the base ToDo List instead of by day
-    private func retrieveRealIndexOfToDo(toDoItem: ToDo) -> Int {
-        let toDoItems: [ToDo] = getToDoItems()
-        let retrievedIndex: Int = toDoItems.firstIndex(of: toDoItem)!
-        return retrievedIndex
-    }
-    
-    // Replaces a ToDo item based on its index from an array
-    private func replaceToDoItemInBaseList(editedToDoItem: ToDo, editedToDoItemIndex: Int) {
-        //self.toDos[editedToDoItemIndex] = editedToDoItem
-        removeToDoItem(toDoIndex: editedToDoItemIndex)
-        addToDoItem(toDoItem: editedToDoItem)
-    }
-    
     //  NOTE:  KEEP  THIS FUNCTION HERE
     // Tracks the expand row buttons that needs to be reset
     private func trackExpandButtonsToBeReset() {
@@ -441,40 +391,13 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    // NOTE: USE THE ONE IN UTILS!
-    // Sets the appropriate row color if the ToDo is finished, late, or neutral status
-    private func colorForToDoRow(index: Int) -> UIColor {
-        let currentDate = Date()
-        let dateFormatter = DateFormatter()
-        
-        dateFormatter.dateFormat = "M/d/yy, h:mm a"
-        
-        let toDoItem = getToDoItemsByDay(dateChosen: getSelectedDate())[index]
-        
-        // Neutral status - if ToDo hasn't met due date yet
-        if toDoItem.finished == false && currentDate < toDoItem.dueDate {
-            // Yellowish color
-            return UIColor(red:1.00, green:0.89, blue:0.00, alpha:1.0)
-        }
-        // Finished - if ToDo is finished
-        else if toDoItem.finished == true {
-            // Greenish color
-            return UIColor(red:0.08, green:0.65, blue:0.42, alpha:1.0)
-        }
-        // Late - if ToDo hasn't finished yet and is past due date
-        else {
-            // Reddish orange color
-            return UIColor(red:1.00, green:0.40, blue:0.18, alpha:1.0)
-        }
-    }
-    
     @objc func onCheckBoxButtonTap(sender: CheckBoxButton) {
         var toDoItemsByDay: [ToDo] = getToDoItemsByDay(dateChosen: getSelectedDate())
         let toDoItemToUpdate: ToDo = toDoItemsByDay[sender.getToDoRowIndex()]
         let newToDoItem: ToDo = toDoItemsByDay[sender.getToDoRowIndex()]
         
         newToDoItem.finished = !newToDoItem.finished
-        toDoProcessHelper.updateToDo(toDoToUpdate: toDoItemToUpdate, newToDo: newToDoItem, updateType: 1)
+        ToDoProcessUtils.updateToDo(toDoToUpdate: toDoItemToUpdate, newToDo: newToDoItem, updateType: 1)
         self.checkButtonTapped = sender.tag
         let indexPath = IndexPath(item: self.checkButtonTapped, section: 0)
         self.toDoListTableView.reloadRows(at: [indexPath], with: .top)
@@ -482,51 +405,17 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     @objc func onExpandRowButtonTap(sender: ExpandButton) {
         let buttonIndexPath = IndexPath(row: sender.getExpandedRowIndex(), section: 0)
-        
         // If there is no expanded row yet
         if !getSelectedIndexPaths().contains(buttonIndexPath) {
-            addSelectedIndexPath(indexPath: buttonIndexPath)
+            ToDoProcessUtils.addSelectedIndexPath(indexPath: buttonIndexPath, selectedIndexPaths: &selectedIndexPaths)
             self.toDoListTableView.beginUpdates()
             self.toDoListTableView.endUpdates()
-            //reloadTableViewData()
         } else {
             let indPath: Int = selectedIndexPaths.firstIndex(of: buttonIndexPath)!
-            removeSelectedIndexPath(indexPathInt: indPath)
+            ToDoProcessUtils.removeSelectedIndexPath(indexPathAsInt: indPath, selectedIndexPaths: &selectedIndexPaths)
             self.toDoListTableView.beginUpdates()
             self.toDoListTableView.endUpdates()
-            //reloadTableViewData()
         }
-    }
-    
-    // NOTE: USE THE ONES IN UTILS!
-    // MARK: - View Border
-    // Unused, but can be useful
-    func addTopBorderWithColor(_ objView : UIView, color: UIColor, width: CGFloat) {
-        let border = CALayer()
-        border.backgroundColor = color.cgColor
-        border.frame = CGRect(x: 0, y: 0, width: objView.frame.size.width, height: width)
-        objView.layer.addSublayer(border)
-    }
-    
-    func addRightBorderWithColor(_ objView : UIView, color: UIColor, width: CGFloat) {
-        let border = CALayer()
-        border.backgroundColor = color.cgColor
-        border.frame = CGRect(x: objView.frame.size.width - width, y: 0, width: width, height: objView.frame.size.height)
-        objView.layer.addSublayer(border)
-    }
-    
-    func addBottomBorderWithColor(_ objView : UIView, color: UIColor, width: CGFloat) {
-        let border = CALayer()
-        border.backgroundColor = color.cgColor
-        border.frame = CGRect(x: 0, y: objView.frame.size.height - width, width: objView.frame.size.width, height: width)
-        objView.layer.addSublayer(border)
-    }
-    
-    func addLeftBorderWithColor(_ objView : UIView, color: UIColor, width: CGFloat) {
-        let border = CALayer()
-        border.backgroundColor = color.cgColor
-        border.frame = CGRect(x: 0, y: 0, width: width, height: objView.frame.size.height)
-        objView.layer.addSublayer(border)
     }
 }
 
@@ -595,7 +484,7 @@ extension ScheduleViewController: JTAppleCalendarViewDelegate {
         // If either one of the types of ToDo exist.
         if onProgressToDoExist == true || finishedToDoExist == true || overdueToDoExist == true {
             // Update the cell to have the indicators it needs.
-            cell = showCellIndicators(cell: cell, onProgress: onProgressToDoExist, finished: finishedToDoExist, overdue: overdueToDoExist)
+            cell = CalendarViewUtils.showCellIndicators(cell: cell, onProgress: onProgressToDoExist, finished: finishedToDoExist, overdue: overdueToDoExist)
         }
         
         configureCell(cell: cell, cellState: cellState)
@@ -621,51 +510,6 @@ extension ScheduleViewController: JTAppleCalendarViewDelegate {
     
     func calendarSizeForMonths(_ calendar: JTAppleCalendarView?) -> MonthSize? {
         return MonthSize(defaultSize: 75)
-    }
-    
-    // NOTE: USE THE ONE IN THE UTILS!
-    func showCellIndicators(cell: CalendarCell, onProgress: Bool, finished: Bool, overdue: Bool) -> CalendarCell {
-        // Yellow indicator only
-        if onProgress == true && finished == false && overdue == false {
-            cell.bottomIndicator.isHidden = false
-            cell.createIndicators(createIndicator: true, indicatorType: 1)
-        }
-        // Green indicator only
-        else if onProgress == false && finished == true && overdue == false {
-            cell.bottomIndicator.isHidden = false
-            cell.createIndicators(createIndicator: true, indicatorType: 2)
-        }
-        // Orange indicator only
-        else if onProgress == false && finished == false && overdue == true {
-            cell.bottomIndicator.isHidden = false
-            cell.createIndicators(createIndicator: true, indicatorType: 3)
-        }
-        // Yellow and Green indicator
-        else if onProgress == true && finished == true && overdue == false {
-            cell.topIndicator.isHidden = false
-            cell.bottomIndicator.isHidden = false
-            cell.createIndicators(createIndicator: true, indicatorType: 4)
-        }
-        // Yellow and Orange indicator
-        else if onProgress == true && finished == false && overdue == true {
-            cell.bottomIndicator.isHidden = false
-            cell.topIndicator.isHidden = false
-            cell.createIndicators(createIndicator: true, indicatorType: 5)
-        }
-        // Green and Orange indicator
-        else if onProgress == false && finished == true && overdue == true {
-            cell.bottomIndicator.isHidden = false
-            cell.topIndicator.isHidden = false
-            cell.createIndicators(createIndicator: true, indicatorType: 6)
-        }
-        // Yellow, Green, and Orange indicator
-        else if onProgress == true && finished == true && overdue == true {
-            cell.bottomIndicator.isHidden = false
-            cell.topRightIndicator.isHidden = false
-            cell.topLeftIndicator.isHidden = false
-            cell.createIndicators(createIndicator: true, indicatorType: 0)
-        }
-        return cell
     }
 }
 

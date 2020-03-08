@@ -39,6 +39,7 @@
 		21C8DA85237915990084E2D6 /* DeadlinesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21C8DA83237915990084E2D6 /* DeadlinesTableViewController.xib */; };
 		21C8DA88237916A90084E2D6 /* ToDoDateSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C8DA87237916A90084E2D6 /* ToDoDateSection.swift */; };
 		21C8DA8A23791A900084E2D6 /* DeadlineGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C8DA8923791A900084E2D6 /* DeadlineGroupCell.swift */; };
+		21F2B5B92415A53100B8A548 /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F2B5B82415A53100B8A548 /* LoadingScreen.swift */; };
 		21F511DD2412121B00E11B71 /* JTAppleCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21F511DC2412121B00E11B71 /* JTAppleCalendar.framework */; };
 		21F7013E23F26177001942D6 /* IntervalSchedulingPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7013C23F26177001942D6 /* IntervalSchedulingPreviewController.swift */; };
 		21F7013F23F26177001942D6 /* IntervalSchedulingPreviewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21F7013D23F26177001942D6 /* IntervalSchedulingPreviewController.xib */; };
@@ -106,6 +107,7 @@
 		21C8DA83237915990084E2D6 /* DeadlinesTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeadlinesTableViewController.xib; sourceTree = "<group>"; };
 		21C8DA87237916A90084E2D6 /* ToDoDateSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDateSection.swift; sourceTree = "<group>"; };
 		21C8DA8923791A900084E2D6 /* DeadlineGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadlineGroupCell.swift; sourceTree = "<group>"; };
+		21F2B5B82415A53100B8A548 /* LoadingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreen.swift; sourceTree = "<group>"; };
 		21F511DC2412121B00E11B71 /* JTAppleCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JTAppleCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		21F7013C23F26177001942D6 /* IntervalSchedulingPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalSchedulingPreviewController.swift; sourceTree = "<group>"; };
 		21F7013D23F26177001942D6 /* IntervalSchedulingPreviewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IntervalSchedulingPreviewController.xib; sourceTree = "<group>"; };
@@ -283,12 +285,21 @@
 		21A4D1302320CDAF00B5B52A /* components */ = {
 			isa = PBXGroup;
 			children = (
+				21F2B5B72415A4FB00B8A548 /* loading */,
 				21521C4F240E1BAD00FC8A8A /* sections */,
 				21A4D11A231ECD8600B5B52A /* buttons */,
 				21521C4E240E191E00FC8A8A /* headers */,
 				21521C4D240E190700FC8A8A /* cells */,
 			);
 			path = components;
+			sourceTree = "<group>";
+		};
+		21F2B5B72415A4FB00B8A548 /* loading */ = {
+			isa = PBXGroup;
+			children = (
+				21F2B5B82415A53100B8A548 /* LoadingScreen.swift */,
+			);
+			path = loading;
 			sourceTree = "<group>";
 		};
 		D29489A17138A4D09706C0C8 /* Pods */ = {
@@ -455,6 +466,7 @@
 				21521C49240E11C600FC8A8A /* CalendarViewUtils.swift in Sources */,
 				21C8DA84237915990084E2D6 /* DeadlinesTableViewController.swift in Sources */,
 				21B8965323D3B7E100D49827 /* DateUtils.swift in Sources */,
+				21F2B5B92415A53100B8A548 /* LoadingScreen.swift in Sources */,
 				21A4D0F9231ECC3600B5B52A /* ScheduleViewController.swift in Sources */,
 				21521C45240E0D3A00FC8A8A /* GeneralViewUtils.swift in Sources */,
 				217477CF23D5282B001CA394 /* IntervalAvailabilitiesCheckingOperations.swift in Sources */,
