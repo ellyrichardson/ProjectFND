@@ -219,7 +219,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iZ9-Qi-9PX" userLabel="Top Left Indicator">
-                                                    <rect key="frame" x="4" y="9.5" width="19" height="8"/>
+                                                    <rect key="frame" x="2" y="9.6666666666666661" width="19" height="8"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PVZ-Uv-mMH" userLabel="Bottom Indicator">
@@ -227,7 +227,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zN6-ej-M0S" userLabel="Top Right Indicator">
-                                                    <rect key="frame" x="20" y="9.5" width="19" height="8"/>
+                                                    <rect key="frame" x="22" y="9.6666666666666661" width="19" height="8"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v3i-F9-fBN" userLabel="Top Indicator">
@@ -985,44 +985,35 @@
                                             <rect key="frame" x="0.0" y="0.0" width="45.700000000000003" height="45.700000000000003"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zdL-vo-8hr" userLabel="Selected View">
-                                                    <rect key="frame" x="4" y="4.5" width="37" height="37"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zdL-vo-8hr" userLabel="Selected View">
+                                                    <rect key="frame" x="4.3333333333333321" y="4.3333333333333321" width="37" height="37"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="37" id="Dov-pT-BJI"/>
+                                                        <constraint firstAttribute="width" constant="37" id="lO4-jL-0f9"/>
+                                                    </constraints>
                                                 </view>
-                                                <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jKP-fy-O4j" userLabel="Top Indicator">
-                                                    <rect key="frame" x="12.5" y="8" width="19" height="8"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </stackView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1bO-Lf-9tw" userLabel="Top Left Indicator">
-                                                    <rect key="frame" x="6" y="10" width="19" height="8"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </stackView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PSs-h2-zj9" userLabel="Bottom Indicator">
-                                                    <rect key="frame" x="12.5" y="29.5" width="19" height="8"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </stackView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JCp-hg-WhY">
-                                                    <rect key="frame" x="8" y="16" width="28" height="14"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JCp-hg-WhY">
+                                                    <rect key="frame" x="9" y="16" width="28" height="14"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="14" id="QFD-8v-uXc"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="12"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VE2-bL-yMF" userLabel="Top Right Indicator">
-                                                    <rect key="frame" x="19.5" y="10" width="19" height="8"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </stackView>
                                             </subviews>
                                         </view>
+                                        <constraints>
+                                            <constraint firstItem="JCp-hg-WhY" firstAttribute="centerY" secondItem="TrB-TD-xVx" secondAttribute="centerY" id="CsP-gJ-1Js"/>
+                                            <constraint firstItem="JCp-hg-WhY" firstAttribute="centerX" secondItem="TrB-TD-xVx" secondAttribute="centerX" id="WCV-CL-Ixg"/>
+                                            <constraint firstItem="zdL-vo-8hr" firstAttribute="centerY" secondItem="TrB-TD-xVx" secondAttribute="centerY" id="Wa3-vi-ean"/>
+                                            <constraint firstItem="zdL-vo-8hr" firstAttribute="centerX" secondItem="TrB-TD-xVx" secondAttribute="centerX" id="g2I-t4-hyU"/>
+                                        </constraints>
                                         <size key="customSize" width="45.700000000000003" height="45.700000000000003"/>
                                         <connections>
-                                            <outlet property="bottomIndicator" destination="PSs-h2-zj9" id="zpI-Gy-BKR"/>
                                             <outlet property="dateLabel" destination="JCp-hg-WhY" id="rMy-JO-TMz"/>
                                             <outlet property="selectedView" destination="zdL-vo-8hr" id="CmB-Up-W3k"/>
-                                            <outlet property="topIndicator" destination="jKP-fy-O4j" id="m1O-c4-flE"/>
-                                            <outlet property="topLeftIndicator" destination="1bO-Lf-9tw" id="IRt-1H-Cpw"/>
-                                            <outlet property="topRightIndicator" destination="VE2-bL-yMF" id="P7r-Kh-kNi"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
