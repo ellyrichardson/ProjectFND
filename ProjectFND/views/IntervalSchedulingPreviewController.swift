@@ -150,7 +150,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         currentCell.selectedView.layer.masksToBounds = false
         currentCell.selectedView.layer.borderColor = UIColor.gray.cgColor
         currentCell.selectedView.layer.backgroundColor = UIColor.gray.cgColor
-        currentCell.selectedView.layer.cornerRadius = 18.5
+        //currentCell.selectedView.layer.cornerRadius = 18.5
         currentCell.selectedView.clipsToBounds = true
         
         if cellState.isSelected{
