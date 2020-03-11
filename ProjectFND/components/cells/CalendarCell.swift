@@ -37,30 +37,30 @@ class CalendarCell: JTAppleCell {
             switch indicatorType {
             // Yellow only
             case 1:
-                bottomIndicator.addArrangedSubview(generateIndicators(indicatorColor: 1))
+                topIndicator.addArrangedSubview(generateIndicators(indicatorColor: 1))
             // Green only
             case 2:
-                bottomIndicator.addArrangedSubview(generateIndicators(indicatorColor: 2))
+                topIndicator.addArrangedSubview(generateIndicators(indicatorColor: 2))
             // Red only
             case 3:
-                bottomIndicator.addArrangedSubview(generateIndicators(indicatorColor: 0))
+                topIndicator.addArrangedSubview(generateIndicators(indicatorColor: 0))
             // Yellow and Green
             case 4:
-                topIndicator.addArrangedSubview(generateIndicators(indicatorColor: 2))
-                bottomIndicator.addArrangedSubview(generateIndicators(indicatorColor: 1))
+                topLeftIndicator.addArrangedSubview(generateIndicators(indicatorColor: 2))
+                topRightIndicator.addArrangedSubview(generateIndicators(indicatorColor: 1))
             // Yellow and Red
             case 5:
-                topIndicator.addArrangedSubview(generateIndicators(indicatorColor: 0))
-                bottomIndicator.addArrangedSubview(generateIndicators(indicatorColor: 1))
+                topLeftIndicator.addArrangedSubview(generateIndicators(indicatorColor: 0))
+                topRightIndicator.addArrangedSubview(generateIndicators(indicatorColor: 1))
             // Green and Red
             case 6:
-                topIndicator.addArrangedSubview(generateIndicators(indicatorColor: 0))
-                bottomIndicator.addArrangedSubview(generateIndicators(indicatorColor: 2))
+                topLeftIndicator.addArrangedSubview(generateIndicators(indicatorColor: 0))
+                topRightIndicator.addArrangedSubview(generateIndicators(indicatorColor: 2))
             // Yellow, Green, and Red
             default:
                 topRightIndicator.addArrangedSubview(generateIndicators(indicatorColor: 0))
                 topLeftIndicator.addArrangedSubview(generateIndicators(indicatorColor: 2))
-                bottomIndicator.addArrangedSubview(generateIndicators(indicatorColor: 1))
+                topIndicator.addArrangedSubview(generateIndicators(indicatorColor: 1))
             }
         }
     }
