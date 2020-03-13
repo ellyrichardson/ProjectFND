@@ -21,6 +21,8 @@ class CalendarCell: JTAppleCell {
     @IBOutlet weak var topLeftIndicator: UIStackView!
     @IBOutlet weak var bottomIndicator: UIStackView!
     
+    private  var shouldDrawStripes: Bool = false
+    
     /*
      USAGE:
      Indicator Types:
@@ -95,5 +97,36 @@ class CalendarCell: JTAppleCell {
             redIndicator.clipsToBounds = false
             return redIndicator
         }
+    }
+    
+    override func draw(_ rect: CGRect) {
+        if shouldDrawStripes {
+            let T: CGFloat = 5     // desired thickness of lines
+            let G: CGFloat = 4.76   // desired gap between lines
+            let W = rect.size.width
+            let H = rect.size.height
+            
+            guard let c = UIGraphicsGetCurrentContext() else { return }
+            c.setStrokeColor(UIColor(red:0.729, green:0.860, blue:0.354, alpha:1.0).cgColor)
+            //c.setStrokeColor(UIColor.orange.cgColor)
+            c.setLineWidth(T)
+            
+            var p = -(W > H ? W : H) - T
+            while p <= W {
+                
+                c.move( to: CGPoint(x: p-T, y: -T) )
+                c.addLine( to: CGPoint(x: p+T+H, y: T+H) )
+                c.strokePath()
+                p += G + T + T
+            }
+        }
+    }
+    
+    func setShouldDrawStripes(shouldDraw: Bool) {
+        self.shouldDrawStripes = shouldDraw
+    }
+    
+    func getShouldDrawStripes() -> Bool {
+        return self.shouldDrawStripes
     }
 }
