@@ -570,7 +570,10 @@ extension IntervalSchedulingPreviewController: JTAppleCalendarViewDelegate {
             if isToDoIntervalOnDay(toDoInterval: toDoInterval, dateOfDay: dateChosen) {
                 //cell.backgroundColor = UIColor(red:0.729, green:0.860, blue:0.354, alpha:1.0)
                 //cell.dateLabel.textColor = UIColor(red:0.729, green:0.860, blue:0.354, alpha:1.0)
-                cell.backgroundColor = UIColor(patternImage: UIImage(named: "PreviewIndicator")!)
+                //cell.backgroundColor = UIColor(patternImage: UIImage(named: "PreviewIndicator")!)
+                //cell.drawStripes(x: 0, y: 0, width: cell.frame.size.width, height: cell.frame.size.height)
+                cell.setShouldDrawStripes(shouldDraw: true)
+                //cell.drawStripes(width: cell.frame.size.width, height: cell.frame.size.height)
             }
         }
     }

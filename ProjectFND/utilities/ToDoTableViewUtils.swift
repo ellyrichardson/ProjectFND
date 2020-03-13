@@ -48,6 +48,7 @@ class ToDoTableViewUtils {
         
         let toDoItem = toDoItems[toDoRowIndex]
         
+        /*
         // Neutral status - if ToDo hasn't met due date yet
         if toDoItem.finished == false && currentDate < toDoItem.dueDate {
             // If toDoItem is in preview
@@ -74,6 +75,14 @@ class ToDoTableViewUtils {
             }
             // Reddish orange color
             return UIColor(red:1.00, green:0.40, blue:0.18, alpha:1.0)
+        }
+ */
+        if toDoIntervalsToAssign.contains(toDoItem) {
+            return UIColor(red:0.729, green:0.860, blue:0.354, alpha:1.0)
+        }
+        else {
+            //return UIColor(red:0.200, green:0.860, blue:0.354, alpha:1.0)
+            return UIColor(red:0.928, green:0.928, blue:0.934, alpha:1.0)
         }
     }
     
