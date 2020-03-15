@@ -39,27 +39,50 @@ class CalendarCell: JTAppleCell {
             switch indicatorType {
             // Yellow only
             case 1:
+                print("Yellow ONLY")
+                removeIndicatorSubviews()
                 topIndicator.addArrangedSubview(generateIndicators(indicatorColor: 1))
+                //topLeftIndicator.addArrangedSubview(generateIndicators(indicatorColor: 3))
+                //topRightIndicator.addArrangedSubview(generateIndicators(indicatorColor: 3))
             // Green only
             case 2:
+                print("Green ONLY")
+                removeIndicatorSubviews()
                 topIndicator.addArrangedSubview(generateIndicators(indicatorColor: 2))
+                //topLeftIndicator.addArrangedSubview(generateIndicators(indicatorColor: 3))
+                //topRightIndicator.addArrangedSubview(generateIndicators(indicatorColor: 3))
             // Red only
             case 3:
+                print("red ONLY")
+                removeIndicatorSubviews()
                 topIndicator.addArrangedSubview(generateIndicators(indicatorColor: 0))
+                //topLeftIndicator.addArrangedSubview(generateIndicators(indicatorColor: 3))
+                //topRightIndicator.addArrangedSubview(generateIndicators(indicatorColor: 3))
             // Yellow and Green
             case 4:
+                print("Yellow  and Green ONLY")
+                removeIndicatorSubviews()
                 topLeftIndicator.addArrangedSubview(generateIndicators(indicatorColor: 2))
                 topRightIndicator.addArrangedSubview(generateIndicators(indicatorColor: 1))
+                //topIndicator.addArrangedSubview(generateIndicators(indicatorColor: 3))
             // Yellow and Red
             case 5:
+                print("green and red ONLY")
+                removeIndicatorSubviews()
                 topLeftIndicator.addArrangedSubview(generateIndicators(indicatorColor: 0))
                 topRightIndicator.addArrangedSubview(generateIndicators(indicatorColor: 1))
+                //topIndicator.addArrangedSubview(generateIndicators(indicatorColor: 3))
             // Green and Red
             case 6:
+                print("green and red ONLY")
+                removeIndicatorSubviews()
                 topLeftIndicator.addArrangedSubview(generateIndicators(indicatorColor: 0))
                 topRightIndicator.addArrangedSubview(generateIndicators(indicatorColor: 2))
+                //topIndicator.addArrangedSubview(generateIndicators(indicatorColor: 3))
             // Yellow, Green, and Red
             default:
+                print("Yellow, green and red ONLY")
+                removeIndicatorSubviews()
                 topRightIndicator.addArrangedSubview(generateIndicators(indicatorColor: 0))
                 topLeftIndicator.addArrangedSubview(generateIndicators(indicatorColor: 2))
                 topIndicator.addArrangedSubview(generateIndicators(indicatorColor: 1))
@@ -87,6 +110,17 @@ class CalendarCell: JTAppleCell {
             greenIndicator.layer.cornerRadius = 15
             greenIndicator.clipsToBounds = false
             return greenIndicator
+            
+        // Creates Blank/Clear indicator
+        case 3:
+            let clearIndicator = UIView()
+            clearIndicator.layer.masksToBounds = false
+            clearIndicator.layer.borderColor = UIColor.clear.cgColor
+            clearIndicator.layer.backgroundColor = UIColor.clear.cgColor
+            clearIndicator.layer.cornerRadius = 15
+            clearIndicator.clipsToBounds = false
+            return clearIndicator
+ 
         // Creates Red indicator
         default:
             let redIndicator = UIView()
@@ -99,6 +133,23 @@ class CalendarCell: JTAppleCell {
         }
     }
     
+    func removeIndicatorSubviews() {
+        if topIndicator.arrangedSubviews.count > 0 {
+            topIndicator.arrangedSubviews[0].removeFromSuperview()
+        }
+        if topLeftIndicator.arrangedSubviews.count > 0 {
+            topLeftIndicator.arrangedSubviews[0].removeFromSuperview()
+        }
+        if topRightIndicator.arrangedSubviews.count > 0 {
+            topRightIndicator.arrangedSubviews[0].removeFromSuperview()
+        }
+        /*
+        topIndicator.arrangedSubviews[0].removeFromSuperview()
+        topLeftIndicator.arrangedSubviews[0].removeFromSuperview()
+        topRightIndicator.arrangedSubviews[0].removeFromSuperview()
+ */
+    }
+    
     override func draw(_ rect: CGRect) {
         if shouldDrawStripes {
             let T: CGFloat = 5     // desired thickness of lines
@@ -107,7 +158,7 @@ class CalendarCell: JTAppleCell {
             let H = rect.size.height
             
             guard let c = UIGraphicsGetCurrentContext() else { return }
-            c.setStrokeColor(UIColor(red:0.729, green:0.860, blue:0.354, alpha:1.0).cgColor)
+            c.setStrokeColor(UIColor(red:0.729, green:0.860, blue:0.354, alpha:0.5).cgColor)
             //c.setStrokeColor(UIColor.orange.cgColor)
             c.setLineWidth(T)
             
