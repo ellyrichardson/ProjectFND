@@ -89,9 +89,10 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        /*
         GeneralViewUtils.reloadCollectionViewData(collectionView: self.calendarView)
         GeneralViewUtils.reloadTableViewData(tableView: self.toDoListTableView)
+ */
     }
     
     func configureCalendarView(){
@@ -118,6 +119,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         configureSelectedStateFor(cell: currentCell, cellState: cellState)
         configureTextColorFor(cell: currentCell, cellState: cellState)
         configureSelectedDay(cell: currentCell, cellState: cellState)
+        //previewToDoIntervals(cell: currentCell, dateChosen: getSelectedDate())
         let cellHidden = cellState.dateBelongsTo != .thisMonth
         currentCell.isHidden = cellHidden
     }
@@ -131,7 +133,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         
         if cellState.isSelected {
             currentCell.dateLabel.textColor = UIColor.black
-            GeneralViewUtils.reloadTableViewData(tableView: self.toDoListTableView)
+            //GeneralViewUtils.reloadTableViewData(tableView: self.toDoListTableView)
         } else {
             if cellState.dateBelongsTo == .thisMonth && cellState.date > Date()  {
                 currentCell.dateLabel.textColor = UIColor.white
@@ -236,8 +238,10 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
     }
     
+    /*
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            
             let toDoToBeDeleted: [ToDo] = getToDoItemsByDay(dateChosen: getSelectedDate())
             let toDoRealIndex = ToDoProcessUtils.retrieveRealIndexOfToDo(toDoItem: toDoToBeDeleted[indexPath.row], toDoItemCollection: self.toDos)
             ToDoProcessUtils.deleteToDo(toDoToDelete: getToDoItems()[toDoRealIndex])
@@ -247,6 +251,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
     }
+ */
     
     // MARK: - Actions
     
@@ -465,13 +470,34 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     private func isToDoIntervalOnDay(toDoInterval: ToDo, dateOfDay: Date) -> Bool {
         formatter.dateFormat = "yyyy/MM/dd"
         let stringDateOfDay: String = formatter.string(from: dateOfDay)
-        let actualDateOfDay: Date = formatter.date(from: stringDateOfDay)!
+        //let actualDateOfDay: Date = formatter.date(from: stringDateOfDay)!
         let strToDoIntervalStartDate: String = formatter.string(from: toDoInterval.getStartDate())
-        let actToDoIntervalStartDate: Date = formatter.date(from: strToDoIntervalStartDate)!
-        if actToDoIntervalStartDate == actualDateOfDay {
+        //let actToDoIntervalStartDate: Date = formatter.date(from: strToDoIntervalStartDate)!
+        if strToDoIntervalStartDate == stringDateOfDay {
+        //if actToDoIntervalStartDate == actualDateOfDay {
+            print("actual date of Day")
+            print(stringDateOfDay)
+            print("toDo Interval Day")
+            print(strToDoIntervalStartDate)
             return true
         }
         return false
+    }
+    
+    private func isToDoOnDay(toDoToCheck: ToDo, date: Date) -> Bool {
+        if ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: date, toDoItems: getToDoItems()).contains(toDoToCheck) {
+            return true
+        }
+        return false
+    }
+    
+    func previewToDoIntervals(cell: CalendarCell, dateChosen: Date) {
+        // NOTE: REFACTOR, like use a dictionary instead
+        for toDoInterval in getToDoIntervalsToAssign() {
+            if isToDoIntervalOnDay(toDoInterval: toDoInterval, dateOfDay: dateChosen) && isToDoOnDay(toDoToCheck: toDoInterval, date: dateChosen) {
+                cell.setShouldDrawStripes(shouldDraw: true)
+            }
+        }
     }
     
     @objc func onCheckBoxButtonTap(sender: CheckBoxButton) {
@@ -538,7 +564,7 @@ extension IntervalSchedulingPreviewController: JTAppleCalendarViewDelegate {
  
         var cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "CalendarCell", for: indexPath) as! CalendarCell
         
-        previewToDoIntervals(cell: &cell, dateChosen: date)
+        previewToDoIntervals(cell: cell, dateChosen: date)
         
         configureCell(cell: cell, cellState: cellState)
         return cell
@@ -562,19 +588,6 @@ extension IntervalSchedulingPreviewController: JTAppleCalendarViewDelegate {
     }
     
     func calendarSizeForMonths(_ calendar: JTAppleCalendarView?) -> MonthSize? {
-        return MonthSize(defaultSize: 40)
-    }
-    
-    func previewToDoIntervals(cell: inout CalendarCell, dateChosen: Date) {
-        for toDoInterval in getToDoIntervalsToAssign() {
-            if isToDoIntervalOnDay(toDoInterval: toDoInterval, dateOfDay: dateChosen) {
-                //cell.backgroundColor = UIColor(red:0.729, green:0.860, blue:0.354, alpha:1.0)
-                //cell.dateLabel.textColor = UIColor(red:0.729, green:0.860, blue:0.354, alpha:1.0)
-                //cell.backgroundColor = UIColor(patternImage: UIImage(named: "PreviewIndicator")!)
-                //cell.drawStripes(x: 0, y: 0, width: cell.frame.size.width, height: cell.frame.size.height)
-                cell.setShouldDrawStripes(shouldDraw: true)
-                //cell.drawStripes(width: cell.frame.size.width, height: cell.frame.size.height)
-            }
-        }
+        return MonthSize(defaultSize: 75)
     }
 }
