@@ -223,7 +223,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             ToDoTableViewUtils.makeCellMoveUpWithFade(cell: cell, indexPath: indexPath)
             checkButtonTapped = -1
         }
-        else if checkButtonTapped == -1 {
+        else {
             ToDoTableViewUtils.makeCellSlide(cell: cell, indexPath: indexPath, tableView: toDoListTableView)
         }
         
