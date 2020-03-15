@@ -35,6 +35,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     private var selectedIndexPaths: [IndexPath] = [IndexPath]()
     private var coreToDoData: [NSManagedObject] = []
     private var checkButtonTapped: Int =  -1
+    private var currentCellIndexPath: IndexPath?
     
     // Expand row buttons tracker assets
     
@@ -69,8 +70,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        GeneralViewUtils.reloadCollectionViewData(collectionView: self.calendarView)
-        GeneralViewUtils.reloadTableViewData(tableView: self.toDoListTableView)
+        //GeneralViewUtils.reloadCollectionViewData(collectionView: self.calendarView)
+        //GeneralViewUtils.reloadTableViewData(tableView: self.toDoListTableView)
     }
     
     func configureCalendarView(){
@@ -93,8 +94,9 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         guard let currentCell = cell as? CalendarCell else {
             return
         }
-        
+        //self.currentCellIndexPath = self.calendarView.indexPath(for: currentCell)
         currentCell.dateLabel.text = cellState.text
+        //self.currentCellIndexPath = self.calendarView.indexPath(for: currentCell)
         configureSelectedStateFor(cell: currentCell, cellState: cellState)
         configureTextColorFor(cell: currentCell, cellState: cellState)
         configureSelectedDay(cell: currentCell, cellState: cellState)
@@ -135,6 +137,9 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         
         if cellState.isSelected{
             currentCell.selectedView.isHidden = false
+            DispatchQueue.main.async {
+                self.currentCellIndexPath = self.calendarView.indexPath(for: currentCell)
+            }
         } else {
             currentCell.selectedView.isHidden = true
         }
@@ -143,6 +148,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     // When a particular day is selected in the calendar
     func configureSelectedDay(cell: JTAppleCell?, cellState: CellState) {
         if cellState.isSelected{
+            //self.currentCellIndexPath = self.calendarView.indexPath(for: cell!)
             setSelectedDate(selectedDate: cellState.date)
             ToDoProcessUtils.removeAllSelectedIndexPaths(selectedIndexPaths: &selectedIndexPaths)
             // To track if the selected day in the calendar was changed
@@ -217,7 +223,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             ToDoTableViewUtils.makeCellMoveUpWithFade(cell: cell, indexPath: indexPath)
             checkButtonTapped = -1
         }
-        else {
+        else if checkButtonTapped == -1 {
             ToDoTableViewUtils.makeCellSlide(cell: cell, indexPath: indexPath, tableView: toDoListTableView)
         }
         
@@ -251,6 +257,11 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             ToDoProcessUtils.deleteToDo(toDoToDelete: getToDoItems()[toDoRealIndex])
             ToDoProcessUtils.removeToDoItem(toDoItemIndexToRemove: toDoRealIndex, toDoItemCollection: &self.toDos)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            DispatchQueue.main.async {
+                self.calendarView.reloadItems(at: [self.currentCellIndexPath!])
+            }
+
+            //GeneralViewUtils.reloadCollectionViewData(collectionView: self.calendarView)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
@@ -281,6 +292,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
                     print("ToDo Finished?")
                     print(toDo!.finished)
                     ToDoProcessUtils.saveToDos(toDoItem: toDo!)
+                    GeneralViewUtils.reloadCollectionViewData(collectionView: self.calendarView)
                 }
             }
         }
@@ -395,12 +407,25 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         var toDoItemsByDay: [ToDo] = getToDoItemsByDay(dateChosen: getSelectedDate())
         let toDoItemToUpdate: ToDo = toDoItemsByDay[sender.getToDoRowIndex()]
         let newToDoItem: ToDo = toDoItemsByDay[sender.getToDoRowIndex()]
-        
+        //var dateFormatter = DateFormatter()
+        //dateFormatter.dateFormat = "mm/dd/yyyy"
+        //var currDate = dateFormatter.string(from: newToDoItem.workDate)
+        //var actDate = dateFormatter.date(from: currDate)
         newToDoItem.finished = !newToDoItem.finished
         ToDoProcessUtils.updateToDo(toDoToUpdate: toDoItemToUpdate, newToDo: newToDoItem, updateType: 1)
         self.checkButtonTapped = sender.tag
         let indexPath = IndexPath(item: self.checkButtonTapped, section: 0)
         self.toDoListTableView.reloadRows(at: [indexPath], with: .top)
+        //self.calendarView.cell
+        print("value of currentCellIndexPath")
+        print(self.currentCellIndexPath)
+        //self.currentCellIndexPath![0] = self.currentCellIndexPath![1]
+        //if self.currentCellIndexPath
+        
+        self.calendarView.reloadItems(at: [self.currentCellIndexPath!])
+        //self.calendarView.reloadData()
+        //self.calendarView.reloadDates([actDate!])
+        //GeneralViewUtils.reloadCollectionViewData(collectionView: self.calendarView)
     }
     
     @objc func onExpandRowButtonTap(sender: ExpandButton) {
@@ -450,11 +475,14 @@ extension ScheduleViewController: JTAppleCalendarViewDataSource {
 extension ScheduleViewController: JTAppleCalendarViewDelegate {
     func calendar(_ calendar: JTAppleCalendarView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTAppleCell {
         
+        print("Being CALLED")
+        print(date)
         var onProgressToDoExist: Bool = false
         var finishedToDoExist: Bool = false
         var overdueToDoExist: Bool = false
         
         var cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "CalendarCell", for: indexPath) as! CalendarCell
+        
         
         // Hides the indicators initially.
         cell.bottomIndicator.isHidden = true
