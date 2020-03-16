@@ -36,6 +36,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     private var coreToDoData: [NSManagedObject] = []
     private var checkButtonTapped: Int =  -1
     private var currentCellIndexPath: IndexPath?
+    private var shouldReloadTableView: Bool = true
     
     // Expand row buttons tracker assets
     
@@ -113,7 +114,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         
         if cellState.isSelected {
             currentCell.dateLabel.textColor = UIColor.black
-            GeneralViewUtils.reloadTableViewData(tableView: self.toDoListTableView)
+            //GeneralViewUtils.reloadTableViewData(tableView: self.toDoListTableView)
         } else {
             if cellState.dateBelongsTo == .thisMonth && cellState.date > Date()  {
                 currentCell.dateLabel.textColor = UIColor.white
@@ -153,7 +154,12 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             ToDoProcessUtils.removeAllSelectedIndexPaths(selectedIndexPaths: &selectedIndexPaths)
             // To track if the selected day in the calendar was changed
             setCalendarDayChanged(didChange: true)
-            GeneralViewUtils.reloadTableViewData(tableView: self.toDoListTableView)
+            // If tableView should be reloaded based on todo update, or simply loading the calendar
+            if self.shouldReloadTableView {
+                GeneralViewUtils.reloadTableViewData(tableView: self.toDoListTableView)
+            }
+            // Set shouldReloadTableview by default
+            self.shouldReloadTableView = true
             // To track how many expand row buttons will be reset if the selected day was changed
             setRemainingExpandButtonsToReset(remainingButtons: getToDoItemsByDay(dateChosen: getSelectedDate()).count)
         }
@@ -219,6 +225,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         print("Value of indexPath.row "  +  String(indexPath.row))
         print("Value of indexPath.section "  +  String(indexPath.section))
 
+        /*
         if checkButtonTapped == indexPath.row {
             ToDoTableViewUtils.makeCellMoveUpWithFade(cell: cell, indexPath: indexPath)
             checkButtonTapped = -1
@@ -226,6 +233,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         else {
             ToDoTableViewUtils.makeCellSlide(cell: cell, indexPath: indexPath, tableView: toDoListTableView)
         }
+ */
+        ToDoTableViewUtils.makeCellMoveUpWithFade(cell: cell, indexPath: indexPath)
         
         cell.contentView.layer.backgroundColor = ToDoTableViewUtils.colorForToDoRow(toDoRowIndex: indexPath.row, toDoItems: getToDoItemsByDay(dateChosen: getSelectedDate())).cgColor
         cell.layer.backgroundColor = ToDoTableViewUtils.colorForToDoRow(toDoRowIndex: indexPath.row, toDoItems: getToDoItemsByDay(dateChosen: getSelectedDate())).cgColor
@@ -258,7 +267,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             ToDoProcessUtils.removeToDoItem(toDoItemIndexToRemove: toDoRealIndex, toDoItemCollection: &self.toDos)
             tableView.deleteRows(at: [indexPath], with: .fade)
             DispatchQueue.main.async {
-                // NOTE: This reload may be causing unwanted reloading of table views
+                // NOTE: This will make the tableView not reload, only the the calendarView item
+                self.shouldReloadTableView = false
                 self.calendarView.reloadItems(at: [self.currentCellIndexPath!])
             }
 
@@ -422,6 +432,9 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         self.toDos.append(toDoItemToAdd)
     }
     
+    /*
+     NOTE: Refactor this in the future if it can be better
+     */
     private func removeToDoItem(toDoItemIndexToRemove: Int) {
         self.toDos.remove(at: toDoItemIndexToRemove)
     }
