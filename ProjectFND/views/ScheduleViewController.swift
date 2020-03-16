@@ -258,6 +258,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             ToDoProcessUtils.removeToDoItem(toDoItemIndexToRemove: toDoRealIndex, toDoItemCollection: &self.toDos)
             tableView.deleteRows(at: [indexPath], with: .fade)
             DispatchQueue.main.async {
+                // NOTE: This reload may be causing unwanted reloading of table views
                 self.calendarView.reloadItems(at: [self.currentCellIndexPath!])
             }
 
@@ -274,7 +275,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             if sourceViewController.isToDoIntervalsExist() {
                 let toDoIntervals = sourceViewController.getToDoIntervals()
                 for toDo in toDoIntervals {
-                    ToDoProcessUtils.addToDoItem(toDoItemToAdd: toDo, toDoItemCollection: &self.toDos)
+                    addToDoItem(toDoItemToAdd: toDo)
                     print("ToDo Finished?")
                     print(toDo.finished)
                     ToDoProcessUtils.saveToDos(toDoItem: toDo)
@@ -285,7 +286,11 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
                 if toDoListTableView.indexPathForSelectedRow != nil {
                     // Replaces the ToDo item in the original array of ToDos.
                     ToDoProcessUtils.updateToDo(toDoToUpdate: getToDoItemByIndex(toDoIndex: getSelectedToDoIndex()), newToDo: toDo!, updateType: 0)
+                    replaceToDoItemInBaseList(editedToDoItem: toDo!, editedToDoItemIndex: getSelectedToDoIndex())
+                    /*
+                    ToDoProcessUtils.updateToDo(toDoToUpdate: getToDoItemByIndex(toDoIndex: getSelectedToDoIndex()), newToDo: toDo!, updateType: 0)
                     ToDoProcessUtils.replaceToDoItemInBaseList(editedToDoItem: toDo!, editedToDoItemIndex: getSelectedToDoIndex(), toDoItemCollection: &self.toDos)
+ */
                     GeneralViewUtils.reloadTableViewData(tableView: self.toDoListTableView)
                 } else {
                     ToDoProcessUtils.addToDoItem(toDoItemToAdd: toDo!, toDoItemCollection: &self.toDos)
@@ -401,6 +406,24 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             setCalendarDayChanged(didChange: false)
             setRemainingExpandButtonsToReset(remainingButtons: -1)
         }
+    }
+    
+    /*
+     NOTE: Refactor this in the future if it can be better
+     */
+    // Replaces a ToDo item based on its index from an array
+    private func replaceToDoItemInBaseList(editedToDoItem: ToDo, editedToDoItemIndex: Int) {
+        //self.toDos[editedToDoItemIndex] = editedToDoItem
+        removeToDoItem(toDoItemIndexToRemove: editedToDoItemIndex)
+        addToDoItem(toDoItemToAdd: editedToDoItem)
+    }
+    
+    private func addToDoItem(toDoItemToAdd: ToDo) {
+        self.toDos.append(toDoItemToAdd)
+    }
+    
+    private func removeToDoItem(toDoItemIndexToRemove: Int) {
+        self.toDos.remove(at: toDoItemIndexToRemove)
     }
     
     @objc func onCheckBoxButtonTap(sender: CheckBoxButton) {
