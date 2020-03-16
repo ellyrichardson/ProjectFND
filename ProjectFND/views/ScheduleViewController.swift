@@ -275,7 +275,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             if sourceViewController.isToDoIntervalsExist() {
                 let toDoIntervals = sourceViewController.getToDoIntervals()
                 for toDo in toDoIntervals {
-                    addToDoItem(toDoItemToAdd: toDo)
+                    ToDoProcessUtils.addToDoItem(toDoItemToAdd: toDo, toDoItemCollection: &self.toDos)
                     print("ToDo Finished?")
                     print(toDo.finished)
                     ToDoProcessUtils.saveToDos(toDoItem: toDo)
@@ -332,7 +332,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             // Sets the finish status of the todo in the itemInfoTableViewController to avoid its reset
             itemInfoTableViewController.setIsFinished(isFinished: selectedToDoItem.finished)
             // Retrieves the index of the selected toDo
-            setSelectedToDoIndex(toDoItemIndex: ToDoProcessUtils.retrieveRealIndexOfToDo(toDoItem: selectedToDoItem, toDoItemCollection: getToDoItemsByDay(dateChosen: getSelectedDate())))
+            setSelectedToDoIndex(toDoItemIndex: retrieveRealIndexOfToDo(toDoItem: selectedToDoItem))
             os_log("Showing details for the selected ToDo item.", log: OSLog.default, type: .debug)
         default:
             fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")
@@ -424,6 +424,13 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     private func removeToDoItem(toDoItemIndexToRemove: Int) {
         self.toDos.remove(at: toDoItemIndexToRemove)
+    }
+    
+    // Retrieves the index of the ToDo from the base ToDo List instead of by day
+    private func retrieveRealIndexOfToDo(toDoItem: ToDo) -> Int {
+        let toDoItems: [ToDo] = getToDoItems()
+        let retrievedIndex: Int = toDoItems.firstIndex(of: toDoItem)!
+        return retrievedIndex
     }
     
     @objc func onCheckBoxButtonTap(sender: CheckBoxButton) {
