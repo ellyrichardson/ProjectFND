@@ -88,7 +88,6 @@
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="LQ6-8Y-Aa0" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="AK7-fG-FGq"/>
                 <constraint firstItem="Znb-nZ-8Sv" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="8" id="DyX-T3-PCB"/>
