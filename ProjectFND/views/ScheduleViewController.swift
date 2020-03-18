@@ -225,7 +225,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         print("Value of indexPath.row "  +  String(indexPath.row))
         print("Value of indexPath.section "  +  String(indexPath.section))
 
-        /*
         if checkButtonTapped == indexPath.row {
             ToDoTableViewUtils.makeCellMoveUpWithFade(cell: cell, indexPath: indexPath)
             checkButtonTapped = -1
@@ -233,8 +232,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         else {
             ToDoTableViewUtils.makeCellSlide(cell: cell, indexPath: indexPath, tableView: toDoListTableView)
         }
- */
-        ToDoTableViewUtils.makeCellMoveUpWithFade(cell: cell, indexPath: indexPath)
+        //ToDoTableViewUtils.makeCellMoveUpWithFade(cell: cell, indexPath: indexPath)
         
         cell.contentView.layer.backgroundColor = ToDoTableViewUtils.colorForToDoRow(toDoRowIndex: indexPath.row, toDoItems: getToDoItemsByDay(dateChosen: getSelectedDate())).cgColor
         cell.layer.backgroundColor = ToDoTableViewUtils.colorForToDoRow(toDoRowIndex: indexPath.row, toDoItems: getToDoItemsByDay(dateChosen: getSelectedDate())).cgColor
@@ -464,7 +462,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         print(self.currentCellIndexPath)
         //self.currentCellIndexPath![0] = self.currentCellIndexPath![1]
         //if self.currentCellIndexPath
-        
+        self.shouldReloadTableView = false
         self.calendarView.reloadItems(at: [self.currentCellIndexPath!])
         //self.calendarView.reloadData()
         //self.calendarView.reloadDates([actDate!])
