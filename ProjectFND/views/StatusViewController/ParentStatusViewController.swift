@@ -32,8 +32,8 @@ class ParentStatusViewController: UIViewController {
     private func setupSegmentedControl() {
         // Configure Segmented Control
         statusDeadlineSegment.removeAllSegments()
-        statusDeadlineSegment.insertSegment(withTitle: "Deadlines", at: 0, animated: false)
-        statusDeadlineSegment.insertSegment(withTitle: "Status", at: 1, animated: false)
+        statusDeadlineSegment.insertSegment(withTitle: "Deadlines", at: 0, animated: true)
+        statusDeadlineSegment.insertSegment(withTitle: "Status", at: 1, animated: true)
         statusDeadlineSegment.addTarget(self, action: #selector(selectionDidChange(_:)), for: .valueChanged)
         
         // Select First Segment

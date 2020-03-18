@@ -8,11 +8,15 @@
 
 import UIKit
 
-class DeadlinesViewController: UIViewController {
+class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    @IBOutlet weak var deadlinesTableView: UITableView!
+    private var toDos: [ToDo] = [ToDo]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setupTableViewDelegates()
+        populateToDos()
         // Do any additional setup after loading the view.
     }
     
@@ -27,7 +31,60 @@ class DeadlinesViewController: UIViewController {
         
         print("Deadlines View Controller Will Disappear")
     }
+    
+    // MARK: - Private Functions
+    private func populateToDos() {
+        let tempToDos = ToDoProcessUtils.loadToDos()
+        if tempToDos != nil {
+            self.toDos = tempToDos!
+        }
+    }
+    
+    private func setupTableViewDelegates() {
+        // Do any additional setup after loading the view, typically from a nib.
+        self.deadlinesTableView.delegate = self
+        self.deadlinesTableView.dataSource = self
+        self.deadlinesTableView.backgroundColor = UIColor.clear
+    }
+    
+    // MARK: - Getters
+    private func getToDos() -> [ToDo] {
+        return self.toDos
+    }
 
+    // MARK: - Table View Data Source
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // Gets the ToDos that fall under the selected day in calendar
+        return getToDos().count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 116
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let dateCellIdentifier = "DeadlinesTableViewCell"
+        
+        /*
+        let dueDateFormatter = DateFormatter()
+        let workDateFormatter = DateFormatter()
+        dueDateFormatter.dateFormat = "h:mm a"
+        workDateFormatter.dateFormat = "h:mm a"
+ */
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: dateCellIdentifier, for: indexPath) as? DeadlinesTableViewCell else {
+            fatalError("The dequeued cell is not an instance of ScheduleTableViewCell.")
+        }
+        
+        var toDoItems: [ToDo] = getToDos()
+        
+        cell.taskNameLabel.text = toDoItems[indexPath.row].getTaskName()
+        cell.taskTypeLabel.text = "Personal"
+        cell.deadlineDateLabel.text = "12 January, 2020"
+        
+        return cell
+    }
 
     /*
     // MARK: - Navigation
