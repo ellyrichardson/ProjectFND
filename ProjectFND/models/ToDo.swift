@@ -13,6 +13,10 @@ class ToDo: NSObject, NSCoding {
     // MARK: - Properties
     var taskName, taskDescription, estTime: String
     var workDate, dueDate: Date
+    var intervalId: String?
+    var intervalPart: Int?
+    var isFirstInterval, isLastInterval: Bool?
+    var taskId: String?
     
     //var doneCheckBox: CheckBox
     var finished: Bool
