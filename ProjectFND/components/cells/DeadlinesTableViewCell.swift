@@ -25,7 +25,7 @@ class DeadlinesTableViewCell: UITableViewCell {
         // Initialization code
         deadlineDateBorder.layer.cornerRadius = 5
         intervalAmountBorder.layer.cornerRadius = 20
-        roundIndicator.layer.cornerRadius = 18.5
+        //roundIndicator.layer.cornerRadius = 18.5
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
