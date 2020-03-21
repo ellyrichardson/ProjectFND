@@ -9,6 +9,9 @@
 import UIKit
 import os.log
 
+/*
+ ToDo automatically accesses the storage when its object is being accessed because of
+ */
 class ToDo: NSObject, NSCoding {
     // MARK: - Properties
     var taskName, taskDescription, estTime: String

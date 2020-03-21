@@ -21,6 +21,9 @@
 		216067E724219FBD00B0E5EF /* DeadlinesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 216067E524219FBD00B0E5EF /* DeadlinesViewController.xib */; };
 		216067E92421CD4A00B0E5EF /* DeadlinesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216067E82421CD4A00B0E5EF /* DeadlinesTableViewCell.swift */; };
 		217477CF23D5282B001CA394 /* IntervalAvailabilitiesCheckingOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217477CE23D5282B001CA394 /* IntervalAvailabilitiesCheckingOperations.swift */; };
+		217974E22425BFC700FE7B4C /* ObservableList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217974E12425BFC700FE7B4C /* ObservableList.swift */; };
+		217974E42425C19C00FE7B4C /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217974E32425C19C00FE7B4C /* Observer.swift */; };
+		217974E72425E0F000FE7B4C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217974E62425E0EF00FE7B4C /* Constants.swift */; };
 		219A6568232B12B10062BF84 /* ToDoProcessUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219A6567232B12B10062BF84 /* ToDoProcessUtils.swift */; };
 		219CA4A92326C904003ACBDE /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219CA4A82326C904003ACBDE /* ScheduleTableViewCell.swift */; };
 		219CA4AB2326CA18003ACBDE /* CheckBoxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219CA4AA2326CA18003ACBDE /* CheckBoxButton.swift */; };
@@ -91,6 +94,9 @@
 		216067E524219FBD00B0E5EF /* DeadlinesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeadlinesViewController.xib; sourceTree = "<group>"; };
 		216067E82421CD4A00B0E5EF /* DeadlinesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadlinesTableViewCell.swift; sourceTree = "<group>"; };
 		217477CE23D5282B001CA394 /* IntervalAvailabilitiesCheckingOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalAvailabilitiesCheckingOperations.swift; sourceTree = "<group>"; };
+		217974E12425BFC700FE7B4C /* ObservableList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableList.swift; sourceTree = "<group>"; };
+		217974E32425C19C00FE7B4C /* Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
+		217974E62425E0EF00FE7B4C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		219A6567232B12B10062BF84 /* ToDoProcessUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoProcessUtils.swift; sourceTree = "<group>"; };
 		219CA4A82326C904003ACBDE /* ScheduleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCell.swift; sourceTree = "<group>"; };
 		219CA4AA2326CA18003ACBDE /* CheckBoxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxButton.swift; sourceTree = "<group>"; };
@@ -157,6 +163,7 @@
 		21521C43240E0CC600FC8A8A /* utilities */ = {
 			isa = PBXGroup;
 			children = (
+				217974E12425BFC700FE7B4C /* ObservableList.swift */,
 				21B8965523D3BC8000D49827 /* DateArithmeticUtils.swift */,
 				21B8965223D3B7E100D49827 /* DateUtils.swift */,
 				219A6567232B12B10062BF84 /* ToDoProcessUtils.swift */,
@@ -238,6 +245,14 @@
 			path = StatusViewController;
 			sourceTree = "<group>";
 		};
+		217974E52425CBAC00FE7B4C /* interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				217974E32425C19C00FE7B4C /* Observer.swift */,
+			);
+			path = interfaces;
+			sourceTree = "<group>";
+		};
 		219A6566232B12750062BF84 /* operations */ = {
 			isa = PBXGroup;
 			children = (
@@ -271,6 +286,8 @@
 		21A4D0F5231ECC3600B5B52A /* ProjectFND */ = {
 			isa = PBXGroup;
 			children = (
+				217974E62425E0EF00FE7B4C /* Constants.swift */,
+				217974E52425CBAC00FE7B4C /* interfaces */,
 				21521C50240E1BEC00FC8A8A /* models */,
 				21521C4A240E17D200FC8A8A /* views */,
 				219A6566232B12750062BF84 /* operations */,
@@ -487,12 +504,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				216067E224219FAD00B0E5EF /* StatusViewController.swift in Sources */,
+				217974E42425C19C00FE7B4C /* Observer.swift in Sources */,
 				21A4D12D2320B6E400B5B52A /* ItemInfoTableViewController.swift in Sources */,
 				219CA4A92326C904003ACBDE /* ScheduleTableViewCell.swift in Sources */,
+				217974E22425BFC700FE7B4C /* ObservableList.swift in Sources */,
 				21A4D1322320CDC000B5B52A /* CalendarCell.swift in Sources */,
 				21521C49240E11C600FC8A8A /* CalendarViewUtils.swift in Sources */,
 				21B8965323D3B7E100D49827 /* DateUtils.swift in Sources */,
 				21F2B5B92415A53100B8A548 /* LoadingScreen.swift in Sources */,
+				217974E72425E0F000FE7B4C /* Constants.swift in Sources */,
 				21A4D0F9231ECC3600B5B52A /* ScheduleViewController.swift in Sources */,
 				21521C45240E0D3A00FC8A8A /* GeneralViewUtils.swift in Sources */,
 				217477CF23D5282B001CA394 /* IntervalAvailabilitiesCheckingOperations.swift in Sources */,
