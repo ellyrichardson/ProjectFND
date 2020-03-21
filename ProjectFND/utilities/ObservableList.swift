@@ -34,14 +34,6 @@ class ObservableList<T> : Observable {
         }
     }
     
-    func setValue(value: [String: T]) {
-        self.value = value
-    }
-    
-    func getValue() -> [String: T] {
-        return self.value
-    }
-    
     func setObservers(observers: [Observer]) {
         self.observers = observers
     }
@@ -64,7 +56,15 @@ class ObservableList<T> : Observable {
         }
     }
     
-    private func updateValue(modificationType: ListModificationType, elementId: String, element: T?) {
+    func setValue(value: [String: T]) {
+        self.value = value
+    }
+    
+    func getValue() -> [String: T] {
+        return self.value
+    }
+    
+    func updateValue(modificationType: ListModificationType, elementId: String, element: T?) {
         switch modificationType {
         case .UPDATE:
             //if let oldValue = self._value.updateValue(element, forKey: elementId) {
