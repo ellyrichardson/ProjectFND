@@ -14,7 +14,7 @@ import CoreData
 import os.log
 import JTAppleCalendar
 
-class ScheduleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ScheduleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, Observer {
     
     // MARK: Properties
     
@@ -45,6 +45,28 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     let formatter = DateFormatter()
     let numberOfRows = 6
+    
+    private var _observerId: Int
+    
+    var observerId: Int {
+        get {
+            return self._observerId
+        }
+    }
+    
+    init(id: Int) {
+        self._observerId = id
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func update<T>(with newValue: T) {
+        setToDoItems(toDoItems: newValue as! [ToDo])
+        print("ToDo Items for ScheduleViewController has been updated")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -367,6 +389,10 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     func setRemainingExpandButtonsToReset(remainingButtons: Int) {
         self.remainingExpandButtonsToReset = remainingButtons
+    }
+    
+    func getObserverId() -> Int {
+        return self.observerId
     }
     
     // MARK: - Getters

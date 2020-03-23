@@ -24,6 +24,8 @@
 		217974E22425BFC700FE7B4C /* ObservableList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217974E12425BFC700FE7B4C /* ObservableList.swift */; };
 		217974E42425C19C00FE7B4C /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217974E32425C19C00FE7B4C /* Observer.swift */; };
 		217974E72425E0F000FE7B4C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217974E62425E0EF00FE7B4C /* Constants.swift */; };
+		217974EA2427065100FE7B4C /* ToDoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217974E92427065100FE7B4C /* ToDoController.swift */; };
+		217974EC2428591F00FE7B4C /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217974EB2428591F00FE7B4C /* Observable.swift */; };
 		219A6568232B12B10062BF84 /* ToDoProcessUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219A6567232B12B10062BF84 /* ToDoProcessUtils.swift */; };
 		219CA4A92326C904003ACBDE /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219CA4A82326C904003ACBDE /* ScheduleTableViewCell.swift */; };
 		219CA4AB2326CA18003ACBDE /* CheckBoxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219CA4AA2326CA18003ACBDE /* CheckBoxButton.swift */; };
@@ -97,6 +99,8 @@
 		217974E12425BFC700FE7B4C /* ObservableList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableList.swift; sourceTree = "<group>"; };
 		217974E32425C19C00FE7B4C /* Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
 		217974E62425E0EF00FE7B4C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		217974E92427065100FE7B4C /* ToDoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoController.swift; sourceTree = "<group>"; };
+		217974EB2428591F00FE7B4C /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		219A6567232B12B10062BF84 /* ToDoProcessUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoProcessUtils.swift; sourceTree = "<group>"; };
 		219CA4A82326C904003ACBDE /* ScheduleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCell.swift; sourceTree = "<group>"; };
 		219CA4AA2326CA18003ACBDE /* CheckBoxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxButton.swift; sourceTree = "<group>"; };
@@ -249,8 +253,17 @@
 			isa = PBXGroup;
 			children = (
 				217974E32425C19C00FE7B4C /* Observer.swift */,
+				217974EB2428591F00FE7B4C /* Observable.swift */,
 			);
 			path = interfaces;
+			sourceTree = "<group>";
+		};
+		217974E82427062B00FE7B4C /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				217974E92427065100FE7B4C /* ToDoController.swift */,
+			);
+			path = controllers;
 			sourceTree = "<group>";
 		};
 		219A6566232B12750062BF84 /* operations */ = {
@@ -287,6 +300,7 @@
 			isa = PBXGroup;
 			children = (
 				217974E62425E0EF00FE7B4C /* Constants.swift */,
+				217974E82427062B00FE7B4C /* controllers */,
 				217974E52425CBAC00FE7B4C /* interfaces */,
 				21521C50240E1BEC00FC8A8A /* models */,
 				21521C4A240E17D200FC8A8A /* views */,
@@ -512,6 +526,7 @@
 				21521C49240E11C600FC8A8A /* CalendarViewUtils.swift in Sources */,
 				21B8965323D3B7E100D49827 /* DateUtils.swift in Sources */,
 				21F2B5B92415A53100B8A548 /* LoadingScreen.swift in Sources */,
+				217974EA2427065100FE7B4C /* ToDoController.swift in Sources */,
 				217974E72425E0F000FE7B4C /* Constants.swift in Sources */,
 				21A4D0F9231ECC3600B5B52A /* ScheduleViewController.swift in Sources */,
 				21521C45240E0D3A00FC8A8A /* GeneralViewUtils.swift in Sources */,
@@ -524,6 +539,7 @@
 				214E0AE9233552C700398AC5 /* TransformingButton.swift in Sources */,
 				216067E92421CD4A00B0E5EF /* DeadlinesTableViewCell.swift in Sources */,
 				216067DD24219F3A00B0E5EF /* ParentStatusViewController.swift in Sources */,
+				217974EC2428591F00FE7B4C /* Observable.swift in Sources */,
 				21BC58AE23E629CA00015ECE /* IntervalAvailabilitiesRetrievingOperations.swift in Sources */,
 				214E0AEC233552FE00398AC5 /* ExpandButton.swift in Sources */,
 				21C8DA88237916A90084E2D6 /* ToDoDateSection.swift in Sources */,

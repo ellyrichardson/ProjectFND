@@ -47,7 +47,7 @@ class ObservableList<T> : Observable {
     }
     
     func removeObserver(observer: Observer) {
-        observers = observers.filter({$0.id != observer.id})
+        observers = observers.filter({$0.observerId != observer.observerId})
     }
     
     func notifyAllObservers<T>(with newValue: T) {
