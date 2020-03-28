@@ -8,7 +8,20 @@
 
 import UIKit
 
-class ParentStatusViewController: UIViewController {
+class ParentStatusViewController: UIViewController, Observer {
+    private var _observerId: Int = 1
+    private var toDosController: ToDosController!
+    
+    var observerId: Int {
+        get {
+            return self._observerId
+        }
+    }
+    
+    func update<T>(with newValue: T) {
+        //setToDoItems(toDoItems: newValue as! [ToDo])
+        print("ToDo Items for ScheduleViewController has been updated")
+    }
 
     @IBOutlet weak var statusDeadlineSegment: UISegmentedControl!
     override func viewDidLoad() {
@@ -16,6 +29,18 @@ class ParentStatusViewController: UIViewController {
         
         setupView()
         // Do any additional setup after loading the view.
+    }
+    
+    func setToDosController(toDosController: ToDosController) {
+        self.toDosController = toDosController
+    }
+    
+    func getToDosController() -> ToDosController {
+        return self.toDosController
+    }
+    
+    func getObserverId() -> Int {
+        return self.observerId
     }
     
     private func setupView() {

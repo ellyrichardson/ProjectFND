@@ -37,6 +37,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     private var checkButtonTapped: Int =  -1
     private var currentCellIndexPath: IndexPath?
     private var shouldReloadTableView: Bool = true
+    private var toDosController: ToDosController!
     
     // Expand row buttons tracker assets
     
@@ -46,7 +47,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     let formatter = DateFormatter()
     let numberOfRows = 6
     
-    private var _observerId: Int
+    private var _observerId: Int = 0
     
     var observerId: Int {
         get {
@@ -54,14 +55,18 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
+    /*
     init(id: Int) {
         self._observerId = id
         super.init(nibName: nil, bundle: nil)
     }
-    
+ 
+ */
+    /*
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+ */
     
     func update<T>(with newValue: T) {
         setToDoItems(toDoItems: newValue as! [ToDo])
@@ -70,6 +75,16 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        var observerVCList: [Observer]
+        let barViewController = self.tabBarController
+        let parentStatusViewController = barViewController!.viewControllers?[1] as! ParentStatusViewController
+        observerVCList.append(parentStatusViewController)
+        self.toDosController.setObservers(observers: observerVCList)
+        
+        
+        // TODO: REFACTOR MESS!
+        
         
         let nav = self.navigationController?.navigationBar
         
@@ -85,6 +100,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         if let savedToDos = ToDoProcessUtils.loadToDos() {
             setToDoItems(toDoItems: savedToDos)
         }
+        
+        //setToDoItems(toDoItems: getToDosController().getToDos())
         
         configureCalendarView()
         GeneralViewUtils.addTopBorderWithColor(self.toDoListTableView, color: UIColor.lightGray, width: 1.00)
@@ -366,6 +383,14 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             os_log("Showing details for the selected ToDo item.", log: OSLog.default, type: .debug)
         default:
             fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")
+            /*
+            var observerVCList: [Observer]
+            let barViewControllers = segue.destination as! UITabBarController
+            let parentStatusViewController = barViewControllers.viewControllers?[1] as! ParentStatusViewController
+            //parentStatusViewController.setToDosController(toDosController: getToDosController())
+            observerVCList.append(parentStatusViewController)
+            self.toDosController.setObservers(observers: observerVCList)
+ */
         }
     }
     
@@ -389,6 +414,14 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     func setRemainingExpandButtonsToReset(remainingButtons: Int) {
         self.remainingExpandButtonsToReset = remainingButtons
+    }
+    
+    func setToDosController(toDosController: ToDosController) {
+        self.toDosController = toDosController
+    }
+    
+    func getToDosController() -> ToDosController {
+        return self.toDosController
     }
     
     func getObserverId() -> Int {
