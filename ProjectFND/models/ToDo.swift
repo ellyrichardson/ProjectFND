@@ -14,14 +14,9 @@ import os.log
  */
 class ToDo: NSObject, NSCoding {
     // MARK: - Properties
+    var taskId: String
     var taskName, taskDescription, estTime: String
     var workDate, dueDate: Date
-    var intervalId: String?
-    var intervalPart: Int?
-    var isFirstInterval, isLastInterval: Bool?
-    var taskId: String?
-    
-    //var doneCheckBox: CheckBox
     var finished: Bool
     
     // MARK: - Archiving Paths
@@ -30,6 +25,7 @@ class ToDo: NSObject, NSCoding {
     
     // MARK: - Types
     struct PropertyKey {
+        static let taskId = "taskId"
         static let taskName = "taskName"
         static let taskDescription = "taskDescription"
         static let workDate = "workDate"
@@ -40,13 +36,16 @@ class ToDo: NSObject, NSCoding {
     }
     
     // MARK: - Initialization
-    init?(taskName: String, taskDescription: String, workDate: Date, estTime: String, dueDate: Date, finished: Bool) {
+    init?(taskId: String, taskName: String, taskDescription: String, workDate: Date, estTime: String, dueDate: Date, finished: Bool) {
+        
+        
         // To fail init if one of them is empty
-        if taskName.isEmpty || workDate == nil || estTime.isEmpty || dueDate == nil {
+        if taskId.isEmpty || taskName.isEmpty || workDate == nil || estTime.isEmpty || dueDate == nil {
             return nil
         }
         
         // Init stored properties
+        self.taskId = UUID().uuidString
         self.taskName = taskName
         self.taskDescription = taskDescription
         self.workDate = workDate
@@ -57,6 +56,7 @@ class ToDo: NSObject, NSCoding {
     
     override init() {
         // Init stored properties
+        self.taskId = UUID().uuidString
         self.taskName = ""
         self.taskDescription = ""
         self.workDate = Date()
@@ -67,6 +67,7 @@ class ToDo: NSObject, NSCoding {
     
     // MARK: - NSCoding
     func encode(with aCoder: NSCoder) {
+        aCoder.encode(taskId, forKey: PropertyKey.taskId)
         aCoder.encode(taskName, forKey: PropertyKey.taskName)
         aCoder.encode(taskDescription, forKey: PropertyKey.taskDescription)
         aCoder.encode(workDate, forKey: PropertyKey.workDate)
@@ -76,6 +77,12 @@ class ToDo: NSObject, NSCoding {
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
+        guard let taskId = aDecoder.decodeObject(forKey: PropertyKey.taskId) as? String
+            else {
+                os_log("Unable to decode the name for a ToDo object.", log: OSLog.default, type: .debug)
+                return nil
+        }
+        
         // The name is required. If we cannot decode a name string, the initializer should fail.
         guard let taskName = aDecoder.decodeObject(forKey: PropertyKey.taskName) as? String
             else {
@@ -119,7 +126,11 @@ class ToDo: NSObject, NSCoding {
         }
         
         // Must call designated initializer.
-        self.init(taskName: taskName, taskDescription: taskDescription, workDate: workDate, estTime: estTime, dueDate: dueDate, finished: finished)
+        self.init(taskId: taskId, taskName: taskName, taskDescription: taskDescription, workDate: workDate, estTime: estTime, dueDate: dueDate, finished: finished)
+    }
+    
+    func  getTaskId() -> String {
+        return self.taskId
     }
     
     func getTaskName() -> String {

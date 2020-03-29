@@ -12,7 +12,7 @@ import os.log
 
 class IntervalAvailabilitiesRetrievalOperations {
     var dateArithmeticOps = DateUtils()
-    //private var allOfTheToDos: [ToDo]
+    //private var allOfTheToDos: [String: ToDo]
     
     // MARK: Essential Functions
     

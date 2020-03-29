@@ -30,8 +30,8 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     
     // Properties
     
-    private var toDos = [ToDo]()
-    private var toDosToBeAdded = [ToDo]()
+    private var toDos = [String: ToDo]()
+    private var toDosToBeAdded = [String: ToDo]()
     private var selectedDate: Date = Date()
     private var selectedToDoIndex: Int = -1
     private var selectedIndexPath: IndexPath?
@@ -43,7 +43,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     private var toDoToBeIntervalized = ToDo()
     private var toDoStartDate: Date = Date()
     private var toDoEndDate: Date = Date()
-    private var toDoIntervalsToAssign = [ToDo]()
+    private var toDoIntervalsToAssign = [String: ToDo]()
     
     // Expand row buttons tracker assets
     
@@ -242,7 +242,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            let toDoToBeDeleted: [ToDo] = getToDoItemsByDay(dateChosen: getSelectedDate())
+            let toDoToBeDeleted: [String: ToDo] = getToDoItemsByDay(dateChosen: getSelectedDate())
             let toDoRealIndex = ToDoProcessUtils.retrieveRealIndexOfToDo(toDoItem: toDoToBeDeleted[indexPath.row], toDoItemCollection: self.toDos)
             ToDoProcessUtils.deleteToDo(toDoToDelete: getToDoItems()[toDoRealIndex])
             ToDoProcessUtils.removeToDoItem(toDoItemIndexToRemove: toDoRealIndex, toDoItemCollection: &self.toDos)
@@ -321,11 +321,11 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         
     }
     
-    func setToDoItems(toDoItems: [ToDo]) {
+    func setToDoItems(toDoItems: [String: ToDo]) {
         self.toDos = toDoItems
     }
     
-    func setToDosToBeAdded(toDoItems: [ToDo]) {
+    func setToDosToBeAdded(toDoItems: [String: ToDo]) {
         self.toDosToBeAdded = toDoItems
     }
     
@@ -373,15 +373,15 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     }
     
     // USED HERE IN THIS CONTEXT
-    func getToDoIntervalsToAssign() -> [ToDo] {
+    func getToDoIntervalsToAssign() -> [String: ToDo] {
         return self.toDoIntervalsToAssign
     }
     
-    private func getToDoItemsByDay(dateChosen: Date) -> [ToDo] {
+    private func getToDoItemsByDay(dateChosen: Date) -> [String: ToDo] {
         return ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: dateChosen, toDoItems: getToDoItems())
     }
     
-    func getToDoItems() -> [ToDo] {
+    func getToDoItems() -> [String: ToDo] {
         return self.toDos
     }
     
@@ -422,7 +422,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     }
     
     // NOTE: Refactor this function
-    private func determineInterval(savedToDos: [ToDo], dateOfTheDay: Date) {
+    private func determineInterval(savedToDos: [String: ToDo], dateOfTheDay: Date) {
         formatter.dateFormat = "yyyy/MM/dd"
         let stringDateOfTheDay: String = formatter.string(from: dateOfTheDay)
         var actualDateOfTheDay: Date = formatter.date(from: stringDateOfTheDay)!
@@ -430,7 +430,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         let intervalSchedRetrivHelper = IntervalAvailabilitiesRetrievalOperations()
         var assignedIntervals: Int = 0
         while assignedIntervals < getIntervalAmount() {
-            let toDoItemsForDay: [ToDo] = ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: actualDateOfTheDay, toDoItems: savedToDos)
+            let toDoItemsForDay: [String: ToDo] = ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: actualDateOfTheDay, toDoItems: savedToDos)
             let timeSlotsOfAllToDoInDate = intervalSchedCheckHelper.getOccupiedTimeSlots(collectionOfToDosForTheDay: toDoItemsForDay, dayDateOfTheCollection: actualDateOfTheDay)
             let availableTimeSlots = intervalSchedCheckHelper.getLongestAvailableConsecutiveTimeSlot(timeSlotDictionary: timeSlotsOfAllToDoInDate, dayToCheck: actualDateOfTheDay)
             if availableTimeSlots.count == 0 {
@@ -501,7 +501,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     }
     
     @objc func onCheckBoxButtonTap(sender: CheckBoxButton) {
-        var toDoItemsByDay: [ToDo] = getToDoItemsByDay(dateChosen: getSelectedDate())
+        var toDoItemsByDay: [String: ToDo] = getToDoItemsByDay(dateChosen: getSelectedDate())
         let toDoItemToUpdate: ToDo = toDoItemsByDay[sender.getToDoRowIndex()]
         let newToDoItem: ToDo = toDoItemsByDay[sender.getToDoRowIndex()]
         

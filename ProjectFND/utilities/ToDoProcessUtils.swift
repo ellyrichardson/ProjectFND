@@ -11,30 +11,44 @@ import UIKit
 import os.log
 
 class ToDoProcessUtils {
+    /*
+    static func sortedToDoKeys(isOrderedBefore:(String, String) -> Bool) -> [String] {
+        return Array(self.keys).sort(isOrderedBefore)
+    }
+ 
+ */
+    
     // Sorts ToDo items by date
-    static func sortToDoItemsByDate(toDoItems: [ToDo]) -> [ToDo] {
-        var toDosToBeSorted = toDoItems
-        toDosToBeSorted = toDosToBeSorted.sorted(by: {
-            $1.workDate > $0.workDate
-        })
-        return toDosToBeSorted
+    static func sortToDoItemsByDate(toDoItems: [String: ToDo]) -> [(key: String, value: ToDo)] {
+        let toDosToBeSorted = toDoItems
+        // Converts dictionary to sorted tuples
+        let sortedToDos = toDosToBeSorted.sorted{
+            return $1.value.getStartDate() > $0.value.getStartDate()
+        }
+        // Converts sorted tuples to sorted dictionary
+        //return sortedToDos.reduce(into: [:]) { $0[$1.0] = $1.1 }
+        return sortedToDos
     }
     
     // Gets ToDo items that meets the day selected in calendar
-    static func retrieveToDoItemsByDay(toDoDate: Date, toDoItems: [ToDo]) -> [ToDo] {
+    static func retrieveToDoItemsByDay(toDoDate: Date, toDoItems: [String: ToDo]) -> [(key: String, value: ToDo)] {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "M/d/yy"
-        var matchedToDosByDate: [ToDo] = [ToDo]()
-        for toDo in toDoItems {
-            if dateFormatter.string(from: toDo.workDate) == dateFormatter.string(from: toDoDate) {
-                matchedToDosByDate.append(toDo)
-            }
+        var matchedToDosByDate: [String: ToDo] = [String: ToDo]()
+
+        let toDoKeys = toDoItems // This is a [String:int] dictionary
+            .filter { (k, v) -> Bool in dateFormatter.string(from: v.getStartDate()) == dateFormatter.string(from: toDoDate) }
+            .map { (k, v) -> String in k }
+        
+        for toDoKey in toDoKeys {
+            matchedToDosByDate[toDoKey] = toDoItems[toDoKey]
         }
+        
         return sortToDoItemsByDate(toDoItems: matchedToDosByDate)
     }
     
-    static func loadToDos() -> [ToDo]? {
-        var loadedToDos: [ToDo] = [ToDo]()
+    static func loadToDos() -> [String: ToDo]? {
+        var loadedToDos: [String: ToDo] = [String: ToDo]()
         var loadedToDo: ToDo?
         
         // Container is set up in the AppDelegate so it needs to refer to that container.
@@ -52,8 +66,9 @@ class ToDoProcessUtils {
             // If result is not empty,
             if result.count > 0 {
                 for toDo in result as! [NSManagedObject] {
-                    loadedToDo = ToDo(taskName: toDo.value(forKey: "taskName") as! String, taskDescription: toDo.value(forKey: "taskDescription") as! String, workDate: toDo.value(forKey: "startDate") as! Date, estTime: toDo.value(forKey: "estTime") as! String, dueDate: toDo.value(forKey: "dueDate") as! Date, finished: (toDo.value(forKey: "finished") as! Bool))
-                    loadedToDos.append(loadedToDo!)
+                    let taskId = toDo.value(forKey: "taskId") as! String
+                    loadedToDo = ToDo(taskId: taskId, taskName: toDo.value(forKey: "taskName") as! String, taskDescription: toDo.value(forKey: "taskDescription") as! String, workDate: toDo.value(forKey: "startDate") as! Date, estTime: toDo.value(forKey: "estTime") as! String, dueDate: toDo.value(forKey: "dueDate") as! Date, finished: (toDo.value(forKey: "finished") as! Bool))
+                    loadedToDos[taskId] = loadedToDo
                 }
             }
         } catch {
@@ -77,6 +92,7 @@ class ToDoProcessUtils {
         
         // Adding data to newly created record
         let toDoToSave = NSManagedObject(entity: toDoEntity!, insertInto: managedContext)
+        toDoToSave.setValue(toDoItem.taskName, forKey: "taskId")
         toDoToSave.setValue(toDoItem.taskName, forKey: "taskName")
         toDoToSave.setValue(toDoItem.taskDescription, forKey: "taskDescription")
         toDoToSave.setValue(toDoItem.estTime, forKey: "estTime")
@@ -101,6 +117,7 @@ class ToDoProcessUtils {
         let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FND_ToDo")
         
         // Assigning different filters for the ToDo to be updated
+        let taskIdPredicate = NSPredicate(format: "taskId = %@", toDoToUpdate.taskId)
         let taskNamePredicate = NSPredicate(format: "taskName = %@", toDoToUpdate.taskName)
         let taskDescriptionPredicate = NSPredicate(format: "taskDescription = %@", toDoToUpdate.taskDescription)
         let estTimePredicate = NSPredicate(format: "estTime = %@", toDoToUpdate.estTime)
@@ -113,7 +130,7 @@ class ToDoProcessUtils {
         }
         
         // Combines different filters to one filter
-        let propertiesPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [taskNamePredicate, taskDescriptionPredicate, estTimePredicate, startDatePredicate, dueDatePredicate, statusPredicate])
+        let propertiesPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [taskIdPredicate, taskNamePredicate, taskDescriptionPredicate, estTimePredicate, startDatePredicate, dueDatePredicate, statusPredicate])
         
         fetchRequest.predicate = propertiesPredicate
         
@@ -121,6 +138,7 @@ class ToDoProcessUtils {
             let toDoItem = try managedContext.fetch(fetchRequest)
             
             let objectUpdate = toDoItem[0] as! NSManagedObject
+            objectUpdate.setValue(newToDo.taskId, forKey: "taskId")
             objectUpdate.setValue(newToDo.taskName, forKey: "taskName")
             objectUpdate.setValue(newToDo.taskDescription, forKey: "taskDescription")
             objectUpdate.setValue(newToDo.estTime, forKey: "estTime")
@@ -148,6 +166,7 @@ class ToDoProcessUtils {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FND_ToDo")
         
         // Assigning different filters for the ToDo to be updated
+        let taskIdPredicate = NSPredicate(format: "taskId = %@", toDoToDelete.taskId)
         let taskNamePredicate = NSPredicate(format: "taskName = %@", toDoToDelete.taskName)
         let taskDescriptionPredicate = NSPredicate(format: "taskDescription = %@", toDoToDelete.taskDescription)
         let estTimePredicate = NSPredicate(format: "estTime = %@", toDoToDelete.estTime)
@@ -156,7 +175,7 @@ class ToDoProcessUtils {
         let statusPredicate = NSPredicate(format: "finished = %d", toDoToDelete.finished)
         
         // Combines different filters to one filter
-        let propertiesPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [taskNamePredicate, taskDescriptionPredicate, estTimePredicate, startDatePredicate, dueDatePredicate, statusPredicate])
+        let propertiesPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [taskIdPredicate, taskNamePredicate, taskDescriptionPredicate, estTimePredicate, startDatePredicate, dueDatePredicate, statusPredicate])
         
         fetchRequest.predicate = propertiesPredicate
         
@@ -177,20 +196,21 @@ class ToDoProcessUtils {
         }
     }
     
-    static func addToDoItem(toDoItemToAdd: ToDo, toDoItemCollection: inout [ToDo]) {
-        toDoItemCollection.append(toDoItemToAdd)
+    static func addToDoItem(toDoItemToAdd: ToDo, toDoItemCollection: inout [String: ToDo]) {
+        toDoItemCollection[toDoItemToAdd.taskId] = toDoItemToAdd
     }
     
-    static func removeToDoItem(toDoItemIndexToRemove: Int, toDoItemCollection: inout [ToDo]) {
-        toDoItemCollection.remove(at: toDoItemIndexToRemove)
+    static func removeToDoItem(toDoItemToRemove: ToDo, toDoItemCollection: inout [String: ToDo]) {
+        toDoItemCollection.removeValue(forKey: toDoItemToRemove.taskId)
     }
     
     static func addSelectedIndexPath(indexPath: IndexPath, selectedIndexPaths: inout [IndexPath]) {
         selectedIndexPaths.append(indexPath)
     }
     
-    static func addToDoArrayToAToDoArray(toDoArray: inout [ToDo], toDosToBeAdded: [ToDo]) {
-        toDoArray.append(contentsOf: toDosToBeAdded)
+    // NOTE: Formerly addToDoArrayToAToDoArray
+    static func addToDoArrayToAToDoArray(toDoDictionary: inout [String: ToDo], toDosToBeAdded: [String: ToDo]) {
+        toDosToBeAdded.forEach { (k,v) in toDoDictionary[k] = v }
     }
     
     static func removeSelectedIndexPath(indexPathAsInt: Int, selectedIndexPaths: inout [IndexPath]) {
@@ -202,14 +222,14 @@ class ToDoProcessUtils {
     }
     
     // Retrieves the index of the ToDo from the base ToDo List instead of by day
-    static func retrieveRealIndexOfToDo(toDoItem: ToDo, toDoItemCollection: [ToDo]) -> Int {
-        let toDoItems: [ToDo] = toDoItemCollection
+    static func retrieveRealIndexOfToDo(toDoItem: ToDo, toDoItemCollection: [String: ToDo]) -> Int {
+        let toDoItems: [String: ToDo] = toDoItemCollection
         let retrievedIndex: Int = toDoItems.firstIndex(of: toDoItem)!
         return retrievedIndex
     }
     
     // Replaces a ToDo item based on its index from an array
-    static func replaceToDoItemInBaseList(editedToDoItem: ToDo, editedToDoItemIndex: Int, toDoItemCollection: inout [ToDo]) {
+    static func replaceToDoItemInBaseList(editedToDoItem: ToDo, editedToDoItemIndex: Int, toDoItemCollection: inout [String: ToDo]) {
         //self.toDos[editedToDoItemIndex] = editedToDoItem
         removeToDoItem(toDoItemIndexToRemove: editedToDoItemIndex, toDoItemCollection: &toDoItemCollection)
         addToDoItem(toDoItemToAdd: editedToDoItem, toDoItemCollection: &toDoItemCollection)

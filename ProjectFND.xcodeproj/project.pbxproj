@@ -26,6 +26,7 @@
 		217974E72425E0F000FE7B4C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217974E62425E0EF00FE7B4C /* Constants.swift */; };
 		217974EA2427065100FE7B4C /* ToDosController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217974E92427065100FE7B4C /* ToDosController.swift */; };
 		217974EC2428591F00FE7B4C /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217974EB2428591F00FE7B4C /* Observable.swift */; };
+		218A99C224303F820005DEB5 /* ToDoInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218A99C124303F820005DEB5 /* ToDoInterval.swift */; };
 		219A6568232B12B10062BF84 /* ToDoProcessUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219A6567232B12B10062BF84 /* ToDoProcessUtils.swift */; };
 		219CA4A92326C904003ACBDE /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219CA4A82326C904003ACBDE /* ScheduleTableViewCell.swift */; };
 		219CA4AB2326CA18003ACBDE /* CheckBoxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219CA4AA2326CA18003ACBDE /* CheckBoxButton.swift */; };
@@ -101,6 +102,7 @@
 		217974E62425E0EF00FE7B4C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		217974E92427065100FE7B4C /* ToDosController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDosController.swift; sourceTree = "<group>"; };
 		217974EB2428591F00FE7B4C /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		218A99C124303F820005DEB5 /* ToDoInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoInterval.swift; sourceTree = "<group>"; };
 		219A6567232B12B10062BF84 /* ToDoProcessUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoProcessUtils.swift; sourceTree = "<group>"; };
 		219CA4A82326C904003ACBDE /* ScheduleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCell.swift; sourceTree = "<group>"; };
 		219CA4AA2326CA18003ACBDE /* CheckBoxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxButton.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				21A4D123231ECE9A00B5B52A /* ToDo.swift */,
+				218A99C124303F820005DEB5 /* ToDoInterval.swift */,
 				214F4F7A23D50DEC00391D7A /* TimeSlot.swift */,
 			);
 			path = models;
@@ -525,6 +528,7 @@
 				21A4D1322320CDC000B5B52A /* CalendarCell.swift in Sources */,
 				21521C49240E11C600FC8A8A /* CalendarViewUtils.swift in Sources */,
 				21B8965323D3B7E100D49827 /* DateUtils.swift in Sources */,
+				218A99C224303F820005DEB5 /* ToDoInterval.swift in Sources */,
 				21F2B5B92415A53100B8A548 /* LoadingScreen.swift in Sources */,
 				217974EA2427065100FE7B4C /* ToDosController.swift in Sources */,
 				217974E72425E0F000FE7B4C /* Constants.swift in Sources */,

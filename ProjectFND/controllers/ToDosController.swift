@@ -43,7 +43,7 @@ class ToDosController {
     
     func setInitialToDos() {
         for items in ToDoProcessUtils.loadToDos()! {
-            self.toDos.updateValue(modificationType: ListModificationType.ADD, elementId: items.taskId!, element: items)
+            self.toDos.updateValue(modificationType: ListModificationType.ADD, elementId: items.taskId, element: items)
         }
     }
     
@@ -76,6 +76,6 @@ class ToDosController {
         default:
             ToDoProcessUtils.saveToDos(toDoItem: toDo)
         }
-        self.toDos.updateValue(modificationType: modificationType, elementId: toDo.taskId!, element: toDo)
+        self.toDos.updateValue(modificationType: modificationType, elementId: toDo.taskId, element: toDo)
     }
 }

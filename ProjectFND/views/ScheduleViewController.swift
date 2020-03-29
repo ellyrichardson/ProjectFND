@@ -28,7 +28,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     // Properties
 
-    private var toDos = [ToDo]()
+    private var toDos = [String: ToDo]()
     private var selectedDate: Date = Date()
     private var selectedToDoIndex: Int = -1
     private var selectedIndexPath: IndexPath?
