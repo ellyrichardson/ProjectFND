@@ -43,7 +43,7 @@ class ToDosController {
     
     func setInitialToDos() {
         for items in ToDoProcessUtils.loadToDos()! {
-            self.toDos.updateValue(modificationType: ListModificationType.ADD, elementId: items.taskId, element: items)
+            self.toDos.updateValue(modificationType: ListModificationType.ADD, elementId: items.value.getTaskId(), element: items.value)
         }
     }
     
@@ -64,18 +64,42 @@ class ToDosController {
         return self.toDos.getValue()
     }
     
+    // MARK: - Getters
+    
+    func getToDosByDay(dateChosen: Date) -> [(key: String, value: ToDo)] {
+        return ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: dateChosen, toDoItems: getToDos())
+    }
+    
+    func getToDosByDayAsArray(dateChosen: Date) -> [ToDo] {
+        var toDosByDay = [ToDo]()
+        for toDo in getToDosByDay(dateChosen: dateChosen) {
+            toDosByDay.append(toDo.value)
+        }
+        return toDosByDay
+    }
+    
+    // NOTE: Formerly getToDoItemByIndex in ScheduleViewController
+    // Gets ToDo item by its index in the base list.
+    func getToDosByKey(toDoKey: String) -> ToDo {
+        return self.toDos.getValue()[toDoKey]!
+    }
+    
     // MARK: - Controller Operations
     
-    func updateToDo(modificationType: ListModificationType, toDo: ToDo) {
+    func updateToDos(modificationType: ListModificationType, toDo: ToDo) {
         switch modificationType {
         case .UPDATE:
-            ToDoProcessUtils.updateToDo(toDoToUpdate: <#T##ToDo#>, newToDo: <#T##ToDo#>, updateType: <#T##Int#>)
-            
+            let toDoToUpdate = getToDos()[toDo.getTaskId()]
+            if toDoToUpdate?.finished == toDo.finished {
+                ToDoProcessUtils.updateToDo(toDoToUpdate: toDoToUpdate!, newToDo: toDo, updateType: 0)
+            } else {
+                ToDoProcessUtils.updateToDo(toDoToUpdate: toDoToUpdate!, newToDo: toDo, updateType: 1)
+            }
         case .REMOVE:
             ToDoProcessUtils.deleteToDo(toDoToDelete: toDo)
         default:
             ToDoProcessUtils.saveToDos(toDoItem: toDo)
         }
-        self.toDos.updateValue(modificationType: modificationType, elementId: toDo.taskId, element: toDo)
+        self.toDos.updateValue(modificationType: modificationType, elementId: toDo.getTaskId(), element: toDo)
     }
 }

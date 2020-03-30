@@ -44,6 +44,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     private var toDoStartDate: Date = Date()
     private var toDoEndDate: Date = Date()
     private var toDoIntervalsToAssign = [String: ToDo]()
+    private var toDosController: ToDosController!
     
     // Expand row buttons tracker assets
     
@@ -328,10 +329,11 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     func setToDosToBeAdded(toDoItems: [String: ToDo]) {
         self.toDosToBeAdded = toDoItems
     }
-    
+    /*
     func setSelectedToDoIndex(toDoItemIndex: Int) {
         self.selectedToDoIndex = toDoItemIndex
     }
+ */
     
     func setSelectedDate(selectedDate: Date) {
         self.selectedDate = selectedDate
@@ -341,9 +343,11 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         self.calendarDayChanged = didChange
     }
     
+    /*
     func setRemainingExpandButtonsToReset(remainingButtons: Int) {
         self.remainingExpandButtonsToReset = remainingButtons
     }
+ */
     
     // MARK: - Getters
     
@@ -385,6 +389,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         return self.toDos
     }
     
+    /*
     // Gets ToDo item by its index in the base list.
     func getToDoItemByIndex(toDoIndex: Int) -> ToDo {
         return self.toDos[toDoIndex]
@@ -394,7 +399,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     func getSelectedToDoIndex() -> Int {
         return self.selectedToDoIndex
     }
-    
+    */
     func getSelectedDate() -> Date {
         return self.selectedDate
     }
@@ -411,6 +416,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         return self.remainingExpandButtonsToReset
     }
     
+    /*
     // Tracks the expand row buttons that needs to be reset
     private func trackExpandButtonsToBeReset() {
         setRemainingExpandButtonsToReset(remainingButtons: getRemainingButtonsToReset() - 1)
@@ -420,6 +426,8 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
             setRemainingExpandButtonsToReset(remainingButtons: -1)
         }
     }
+ 
+ */
     
     // NOTE: Refactor this function
     private func determineInterval(savedToDos: [String: ToDo], dateOfTheDay: Date) {
@@ -501,13 +509,12 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     }
     
     @objc func onCheckBoxButtonTap(sender: CheckBoxButton) {
-        var toDoItemsByDay: [String: ToDo] = getToDoItemsByDay(dateChosen: getSelectedDate())
-        let toDoItemToUpdate: ToDo = toDoItemsByDay[sender.getToDoRowIndex()]
-        let newToDoItem: ToDo = toDoItemsByDay[sender.getToDoRowIndex()]
+        var toDoItemsByDay = toDosController.getToDosByDay(dateChosen: getSelectedDate())
+        //let toDoItemToUpdate: ToDo = toDoItemsByDay[sender.tag].value
+        let newToDoItem: ToDo = toDoItemsByDay[sender.tag].value
         
         newToDoItem.finished = !newToDoItem.finished
-        
-        ToDoProcessUtils.updateToDo(toDoToUpdate: toDoItemToUpdate, newToDo: newToDoItem, updateType: 1)
+        toDosController.updateToDos(modificationType: ListModificationType.UPDATE, toDo: newToDoItem)
         //reloadTableViewData()
         //reloadCalendarViewData()
     }

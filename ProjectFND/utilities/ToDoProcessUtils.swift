@@ -221,6 +221,7 @@ class ToDoProcessUtils {
         selectedIndexPaths.removeAll()
     }
     
+    /*
     // Retrieves the index of the ToDo from the base ToDo List instead of by day
     static func retrieveRealIndexOfToDo(toDoItem: ToDo, toDoItemCollection: [String: ToDo]) -> Int {
         let toDoItems: [String: ToDo] = toDoItemCollection
@@ -233,5 +234,5 @@ class ToDoProcessUtils {
         //self.toDos[editedToDoItemIndex] = editedToDoItem
         removeToDoItem(toDoItemIndexToRemove: editedToDoItemIndex, toDoItemCollection: &toDoItemCollection)
         addToDoItem(toDoItemToAdd: editedToDoItem, toDoItemCollection: &toDoItemCollection)
-    }
+    }*/
 }
