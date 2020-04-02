@@ -30,8 +30,9 @@ class ToDoProcessUtils {
         return sortedToDos
     }
     
+    /*
     // Gets ToDo items that meets the day selected in calendar
-    static func retrieveToDoItemsByDay(toDoDate: Date, toDoItems: [String: ToDo]) -> [(key: String, value: ToDo)] {
+    static func retrieveSortedToDoItemsByDay(toDoDate: Date, toDoItems: [String: ToDo]) -> [(key: String, value: ToDo)] {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "M/d/yy"
         var matchedToDosByDate: [String: ToDo] = [String: ToDo]()
@@ -44,7 +45,29 @@ class ToDoProcessUtils {
             matchedToDosByDate[toDoKey] = toDoItems[toDoKey]
         }
         
+        
         return sortToDoItemsByDate(toDoItems: matchedToDosByDate)
+    }
+ */
+    
+    // Gets ToDo items that meets the day selected in calendar
+    static func retrieveToDoItemsByDay(toDoDate: Date, toDoItems: [String: ToDo]) -> [String: ToDo] {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "M/d/yy"
+        var matchedToDosByDate: [String: ToDo] = [String: ToDo]()
+        
+        let toDoKeys = toDoItems // This is a [String:int] dictionary
+            .filter { (k, v) -> Bool in dateFormatter.string(from: v.getStartDate()) == dateFormatter.string(from: toDoDate) }
+            .map { (k, v) -> String in k }
+        
+        for toDoKey in toDoKeys {
+            matchedToDosByDate[toDoKey] = toDoItems[toDoKey]
+        }
+        
+        return matchedToDosByDate
+        
+        
+        //return sortToDoItemsByDate(toDoItems: matchedToDosByDate)
     }
     
     static func loadToDos() -> [String: ToDo]? {
@@ -58,7 +81,7 @@ class ToDoProcessUtils {
         let managedContext = appDelegate!.persistentContainer.viewContext
         
         // Prepare the request of type NSTypeRequest for the entity
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FND_ToDo")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FND_ToDos")
         
         do {
             let result = try managedContext.fetch(fetchRequest)
@@ -88,7 +111,7 @@ class ToDoProcessUtils {
         let managedContext = appDelegate.persistentContainer.viewContext
         
         // Create an entity and new ToDo records
-        let toDoEntity = NSEntityDescription.entity(forEntityName: "FND_ToDo", in: managedContext)
+        let toDoEntity = NSEntityDescription.entity(forEntityName: "FND_ToDos", in: managedContext)
         
         // Adding data to newly created record
         let toDoToSave = NSManagedObject(entity: toDoEntity!, insertInto: managedContext)
@@ -114,7 +137,7 @@ class ToDoProcessUtils {
         // Context needs to be created in this container
         let managedContext = appDelegate.persistentContainer.viewContext
         
-        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FND_ToDo")
+        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FND_ToDos")
         
         // Assigning different filters for the ToDo to be updated
         let taskIdPredicate = NSPredicate(format: "taskId = %@", toDoToUpdate.taskId)
@@ -163,7 +186,7 @@ class ToDoProcessUtils {
         // Context needs to be created in this container
         let managedContext = appDelegate.persistentContainer.viewContext
         
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FND_ToDo")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FND_ToDos")
         
         // Assigning different filters for the ToDo to be updated
         let taskIdPredicate = NSPredicate(format: "taskId = %@", toDoToDelete.taskId)

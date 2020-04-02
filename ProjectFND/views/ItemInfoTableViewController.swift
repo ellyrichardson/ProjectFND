@@ -27,7 +27,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     
     private var taskItemCells = [StaticTableCell]()
     var toDo: ToDo?
-    var toDoIntervals: [ToDo] = [ToDo]()
+    var toDoIntervals: [String: ToDo] = [String: ToDo]()
     var toDoIntervalsExist: Bool = false
     private var finished: Bool
     private var chosenWorkDate: Date
@@ -299,7 +299,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             intervalSchedulingPreviewController.setIntervalLength(intervalLength: intervalHours!)
             intervalSchedulingPreviewController.setToDoStartDate(toDoStartDate: workDate)
             intervalSchedulingPreviewController.setToDoEndDate(toDoEndDate: dueDate)
-            intervalSchedulingPreviewController.setToDoToBeIntervalized(toDo: ToDo(taskName: taskName!, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())!)
+            intervalSchedulingPreviewController.setToDoToBeIntervalized(toDo: ToDo(taskId: UUID().uuidString,taskName: taskName!, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())!)
             
         } else {
             // Only prepare view controller when the save button is pressed
@@ -319,7 +319,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             navigationItem.title = taskName
             
             // Set the ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue
-            toDo = ToDo(taskName: taskName!, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())
+            toDo = ToDo(taskId: UUID().uuidString, taskName: taskName!, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())
         }
     }
     
@@ -381,7 +381,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     
     // MARK: - Getters
     
-    func getToDoIntervals() -> [ToDo] {
+    func getToDoIntervals() -> [String: ToDo] {
         return self.toDoIntervals
     }
     

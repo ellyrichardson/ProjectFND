@@ -37,7 +37,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     private var checkButtonTapped: Int =  -1
     private var currentCellIndexPath: IndexPath?
     private var shouldReloadTableView: Bool = true
-    private var toDosController: ToDosController!
+    private var toDosController: ToDosController = ToDosController()
     
     // Expand row buttons tracker assets
     
@@ -75,11 +75,13 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.toDosController.setInitialToDos()
+        //self.toDosController.setInitialDummyToDos()
         var observerVCList: [Observer] = [Observer]()
         let barViewController = self.tabBarController
-        let parentStatusViewController = barViewController!.viewControllers?[1] as! ParentStatusViewController
-        observerVCList.append(parentStatusViewController)
+        let nav1 = barViewController!.viewControllers?[1] as! UINavigationController
+        let statusViewController = nav1.topViewController as! ParentStatusViewController
+        observerVCList.append(statusViewController)
         self.toDosController.setObservers(observers: observerVCList)
         
         
@@ -102,8 +104,9 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             setToDoItems(toDoItems: savedToDos)
         }
  */
-        
-        setToDoItems(toDoItems: getToDosController().getToDos())
+        /*if let savedToDos = ToDoProcessUtils.loadToDos() {
+            setToDoItems(toDoItems: savedToDos)
+        }*/
         
         configureCalendarView()
         GeneralViewUtils.addTopBorderWithColor(self.toDoListTableView, color: UIColor.lightGray, width: 1.00)
@@ -303,7 +306,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let toDoToBeDeleted = toDosController.getToDosByDay(dateChosen: getSelectedDate())[indexPath.row]
+            let toDoToBeDeleted = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))[indexPath.row]
             //let toDoRealIndex = ToDoProcessUtils.retrieveRealIndexOfToDo(toDoItem: toDoToBeDeleted[indexPath.row], toDoItemCollection: self.toDos)
             toDosController.updateToDos(modificationType: ListModificationType.REMOVE, toDo: toDoToBeDeleted.value)
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -327,7 +330,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             if sourceViewController.isToDoIntervalsExist() {
                 let toDoIntervals = sourceViewController.getToDoIntervals()
                 for toDo in toDoIntervals {
-                    toDosController.updateToDos(modificationType: ListModificationType.ADD, toDo: toDo)
+                    toDosController.updateToDos(modificationType: ListModificationType.ADD, toDo: toDo.value)
                 }
             }
             // If toDo is a single ToDo
@@ -354,7 +357,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         case "AddToDoItem":
             os_log("Adding a new ToDo item.", log: OSLog.default, type: .debug)
         case "ShowToDoItemDetails":
-            var toDosByDay = toDosController.getToDosByDay(dateChosen: getSelectedDate())
+            var toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
             guard let itemInfoTableViewController = segue.destination as? ItemInfoTableViewController else {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
@@ -366,14 +369,13 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             guard let indexPath = toDoListTableView.indexPath(for: selectedToDoItemCell) else {
                 fatalError("The selected cell is not being displayed by the table")
             }
-            
-            let selectedToDoItem = toDosByDay[indexPath.row]
-            itemInfoTableViewController.toDo = selectedToDoItem.value
+            let selectedToDoItem = toDosByDay[indexPath.row].value
+            itemInfoTableViewController.toDo = selectedToDoItem
             // Sets the chosen work and due date in the itemInfoTableViewController to avoid its reset
-            itemInfoTableViewController.setChosenWorkDate(chosenWorkDate: selectedToDoItem.value.getStartDate())
-            itemInfoTableViewController.setChosenDueDate(chosenDueDate: selectedToDoItem.value.getEndDate())
+            itemInfoTableViewController.setChosenWorkDate(chosenWorkDate: selectedToDoItem.getStartDate())
+            itemInfoTableViewController.setChosenDueDate(chosenDueDate: selectedToDoItem.getEndDate())
             // Sets the finish status of the todo in the itemInfoTableViewController to avoid its reset
-            itemInfoTableViewController.setIsFinished(isFinished: selectedToDoItem.value.isFinished())
+            itemInfoTableViewController.setIsFinished(isFinished: selectedToDoItem.isFinished())
             // Retrieves the index of the selected toDo
             /*
             setSelectedToDoIndex(toDoItemIndex: retrieveRealIndexOfToDo(toDoItem: selectedToDoItem))
@@ -516,7 +518,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     // TODO: Refactor code to use proper state tracking, like ENUMS!
     @objc func onCheckBoxButtonTap(sender: CheckBoxButton) {
         // The toDosByDay variable should be sorted already
-        var toDosByDay: [(key: String, value: ToDo)] = toDosController.getToDosByDay(dateChosen: getSelectedDate())
+        var toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
         //let toDoItemToUpdate: (key: String, value: ToDo) = toDosByDay[sender.getToDoRowIndex()]
         let newToDoItem: ToDo = toDosByDay[sender.tag].value
         //var dateFormatter = DateFormatter()

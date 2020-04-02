@@ -56,7 +56,7 @@ class IntervalAvailabilitiesCheckingOperations {
         // Iterates every ToDo in the ToDo Dictionary Collection
         for toDoInCollection in collectionOfToDosForTheDay {
             // Adds the timeSlot collection for a ToDo to a general collection of timeSlot dictionary
-            collectionOfTimeSlotCollections.append(getTimeSlotsOfAToDo(toDo: toDoInCollection))
+            collectionOfTimeSlotCollections.append(getTimeSlotsOfAToDo(toDo: toDoInCollection.value))
         }
         // Returns a timeSlot dictionary containing all the timeSlots in the collection of timeSlot dictionary
         return putContentsOfOccupiedTimeSlotsDictionariesInOneSingleDictionary(collectionOfTimeSlotDictionary: collectionOfTimeSlotCollections, dayDateForTimeSlotsDictionary: dayDateOfTheCollection)

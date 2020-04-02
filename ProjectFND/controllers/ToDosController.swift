@@ -42,9 +42,25 @@ class ToDosController {
     // MARK: - Setters
     
     func setInitialToDos() {
+        // NOTE: ToDos' value must be set up first.
+        self.toDos.setValue(value: [String: ToDo]())
         for items in ToDoProcessUtils.loadToDos()! {
             self.toDos.updateValue(modificationType: ListModificationType.ADD, elementId: items.value.getTaskId(), element: items.value)
         }
+    }
+    
+    func setInitialDummyToDos() {
+        var theString = UUID().uuidString
+        let dummyToDo = ToDo(taskId: theString, taskName: "Dummy stuff", taskDescription: "Nothing", workDate: Date(), estTime: "2.0", dueDate: Date(), finished: false)
+        var keyValueDummy: [String: ToDo] = [String: ToDo]()
+        keyValueDummy[dummyToDo!.getTaskId()] = dummyToDo
+        self.toDos.setValue(value: keyValueDummy)
+        updateToDos(modificationType: ListModificationType.ADD, toDo: dummyToDo!)
+        var itemz =  ToDoProcessUtils.loadToDos()
+        var loadedToDo = [String:ToDo]()
+        loadedToDo[theString] = itemz![theString]
+        print("LOADED TODOS")
+        self.toDos.setValue(value: loadedToDo)
     }
     
     func setObservers(observers: [Observer]) {
@@ -66,7 +82,7 @@ class ToDosController {
     
     // MARK: - Getters
     
-    func getToDosByDay(dateChosen: Date) -> [(key: String, value: ToDo)] {
+    func getToDosByDay(dateChosen: Date) -> [String: ToDo] {
         return ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: dateChosen, toDoItems: getToDos())
     }
     
@@ -98,6 +114,7 @@ class ToDosController {
         case .REMOVE:
             ToDoProcessUtils.deleteToDo(toDoToDelete: toDo)
         default:
+            print("SAVING TODOS")
             ToDoProcessUtils.saveToDos(toDoItem: toDo)
         }
         self.toDos.updateValue(modificationType: modificationType, elementId: toDo.getTaskId(), element: toDo)

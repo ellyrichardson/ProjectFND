@@ -8,10 +8,23 @@
 
 import UIKit
 
-class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, Observer {
+    private var _observerId: Int = 1
+    private var toDosController: ToDosController!
+    
+    var observerId: Int {
+        get {
+            return self._observerId
+        }
+    }
+    
+    func update<T>(with newValue: T) {
+        //setToDoItems(toDoItems: newValue as! [ToDo])
+        print("ToDo Items for ScheduleViewController has been updated")
+    }
     
     @IBOutlet weak var deadlinesTableView: UITableView!
-    private var toDos: [ToDo] = [ToDo]()
+    private var toDos: [String: ToDo] = [String: ToDo]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +61,7 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     // MARK: - Getters
-    private func getToDos() -> [ToDo] {
+    private func getToDos() -> [String: ToDo] {
         return self.toDos
     }
 
@@ -77,9 +90,10 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
             fatalError("The dequeued cell is not an instance of ScheduleTableViewCell.")
         }
         
-        var toDoItems: [ToDo] = getToDos()
+        var toDoItems: [String: ToDo] = getToDos()
+        let sortedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDoItems)
         
-        cell.taskNameLabel.text = toDoItems[indexPath.row].getTaskName()
+        cell.taskNameLabel.text = sortedToDoItems[indexPath.row].value.getTaskName()
         cell.taskTypeLabel.text = "Personal"
         cell.deadlineDateLabel.text = "12 January, 2020"
         

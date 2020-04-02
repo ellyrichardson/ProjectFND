@@ -45,7 +45,7 @@ class ToDo: NSObject, NSCoding {
         }
         
         // Init stored properties
-        self.taskId = UUID().uuidString
+        self.taskId = taskId
         self.taskName = taskName
         self.taskDescription = taskDescription
         self.workDate = workDate
