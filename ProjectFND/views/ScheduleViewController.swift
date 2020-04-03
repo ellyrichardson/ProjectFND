@@ -520,13 +520,25 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         // The toDosByDay variable should be sorted already
         var toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
         //let toDoItemToUpdate: (key: String, value: ToDo) = toDosByDay[sender.getToDoRowIndex()]
-        let newToDoItem: ToDo = toDosByDay[sender.tag].value
+        let tempToDoItem: ToDo = toDosByDay[sender.tag].value
+        let newToDoItem = tempToDoItem
         //var dateFormatter = DateFormatter()
         //dateFormatter.dateFormat = "mm/dd/yyyy"
         //var currDate = dateFormatter.string(from: newToDoItem.workDate)
         //var actDate = dateFormatter.date(from: currDate)
+        /*
         newToDoItem.finished = !newToDoItem.finished
-        toDosController.updateToDos(modificationType: ListModificationType.UPDATE, toDo: newToDoItem)
+        print("newToDoItem finished")
+        print(newToDoItem.finished)
+        print("toDosByDay[sender.tag].value finished")
+        print(toDosByDay[sender.tag].value.finished)
+        newToDoItem.finished = !newToDoItem.finished
+        print("newToDoItem finished")
+        print(newToDoItem.finished)
+        print("toDosByDay[sender.tag].value finished")
+        print(toDosByDay[sender.tag].value.finished)*/
+        
+        toDosController.updateToDos(modificationType: ListModificationType.FINISHNESS, toDo: newToDoItem)
         //ToDoProcessUtils.updateToDo(toDoToUpdate: toDoItemToUpdate, newToDo: newToDoItem, updateType: 1)
         //self.checkButtonTapped = sender.tag
         let indexPath = IndexPath(item: sender.tag, section: 0)

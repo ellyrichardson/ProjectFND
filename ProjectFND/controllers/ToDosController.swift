@@ -102,19 +102,26 @@ class ToDosController {
     
     // MARK: - Controller Operations
     
+    // TODO: Unit test for this function (Working as of 04/02/20)
     func updateToDos(modificationType: ListModificationType, toDo: ToDo) {
         switch modificationType {
         case .UPDATE:
+            /*
             let toDoToUpdate = getToDos()[toDo.getTaskId()]
             if toDoToUpdate?.finished == toDo.finished {
                 ToDoProcessUtils.updateToDo(toDoToUpdate: toDoToUpdate!, newToDo: toDo, updateType: 0)
             } else {
                 ToDoProcessUtils.updateToDo(toDoToUpdate: toDoToUpdate!, newToDo: toDo, updateType: 1)
-            }
+            }*/
+            let toDoToUpdate = getToDos()[toDo.getTaskId()]
+            ToDoProcessUtils.updateToDo(toDoToUpdate: toDoToUpdate!, newToDo: toDo, updateType: 0)
         case .REMOVE:
             ToDoProcessUtils.deleteToDo(toDoToDelete: toDo)
+        case .FINISHNESS:
+            let toDoToUpdate = getToDos()[toDo.getTaskId()]
+            toDo.finished = !toDo.finished
+            ToDoProcessUtils.updateToDo(toDoToUpdate: toDoToUpdate!, newToDo: toDo, updateType: 1)
         default:
-            print("SAVING TODOS")
             ToDoProcessUtils.saveToDos(toDoItem: toDo)
         }
         self.toDos.updateValue(modificationType: modificationType, elementId: toDo.getTaskId(), element: toDo)

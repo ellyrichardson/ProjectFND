@@ -293,13 +293,26 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             navigationItem.title = taskName
             
             // TODO: REMOVE TIGHT COUPLING!
+            let stringedUUID = UUID().uuidString
+            /*
+            if toDo == nil {
+                stringedUUID = UUID().uuidString
+            }
+ */
             
             // Set the ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue
             intervalSchedulingPreviewController.setIntervalAmount(intervalAmount: intervalDays!)
             intervalSchedulingPreviewController.setIntervalLength(intervalLength: intervalHours!)
             intervalSchedulingPreviewController.setToDoStartDate(toDoStartDate: workDate)
             intervalSchedulingPreviewController.setToDoEndDate(toDoEndDate: dueDate)
-            intervalSchedulingPreviewController.setToDoToBeIntervalized(toDo: ToDo(taskId: UUID().uuidString,taskName: taskName!, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())!)
+            if toDo == nil {
+                // Set the ToDo to be intervalized to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being created
+                intervalSchedulingPreviewController.setToDoToBeIntervalized(toDo: ToDo(taskId: stringedUUID, taskName: taskName!, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())!)
+            }
+            else {
+                // Set the ToDo to be intervalized to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being modified and is already  created
+                intervalSchedulingPreviewController.setToDoToBeIntervalized(toDo: ToDo(taskId: (self.toDo?.getTaskId())!,taskName: taskName!, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())!)
+            }
             
         } else {
             // Only prepare view controller when the save button is pressed
@@ -318,8 +331,13 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             updateSaveButtonState()
             navigationItem.title = taskName
             
-            // Set the ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue
-            toDo = ToDo(taskId: UUID().uuidString, taskName: taskName!, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())
+            if toDo == nil  {
+                // Set the ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being created
+                toDo = ToDo(taskId: UUID().uuidString, taskName: taskName!, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())
+            } else {
+                // Set the ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being modified and is already  created
+                toDo = ToDo(taskId: (self.toDo?.taskId)!, taskName: taskName!, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())
+            }
         }
     }
     

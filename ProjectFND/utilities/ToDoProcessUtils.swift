@@ -115,7 +115,7 @@ class ToDoProcessUtils {
         
         // Adding data to newly created record
         let toDoToSave = NSManagedObject(entity: toDoEntity!, insertInto: managedContext)
-        toDoToSave.setValue(toDoItem.taskName, forKey: "taskId")
+        toDoToSave.setValue(toDoItem.taskId, forKey: "taskId")
         toDoToSave.setValue(toDoItem.taskName, forKey: "taskName")
         toDoToSave.setValue(toDoItem.taskDescription, forKey: "taskDescription")
         toDoToSave.setValue(toDoItem.estTime, forKey: "estTime")

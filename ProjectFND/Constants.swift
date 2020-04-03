@@ -10,4 +10,5 @@ enum ListModificationType {
     case ADD
     case UPDATE
     case REMOVE
+    case FINISHNESS
 }
