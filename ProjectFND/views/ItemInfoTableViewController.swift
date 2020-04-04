@@ -27,6 +27,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     
     private var taskItemCells = [StaticTableCell]()
     var toDo: ToDo?
+    private var toDos = [String: ToDo]()
     var toDoIntervals: [String: ToDo] = [String: ToDo]()
     var toDoIntervalsExist: Bool = false
     private var finished: Bool
@@ -294,6 +295,8 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             
             // TODO: REMOVE TIGHT COUPLING!
             let stringedUUID = UUID().uuidString
+            print(getToDos())
+            intervalSchedulingPreviewController.setToDos(toDos: getToDos())
             /*
             if toDo == nil {
                 stringedUUID = UUID().uuidString
@@ -397,6 +400,12 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         saveButton.isEnabled = true
     }
     
+    // MARK: - Setters
+    
+    func setToDos(toDos: [String: ToDo]) {
+        self.toDos = toDos
+    }
+    
     // MARK: - Getters
     
     func getToDoIntervals() -> [String: ToDo] {
@@ -405,5 +414,10 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     
     func isToDoIntervalsExist() -> Bool {
         return self.toDoIntervalsExist
+    }
+    
+    func getToDos() -> [String: ToDo] {
+        print(self.toDos)
+        return self.toDos
     }
 }

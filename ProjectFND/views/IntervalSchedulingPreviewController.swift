@@ -78,7 +78,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         DispatchQueue.global(qos: .background).async {
             print("This is run on the background queue")
             
-            self.determineInterval(savedToDos: self.getToDoItems(), dateOfTheDay: self.getToDoStartDate())
+            self.determineInterval(savedToDos: self.getToDos(), dateOfTheDay: self.getToDoStartDate())
             
             DispatchQueue.main.async {
                 self.loadingScreen.removeSpinner()
@@ -334,8 +334,8 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         
     }
     
-    func setToDoItems(toDoItems: [String: ToDo]) {
-        self.toDos = toDoItems
+    func setToDos(toDos: [String: ToDo]) {
+        self.toDos = toDos
     }
     
     func setToDosToBeAdded(toDoItems: [String: ToDo]) {
@@ -394,10 +394,10 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     }
     
     private func getToDoItemsByDay(dateChosen: Date) -> [String: ToDo] {
-        return ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: dateChosen, toDoItems: getToDoItems())
+        return ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: dateChosen, toDoItems: getToDos())
     }
     
-    func getToDoItems() -> [String: ToDo] {
+    func getToDos() -> [String: ToDo] {
         return self.toDos
     }
     
@@ -507,7 +507,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     }
     
     private func isToDoOnDay(toDoToCheck: ToDo, date: Date) -> Bool {
-        if ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: date, toDoItems: getToDoItems())[toDoToCheck.taskId] != nil  {
+        if ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: date, toDoItems: getToDos())[toDoToCheck.taskId] != nil  {
             return true
         }
         return false

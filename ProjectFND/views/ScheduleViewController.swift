@@ -355,6 +355,12 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         super.prepare(for: segue, sender: sender)
         switch(segue.identifier ?? "") {
         case "AddToDoItem":
+            guard let navigationController = segue.destination as? UINavigationController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            let itemInfoTableViewController = navigationController.viewControllers.first as! ItemInfoTableViewController
+            print(toDosController.getToDos())
+            itemInfoTableViewController.setToDos(toDos: toDosController.getToDos())
             os_log("Adding a new ToDo item.", log: OSLog.default, type: .debug)
         case "ShowToDoItemDetails":
             var toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
@@ -370,6 +376,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
                 fatalError("The selected cell is not being displayed by the table")
             }
             let selectedToDoItem = toDosByDay[indexPath.row].value
+            //print(toDosController.getToDos())
+            //itemInfoTableViewController.setToDos(toDos: toDosController.getToDos())
             itemInfoTableViewController.toDo = selectedToDoItem
             // Sets the chosen work and due date in the itemInfoTableViewController to avoid its reset
             itemInfoTableViewController.setChosenWorkDate(chosenWorkDate: selectedToDoItem.getStartDate())
