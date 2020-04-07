@@ -239,16 +239,17 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         }
         
         // Retrieves sorted ToDo Items by date that fall under the chosen day in the calendar
-        var toDoItems = toDosController.getToDosByDayAsArray(dateChosen: getSelectedDate())
-        cell.taskNameLabel.text = toDoItems[indexPath.row].getTaskName()
-        cell.startDateLabel.text = workDateFormatter.string(from: toDoItems[indexPath.row].getStartDate())
-        cell.estTimeLabel.text = toDoItems[indexPath.row].getEstTime()
-        cell.dueDateLabel.text = dueDateFormatter.string(from: toDoItems[indexPath.row].getEndDate())
+        let toDoItems = ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: getSelectedDate(), toDoItems: getToDosController().getToDos())
+        var sortedToDoItems =  ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDoItems)
+        cell.taskNameLabel.text = sortedToDoItems[indexPath.row].value.getTaskName()
+        cell.startDateLabel.text = workDateFormatter.string(from: sortedToDoItems[indexPath.row].value.getStartDate())
+        cell.estTimeLabel.text = sortedToDoItems[indexPath.row].value.getEstTime()
+        cell.dueDateLabel.text = dueDateFormatter.string(from: sortedToDoItems[indexPath.row].value .getEndDate())
         // Assigns an index to the CheckBox button of a row
         cell.checkBoxButton.setToDoRowIndex(toDoRowIndex: indexPath.row)
         // Sets the status of the CheckBox being pressed
         cell.checkBoxButton.tag = indexPath.row
-        cell.checkBoxButton.setPressedStatus(isPressed: toDoItems[indexPath.row].isFinished())
+        cell.checkBoxButton.setPressedStatus(isPressed: sortedToDoItems[indexPath.row].value.isFinished())
         cell.checkBoxButton.addTarget(self, action: #selector(onCheckBoxButtonTap(sender:)), for: .touchUpInside)
         
         /*

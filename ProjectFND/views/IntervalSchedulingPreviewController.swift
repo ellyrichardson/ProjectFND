@@ -183,7 +183,9 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Gets the ToDos that fall under the selected day in calendar
-        return ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: getSelectedDate(), toDoItems: getToDosWithToDosToBeAdded()).count
+        let toDoIntervalsToAssignOnCurrentDay = ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: getSelectedDate(), toDoItems: getToDosWithToDosToBeAdded())
+        let sortedToDoItemsOnCurrentDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDoIntervalsToAssignOnCurrentDay)
+        return sortedToDoItemsOnCurrentDay.count
         //return getToDoItemsByDay(dateChosen: getSelectedDate()).count
     }
     
@@ -535,7 +537,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     }
     
     private func isToDoOnDay(toDoToCheck: ToDo, date: Date) -> Bool {
-        if ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: date, toDoItems: getToDos())[toDoToCheck.taskId] != nil  {
+        if ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: date, toDoItems: getToDosWithToDosToBeAdded())[toDoToCheck.taskId] != nil  {
             return true
         }
         return false
@@ -543,6 +545,8 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     
     func previewToDoIntervals(cell: CalendarCell, dateChosen: Date) {
         // NOTE: REFACTOR, like use a dictionary instead
+        print("yhecount of getToDoIntervalsToAssign")
+        print(getToDoIntervalsToAssign())
         for toDoInterval in getToDoIntervalsToAssign() {
             if isToDoIntervalOnDay(toDoInterval: toDoInterval.value, dateOfDay: dateChosen) && isToDoOnDay(toDoToCheck: toDoInterval.value, date: dateChosen) {
                 cell.setShouldDrawStripes(shouldDraw: true)
