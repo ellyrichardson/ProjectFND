@@ -871,89 +871,80 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="XX:XX XX" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUa-SI-VXI">
-                                                    <rect key="frame" x="10" y="85" width="61" height="22"/>
+                                                    <rect key="frame" x="20" y="19" width="61" height="17"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="22" id="tsg-hy-RTJ"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="13"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Personal" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PXt-og-tlY">
-                                                    <rect key="frame" x="10.000000000000007" y="55" width="115.66666666666669" height="22"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="115.67" id="laU-AC-wmo"/>
-                                                        <constraint firstAttribute="height" constant="22" id="oSB-hd-dXE"/>
+                                                        <constraint firstAttribute="height" constant="17" id="Bl1-a2-O88"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="13"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qpY-Y2-D8e" customClass="CheckBoxButton" customModule="ProjectFND" customModuleProvider="target">
-                                                    <rect key="frame" x="10" y="10" width="25" height="25"/>
+                                                    <rect key="frame" x="317" y="33" width="45" height="45"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="25" id="IEC-bb-7lh"/>
+                                                        <constraint firstAttribute="height" constant="45" id="7ot-6M-phl"/>
+                                                        <constraint firstAttribute="width" constant="45" id="mLe-dp-q1V"/>
                                                     </constraints>
                                                     <state key="normal" title="Check" image="UncheckBox"/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="XX:XX XX" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9q8-SJ-SQ4">
-                                                    <rect key="frame" x="92" y="85" width="61" height="22"/>
+                                                    <rect key="frame" x="102" y="19" width="61" height="17"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="22" id="1hR-qv-VGa"/>
-                                                        <constraint firstAttribute="width" constant="61" id="K1d-yT-CoZ"/>
+                                                        <constraint firstAttribute="height" constant="17" id="JQ3-8m-ZnF"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="13"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="786-xC-cXL" customClass="ExpandButton" customModule="ProjectFND" customModuleProvider="target">
-                                                    <rect key="frame" x="347" y="10" width="25" height="25"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="25" id="ga5-qh-KaV"/>
-                                                        <constraint firstAttribute="width" constant="25" id="rgp-QK-dIg"/>
-                                                    </constraints>
-                                                    <state key="normal" title="Settings" image="ExpandToDo"/>
-                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ou-jz-3c5">
-                                                    <rect key="frame" x="43" y="16" width="296" height="18"/>
+                                                    <rect key="frame" x="20" y="50" width="280" height="20"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="18" id="jMD-Kq-SaA"/>
+                                                        <constraint firstAttribute="height" constant="20" id="K0H-ws-70q"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="15"/>
+                                                    <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="19"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Est. Time:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p4a-zy-V6N">
-                                                    <rect key="frame" x="10" y="115" width="45" height="22"/>
+                                                    <rect key="frame" x="31" y="131" width="45" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="13"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qPA-uZ-bNk">
-                                                    <rect key="frame" x="79" y="85" width="5" height="17"/>
+                                                    <rect key="frame" x="89" y="19" width="5" height="17"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="17" id="flG-Tt-zxU"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="13"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Personal" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PXt-og-tlY">
+                                                    <rect key="frame" x="19.999999999999996" y="73" width="43.666666666666657" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="22" id="Xh6-bj-Vwc"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="11"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="786-xC-cXL" secondAttribute="trailing" constant="10" id="1y4-GG-Tlp"/>
-                                                <constraint firstItem="qPA-uZ-bNk" firstAttribute="leading" secondItem="XUa-SI-VXI" secondAttribute="trailing" constant="8" id="38M-iA-2l0"/>
-                                                <constraint firstItem="8ou-jz-3c5" firstAttribute="top" secondItem="MpH-B1-QHB" secondAttribute="topMargin" constant="5" id="5kB-up-uYg"/>
-                                                <constraint firstItem="PXt-og-tlY" firstAttribute="top" secondItem="qpY-Y2-D8e" secondAttribute="bottom" constant="20" id="8t5-KD-ogx"/>
-                                                <constraint firstItem="786-xC-cXL" firstAttribute="leading" secondItem="8ou-jz-3c5" secondAttribute="trailing" constant="8" id="DMp-hP-cC9"/>
-                                                <constraint firstItem="8ou-jz-3c5" firstAttribute="leading" secondItem="qpY-Y2-D8e" secondAttribute="trailing" constant="8" id="JL0-It-d9R"/>
-                                                <constraint firstItem="9q8-SJ-SQ4" firstAttribute="leading" secondItem="qPA-uZ-bNk" secondAttribute="trailing" constant="8" id="QYX-17-Krk"/>
-                                                <constraint firstItem="qpY-Y2-D8e" firstAttribute="leading" secondItem="MpH-B1-QHB" secondAttribute="leading" constant="10" id="UvI-l8-DXt"/>
-                                                <constraint firstItem="786-xC-cXL" firstAttribute="top" secondItem="MpH-B1-QHB" secondAttribute="top" constant="10" id="aKk-5b-ZSK"/>
-                                                <constraint firstItem="9q8-SJ-SQ4" firstAttribute="top" secondItem="PXt-og-tlY" secondAttribute="bottom" constant="8" id="axY-ZI-e2U"/>
-                                                <constraint firstItem="PXt-og-tlY" firstAttribute="leading" secondItem="MpH-B1-QHB" secondAttribute="leading" constant="10" id="dG9-7X-xue"/>
-                                                <constraint firstItem="XUa-SI-VXI" firstAttribute="top" secondItem="PXt-og-tlY" secondAttribute="bottom" constant="8" id="jWE-Ba-Yus"/>
-                                                <constraint firstItem="qPA-uZ-bNk" firstAttribute="top" secondItem="PXt-og-tlY" secondAttribute="bottom" constant="8" id="jtS-wg-DzV"/>
-                                                <constraint firstItem="qpY-Y2-D8e" firstAttribute="top" secondItem="MpH-B1-QHB" secondAttribute="top" constant="10" id="pXY-Ru-zHN"/>
-                                                <constraint firstItem="XUa-SI-VXI" firstAttribute="leading" secondItem="MpH-B1-QHB" secondAttribute="leading" constant="10" id="qlo-fW-pzN"/>
+                                                <constraint firstItem="8ou-jz-3c5" firstAttribute="leading" secondItem="MpH-B1-QHB" secondAttribute="leadingMargin" id="0EP-PX-d1I"/>
+                                                <constraint firstItem="9q8-SJ-SQ4" firstAttribute="leading" secondItem="qPA-uZ-bNk" secondAttribute="trailing" constant="8" id="AIr-Ei-JBd"/>
+                                                <constraint firstItem="qPA-uZ-bNk" firstAttribute="leading" secondItem="XUa-SI-VXI" secondAttribute="trailing" constant="8" id="BJI-GL-5wC"/>
+                                                <constraint firstItem="8ou-jz-3c5" firstAttribute="top" secondItem="XUa-SI-VXI" secondAttribute="bottom" constant="14" id="BrC-AZ-tph"/>
+                                                <constraint firstItem="qpY-Y2-D8e" firstAttribute="leading" secondItem="8ou-jz-3c5" secondAttribute="trailing" constant="17" id="EqD-0y-gC0"/>
+                                                <constraint firstItem="qPA-uZ-bNk" firstAttribute="top" secondItem="MpH-B1-QHB" secondAttribute="topMargin" constant="8" id="P8V-bV-PfD"/>
+                                                <constraint firstItem="qpY-Y2-D8e" firstAttribute="trailing" secondItem="MpH-B1-QHB" secondAttribute="trailingMargin" id="Rgb-35-yhL"/>
+                                                <constraint firstItem="XUa-SI-VXI" firstAttribute="leading" secondItem="MpH-B1-QHB" secondAttribute="leadingMargin" id="SIk-FJ-CSq"/>
+                                                <constraint firstItem="qpY-Y2-D8e" firstAttribute="top" secondItem="MpH-B1-QHB" secondAttribute="topMargin" constant="22" id="Yjw-Rt-TPc"/>
+                                                <constraint firstItem="PXt-og-tlY" firstAttribute="top" secondItem="8ou-jz-3c5" secondAttribute="bottom" constant="3" id="hCu-Qi-ie4"/>
+                                                <constraint firstItem="9q8-SJ-SQ4" firstAttribute="top" secondItem="MpH-B1-QHB" secondAttribute="topMargin" constant="8" id="vzf-Fg-oCR"/>
+                                                <constraint firstItem="PXt-og-tlY" firstAttribute="leading" secondItem="MpH-B1-QHB" secondAttribute="leadingMargin" id="xby-RK-lwb"/>
+                                                <constraint firstItem="XUa-SI-VXI" firstAttribute="top" secondItem="MpH-B1-QHB" secondAttribute="topMargin" constant="8" id="xkz-Ld-11Q"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="checkBoxButton" destination="qpY-Y2-D8e" id="jLJ-bU-FG0"/>
                                             <outlet property="dueDateLabel" destination="9q8-SJ-SQ4" id="YDo-2Z-Ahd"/>
                                             <outlet property="estTimeLabel" destination="p4a-zy-V6N" id="9XK-m8-o7X"/>
-                                            <outlet property="expandButton" destination="786-xC-cXL" id="Gz4-kx-mlc"/>
                                             <outlet property="startDateLabel" destination="XUa-SI-VXI" id="EQe-6v-1xb"/>
                                             <outlet property="taskNameLabel" destination="8ou-jz-3c5" id="Wdh-k5-XAX"/>
                                             <segue destination="knJ-Sz-Bcd" kind="show" identifier="ShowToDoItemDetails" id="Hmx-bT-i6Z"/>
@@ -997,7 +988,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-207" y="-73"/>
+            <point key="canvasLocation" x="-207.24637681159422" y="-73.660714285714278"/>
         </scene>
         <!--New Task-->
         <scene sceneID="1Tb-Fo-KGs">
