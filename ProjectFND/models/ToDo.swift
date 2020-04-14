@@ -14,10 +14,11 @@ import os.log
  */
 class ToDo: NSObject, NSCoding {
     // MARK: - Properties
-    var taskId: String
+    var taskId, intervalId: String
     var taskName, taskDescription, estTime: String
     var workDate, dueDate: Date
-    var finished: Bool
+    var finished, intervalized: Bool
+    var intervalLength, intervalIndex: Int
     
     // MARK: - Archiving Paths
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -36,7 +37,7 @@ class ToDo: NSObject, NSCoding {
     }
     
     // MARK: - Initialization
-    init?(taskId: String, taskName: String, taskDescription: String, workDate: Date, estTime: String, dueDate: Date, finished: Bool) {
+    init?(taskId: String, taskName: String, taskDescription: String, workDate: Date, estTime: String, dueDate: Date, finished: Bool, intervalized: Bool = false, intervalId: String = "", intervalLength: Int = 0, intervalIndex: Int = 0) {
         
         
         // To fail init if one of them is empty
@@ -52,6 +53,10 @@ class ToDo: NSObject, NSCoding {
         self.estTime = estTime
         self.dueDate = dueDate
         self.finished = finished
+        self.intervalized = intervalized
+        self.intervalId = intervalId
+        self.intervalLength = intervalLength
+        self.intervalIndex = intervalIndex
     }
     
     override init() {
@@ -63,6 +68,10 @@ class ToDo: NSObject, NSCoding {
         self.estTime = ""
         self.dueDate = Date()
         self.finished = false
+        self.intervalized = false
+        self.intervalId = ""
+        self.intervalLength = 0
+        self.intervalIndex = 0
     }
     
     // MARK: - NSCoding
@@ -155,5 +164,21 @@ class ToDo: NSObject, NSCoding {
     
     func isFinished() -> Bool {
         return self.finished
+    }
+    
+    func getIntervalId() -> String {
+        return self.intervalId
+    }
+    
+    func isIntervalized() -> Bool {
+        return self.intervalized
+    }
+    
+    func getIntervalLength() -> Int {
+        return self.intervalLength
+    }
+    
+    func getIntervalIndex() -> Int {
+        return self.intervalIndex
     }
 }

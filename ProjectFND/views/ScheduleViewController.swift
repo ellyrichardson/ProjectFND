@@ -208,7 +208,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
                 
             }
         }
-        return 110
+        return 150
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
