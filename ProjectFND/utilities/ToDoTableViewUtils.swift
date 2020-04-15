@@ -29,12 +29,12 @@ class ToDoTableViewUtils {
             // Finished - if ToDo is finished
         else if toDoItem.finished == true {
             // Greenish color
-            return UIColor(red:0.08, green:0.65, blue:0.42, alpha:1.0)
+            return UIColor(red:0.08, green:0.85, blue:0.42, alpha:1.0)
         }
             // Late - if ToDo hasn't finished yet and is past due date
         else {
             // Reddish orange color
-            return UIColor(red:1.00, green:0.40, blue:0.18, alpha:1.0)
+            return UIColor(red:1.00, green:0.5, blue:0.0, alpha:1.0)
         }
     }
     

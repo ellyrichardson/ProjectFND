@@ -245,42 +245,35 @@ class ToDoProcessUtils {
     }
     
     static func retrieveIntervalizedToDosLeadById(toDoItems: [String: ToDo], intervalizedToDoId: String) -> ToDo {
-        if intervalizedToDoId != "" {
-            var intervalizedToDosLead: ToDo = ToDo()
-            
-            let toDoKeys = toDoItems // This is a [String: int] dictionary
-                .filter { (k, v) -> Bool in v.getIntervalId() == intervalizedToDoId  && v.getIntervalIndex()  == 0}
-                .map { (k, v) -> String in k }
-            
-            for toDoKey in toDoKeys {
-                // 0 indexes in intervals are the leads
-                var candidate = toDoItems[toDoKey]
-                if candidate?.getIntervalIndex() == 0 {
-                    return candidate!
-                }
+        var intervalizedToDosLead: ToDo = ToDo()
+        
+        let toDoKeys = toDoItems // This is a [String: int] dictionary
+            .filter { (k, v) -> Bool in v.getIntervalId() == intervalizedToDoId  && v.getIntervalIndex()  == 0}
+            .map { (k, v) -> String in k }
+        
+        for toDoKey in toDoKeys {
+            // 0 indexes in intervals are the leads
+            let candidate = toDoItems[toDoKey]
+            if candidate?.getIntervalIndex() == 0 {
+                intervalizedToDosLead = candidate!
             }
-            
-            //return intervalizedToDosGroupedById
         }
-        return nil
+        
+        return intervalizedToDosLead
     }
     
     static func retrieveIntervalizedToDosById(toDoItems: [String: ToDo], intervalizedTodoId: String) -> [String: ToDo] {
-        if intervalizedTodoId != "" {
-            var intervalizedToDosGroupedById: [String: ToDo] = [String: ToDo]()
-            
-            let toDoKeys = intervalizedToDosGroupedById // This is a [String: int] dictionary
-                .filter { (k, v) -> Bool in v.getIntervalId() == intervalizedTodoId}
-                .map { (k, v) -> String in k }
-            
-            for toDoKey in toDoKeys {
-                intervalizedToDosGroupedById[toDoKey] = toDoItems[toDoKey]
-            }
-            
-            return intervalizedToDosGroupedById
-        }
-        fatalError("IntervalId can't be empty string")
+        var intervalizedToDosGroupedById: [String: ToDo] = [String: ToDo]()
         
+        let toDoKeys = intervalizedToDosGroupedById // This is a [String: int] dictionary
+            .filter { (k, v) -> Bool in v.getIntervalId() == intervalizedTodoId}
+            .map { (k, v) -> String in k }
+        
+        for toDoKey in toDoKeys {
+            intervalizedToDosGroupedById[toDoKey] = toDoItems[toDoKey]
+        }
+        
+        return intervalizedToDosGroupedById
     }
     
     static func retrieveAllIntervalizedTodos(toDoItems: [String: ToDo]) -> [String: ToDo] {

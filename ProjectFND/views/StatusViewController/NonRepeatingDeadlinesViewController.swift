@@ -73,7 +73,7 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        return 100
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -93,11 +93,27 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
         var toDoItems: [String: ToDo] = getToDos()
         let sortedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDoItems)
         
+        cell.intervalizedToDoLabel.text = sortedToDoItems[indexPath.row].value.getTaskName()
+        cell.intervalizedToDoTypeLabel.text = "Personal"
+        cell.intervalizedToDoEstTimeLabel.text = sortedToDoItems[indexPath.row].value.getEstTime() + " Hours"
+        //cell.intervalizedToDoEndingTimeLabel.text =  so
+        /*
         cell.taskNameLabel.text = sortedToDoItems[indexPath.row].value.getTaskName()
         cell.taskTypeLabel.text = "Personal"
-        cell.deadlineDateLabel.text = "12 January, 2020"
+        cell.deadlineDateLabel.text = "12 January, 2020"*/
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        //cell.contentView.layer.masksToBounds = true
+        
+        /*
+         NOTE: If this is not set `shadowPath` you'll notice laggy scrolling. Mysterious code too.  It just make the shadow stuff work
+         */
+        //let radius = cell.contentView.layer.cornerRadius
+        //cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
     }
 
     /*
