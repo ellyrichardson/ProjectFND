@@ -15,9 +15,9 @@
 		21521C49240E11C600FC8A8A /* CalendarViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21521C48240E11C600FC8A8A /* CalendarViewUtils.swift */; };
 		216067DD24219F3A00B0E5EF /* ParentStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216067DB24219F3A00B0E5EF /* ParentStatusViewController.swift */; };
 		216067DE24219F3A00B0E5EF /* ParentStatusViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 216067DC24219F3A00B0E5EF /* ParentStatusViewController.xib */; };
-		216067E224219FAD00B0E5EF /* RepeatingDeadlinesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216067E024219FAD00B0E5EF /* RepeatingDeadlinesViewController.swift */; };
+		216067E224219FAD00B0E5EF /* StatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216067E024219FAD00B0E5EF /* StatusViewController.swift */; };
 		216067E324219FAD00B0E5EF /* StatusViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 216067E124219FAD00B0E5EF /* StatusViewController.xib */; };
-		216067E624219FBD00B0E5EF /* NonRepeatingDeadlinesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216067E424219FBD00B0E5EF /* NonRepeatingDeadlinesViewController.swift */; };
+		216067E624219FBD00B0E5EF /* DeadlinesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216067E424219FBD00B0E5EF /* DeadlinesViewController.swift */; };
 		216067E724219FBD00B0E5EF /* DeadlinesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 216067E524219FBD00B0E5EF /* DeadlinesViewController.xib */; };
 		216067E92421CD4A00B0E5EF /* DeadlinesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216067E82421CD4A00B0E5EF /* DeadlinesTableViewCell.swift */; };
 		217477CF23D5282B001CA394 /* IntervalAvailabilitiesCheckingOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217477CE23D5282B001CA394 /* IntervalAvailabilitiesCheckingOperations.swift */; };
@@ -26,6 +26,8 @@
 		217974E72425E0F000FE7B4C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217974E62425E0EF00FE7B4C /* Constants.swift */; };
 		217974EA2427065100FE7B4C /* ToDosController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217974E92427065100FE7B4C /* ToDosController.swift */; };
 		217974EC2428591F00FE7B4C /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217974EB2428591F00FE7B4C /* Observable.swift */; };
+		2187C9522449575C00714617 /* NonRepeatingDeadlinesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2187C9502449575C00714617 /* NonRepeatingDeadlinesViewController.swift */; };
+		2187C9532449575C00714617 /* NonRepeatingDeadlinesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2187C9512449575C00714617 /* NonRepeatingDeadlinesViewController.xib */; };
 		218A99C224303F820005DEB5 /* ToDoInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218A99C124303F820005DEB5 /* ToDoInterval.swift */; };
 		219A6568232B12B10062BF84 /* ToDoProcessUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219A6567232B12B10062BF84 /* ToDoProcessUtils.swift */; };
 		219CA4A92326C904003ACBDE /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219CA4A82326C904003ACBDE /* ScheduleTableViewCell.swift */; };
@@ -91,9 +93,9 @@
 		21521C48240E11C600FC8A8A /* CalendarViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewUtils.swift; sourceTree = "<group>"; };
 		216067DB24219F3A00B0E5EF /* ParentStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentStatusViewController.swift; sourceTree = "<group>"; };
 		216067DC24219F3A00B0E5EF /* ParentStatusViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ParentStatusViewController.xib; sourceTree = "<group>"; };
-		216067E024219FAD00B0E5EF /* RepeatingDeadlinesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingDeadlinesViewController.swift; sourceTree = "<group>"; };
+		216067E024219FAD00B0E5EF /* StatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewController.swift; sourceTree = "<group>"; };
 		216067E124219FAD00B0E5EF /* StatusViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatusViewController.xib; sourceTree = "<group>"; };
-		216067E424219FBD00B0E5EF /* NonRepeatingDeadlinesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonRepeatingDeadlinesViewController.swift; sourceTree = "<group>"; };
+		216067E424219FBD00B0E5EF /* DeadlinesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadlinesViewController.swift; sourceTree = "<group>"; };
 		216067E524219FBD00B0E5EF /* DeadlinesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeadlinesViewController.xib; sourceTree = "<group>"; };
 		216067E82421CD4A00B0E5EF /* DeadlinesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadlinesTableViewCell.swift; sourceTree = "<group>"; };
 		217477CE23D5282B001CA394 /* IntervalAvailabilitiesCheckingOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalAvailabilitiesCheckingOperations.swift; sourceTree = "<group>"; };
@@ -102,6 +104,8 @@
 		217974E62425E0EF00FE7B4C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		217974E92427065100FE7B4C /* ToDosController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDosController.swift; sourceTree = "<group>"; };
 		217974EB2428591F00FE7B4C /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		2187C9502449575C00714617 /* NonRepeatingDeadlinesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonRepeatingDeadlinesViewController.swift; sourceTree = "<group>"; };
+		2187C9512449575C00714617 /* NonRepeatingDeadlinesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NonRepeatingDeadlinesViewController.xib; sourceTree = "<group>"; };
 		218A99C124303F820005DEB5 /* ToDoInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoInterval.swift; sourceTree = "<group>"; };
 		219A6567232B12B10062BF84 /* ToDoProcessUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoProcessUtils.swift; sourceTree = "<group>"; };
 		219CA4A82326C904003ACBDE /* ScheduleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCell.swift; sourceTree = "<group>"; };
@@ -244,8 +248,10 @@
 			isa = PBXGroup;
 			children = (
 				216067DB24219F3A00B0E5EF /* ParentStatusViewController.swift */,
-				216067E024219FAD00B0E5EF /* RepeatingDeadlinesViewController.swift */,
-				216067E424219FBD00B0E5EF /* NonRepeatingDeadlinesViewController.swift */,
+				2187C9502449575C00714617 /* NonRepeatingDeadlinesViewController.swift */,
+				2187C9512449575C00714617 /* NonRepeatingDeadlinesViewController.xib */,
+				216067E024219FAD00B0E5EF /* StatusViewController.swift */,
+				216067E424219FBD00B0E5EF /* DeadlinesViewController.swift */,
 				216067E124219FAD00B0E5EF /* StatusViewController.xib */,
 				216067E524219FBD00B0E5EF /* DeadlinesViewController.xib */,
 			);
@@ -456,6 +462,7 @@
 				216067DE24219F3A00B0E5EF /* ParentStatusViewController.xib in Resources */,
 				21A4D0FE231ECC3600B5B52A /* Assets.xcassets in Resources */,
 				21A4D120231ECE1300B5B52A /* CalendarHeader.xib in Resources */,
+				2187C9532449575C00714617 /* NonRepeatingDeadlinesViewController.xib in Resources */,
 				216067E324219FAD00B0E5EF /* StatusViewController.xib in Resources */,
 				216067E724219FBD00B0E5EF /* DeadlinesViewController.xib in Resources */,
 				21A4D0FC231ECC3600B5B52A /* Main.storyboard in Resources */,
@@ -520,7 +527,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				216067E224219FAD00B0E5EF /* RepeatingDeadlinesViewController.swift in Sources */,
+				216067E224219FAD00B0E5EF /* StatusViewController.swift in Sources */,
 				217974E42425C19C00FE7B4C /* Observer.swift in Sources */,
 				21A4D12D2320B6E400B5B52A /* ItemInfoTableViewController.swift in Sources */,
 				219CA4A92326C904003ACBDE /* ScheduleTableViewCell.swift in Sources */,
@@ -546,12 +553,13 @@
 				217974EC2428591F00FE7B4C /* Observable.swift in Sources */,
 				21BC58AE23E629CA00015ECE /* IntervalAvailabilitiesRetrievingOperations.swift in Sources */,
 				214E0AEC233552FE00398AC5 /* ExpandButton.swift in Sources */,
+				2187C9522449575C00714617 /* NonRepeatingDeadlinesViewController.swift in Sources */,
 				21C8DA88237916A90084E2D6 /* ToDoDateSection.swift in Sources */,
 				21A4D124231ECE9A00B5B52A /* ToDo.swift in Sources */,
 				21A4D122231ECE2300B5B52A /* CalendarHeader.swift in Sources */,
 				219A6568232B12B10062BF84 /* ToDoProcessUtils.swift in Sources */,
 				21A4D0F7231ECC3600B5B52A /* AppDelegate.swift in Sources */,
-				216067E624219FBD00B0E5EF /* NonRepeatingDeadlinesViewController.swift in Sources */,
+				216067E624219FBD00B0E5EF /* DeadlinesViewController.swift in Sources */,
 				21F7013E23F26177001942D6 /* IntervalSchedulingPreviewController.swift in Sources */,
 				21A4D12F2320B9F600B5B52A /* StaticTableCell.swift in Sources */,
 			);

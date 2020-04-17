@@ -84,12 +84,13 @@ class ParentStatusViewController: UIViewController, Observer {
         return viewController
     }()
     
-    private lazy var deadlinesViewController: DeadlinesViewController = {
+    // Non Repating Deadlines ( from DeadlinesViewController )
+    private lazy var nonRepeatingDeadlinesViewController: NonRepeatingDeadlinesViewController = {
         // Load Storyboard
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         
         // Instantiate View Controller
-        var viewController = storyboard.instantiateViewController(withIdentifier: "DeadlinesViewController") as! DeadlinesViewController
+        var viewController = storyboard.instantiateViewController(withIdentifier: "NonRepeatingDeadlinesView") as! NonRepeatingDeadlinesViewController
         
         // Add View Controller as Child View Controller
         self.add(asChildViewController: viewController)
@@ -126,9 +127,9 @@ class ParentStatusViewController: UIViewController, Observer {
     private func updateView() {
         if statusDeadlineSegment.selectedSegmentIndex == 0 {
             remove(asChildViewController: statusViewController)
-            add(asChildViewController: deadlinesViewController)
+            add(asChildViewController: nonRepeatingDeadlinesViewController)
         } else {
-            remove(asChildViewController: deadlinesViewController)
+            remove(asChildViewController: nonRepeatingDeadlinesViewController)
             add(asChildViewController: statusViewController)
         }
     }
