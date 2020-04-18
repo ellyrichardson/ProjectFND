@@ -73,7 +73,7 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 110
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -94,6 +94,7 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
         let sortedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDoItems)
         
         cell.intervalizedToDoLabel.text = sortedToDoItems[indexPath.row].value.getTaskName()
+        //cell.intervalizedToDoLabel.textColor = randomColorGenerator()
         cell.intervalizedToDoTypeLabel.text = "Personal"
         cell.intervalizedToDoEstTimeLabel.text = sortedToDoItems[indexPath.row].value.getEstTime() + " Hours"
         //cell.intervalizedToDoEndingTimeLabel.text =  so
@@ -107,13 +108,35 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
-        //cell.contentView.layer.masksToBounds = true
+        cell.contentView.layer.masksToBounds = true
+        let randomColor = randomColorGenerator().cgColor
+        cell.contentView.layer.backgroundColor = randomColor
+        cell.layer.backgroundColor = randomColor
         
         /*
          NOTE: If this is not set `shadowPath` you'll notice laggy scrolling. Mysterious code too.  It just make the shadow stuff work
          */
-        //let radius = cell.contentView.layer.cornerRadius
-        //cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
+        let radius = cell.contentView.layer.cornerRadius
+        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
+    }
+    
+    func randomColorGenerator() -> UIColor {
+        let randomInt = Int.random(in: 0..<3)
+        // Neutral status - if ToDo hasn't met due date yet
+        if randomInt == 0 {
+            // Yellowish color
+            return UIColor(red:1.00, green:0.89, blue:0.00, alpha:1.0)
+        }
+            // Finished - if ToDo is finished
+        else if randomInt == 1 {
+            // Greenish color
+            return UIColor(red:0.08, green:0.85, blue:0.42, alpha:1.0)
+        }
+            // Late - if ToDo hasn't finished yet and is past due date
+        else {
+            // Reddish orange color
+            return UIColor(red:1.00, green:0.5, blue:0.0, alpha:1.0)
+        }
     }
 
     /*
