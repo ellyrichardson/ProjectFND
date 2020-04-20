@@ -92,10 +92,12 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
         
         var toDoItems: [String: ToDo] = getToDos()
         let sortedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDoItems)
+        let randomColor = randomColorGenerator()//.cgColor
         
         cell.intervalizedToDoLabel.text = sortedToDoItems[indexPath.row].value.getTaskName()
-        //cell.intervalizedToDoLabel.textColor = randomColorGenerator()
-        cell.intervalizedToDoTypeLabel.text = "Personal"
+        cell.intervalizedToDoLabel.textColor = randomColor
+        cell.intervalizedToDoTypeLabel.text = randomTypeGenerator()
+        cell.intervalToDoTypeBorder.backgroundColor = randomColor
         cell.intervalizedToDoEstTimeLabel.text = sortedToDoItems[indexPath.row].value.getEstTime() + " Hours"
         //cell.intervalizedToDoEndingTimeLabel.text =  so
         /*
@@ -110,8 +112,8 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
         
         cell.contentView.layer.masksToBounds = true
         let randomColor = randomColorGenerator().cgColor
-        cell.contentView.layer.backgroundColor = randomColor
-        cell.layer.backgroundColor = randomColor
+        //cell.contentView.layer.backgroundColor = randomColor
+        //cell.layer.backgroundColor = randomColor
         
         /*
          NOTE: If this is not set `shadowPath` you'll notice laggy scrolling. Mysterious code too.  It just make the shadow stuff work
@@ -136,6 +138,19 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
         else {
             // Reddish orange color
             return UIColor(red:1.00, green:0.5, blue:0.0, alpha:1.0)
+        }
+    }
+    
+    func randomTypeGenerator() -> String {
+        let randomInt = Int.random(in: 0..<3)
+        if randomInt == 0 {
+            return "Personal"
+        }
+        else if randomInt == 1 {
+            return "Work"
+        }
+        else {
+            return "School"
         }
     }
 

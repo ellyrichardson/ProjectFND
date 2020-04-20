@@ -660,14 +660,7 @@
                                                         <constraint firstAttribute="height" constant="20" id="mkK-3w-y6C"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="19"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="School" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hVT-fj-bXK">
-                                                    <rect key="frame" x="129" y="100" width="38.666666666666657" height="17"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="13"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 Hours" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lFf-dU-u9A">
@@ -676,23 +669,9 @@
                                                         <constraint firstAttribute="height" constant="17" id="7EY-sw-C3h"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="13"/>
-                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EmptyStar" translatesAutoresizingMaskIntoConstraints="NO" id="LDP-aP-dFq">
-                                                    <rect key="frame" x="263" y="62" width="25" height="25"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="25" id="Mu5-gW-6Wz"/>
-                                                        <constraint firstAttribute="height" constant="25" id="N2I-gP-SoU"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EmptyFriends" translatesAutoresizingMaskIntoConstraints="NO" id="OgP-MV-BrI">
-                                                    <rect key="frame" x="337" y="62" width="25" height="25"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="25" id="aEB-zt-KpX"/>
-                                                        <constraint firstAttribute="height" constant="25" id="rK7-sc-0c8"/>
-                                                    </constraints>
-                                                </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ExpandToDo" translatesAutoresizingMaskIntoConstraints="NO" id="iaX-HZ-5rP">
                                                     <rect key="frame" x="12" y="13" width="45" height="45"/>
                                                     <constraints>
@@ -710,45 +689,52 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EmptyBell" translatesAutoresizingMaskIntoConstraints="NO" id="Ls3-nH-yyI">
-                                                    <rect key="frame" x="300" y="62" width="25" height="25"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="25" id="0ly-fZ-EhU"/>
-                                                        <constraint firstAttribute="height" constant="25" id="7lY-9x-8Ut"/>
-                                                    </constraints>
-                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due DEC 20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SDi-gr-qei">
                                                     <rect key="frame" x="65" y="50" width="70.333333333333314" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="17" id="J6u-6b-l3H"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="13"/>
-                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9nv-vg-ywB">
+                                                    <rect key="frame" x="297" y="58" width="65" height="24"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="School" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hVT-fj-bXK">
+                                                            <rect key="frame" x="14" y="4" width="37" height="16"/>
+                                                            <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="13"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="24" id="Hfo-Al-nYI"/>
+                                                        <constraint firstItem="hVT-fj-bXK" firstAttribute="centerX" secondItem="9nv-vg-ywB" secondAttribute="centerX" id="c1W-jq-tOe"/>
+                                                        <constraint firstItem="hVT-fj-bXK" firstAttribute="centerY" secondItem="9nv-vg-ywB" secondAttribute="centerY" id="nt4-6j-xii"/>
+                                                        <constraint firstAttribute="width" constant="65" id="o1V-mm-6Vg"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="lFf-dU-u9A" firstAttribute="top" secondItem="SDi-gr-qei" secondAttribute="bottom" constant="3" id="0Ia-WW-SM9"/>
-                                                <constraint firstItem="OgP-MV-BrI" firstAttribute="top" secondItem="grL-UC-IJY" secondAttribute="bottom" constant="29" id="5Oo-Ug-pkb"/>
                                                 <constraint firstAttribute="trailing" secondItem="grL-UC-IJY" secondAttribute="trailing" constant="12" id="7Bx-li-Uex"/>
                                                 <constraint firstItem="l7c-Ui-syQ" firstAttribute="leading" secondItem="01Y-gR-74Z" secondAttribute="leading" constant="12" id="7T0-wi-J2u"/>
                                                 <constraint firstItem="grL-UC-IJY" firstAttribute="top" secondItem="01Y-gR-74Z" secondAttribute="top" constant="13" id="Dnv-W0-wQh"/>
                                                 <constraint firstItem="grL-UC-IJY" firstAttribute="leading" secondItem="iaX-HZ-5rP" secondAttribute="trailing" constant="8" id="Fn9-o3-dtv"/>
-                                                <constraint firstItem="OgP-MV-BrI" firstAttribute="leading" secondItem="Ls3-nH-yyI" secondAttribute="trailing" constant="12" id="MPN-ea-hyh"/>
-                                                <constraint firstItem="LDP-aP-dFq" firstAttribute="top" secondItem="grL-UC-IJY" secondAttribute="bottom" constant="29" id="PFr-Bm-cU3"/>
-                                                <constraint firstAttribute="trailing" secondItem="OgP-MV-BrI" secondAttribute="trailing" constant="12" id="PVN-rm-2Cc"/>
                                                 <constraint firstItem="SDi-gr-qei" firstAttribute="leading" secondItem="iaX-HZ-5rP" secondAttribute="trailing" constant="8" id="Psp-Ra-WXg"/>
-                                                <constraint firstItem="Ls3-nH-yyI" firstAttribute="top" secondItem="grL-UC-IJY" secondAttribute="bottom" constant="29" id="bHS-9g-vdm"/>
+                                                <constraint firstAttribute="trailing" secondItem="9nv-vg-ywB" secondAttribute="trailing" constant="12" id="TCO-ME-ftZ"/>
                                                 <constraint firstItem="l7c-Ui-syQ" firstAttribute="top" secondItem="iaX-HZ-5rP" secondAttribute="bottom" constant="8" id="fO5-Xd-Rar"/>
-                                                <constraint firstItem="Ls3-nH-yyI" firstAttribute="leading" secondItem="LDP-aP-dFq" secondAttribute="trailing" constant="12" id="hfe-mj-Igb"/>
+                                                <constraint firstItem="9nv-vg-ywB" firstAttribute="top" secondItem="grL-UC-IJY" secondAttribute="bottom" constant="25" id="gZa-aP-2LJ"/>
                                                 <constraint firstItem="iaX-HZ-5rP" firstAttribute="top" secondItem="01Y-gR-74Z" secondAttribute="top" constant="13" id="mMU-qR-9N8"/>
                                                 <constraint firstItem="iaX-HZ-5rP" firstAttribute="leading" secondItem="01Y-gR-74Z" secondAttribute="leading" constant="12" id="rYv-QA-cR1"/>
                                                 <constraint firstItem="lFf-dU-u9A" firstAttribute="leading" secondItem="l7c-Ui-syQ" secondAttribute="trailing" constant="8" id="s5U-xF-Gn3"/>
                                                 <constraint firstItem="SDi-gr-qei" firstAttribute="top" secondItem="grL-UC-IJY" secondAttribute="bottom" constant="17" id="vgw-fK-g33"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
+                                            <outlet property="intervalToDoTypeBorder" destination="9nv-vg-ywB" id="oQB-9H-nj9"/>
                                             <outlet property="intervalizedToDoEndingTimeLabel" destination="SDi-gr-qei" id="iGa-Kl-lGW"/>
                                             <outlet property="intervalizedToDoEstTimeLabel" destination="lFf-dU-u9A" id="6Dr-Jw-RQV"/>
                                             <outlet property="intervalizedToDoLabel" destination="grL-UC-IJY" id="C9E-jg-4sg"/>
@@ -773,7 +759,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iVP-Jr-zEP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2605.7971014492755" y="78.348214285714278"/>
+            <point key="canvasLocation" x="2605.7971014492755" y="78.013392857142847"/>
         </scene>
         <!--Non Repeating Deadlines View Controller-->
         <scene sceneID="Ja7-w1-lbO">
@@ -798,7 +784,6 @@
                                     <constraint firstAttribute="height" constant="29" id="OQd-aR-i7I"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="30"/>
-                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yON-gV-qHt">
@@ -810,13 +795,12 @@
                                     <segue destination="RBy-eC-WE8" kind="embed" id="hfV-4D-1z2"/>
                                 </connections>
                             </containerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Deadlines (Graph: Finished, On-Progress, Overdue):" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jXc-yZ-oLH">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jXc-yZ-oLH">
                                 <rect key="frame" x="37" y="621" width="339" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="JD6-WN-S8m"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="20"/>
-                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
