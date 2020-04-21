@@ -31,6 +31,16 @@ class ToDoProcessUtils {
     }
     
     /*
+    static func retrieveToDosAsSortedTuples(toDoItems: [String: ToDo]) -> [(key: String, value: ToDo)] {
+        let toDosToBeSorted = toDoItems
+        // Converts dictionary to sorted tuples
+        let sortedToDos = toDosToBeSorted.sorted{
+            return $1.value.getStartDate() > $0.value.getStartDate()
+        }
+        return sortedToDos
+    }*/
+    
+    /*
     // Gets ToDo items that meets the day selected in calendar
     static func retrieveSortedToDoItemsByDay(toDoDate: Date, toDoItems: [String: ToDo]) -> [(key: String, value: ToDo)] {
         let dateFormatter = DateFormatter()
@@ -279,13 +289,17 @@ class ToDoProcessUtils {
     static func retrieveAllIntervalizedTodos(toDoItems: [String: ToDo]) -> [String: ToDo] {
         var intervalizedToDos: [String: ToDo] = [String: ToDo]()
         
+        /*
         let toDoKeys = toDoItems // This is a [String: int] dictionary
             .filter { (k, v) -> Bool in v.getIntervalId() != ""}
-            .map { (k, v) -> String in k }
+            .map { (k, v) -> String in k }*/
         
+        intervalizedToDos = toDoItems.filter { $0.value.getIntervalId() != "" }
+        
+        /*
         for toDoKey in toDoKeys {
             intervalizedToDos[toDoKey] = toDoItems[toDoKey]
-        }
+        }*/
         
         return intervalizedToDos
     }

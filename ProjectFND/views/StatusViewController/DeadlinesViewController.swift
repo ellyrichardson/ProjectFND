@@ -69,7 +69,11 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Gets the ToDos that fall under the selected day in calendar
-        return getToDos().count
+        //return getToDos().count
+        var toDoItems: [String: ToDo] = getToDos()
+        let intervalizedToDoItems = ToDoProcessUtils.retrieveAllIntervalizedTodos(toDoItems: toDoItems)
+        let tupledIntervalizedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: intervalizedToDoItems)
+        return tupledIntervalizedToDoItems.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -91,14 +95,17 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         
         var toDoItems: [String: ToDo] = getToDos()
-        let sortedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDoItems)
+        //let sortedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDoItems)
+        let intervalizedToDoItems = ToDoProcessUtils.retrieveAllIntervalizedTodos(toDoItems: toDoItems)
+        let tupledIntervalizedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: intervalizedToDoItems)
+        //let sortedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDoItems)
         let randomColor = randomColorGenerator()//.cgColor
         
-        cell.intervalizedToDoLabel.text = sortedToDoItems[indexPath.row].value.getTaskName()
+        cell.intervalizedToDoLabel.text = tupledIntervalizedToDoItems[indexPath.row].value.getTaskName()
         cell.intervalizedToDoLabel.textColor = randomColor
         cell.intervalizedToDoTypeLabel.text = randomTypeGenerator()
         cell.intervalToDoTypeBorder.backgroundColor = randomColor
-        cell.intervalizedToDoEstTimeLabel.text = sortedToDoItems[indexPath.row].value.getEstTime() + " Hours"
+        cell.intervalizedToDoEstTimeLabel.text = tupledIntervalizedToDoItems[indexPath.row].value.getEstTime() + " Hours"
         //cell.intervalizedToDoEndingTimeLabel.text =  so
         /*
         cell.taskNameLabel.text = sortedToDoItems[indexPath.row].value.getTaskName()

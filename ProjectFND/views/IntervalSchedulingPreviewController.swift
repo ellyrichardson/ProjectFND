@@ -469,6 +469,9 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         let intervalSchedCheckHelper = IntervalAvailabilitiesCheckingOperations()
         let intervalSchedRetrivHelper = IntervalAvailabilitiesRetrievalOperations()
         var assignedIntervals: Int = 0
+        //let intervalTaskId = UUID().uuidString
+        print("intervalAmounts")
+        print(getIntervalAmount())
         while assignedIntervals < getIntervalAmount() {
             let toDoItemsForDay: [String: ToDo] = ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: actualDateOfTheDay, toDoItems: savedToDos)
             let timeSlotsOfAllToDoInDate = intervalSchedCheckHelper.getOccupiedTimeSlots(collectionOfToDosForTheDay: toDoItemsForDay, dayDateOfTheCollection: actualDateOfTheDay)
@@ -487,6 +490,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
             print("YOOOOOOO")
             print(determinedInterval)
             
+            // The logic of separating tasks breaks when intervalTaskId is moved out of this loop
             let intervalTaskId = UUID().uuidString
             let intervalName = getToDoToBeIntervalized().getTaskName()
             let intervalDescription = getToDoToBeIntervalized().getTaskDescription()
@@ -499,7 +503,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
             print(getIntervalLength())
             if determinedInterval >= getIntervalLength() {
                 // TODO: Action here
-                self.toDoIntervalsToAssign[intervalTaskId] = ToDo(taskId: intervalTaskId, taskName: intervalName, taskDescription: intervalDescription, workDate: intervalStartDate, estTime: String(getIntervalLength()), dueDate: intervalDueDate, finished: intervalStatus)!
+                self.toDoIntervalsToAssign[intervalTaskId] = ToDo(taskId: intervalTaskId, taskName: intervalName, taskDescription: intervalDescription, workDate: intervalStartDate, estTime: String(getIntervalLength()), dueDate: intervalDueDate, finished: intervalStatus, intervalized: true, intervalId: intervalTaskId, intervalLength: Int(getIntervalLength()), intervalIndex: assignedIntervals)!
                 assignedIntervals += 1
             }
             print("Assigned Intervals")
