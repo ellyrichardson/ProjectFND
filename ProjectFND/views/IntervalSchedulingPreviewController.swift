@@ -469,7 +469,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         let intervalSchedCheckHelper = IntervalAvailabilitiesCheckingOperations()
         let intervalSchedRetrivHelper = IntervalAvailabilitiesRetrievalOperations()
         var assignedIntervals: Int = 0
-        //let intervalTaskId = UUID().uuidString
+        let intervalId = UUID().uuidString
         print("intervalAmounts")
         print(getIntervalAmount())
         while assignedIntervals < getIntervalAmount() {
@@ -503,7 +503,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
             print(getIntervalLength())
             if determinedInterval >= getIntervalLength() {
                 // TODO: Action here
-                self.toDoIntervalsToAssign[intervalTaskId] = ToDo(taskId: intervalTaskId, taskName: intervalName, taskDescription: intervalDescription, workDate: intervalStartDate, estTime: String(getIntervalLength()), dueDate: intervalDueDate, finished: intervalStatus, intervalized: true, intervalId: intervalTaskId, intervalLength: Int(getIntervalLength()), intervalIndex: assignedIntervals)!
+                self.toDoIntervalsToAssign[intervalTaskId] = ToDo(taskId: intervalTaskId, taskName: intervalName, taskDescription: intervalDescription, workDate: intervalStartDate, estTime: String(getIntervalLength()), dueDate: intervalDueDate, finished: intervalStatus, intervalized: true, intervalId: intervalId, intervalLength: Int(getIntervalLength()), intervalIndex: assignedIntervals)!
                 assignedIntervals += 1
             }
             print("Assigned Intervals")

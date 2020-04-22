@@ -18,7 +18,7 @@ class ToDo: NSObject, NSCoding {
     var taskName, taskDescription, estTime: String
     var workDate, dueDate: Date
     var finished, intervalized: Bool
-    var intervalLength, intervalIndex: Int
+    var intervalLength, intervalIndex: String
     
     // MARK: - Archiving Paths
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -34,6 +34,10 @@ class ToDo: NSObject, NSCoding {
         static let dueDate = "dueDate"
         //static let doneCheckBox = "doneCheckBox"
         static let finished = "finished"
+        static let intervalId = "intervalId"
+        static let intervalized = "intervalized"
+        static let intervalLength = "intervalLength"
+        static let intervalIndex =  "intervalIndex"
     }
     
     // MARK: - Initialization
@@ -55,8 +59,8 @@ class ToDo: NSObject, NSCoding {
         self.finished = finished
         self.intervalized = intervalized
         self.intervalId = intervalId
-        self.intervalLength = intervalLength
-        self.intervalIndex = intervalIndex
+        self.intervalLength = String(intervalLength)
+        self.intervalIndex = String(intervalIndex)
     }
     
     override init() {
@@ -70,8 +74,8 @@ class ToDo: NSObject, NSCoding {
         self.finished = false
         self.intervalized = false
         self.intervalId = ""
-        self.intervalLength = 0
-        self.intervalIndex = 0
+        self.intervalLength = String(0)
+        self.intervalIndex = String(0)
     }
     
     // MARK: - NSCoding
@@ -83,6 +87,10 @@ class ToDo: NSObject, NSCoding {
         aCoder.encode(estTime, forKey: PropertyKey.estTime)
         aCoder.encode(dueDate, forKey: PropertyKey.dueDate)
         aCoder.encode(finished, forKey: PropertyKey.finished)
+        aCoder.encode(intervalId, forKey: PropertyKey.intervalId)
+        aCoder.encode(intervalized, forKey: PropertyKey.intervalized)
+        aCoder.encode(intervalLength, forKey: PropertyKey.intervalLength)
+        aCoder.encode(intervalIndex, forKey: PropertyKey.intervalIndex)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
@@ -134,8 +142,32 @@ class ToDo: NSObject, NSCoding {
             return nil
         }
         
+        guard let intervalId = aDecoder.decodeObject (forKey: PropertyKey.intervalId) as? String
+            else {
+                os_log("Unable to decode the intervalId for a ToDo object.", log: OSLog.default, type: .debug)
+                return nil
+        }
+        
+        let intervalized = Bool(aDecoder.decodeBool(forKey: PropertyKey.intervalized))
+        if intervalized == nil {
+            os_log("Unable to decode if ToDo object is intervalized.", log: OSLog.default, type: .debug)
+            return nil
+        }
+        
+        guard let intervalLength = aDecoder.decodeObject (forKey: PropertyKey.intervalLength) as? String
+            else {
+                os_log("Unable to decode the intervalLength for a ToDo object.", log: OSLog.default, type: .debug)
+                return nil
+        }
+        
+        guard let intervalIndex = aDecoder.decodeObject (forKey: PropertyKey.intervalIndex) as? String
+            else {
+                os_log("Unable to decode the intervalIndex for a ToDo object.", log: OSLog.default, type: .debug)
+                return nil
+        }
+        
         // Must call designated initializer.
-        self.init(taskId: taskId, taskName: taskName, taskDescription: taskDescription, workDate: workDate, estTime: estTime, dueDate: dueDate, finished: finished)
+        self.init(taskId: taskId, taskName: taskName, taskDescription: taskDescription, workDate: workDate, estTime: estTime, dueDate: dueDate, finished: finished,  intervalized: intervalized, intervalId: intervalId, intervalLength: Int(intervalLength)!, intervalIndex: Int(intervalIndex)!)
     }
     
     func  getTaskId() -> String {
@@ -175,10 +207,10 @@ class ToDo: NSObject, NSCoding {
     }
     
     func getIntervalLength() -> Int {
-        return self.intervalLength
+        return Int(self.intervalLength)!
     }
     
     func getIntervalIndex() -> Int {
-        return self.intervalIndex
+        return Int(self.intervalIndex)!
     }
 }
