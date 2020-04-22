@@ -8,10 +8,23 @@
 
 import UIKit
 
-class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, Observer {
+    private var _observerId: Int = 1
+    private var toDosController: ToDosController!
+    
+    var observerId: Int {
+        get {
+            return self._observerId
+        }
+    }
+    
+    func update<T>(with newValue: T) {
+        //setToDoItems(toDoItems: newValue as! [ToDo])
+        print("ToDo Items for ScheduleViewController has been updated")
+    }
     
     @IBOutlet weak var deadlinesTableView: UITableView!
-    private var toDos: [ToDo] = [ToDo]()
+    private var toDos: [String: ToDo] = [String: ToDo]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +61,7 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     // MARK: - Getters
-    private func getToDos() -> [ToDo] {
+    private func getToDos() -> [String: ToDo] {
         return self.toDos
     }
 
@@ -56,11 +69,15 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Gets the ToDos that fall under the selected day in calendar
-        return getToDos().count
+        //return getToDos().count
+        var toDoItems: [String: ToDo] = getToDos()
+        let intervalizedToDoItems = ToDoProcessUtils.retrieveAllIntervalizedTodos(toDoItems: toDoItems)
+        let tupledIntervalizedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: intervalizedToDoItems)
+        return tupledIntervalizedToDoItems.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 130
+        return 110
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -77,13 +94,71 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
             fatalError("The dequeued cell is not an instance of ScheduleTableViewCell.")
         }
         
-        var toDoItems: [ToDo] = getToDos()
+        var toDoItems: [String: ToDo] = getToDos()
+        //let sortedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDoItems)
+        let intervalizedToDoItems = ToDoProcessUtils.retrieveAllIntervalizedTodos(toDoItems: toDoItems)
+        let tupledIntervalizedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: intervalizedToDoItems)
+        //let sortedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDoItems)
+        let randomColor = randomColorGenerator()//.cgColor
         
-        cell.taskNameLabel.text = toDoItems[indexPath.row].getTaskName()
+        cell.intervalizedToDoLabel.text = tupledIntervalizedToDoItems[indexPath.row].value.getTaskName()
+        cell.intervalizedToDoLabel.textColor = randomColor
+        cell.intervalizedToDoTypeLabel.text = randomTypeGenerator()
+        cell.intervalToDoTypeBorder.backgroundColor = randomColor
+        cell.intervalizedToDoEstTimeLabel.text = tupledIntervalizedToDoItems[indexPath.row].value.getEstTime() + " Hours"
+        //cell.intervalizedToDoEndingTimeLabel.text =  so
+        /*
+        cell.taskNameLabel.text = sortedToDoItems[indexPath.row].value.getTaskName()
         cell.taskTypeLabel.text = "Personal"
-        cell.deadlineDateLabel.text = "12 January, 2020"
+        cell.deadlineDateLabel.text = "12 January, 2020"*/
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        cell.contentView.layer.masksToBounds = true
+        let randomColor = randomColorGenerator().cgColor
+        //cell.contentView.layer.backgroundColor = randomColor
+        //cell.layer.backgroundColor = randomColor
+        
+        /*
+         NOTE: If this is not set `shadowPath` you'll notice laggy scrolling. Mysterious code too.  It just make the shadow stuff work
+         */
+        let radius = cell.contentView.layer.cornerRadius
+        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
+    }
+    
+    func randomColorGenerator() -> UIColor {
+        let randomInt = Int.random(in: 0..<3)
+        // Neutral status - if ToDo hasn't met due date yet
+        if randomInt == 0 {
+            // Yellowish color
+            return UIColor(red:1.00, green:0.89, blue:0.00, alpha:1.0)
+        }
+            // Finished - if ToDo is finished
+        else if randomInt == 1 {
+            // Greenish color
+            return UIColor(red:0.08, green:0.85, blue:0.42, alpha:1.0)
+        }
+            // Late - if ToDo hasn't finished yet and is past due date
+        else {
+            // Reddish orange color
+            return UIColor(red:1.00, green:0.5, blue:0.0, alpha:1.0)
+        }
+    }
+    
+    func randomTypeGenerator() -> String {
+        let randomInt = Int.random(in: 0..<3)
+        if randomInt == 0 {
+            return "Personal"
+        }
+        else if randomInt == 1 {
+            return "Work"
+        }
+        else {
+            return "School"
+        }
     }
 
     /*

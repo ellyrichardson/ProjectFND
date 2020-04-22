@@ -29,24 +29,25 @@ class ToDoTableViewUtils {
             // Finished - if ToDo is finished
         else if toDoItem.finished == true {
             // Greenish color
-            return UIColor(red:0.08, green:0.65, blue:0.42, alpha:1.0)
+            return UIColor(red:0.08, green:0.85, blue:0.42, alpha:1.0)
         }
             // Late - if ToDo hasn't finished yet and is past due date
         else {
             // Reddish orange color
-            return UIColor(red:1.00, green:0.40, blue:0.18, alpha:1.0)
+            return UIColor(red:1.00, green:0.5, blue:0.0, alpha:1.0)
         }
     }
     
     
     // Sets the appropriate row color if the ToDo is finished, late, or neutral status that involves intervals
-    static func intervalsColorForToDoRow(toDoRowIndex: Int, toDoItems: [ToDo], toDoIntervalsToAssign: [ToDo]) -> UIColor {
-        let currentDate = Date()
+    // NOTE: Was originally static func intervalsColorForToDoRow(toDoTaskId: String, toDoItems: [ToDo], toDoIntervalsToAssign: [ToDo])
+    static func intervalsColorForToDoRow(toDoTaskId: String, toDoItems: [String: ToDo]) -> UIColor {
+        //let currentDate = Date()
         let dateFormatter = DateFormatter()
         
         dateFormatter.dateFormat = "M/d/yy, h:mm a"
         
-        let toDoItem = toDoItems[toDoRowIndex]
+        //let toDoItem = toDoItems[toDoTaskId]
         
         /*
         // Neutral status - if ToDo hasn't met due date yet
@@ -77,7 +78,7 @@ class ToDoTableViewUtils {
             return UIColor(red:1.00, green:0.40, blue:0.18, alpha:1.0)
         }
  */
-        if toDoIntervalsToAssign.contains(toDoItem) {
+        if toDoItems[toDoTaskId] != nil {
             return UIColor(red:0.729, green:0.860, blue:0.354, alpha:1.0)
         }
         else {

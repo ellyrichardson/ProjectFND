@@ -9,17 +9,16 @@
 import UIKit
 import os.log
 
+/*
+ ToDo automatically accesses the storage when its object is being accessed because of
+ */
 class ToDo: NSObject, NSCoding {
     // MARK: - Properties
+    var taskId, intervalId: String
     var taskName, taskDescription, estTime: String
     var workDate, dueDate: Date
-    var intervalId: String?
-    var intervalPart: Int?
-    var isFirstInterval, isLastInterval: Bool?
-    var taskId: String?
-    
-    //var doneCheckBox: CheckBox
-    var finished: Bool
+    var finished, intervalized: Bool
+    var intervalLength, intervalIndex: String
     
     // MARK: - Archiving Paths
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -27,6 +26,7 @@ class ToDo: NSObject, NSCoding {
     
     // MARK: - Types
     struct PropertyKey {
+        static let taskId = "taskId"
         static let taskName = "taskName"
         static let taskDescription = "taskDescription"
         static let workDate = "workDate"
@@ -34,45 +34,72 @@ class ToDo: NSObject, NSCoding {
         static let dueDate = "dueDate"
         //static let doneCheckBox = "doneCheckBox"
         static let finished = "finished"
+        static let intervalId = "intervalId"
+        static let intervalized = "intervalized"
+        static let intervalLength = "intervalLength"
+        static let intervalIndex =  "intervalIndex"
     }
     
     // MARK: - Initialization
-    init?(taskName: String, taskDescription: String, workDate: Date, estTime: String, dueDate: Date, finished: Bool) {
+    init?(taskId: String, taskName: String, taskDescription: String, workDate: Date, estTime: String, dueDate: Date, finished: Bool, intervalized: Bool = false, intervalId: String = "", intervalLength: Int = 0, intervalIndex: Int = 0) {
+        
+        
         // To fail init if one of them is empty
-        if taskName.isEmpty || workDate == nil || estTime.isEmpty || dueDate == nil {
+        if taskId.isEmpty || taskName.isEmpty || workDate == nil || estTime.isEmpty || dueDate == nil {
             return nil
         }
         
         // Init stored properties
+        self.taskId = taskId
         self.taskName = taskName
         self.taskDescription = taskDescription
         self.workDate = workDate
         self.estTime = estTime
         self.dueDate = dueDate
         self.finished = finished
+        self.intervalized = intervalized
+        self.intervalId = intervalId
+        self.intervalLength = String(intervalLength)
+        self.intervalIndex = String(intervalIndex)
     }
     
     override init() {
         // Init stored properties
+        self.taskId = UUID().uuidString
         self.taskName = ""
         self.taskDescription = ""
         self.workDate = Date()
         self.estTime = ""
         self.dueDate = Date()
         self.finished = false
+        self.intervalized = false
+        self.intervalId = ""
+        self.intervalLength = String(0)
+        self.intervalIndex = String(0)
     }
     
     // MARK: - NSCoding
     func encode(with aCoder: NSCoder) {
+        aCoder.encode(taskId, forKey: PropertyKey.taskId)
         aCoder.encode(taskName, forKey: PropertyKey.taskName)
         aCoder.encode(taskDescription, forKey: PropertyKey.taskDescription)
         aCoder.encode(workDate, forKey: PropertyKey.workDate)
         aCoder.encode(estTime, forKey: PropertyKey.estTime)
         aCoder.encode(dueDate, forKey: PropertyKey.dueDate)
         aCoder.encode(finished, forKey: PropertyKey.finished)
+        aCoder.encode(intervalId, forKey: PropertyKey.intervalId)
+        aCoder.encode(intervalized, forKey: PropertyKey.intervalized)
+        aCoder.encode(intervalLength, forKey: PropertyKey.intervalLength)
+        aCoder.encode(intervalIndex, forKey: PropertyKey.intervalIndex)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
+        guard let taskId = aDecoder.decodeObject(forKey: PropertyKey.taskId) as? String
+            else {
+                os_log("Unable to decode the name for a ToDo object.", log: OSLog.default, type: .debug)
+                return nil
+        }
+        
         // The name is required. If we cannot decode a name string, the initializer should fail.
         guard let taskName = aDecoder.decodeObject(forKey: PropertyKey.taskName) as? String
             else {
@@ -115,8 +142,36 @@ class ToDo: NSObject, NSCoding {
             return nil
         }
         
+        guard let intervalId = aDecoder.decodeObject (forKey: PropertyKey.intervalId) as? String
+            else {
+                os_log("Unable to decode the intervalId for a ToDo object.", log: OSLog.default, type: .debug)
+                return nil
+        }
+        
+        let intervalized = Bool(aDecoder.decodeBool(forKey: PropertyKey.intervalized))
+        if intervalized == nil {
+            os_log("Unable to decode if ToDo object is intervalized.", log: OSLog.default, type: .debug)
+            return nil
+        }
+        
+        guard let intervalLength = aDecoder.decodeObject (forKey: PropertyKey.intervalLength) as? String
+            else {
+                os_log("Unable to decode the intervalLength for a ToDo object.", log: OSLog.default, type: .debug)
+                return nil
+        }
+        
+        guard let intervalIndex = aDecoder.decodeObject (forKey: PropertyKey.intervalIndex) as? String
+            else {
+                os_log("Unable to decode the intervalIndex for a ToDo object.", log: OSLog.default, type: .debug)
+                return nil
+        }
+        
         // Must call designated initializer.
-        self.init(taskName: taskName, taskDescription: taskDescription, workDate: workDate, estTime: estTime, dueDate: dueDate, finished: finished)
+        self.init(taskId: taskId, taskName: taskName, taskDescription: taskDescription, workDate: workDate, estTime: estTime, dueDate: dueDate, finished: finished,  intervalized: intervalized, intervalId: intervalId, intervalLength: Int(intervalLength)!, intervalIndex: Int(intervalIndex)!)
+    }
+    
+    func  getTaskId() -> String {
+        return self.taskId
     }
     
     func getTaskName() -> String {
@@ -141,5 +196,21 @@ class ToDo: NSObject, NSCoding {
     
     func isFinished() -> Bool {
         return self.finished
+    }
+    
+    func getIntervalId() -> String {
+        return self.intervalId
+    }
+    
+    func isIntervalized() -> Bool {
+        return self.intervalized
+    }
+    
+    func getIntervalLength() -> Int {
+        return Int(self.intervalLength)!
+    }
+    
+    func getIntervalIndex() -> Int {
+        return Int(self.intervalIndex)!
     }
 }

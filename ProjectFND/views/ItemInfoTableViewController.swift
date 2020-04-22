@@ -27,7 +27,8 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     
     private var taskItemCells = [StaticTableCell]()
     var toDo: ToDo?
-    var toDoIntervals: [ToDo] = [ToDo]()
+    private var toDos = [String: ToDo]()
+    var toDoIntervals: [String: ToDo] = [String: ToDo]()
     var toDoIntervalsExist: Bool = false
     private var finished: Bool
     private var chosenWorkDate: Date
@@ -293,13 +294,28 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             navigationItem.title = taskName
             
             // TODO: REMOVE TIGHT COUPLING!
+            let stringedUUID = UUID().uuidString
+            print(getToDos())
+            intervalSchedulingPreviewController.setToDos(toDos: getToDos())
+            /*
+            if toDo == nil {
+                stringedUUID = UUID().uuidString
+            }
+ */
             
             // Set the ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue
             intervalSchedulingPreviewController.setIntervalAmount(intervalAmount: intervalDays!)
             intervalSchedulingPreviewController.setIntervalLength(intervalLength: intervalHours!)
             intervalSchedulingPreviewController.setToDoStartDate(toDoStartDate: workDate)
             intervalSchedulingPreviewController.setToDoEndDate(toDoEndDate: dueDate)
-            intervalSchedulingPreviewController.setToDoToBeIntervalized(toDo: ToDo(taskName: taskName!, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())!)
+            if toDo == nil {
+                // Set the ToDo to be intervalized to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being created
+                intervalSchedulingPreviewController.setToDoToBeIntervalized(toDo: ToDo(taskId: stringedUUID, taskName: taskName!, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())!)
+            }
+            else {
+                // Set the ToDo to be intervalized to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being modified and is already  created
+                intervalSchedulingPreviewController.setToDoToBeIntervalized(toDo: ToDo(taskId: (self.toDo?.getTaskId())!,taskName: taskName!, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())!)
+            }
             
         } else {
             // Only prepare view controller when the save button is pressed
@@ -318,8 +334,13 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             updateSaveButtonState()
             navigationItem.title = taskName
             
-            // Set the ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue
-            toDo = ToDo(taskName: taskName!, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())
+            if toDo == nil  {
+                // Set the ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being created
+                toDo = ToDo(taskId: UUID().uuidString, taskName: taskName!, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())
+            } else {
+                // Set the ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being modified and is already  created
+                toDo = ToDo(taskId: (self.toDo?.taskId)!, taskName: taskName!, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())
+            }
         }
     }
     
@@ -379,13 +400,24 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         saveButton.isEnabled = true
     }
     
+    // MARK: - Setters
+    
+    func setToDos(toDos: [String: ToDo]) {
+        self.toDos = toDos
+    }
+    
     // MARK: - Getters
     
-    func getToDoIntervals() -> [ToDo] {
+    func getToDoIntervals() -> [String: ToDo] {
         return self.toDoIntervals
     }
     
     func isToDoIntervalsExist() -> Bool {
         return self.toDoIntervalsExist
+    }
+    
+    func getToDos() -> [String: ToDo] {
+        print(self.toDos)
+        return self.toDos
     }
 }

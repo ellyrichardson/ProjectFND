@@ -50,13 +50,13 @@ class IntervalAvailabilitiesCheckingOperations {
      Logic: The collection of ToDos will be checked for their TimeSlots, and those TimeSlots will be placed in a single collection to be returned.
      TEST: Passed
      */
-    func getOccupiedTimeSlots(collectionOfToDosForTheDay: [ToDo], dayDateOfTheCollection: Date) -> [String:TimeSlot] {
+    func getOccupiedTimeSlots(collectionOfToDosForTheDay: [String: ToDo], dayDateOfTheCollection: Date) -> [String:TimeSlot] {
         // Collection of dictionaries
         var collectionOfTimeSlotCollections: [[String:TimeSlot]] = [[String:TimeSlot]]()
         // Iterates every ToDo in the ToDo Dictionary Collection
         for toDoInCollection in collectionOfToDosForTheDay {
             // Adds the timeSlot collection for a ToDo to a general collection of timeSlot dictionary
-            collectionOfTimeSlotCollections.append(getTimeSlotsOfAToDo(toDo: toDoInCollection))
+            collectionOfTimeSlotCollections.append(getTimeSlotsOfAToDo(toDo: toDoInCollection.value))
         }
         // Returns a timeSlot dictionary containing all the timeSlots in the collection of timeSlot dictionary
         return putContentsOfOccupiedTimeSlotsDictionariesInOneSingleDictionary(collectionOfTimeSlotDictionary: collectionOfTimeSlotCollections, dayDateForTimeSlotsDictionary: dayDateOfTheCollection)
@@ -66,11 +66,11 @@ class IntervalAvailabilitiesCheckingOperations {
      DESCRIPTION: Gets the available time slots for day so that it can be used by ToDo interval scheduling
      TEST: Untested
      */
-    func getAvailableTimeSlotsForDay(dayToCheck: Date, toDoItemsForDay: [ToDo]) -> [String: TimeSlot] {
+    func getAvailableTimeSlotsForDay(dayToCheck: Date, toDoItemsForDay: [String: ToDo]) -> [String: TimeSlot] {
         //let toDoProcessHelper = ToDoProcessUtils()
         // Gets all the ToDos from the collection of the ToDos that belongs to the dayToCheck
-        let toDosForTheDay: [ToDo] = ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: dayToCheck, toDoItems: toDoItemsForDay)
-        //let toDosForTheDay: [ToDo] = toDoItemsForDay
+        let toDosForTheDay: [String: ToDo] = ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: dayToCheck, toDoItems: toDoItemsForDay)
+        //let toDosForTheDay: [String: ToDo] = toDoItemsForDay
         // Gets all the occupied timeSlots as a dictionary for the dayToCheck
         var occupiedTimeSlotsDictionary: [String:TimeSlot] = getOccupiedTimeSlots(collectionOfToDosForTheDay: toDosForTheDay, dayDateOfTheCollection: dayToCheck)
         // To store available timeSlots for the day as a dictionary

@@ -8,7 +8,20 @@
 
 import UIKit
 
-class StatusViewController: UIViewController {
+class StatusViewController: UIViewController, Observer {
+    private var _observerId: Int = 1
+    private var toDosController: ToDosController!
+    
+    var observerId: Int {
+        get {
+            return self._observerId
+        }
+    }
+    
+    func update<T>(with newValue: T) {
+        //setToDoItems(toDoItems: newValue as! [ToDo])
+        print("ToDo Items for ScheduleViewController has been updated")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
