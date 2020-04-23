@@ -281,7 +281,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             //let toDoRealIndex = ToDoProcessUtils.retrieveRealIndexOfToDo(toDoItem: toDoToBeDeleted[indexPath.row], toDoItemCollection: self.toDos)
             toDosController.updateToDos(modificationType: ListModificationType.REMOVE, toDo: toDoToBeDeleted.value)
             tableView.deleteRows(at: [indexPath], with: .fade)
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { 
                 // NOTE: This will make the tableView not reload, only the the calendarView item
                 self.shouldReloadTableView = false
                 self.calendarView.reloadItems(at: [self.currentCellIndexPath!])

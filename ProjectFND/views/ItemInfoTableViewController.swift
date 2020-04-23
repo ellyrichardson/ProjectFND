@@ -67,6 +67,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         
         taskItemCells = [
             StaticTableCell(name: "Task Details"),
+            StaticTableCell(name: "Task Type"),
             StaticTableCell(name: "Work Date"),
             StaticTableCell(name: "Estimated Time"),
             StaticTableCell(name: "Due Date"),
@@ -184,6 +185,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             tableView.beginUpdates()
             tableView.endUpdates()
         }
+        
         if indexPath.row == 1 {
             if taskItemCells[1].collapsed {
                 taskItemCells[1].collapsed = false
@@ -194,6 +196,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
                 taskItemCells[2].collapsed = false
                 taskItemCells[3].collapsed = false
                 taskItemCells[4].collapsed = false
+                taskItemCells[5].collapsed = false
             }
             tableView.beginUpdates()
             tableView.endUpdates()
@@ -202,12 +205,13 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             if taskItemCells[2].collapsed {
                 taskItemCells[2].collapsed = false
             } else {
-                taskItemCells[2].collapsed = true
+                taskItemCells[1].collapsed = false
                 // Uncollapse all other table rows
                 taskItemCells[0].collapsed = false
-                taskItemCells[1].collapsed = false
+                taskItemCells[2].collapsed = true
                 taskItemCells[3].collapsed = false
                 taskItemCells[4].collapsed = false
+                taskItemCells[5].collapsed = false
             }
             tableView.beginUpdates()
             tableView.endUpdates()
@@ -216,12 +220,13 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             if taskItemCells[3].collapsed {
                 taskItemCells[3].collapsed = false
             } else {
-                taskItemCells[3].collapsed = true
+                taskItemCells[2].collapsed = false
                 // Uncollapse all other table rows
                 taskItemCells[0].collapsed = false
                 taskItemCells[1].collapsed = false
-                taskItemCells[2].collapsed = false
+                taskItemCells[3].collapsed = true
                 taskItemCells[4].collapsed = false
+                taskItemCells[5].collapsed = false
             }
             tableView.beginUpdates()
             tableView.endUpdates()
@@ -230,12 +235,28 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             if taskItemCells[4].collapsed {
                 taskItemCells[4].collapsed = false
             } else {
+                taskItemCells[3].collapsed = false
+                // Uncollapse all other table rows
+                taskItemCells[0].collapsed = false
+                taskItemCells[1].collapsed = false
+                taskItemCells[2].collapsed = false
                 taskItemCells[4].collapsed = true
+                taskItemCells[5].collapsed = false
+            }
+            tableView.beginUpdates()
+            tableView.endUpdates()
+        }
+        if indexPath.row == 5 {
+            if taskItemCells[5].collapsed {
+                taskItemCells[5].collapsed = false
+            } else {
+                taskItemCells[4].collapsed = false
                 // Uncollapse all other table rows
                 taskItemCells[0].collapsed = false
                 taskItemCells[1].collapsed = false
                 taskItemCells[2].collapsed = false
                 taskItemCells[3].collapsed = false
+                taskItemCells[5].collapsed = true
             }
             tableView.beginUpdates()
             tableView.endUpdates()
@@ -256,7 +277,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         }
         if indexPath.row == 2 {
             if taskItemCells[2].collapsed {
-                return 170
+                return 100
             }
         }
         if indexPath.row == 3 {
@@ -266,6 +287,11 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         }
         if indexPath.row == 4 {
             if taskItemCells[4].collapsed {
+                return 170
+            }
+        }
+        if indexPath.row == 5 {
+            if taskItemCells[5].collapsed {
                 return 210
             }
         }

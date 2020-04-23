@@ -12,3 +12,9 @@ enum ListModificationType {
     case REMOVE
     case FINISHNESS
 }
+
+enum TaskTypes: String {
+    case PERSONAL = "Personal"
+    case SCHOOL = "School"
+    case WORK = "Work"
+}
