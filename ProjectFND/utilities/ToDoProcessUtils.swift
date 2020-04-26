@@ -166,10 +166,10 @@ class ToDoProcessUtils {
         let startDatePredicate = NSPredicate(format: "startDate == %@", toDoToUpdate.workDate as NSDate)
         let dueDatePredicate = NSPredicate(format: "dueDate == %@", toDoToUpdate.dueDate as NSDate)
         var statusPredicate = NSPredicate(format: "finished = %d", toDoToUpdate.finished)
-        let intervalizedPredicate = NSPredicate(format: "intervalized = %@", toDoToUpdate.isIntervalized())
+        let intervalizedPredicate = NSPredicate(format: "intervalized = %d", toDoToUpdate.isIntervalized())
         let intervalIdPredicate = NSPredicate(format: "intervalId = %@", toDoToUpdate.getIntervalId())
-        let intervalLengthPredicate = NSPredicate(format: "intervalLength = %@", toDoToUpdate.getIntervalLength())
-        let intervalIndexPredicate = NSPredicate(format: "intervalIndex = %@", toDoToUpdate.getIntervalIndex())
+        let intervalLengthPredicate = NSPredicate(format: "intervalLength = %d", toDoToUpdate.getIntervalLength())
+        let intervalIndexPredicate = NSPredicate(format: "intervalIndex = %d", toDoToUpdate.getIntervalIndex())
         let intervalDueDatePredicate = NSPredicate(format: "intervalDueDate == %@", toDoToUpdate.intervalDueDate as NSDate)
         
         if updateType == 1 {

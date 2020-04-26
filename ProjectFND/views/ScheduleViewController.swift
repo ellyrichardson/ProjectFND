@@ -355,6 +355,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             itemInfoTableViewController.setChosenDueDate(chosenDueDate: selectedToDoItem.getEndDate())
             // Sets the finish status of the todo in the itemInfoTableViewController to avoid its reset
             itemInfoTableViewController.setIsFinished(isFinished: selectedToDoItem.isFinished())
+            itemInfoTableViewController.setSelectedTaskType(selectedTaskTypePickerData: selectedToDoItem.getTaskType())
             // Retrieves the index of the selected toDo
             /*
             setSelectedToDoIndex(toDoItemIndex: retrieveRealIndexOfToDo(toDoItem: selectedToDoItem))

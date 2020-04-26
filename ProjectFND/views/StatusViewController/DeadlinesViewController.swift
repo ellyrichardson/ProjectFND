@@ -99,11 +99,12 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
         let intervalizedToDoItems = ToDoProcessUtils.retrieveAllIntervalizedTodos(toDoItems: toDoItems)
         let tupledIntervalizedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: intervalizedToDoItems)
         //let sortedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDoItems)
-        let randomColor = randomColorGenerator()//.cgColor
+        let randomColor = colorForIntervalsSummary(toDoItem: tupledIntervalizedToDoItems[indexPath.row].value)//.cgColor
+        //let nRandomColor = ToDoTableViewUtils.colorForToDoRow(toDoRowIndex: indexPath.row, toDoItems: tupledIntervalizedToDoItems)
         
         cell.intervalizedToDoLabel.text = tupledIntervalizedToDoItems[indexPath.row].value.getTaskName()
         cell.intervalizedToDoLabel.textColor = randomColor
-        cell.intervalizedToDoTypeLabel.text = randomTypeGenerator()
+        cell.intervalizedToDoTypeLabel.text = tupledIntervalizedToDoItems[indexPath.row].value.getTaskType()
         cell.intervalToDoTypeBorder.backgroundColor = randomColor
         cell.intervalizedToDoEstTimeLabel.text = tupledIntervalizedToDoItems[indexPath.row].value.getEstTime() + " Hours"
         //cell.intervalizedToDoEndingTimeLabel.text =  so
@@ -116,9 +117,15 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        ToDoTableViewUtils.makeCellMoveUpWithFade(cell: cell, indexPath: indexPath)
+        
+        var toDoItems: [String: ToDo] = getToDos()
+        //let sortedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDoItems)
+        let intervalizedToDoItems = ToDoProcessUtils.retrieveAllIntervalizedTodos(toDoItems: toDoItems)
+        let tupledIntervalizedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: intervalizedToDoItems)
         
         cell.contentView.layer.masksToBounds = true
-        let randomColor = randomColorGenerator().cgColor
+        let randomColor = colorForIntervalsSummary(toDoItem: tupledIntervalizedToDoItems[indexPath.row].value).cgColor
         //cell.contentView.layer.backgroundColor = randomColor
         //cell.layer.backgroundColor = randomColor
         
@@ -129,7 +136,34 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
         cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
     }
     
-    func randomColorGenerator() -> UIColor {
+    // TODO: Make this colorForIntervalsSummary() in the future!
+    func colorForIntervalsSummary(toDoItem: ToDo) -> UIColor {
+        
+        let currentDate = Date()
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "M/d/yy, h:mm a"
+        
+        //let toDoItem = toDoItems[toDoRowIndex]
+        
+        // Neutral status - if ToDo hasn't met due date yet
+        if toDoItem.finished == false && currentDate < toDoItem.dueDate {
+            // Yellowish color
+            return UIColor(red:1.00, green:0.89, blue:0.00, alpha:1.0)
+        }
+            // Finished - if ToDo is finished
+        else if toDoItem.finished == true {
+            // Greenish color
+            return UIColor(red:0.08, green:0.85, blue:0.42, alpha:1.0)
+        }
+            // Late - if ToDo hasn't finished yet and is past due date
+        else {
+            // Reddish orange color
+            return UIColor(red:1.00, green:0.5, blue:0.0, alpha:1.0)
+        }
+        
+        ////
+        /*
         let randomInt = Int.random(in: 0..<3)
         // Neutral status - if ToDo hasn't met due date yet
         if randomInt == 0 {
@@ -145,7 +179,7 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
         else {
             // Reddish orange color
             return UIColor(red:1.00, green:0.5, blue:0.0, alpha:1.0)
-        }
+        }*/
     }
     
     func randomTypeGenerator() -> String {
