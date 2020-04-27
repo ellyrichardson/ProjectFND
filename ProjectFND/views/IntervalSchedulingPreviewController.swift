@@ -470,6 +470,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         let intervalSchedRetrivHelper = IntervalAvailabilitiesRetrievalOperations()
         var assignedIntervals: Int = 0
         let intervalId = UUID().uuidString
+        var dateArithmeticOps = DateUtils()
         print("intervalAmounts")
         print(getIntervalAmount())
         while assignedIntervals < getIntervalAmount() {
@@ -487,6 +488,8 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
             
             let determinedInterval = (longestTimeIntervalEndTime.getEndTime().timeIntervalSince(longestTimeIntervalStartTime.getStartTime())/3600)
             
+            //DateUtils.addHoursToDate(<#T##DateUtils#>)
+            
             print("YOOOOOOO")
             print(determinedInterval)
             
@@ -497,6 +500,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
             let intervalStartDate = longestTimeIntervalStartTime.getStartTime()
             let intervalDueDate = longestTimeIntervalEndTime.getStartTime()
             let intervalStatus = getToDoToBeIntervalized().isFinished()
+            let testVar = dateArithmeticOps.addHoursToDate(date: intervalStartDate, hours: Double(getToDoToBeIntervalized().estTime)!)
             let intervalTaskType = getToDoToBeIntervalized().getTaskType()
             
             //let intervalEstTime = getToDoToBeIntervalized().getEstTime()
@@ -505,7 +509,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
             print(getIntervalLength())
             if determinedInterval >= getIntervalLength() {
                 // TODO: Action here
-                self.toDoIntervalsToAssign[intervalTaskId] = ToDo(taskId: intervalTaskId, taskName: intervalName, taskType: intervalTaskType,taskDescription: intervalDescription, workDate: intervalStartDate, estTime: String(getIntervalLength()), dueDate: intervalDueDate, finished: intervalStatus, intervalized: true, intervalId: intervalId, intervalLength: Int(getIntervalLength()), intervalIndex: assignedIntervals)!
+                self.toDoIntervalsToAssign[intervalTaskId] = ToDo(taskId: intervalTaskId, taskName: intervalName, taskType: intervalTaskType,taskDescription: intervalDescription, workDate: intervalStartDate, estTime: String(getIntervalLength()), dueDate: intervalDueDate, finished: intervalStatus, intervalized: true, intervalId: intervalId, intervalLength: Int(getIntervalAmount()), intervalIndex: assignedIntervals)!
                 assignedIntervals += 1
             }
             print("Assigned Intervals")

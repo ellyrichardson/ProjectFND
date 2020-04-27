@@ -107,6 +107,7 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
         cell.intervalizedToDoTypeLabel.text = tupledIntervalizedToDoItems[indexPath.row].value.getTaskType()
         cell.intervalToDoTypeBorder.backgroundColor = randomColor
         cell.intervalizedToDoEstTimeLabel.text = tupledIntervalizedToDoItems[indexPath.row].value.getEstTime() + " Hours"
+        cell.intervalizedToDoIntervalAmount.text = String(tupledIntervalizedToDoItems[indexPath.row].value.getIntervalLength())
         //cell.intervalizedToDoEndingTimeLabel.text =  so
         /*
         cell.taskNameLabel.text = sortedToDoItems[indexPath.row].value.getTaskName()
@@ -125,9 +126,10 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
         let tupledIntervalizedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: intervalizedToDoItems)
         
         cell.contentView.layer.masksToBounds = true
+        /*
         let randomColor = colorForIntervalsSummary(toDoItem: tupledIntervalizedToDoItems[indexPath.row].value).cgColor
-        //cell.contentView.layer.backgroundColor = randomColor
-        //cell.layer.backgroundColor = randomColor
+        cell.contentView.layer.backgroundColor = randomColor
+        cell.layer.backgroundColor = randomColor*/
         
         /*
          NOTE: If this is not set `shadowPath` you'll notice laggy scrolling. Mysterious code too.  It just make the shadow stuff work

@@ -26,6 +26,7 @@ class DeadlinesTableViewCell: UITableViewCell {
     @IBOutlet weak var intervalizedToDoTypeLabel: UILabel!
     @IBOutlet weak var intervalizedToDoEstTimeLabel: UILabel!
     @IBOutlet weak var intervalizedToDoEndingTimeLabel: UILabel!
+    @IBOutlet weak var intervalizedToDoIntervalAmount: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
