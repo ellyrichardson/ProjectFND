@@ -230,6 +230,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         cell.startDateLabel.text = workDateFormatter.string(from: sortedToDoItems[indexPath.row].value.getStartDate())
         cell.estTimeLabel.text = sortedToDoItems[indexPath.row].value.getEstTime()
         cell.dueDateLabel.text = dueDateFormatter.string(from: sortedToDoItems[indexPath.row].value.getEndDate())
+        cell.taskTypeLabel.text = sortedToDoItems[indexPath.row].value.getTaskType()
         // Assigns an index to the CheckBox button of a row
         cell.checkBoxButton.setToDoRowIndex(toDoRowIndex: indexPath.row)
         // Sets the status of the CheckBox being pressed

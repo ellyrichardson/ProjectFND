@@ -102,7 +102,7 @@ class ToDoProcessUtils {
             if result.count > 0 {
                 for toDo in result as! [NSManagedObject] {
                     let taskId = toDo.value(forKey: "taskId") as! String
-                    loadedToDo = ToDo(taskId: taskId, taskName: toDo.value(forKey: "taskName") as! String, taskType: toDo.value(forKey: "taskType") as! String, taskDescription: toDo.value(forKey: "taskDescription") as! String, workDate: toDo.value(forKey: "startDate") as! Date, estTime: toDo.value(forKey: "estTime") as! String, dueDate: toDo.value(forKey: "dueDate") as! Date, finished: (toDo.value(forKey: "finished") as! Bool), intervalized: (toDo.value(forKey: "intervalized") as! Bool), intervalId: toDo.value(forKey: "intervalId") as! String, intervalLength: Int(toDo.value(forKey: "intervalLength") as! String)!, intervalIndex: Int(toDo.value(forKey: "intervalIndex") as! String)!, intervalDueDate: toDo.value(forKey: "intervalDueDate") as! Date)
+                    loadedToDo = ToDo(taskId: taskId, taskName: toDo.value(forKey: "taskName") as! String, taskType: toDo.value(forKey: "taskType") as! String, taskDescription: toDo.value(forKey: "taskDescription") as! String, workDate: toDo.value(forKey: "startDate") as! Date, estTime: toDo.value(forKey: "estTime") as! String, dueDate: toDo.value(forKey: "dueDate") as! Date, finished: (toDo.value(forKey: "finished") as! Bool), intervalized: (toDo.value(forKey: "intervalized") as! Bool), intervalId: toDo.value(forKey: "intervalId") as! String, intervalLength: Int(toDo.value(forKey: "intervalLength") as! String)!, intervalIndex: Int(toDo.value(forKey: "intervalIndex") as! String)!, intervalDueDate: toDo.value(forKey: "intervalDueDate") as! Date, important: (toDo.value(forKey: "important") as! Bool), notifying: (toDo.value(forKey: "notifying") as! Bool))
                     loadedToDos[taskId] = loadedToDo
                 }
             }
@@ -140,6 +140,8 @@ class ToDoProcessUtils {
         toDoToSave.setValue(toDoItem.intervalLength, forKey: "intervalLength")
         toDoToSave.setValue(toDoItem.intervalIndex, forKey: "intervalIndex")
         toDoToSave.setValue(toDoItem.intervalDueDate, forKey: "intervalDueDate")
+        toDoToSave.setValue(toDoItem.important, forKey: "important")
+        toDoToSave.setValue(toDoItem.notifying, forKey: "notifying")
         
         do {
             try managedContext.save()
@@ -171,13 +173,15 @@ class ToDoProcessUtils {
         let intervalLengthPredicate = NSPredicate(format: "intervalLength = %d", toDoToUpdate.getIntervalLength())
         let intervalIndexPredicate = NSPredicate(format: "intervalIndex = %d", toDoToUpdate.getIntervalIndex())
         let intervalDueDatePredicate = NSPredicate(format: "intervalDueDate == %@", toDoToUpdate.intervalDueDate as NSDate)
+        let isImportantPredicate = NSPredicate(format: "important = %d", toDoToUpdate.isImportant())
+        let isNotifyingPredicate = NSPredicate(format: "notifying = %d", toDoToUpdate.isNotifying())
         
         if updateType == 1 {
             statusPredicate = NSPredicate(format: "finished = %d", !toDoToUpdate.finished)
         }
         
         // Combines different filters to one filter
-        let propertiesPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [taskIdPredicate, taskNamePredicate, taskTypePredicate, taskDescriptionPredicate, estTimePredicate, startDatePredicate, dueDatePredicate, statusPredicate, intervalizedPredicate, intervalIdPredicate, intervalLengthPredicate, intervalIndexPredicate, intervalDueDatePredicate])
+        let propertiesPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [taskIdPredicate, taskNamePredicate, taskTypePredicate, taskDescriptionPredicate, estTimePredicate, startDatePredicate, dueDatePredicate, statusPredicate, intervalizedPredicate, intervalIdPredicate, intervalLengthPredicate, intervalIndexPredicate, intervalDueDatePredicate, isImportantPredicate, isNotifyingPredicate])
         
         fetchRequest.predicate = propertiesPredicate
         
@@ -198,6 +202,8 @@ class ToDoProcessUtils {
             objectUpdate.setValue(newToDo.intervalLength, forKey: "intervalLength")
             objectUpdate.setValue(newToDo.intervalIndex, forKey: "intervalIndex")
             objectUpdate.setValue(newToDo.intervalDueDate, forKey: "intervalDueDate")
+            objectUpdate.setValue(newToDo.important, forKey: "important")
+            objectUpdate.setValue(newToDo.notifying, forKey: "notifying")
             
             do {
                 try managedContext.save()
@@ -232,9 +238,11 @@ class ToDoProcessUtils {
         let intervalLengthPredicate = NSPredicate(format: "intervalLength = %@", toDoToDelete.getIntervalLength())
         let intervalIndexPredicate = NSPredicate(format: "intervalIndex = %@", toDoToDelete.getIntervalIndex())
         let intervalDueDatePredicate = NSPredicate(format: "intervalDueDate == %@", toDoToDelete.intervalDueDate as NSDate)
+        let isImportantPredicate = NSPredicate(format: "important = %d", toDoToDelete.isImportant())
+        let isNotifyingPredicate = NSPredicate(format: "notifying = %d", toDoToDelete.isNotifying())
         
         // Combines different filters to one filter
-        let propertiesPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [taskIdPredicate, taskNamePredicate, taskTypePredicate, taskDescriptionPredicate, estTimePredicate, startDatePredicate, dueDatePredicate, statusPredicate, intervalizedPredicate, intervalIdPredicate, intervalLengthPredicate, intervalIndexPredicate, intervalDueDatePredicate])
+        let propertiesPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [taskIdPredicate, taskNamePredicate, taskTypePredicate, taskDescriptionPredicate, estTimePredicate, startDatePredicate, dueDatePredicate, statusPredicate, intervalizedPredicate, intervalIdPredicate, intervalLengthPredicate, intervalIndexPredicate, intervalDueDatePredicate, isImportantPredicate, isNotifyingPredicate])
         
         fetchRequest.predicate = propertiesPredicate
         
@@ -300,14 +308,16 @@ class ToDoProcessUtils {
     
     static func retrieveIntervalizedToDosById(toDoItems: [String: ToDo], intervalizedTodoId: String) -> [String: ToDo] {
         var intervalizedToDosGroupedById: [String: ToDo] = [String: ToDo]()
-        
+        /*
         let toDoKeys = intervalizedToDosGroupedById // This is a [String: int] dictionary
             .filter { (k, v) -> Bool in v.getIntervalId() == intervalizedTodoId}
             .map { (k, v) -> String in k }
         
         for toDoKey in toDoKeys {
             intervalizedToDosGroupedById[toDoKey] = toDoItems[toDoKey]
-        }
+        }*/
+        
+        intervalizedToDosGroupedById = toDoItems.filter {$0.value.getIntervalId() == intervalizedTodoId}
         
         return intervalizedToDosGroupedById
     }

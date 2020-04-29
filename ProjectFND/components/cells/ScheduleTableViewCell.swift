@@ -18,6 +18,7 @@ class ScheduleTableViewCell: UITableViewCell, UITableViewDelegate {
     @IBOutlet weak var estTimeLabel: UILabel!
     @IBOutlet weak var dueDateLabel: UILabel!
     
+    @IBOutlet weak var taskTypeLabel: UILabel!
     @IBOutlet weak var checkBoxButton: CheckBoxButton!
     @IBOutlet weak var expandButton: ExpandButton!
     

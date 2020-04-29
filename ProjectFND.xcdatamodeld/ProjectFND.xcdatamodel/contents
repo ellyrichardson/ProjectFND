@@ -4,11 +4,13 @@
         <attribute name="dueDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="estTime" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="finished" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="important" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="intervalDueDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="intervalId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="intervalIndex" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="intervalized" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="intervalLength" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="notifying" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="taskDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="taskId" optional="YES" attributeType="String" syncable="YES"/>
@@ -16,6 +18,6 @@
         <attribute name="taskType" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="IOS_ToDos" positionX="-63" positionY="-18" width="128" height="240"/>
+        <element name="IOS_ToDos" positionX="-63" positionY="-18" width="128" height="270"/>
     </elements>
 </model>

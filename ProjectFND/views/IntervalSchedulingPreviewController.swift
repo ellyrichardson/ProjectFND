@@ -481,6 +481,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
                 print("AvailableTimeSlots Less than 0")
             }
             let longestTimeIntervalStartTime = intervalSchedRetrivHelper.getStartTimeOfConsecutiveTimeSlots(consecutiveTimeSlot: availableTimeSlots, dayOfConcern: actualDateOfTheDay)
+            // NOTE: This is the actual end time of the task, including its intervals
             let longestTimeIntervalEndTime = intervalSchedRetrivHelper.getEndTimeOfConsecutiveTimeSlots(consecutiveTimeSlot: availableTimeSlots, dayOfConcern: actualDateOfTheDay)
             
             //let cal = Calendar.current
@@ -498,15 +499,18 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
             let intervalName = getToDoToBeIntervalized().getTaskName()
             let intervalDescription = getToDoToBeIntervalized().getTaskDescription()
             let intervalStartDate = longestTimeIntervalStartTime.getStartTime()
-            let intervalDueDate = longestTimeIntervalEndTime.getStartTime()
+            //let intervalDueDate = longestTimeIntervalEndTime.getStartTime()
+            let intervalDueDate =  dateArithmeticOps.addHoursToDate(date: intervalStartDate, hours: getIntervalLength())
             let intervalStatus = getToDoToBeIntervalized().isFinished()
-            let testVar = dateArithmeticOps.addHoursToDate(date: intervalStartDate, hours: Double(getToDoToBeIntervalized().estTime)!)
+            
+            //let testVar = dateArithmeticOps.addHoursToDate(date: intervalStartDate, hours: Double(getToDoToBeIntervalized().estTime)!)
             let intervalTaskType = getToDoToBeIntervalized().getTaskType()
             
             //let intervalEstTime = getToDoToBeIntervalized().getEstTime()
             // NOTE: Don't know the return of the timeIntervalSince if it is in hours or seconds
             print("Interval Length")
             print(getIntervalLength())
+            // NOTE: The interval length is the length of a single interval in the whole task
             if determinedInterval >= getIntervalLength() {
                 // TODO: Action here
                 self.toDoIntervalsToAssign[intervalTaskId] = ToDo(taskId: intervalTaskId, taskName: intervalName, taskType: intervalTaskType,taskDescription: intervalDescription, workDate: intervalStartDate, estTime: String(getIntervalLength()), dueDate: intervalDueDate, finished: intervalStatus, intervalized: true, intervalId: intervalId, intervalLength: Int(getIntervalAmount()), intervalIndex: assignedIntervals)!

@@ -1152,6 +1152,7 @@
                                             <outlet property="estTimeLabel" destination="p4a-zy-V6N" id="9XK-m8-o7X"/>
                                             <outlet property="startDateLabel" destination="XUa-SI-VXI" id="EQe-6v-1xb"/>
                                             <outlet property="taskNameLabel" destination="8ou-jz-3c5" id="Wdh-k5-XAX"/>
+                                            <outlet property="taskTypeLabel" destination="PXt-og-tlY" id="qfD-6z-tyo"/>
                                             <segue destination="knJ-Sz-Bcd" kind="show" identifier="ShowToDoItemDetails" id="Hmx-bT-i6Z"/>
                                         </connections>
                                     </tableViewCell>
