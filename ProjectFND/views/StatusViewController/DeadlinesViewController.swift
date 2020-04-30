@@ -108,7 +108,7 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
         return cell
     }
     
-    private func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         ToDoTableViewUtils.makeCellMoveUpWithFade(cell: cell, indexPath: indexPath)
         
         var toDoItems: [String: ToDo] = getToDos()
