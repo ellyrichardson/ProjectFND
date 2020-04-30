@@ -11,6 +11,7 @@ import UIKit
 class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, Observer {
     private var _observerId: Int = 1
     private var toDosController: ToDosController!
+    private let formatter = DateFormatter()
     
     var observerId: Int {
         get {
@@ -69,8 +70,7 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Gets the ToDos that fall under the selected day in calendar
-        //return getToDos().count
-        var toDoItems: [String: ToDo] = getToDos()
+        let toDoItems: [String: ToDo] = getToDos()
         let intervalizedToDoItems = ToDoProcessUtils.retrieveAllIntervalizedTodos(toDoItems: toDoItems)
         let tupledIntervalizedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: intervalizedToDoItems)
         return tupledIntervalizedToDoItems.count
@@ -82,45 +82,41 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let dateCellIdentifier = "DeadlinesTableViewCell"
-        
-        /*
-        let dueDateFormatter = DateFormatter()
-        let workDateFormatter = DateFormatter()
-        dueDateFormatter.dateFormat = "h:mm a"
-        workDateFormatter.dateFormat = "h:mm a"
- */
+        formatter.dateFormat = "MMM dd"
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: dateCellIdentifier, for: indexPath) as? DeadlinesTableViewCell else {
             fatalError("The dequeued cell is not an instance of ScheduleTableViewCell.")
         }
         
-        var toDoItems: [String: ToDo] = getToDos()
+        let toDoItems: [String: ToDo] = getToDos()
         //let sortedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDoItems)
         let intervalizedToDoItems = ToDoProcessUtils.retrieveAllIntervalizedTodos(toDoItems: toDoItems)
         let tupledIntervalizedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: intervalizedToDoItems)
         //let sortedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDoItems)
-        let randomColor = randomColorGenerator()//.cgColor
+        let randomColor = colorForIntervalsSummary(toDoItem: tupledIntervalizedToDoItems[indexPath.row].value)//.cgColor
+        //let nRandomColor = ToDoTableViewUtils.colorForToDoRow(toDoRowIndex: indexPath.row, toDoItems: tupledIntervalizedToDoItems)
+        let intervalizedToDo = tupledIntervalizedToDoItems[indexPath.row].value
         
-        cell.intervalizedToDoLabel.text = tupledIntervalizedToDoItems[indexPath.row].value.getTaskName()
+        cell.intervalizedToDoLabel.text = intervalizedToDo.getTaskName()
         cell.intervalizedToDoLabel.textColor = randomColor
-        cell.intervalizedToDoTypeLabel.text = randomTypeGenerator()
+        cell.intervalizedToDoTypeLabel.text = intervalizedToDo.getTaskType()
         cell.intervalToDoTypeBorder.backgroundColor = randomColor
-        cell.intervalizedToDoEstTimeLabel.text = tupledIntervalizedToDoItems[indexPath.row].value.getEstTime() + " Hours"
-        //cell.intervalizedToDoEndingTimeLabel.text =  so
-        /*
-        cell.taskNameLabel.text = sortedToDoItems[indexPath.row].value.getTaskName()
-        cell.taskTypeLabel.text = "Personal"
-        cell.deadlineDateLabel.text = "12 January, 2020"*/
+        cell.intervalizedToDoEstTimeLabel.text = String(Double(getTotalHoursOfIntervalizedToDo(intervalId: intervalizedToDo.getIntervalId()))) + " Hours"
+        cell.intervalizedToDoEndingTimeLabel.text = "Due " + formatter.string(from: intervalizedToDo.getIntervalDueDate())
+        cell.intervalizedToDoIntervalAmount.text = String(intervalizedToDo.getIntervalLength())
         
         return cell
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    private func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        ToDoTableViewUtils.makeCellMoveUpWithFade(cell: cell, indexPath: indexPath)
+        
+        var toDoItems: [String: ToDo] = getToDos()
+        //let sortedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDoItems)
+        let intervalizedToDoItems = ToDoProcessUtils.retrieveAllIntervalizedTodos(toDoItems: toDoItems)
+        let tupledIntervalizedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: intervalizedToDoItems)
         
         cell.contentView.layer.masksToBounds = true
-        let randomColor = randomColorGenerator().cgColor
-        //cell.contentView.layer.backgroundColor = randomColor
-        //cell.layer.backgroundColor = randomColor
         
         /*
          NOTE: If this is not set `shadowPath` you'll notice laggy scrolling. Mysterious code too.  It just make the shadow stuff work
@@ -129,15 +125,23 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
         cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
     }
     
-    func randomColorGenerator() -> UIColor {
-        let randomInt = Int.random(in: 0..<3)
+    // TODO: Make this colorForIntervalsSummary() in the future!
+    private func colorForIntervalsSummary(toDoItem: ToDo) -> UIColor {
+        
+        let currentDate = Date()
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "M/d/yy, h:mm a"
+        
+        //let toDoItem = toDoItems[toDoRowIndex]
+        
         // Neutral status - if ToDo hasn't met due date yet
-        if randomInt == 0 {
+        if toDoItem.finished == false && currentDate < toDoItem.dueDate {
             // Yellowish color
             return UIColor(red:1.00, green:0.89, blue:0.00, alpha:1.0)
         }
             // Finished - if ToDo is finished
-        else if randomInt == 1 {
+        else if toDoItem.finished == true {
             // Greenish color
             return UIColor(red:0.08, green:0.85, blue:0.42, alpha:1.0)
         }
@@ -148,27 +152,12 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    func randomTypeGenerator() -> String {
-        let randomInt = Int.random(in: 0..<3)
-        if randomInt == 0 {
-            return "Personal"
+    private func getTotalHoursOfIntervalizedToDo(intervalId: String) -> Int {
+        let intervalizedToDoItems = ToDoProcessUtils.retrieveIntervalizedToDosById(toDoItems: getToDos(), intervalizedTodoId: intervalId)
+        var totalIntervalizedToDoTimeLength: Int = 0
+        for toDoItem in intervalizedToDoItems {
+            totalIntervalizedToDoTimeLength += Int(Double(toDoItem.value.getEstTime())!)
         }
-        else if randomInt == 1 {
-            return "Work"
-        }
-        else {
-            return "School"
-        }
+        return totalIntervalizedToDoTimeLength
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

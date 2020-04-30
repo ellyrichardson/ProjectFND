@@ -18,6 +18,7 @@ class ToDo: NSObject, NSCoding {
     var taskName, taskDescription, estTime: String
     var workDate, dueDate, intervalDueDate: Date
     var finished, intervalized: Bool
+    var important, notifying: Bool
     var intervalLength, intervalIndex: String
     /*
      Add:
@@ -45,10 +46,12 @@ class ToDo: NSObject, NSCoding {
         static let intervalLength = "intervalLength"
         static let intervalIndex =  "intervalIndex"
         static let intervalDueDate = "intervalDueDate"
+        static let important = "important"
+        static let notifying = "notifying"
     }
     
     // MARK: - Initialization
-    init?(taskId: String, taskName: String, taskType: String = TaskTypes.PERSONAL.rawValue,taskDescription: String, workDate: Date, estTime: String, dueDate: Date, finished: Bool, intervalized: Bool = false, intervalId: String = "", intervalLength: Int = 0, intervalIndex: Int = 0, intervalDueDate: Date = Date()) {
+    init?(taskId: String, taskName: String, taskType: String = TaskTypes.PERSONAL.rawValue,taskDescription: String, workDate: Date, estTime: String, dueDate: Date, finished: Bool, intervalized: Bool = false, intervalId: String = "", intervalLength: Int = 0, intervalIndex: Int = 0, intervalDueDate: Date = Date(), important: Bool = false, notifying: Bool = false) {
         
         
         // To fail init if one of them is empty
@@ -70,6 +73,8 @@ class ToDo: NSObject, NSCoding {
         self.intervalLength = String(intervalLength)
         self.intervalIndex = String(intervalIndex)
         self.intervalDueDate = intervalDueDate
+        self.important = important
+        self.notifying = notifying
     }
     
     override init() {
@@ -87,6 +92,8 @@ class ToDo: NSObject, NSCoding {
         self.intervalLength = String(0)
         self.intervalIndex = String(0)
         self.intervalDueDate = Date()
+        self.important = false
+        self.notifying = false
     }
     
     // MARK: - NSCoding
@@ -104,6 +111,8 @@ class ToDo: NSObject, NSCoding {
         aCoder.encode(intervalLength, forKey: PropertyKey.intervalLength)
         aCoder.encode(intervalIndex, forKey: PropertyKey.intervalIndex)
         aCoder.encode(intervalDueDate, forKey: PropertyKey.intervalDueDate)
+        aCoder.encode(important, forKey: PropertyKey.important)
+        aCoder.encode(notifying, forKey: PropertyKey.notifying)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
@@ -191,8 +200,20 @@ class ToDo: NSObject, NSCoding {
                 return nil
         }
         
+        let important = Bool(aDecoder.decodeBool(forKey: PropertyKey.important))
+        if important == nil {
+            os_log("Unable to decode if ToDo object is important.", log: OSLog.default, type: .debug)
+            return nil
+        }
+        
+        let notifying = Bool(aDecoder.decodeBool(forKey: PropertyKey.intervalized))
+        if notifying == nil {
+            os_log("Unable to decode if ToDo object is notifying.", log: OSLog.default, type: .debug)
+            return nil
+        }
+        
         // Must call designated initializer.
-        self.init(taskId: taskId, taskName: taskName, taskType: taskType, taskDescription: taskDescription, workDate: workDate, estTime: estTime, dueDate: dueDate, finished: finished,  intervalized: intervalized, intervalId: intervalId, intervalLength: Int(intervalLength)!, intervalIndex: Int(intervalIndex)!, intervalDueDate: intervalDueDate)
+        self.init(taskId: taskId, taskName: taskName, taskType: taskType, taskDescription: taskDescription, workDate: workDate, estTime: estTime, dueDate: dueDate, finished: finished,  intervalized: intervalized, intervalId: intervalId, intervalLength: Int(intervalLength)!, intervalIndex: Int(intervalIndex)!, intervalDueDate: intervalDueDate, important: important, notifying: notifying)
     }
     
     func  getTaskId() -> String {
@@ -245,5 +266,13 @@ class ToDo: NSObject, NSCoding {
     
     func getIntervalDueDate() -> Date {
         return self.intervalDueDate
+    }
+    
+    func isImportant() -> Bool {
+        return self.important
+    }
+    
+    func isNotifying() -> Bool {
+        return self.notifying
     }
 }

@@ -229,7 +229,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         cell.taskNameLabel.text = sortedToDoItems[indexPath.row].value.getTaskName()
         cell.startDateLabel.text = workDateFormatter.string(from: sortedToDoItems[indexPath.row].value.getStartDate())
         cell.estTimeLabel.text = sortedToDoItems[indexPath.row].value.getEstTime()
-        cell.dueDateLabel.text = dueDateFormatter.string(from: sortedToDoItems[indexPath.row].value .getEndDate())
+        cell.dueDateLabel.text = dueDateFormatter.string(from: sortedToDoItems[indexPath.row].value.getEndDate())
+        cell.taskTypeLabel.text = sortedToDoItems[indexPath.row].value.getTaskType()
         // Assigns an index to the CheckBox button of a row
         cell.checkBoxButton.setToDoRowIndex(toDoRowIndex: indexPath.row)
         // Sets the status of the CheckBox being pressed
@@ -355,6 +356,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             itemInfoTableViewController.setChosenDueDate(chosenDueDate: selectedToDoItem.getEndDate())
             // Sets the finish status of the todo in the itemInfoTableViewController to avoid its reset
             itemInfoTableViewController.setIsFinished(isFinished: selectedToDoItem.isFinished())
+            itemInfoTableViewController.setSelectedTaskType(selectedTaskTypePickerData: selectedToDoItem.getTaskType())
             // Retrieves the index of the selected toDo
             /*
             setSelectedToDoIndex(toDoItemIndex: retrieveRealIndexOfToDo(toDoItem: selectedToDoItem))

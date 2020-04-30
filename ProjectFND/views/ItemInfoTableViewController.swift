@@ -9,10 +9,11 @@
 import UIKit
 import os.log
 
-class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate {
-
+class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+    
     @IBOutlet weak var taskNameDescriptionLabel: UILabel!
     @IBOutlet weak var taskNameField: UITextField!
+    @IBOutlet weak var taskTypeLabel: UILabel!
     @IBOutlet weak var taskDescriptionView: UITextView!
     @IBOutlet weak var estTimeLabel: UILabel!
     @IBOutlet weak var estTimeField: UITextField!
@@ -24,8 +25,11 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     @IBOutlet weak var intervalSchedulingHourField: UITextField!
     @IBOutlet weak var intervalSchedulingDayField: UITextField!
     @IBOutlet weak var intervalSchedulingSetupButton: UIButton!
+    @IBOutlet weak var taskTypePicker: UIPickerView!
     
     private var taskItemCells = [StaticTableCell]()
+    private var taskTypePickerData: [String] = [String]()
+    private var selectedTaskTypePickerData: String = String()
     var toDo: ToDo?
     private var toDos = [String: ToDo]()
     var toDoIntervals: [String: ToDo] = [String: ToDo]()
@@ -48,6 +52,12 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         super.viewDidLoad()
         
         let nav = self.navigationController?.navigationBar
+        
+        self.taskTypePicker.delegate = self
+        self.taskTypePicker.dataSource = self
+        
+        taskTypePickerData = ["Personal", "Work", "School"]
+        //setPickerViewSelectedRow()
         
         // Sets the navigation bar to color black with tintColor of yellow.
         nav?.barStyle = UIBarStyle.black
@@ -90,9 +100,45 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             estTimeField.text = toDo.estTime
             endDateLabel.text = "Due Date: " + dateFormatter.string(from: toDo.dueDate)
             endDatePicker.date = toDo.dueDate
+            taskTypeLabel.text = "Task Type: " + toDo.getTaskType()
+            // TODO: Fix the selecting of already selected Rows!
+            //setPickerViewSelectedRow()
         }
         
         updateSaveButtonState()
+    }
+    
+    
+    // MARK: - Picker Utilities
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return taskTypePickerData.count
+    }
+    
+    // Returns the taskTypePickerData to the TaskTypePicker
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return taskTypePickerData[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.selectedTaskTypePickerData = taskTypePickerData[row]
+        self.taskTypeLabel.text = "Task Type: " + self.selectedTaskTypePickerData
+    }
+    
+    func setPickerViewSelectedRow() {
+        let selectedTaskType = toDo?.getTaskType()
+        switch selectedTaskType {
+        case "Work":
+            self.taskTypePicker.selectedRow(inComponent: 1)
+        case "School":
+            self.taskTypePicker.selectedRow(inComponent: 2)
+        default:
+            self.taskTypePicker.selectedRow(inComponent: 0)
+        }
     }
     
     // MARK: - Setters
@@ -107,6 +153,10 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     
     func setIsFinished(isFinished: Bool) {
         self.finished = isFinished
+    }
+    
+    func setSelectedTaskType(selectedTaskTypePickerData: String) {
+        self.selectedTaskTypePickerData = selectedTaskTypePickerData
     }
     
     // MARK: - Getters
@@ -272,7 +322,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         }
         if indexPath.row == 1 {
             if taskItemCells[1].collapsed {
-                return 100
+                return 132
             }
         }
         if indexPath.row == 2 {
@@ -315,6 +365,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             let workDate = chosenWorkDate
             let estTime = estTimeField.text
             let dueDate = chosenDueDate
+            let taskType = self.selectedTaskTypePickerData
             
             updateSaveButtonState()
             navigationItem.title = taskName
@@ -336,11 +387,13 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             intervalSchedulingPreviewController.setToDoEndDate(toDoEndDate: dueDate)
             if toDo == nil {
                 // Set the ToDo to be intervalized to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being created
-                intervalSchedulingPreviewController.setToDoToBeIntervalized(toDo: ToDo(taskId: stringedUUID, taskName: taskName!, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())!)
+                intervalSchedulingPreviewController.setToDoToBeIntervalized(toDo: ToDo(taskId: stringedUUID, taskName: taskName!, taskType: taskType, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())!)
             }
+                /*
+                (taskId: String, taskName: String, taskType: String = TaskTypes.PERSONAL.rawValue,taskDescription: String, workDate: Date, estTime: String, dueDate: Date, finished: Bool, intervalized: Bool = false, intervalId: String = "", intervalLength: Int = 0, intervalIndex: Int = 0, intervalDueDate: Date = Date())*/
             else {
                 // Set the ToDo to be intervalized to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being modified and is already  created
-                intervalSchedulingPreviewController.setToDoToBeIntervalized(toDo: ToDo(taskId: (self.toDo?.getTaskId())!,taskName: taskName!, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())!)
+                intervalSchedulingPreviewController.setToDoToBeIntervalized(toDo: ToDo(taskId: (self.toDo?.getTaskId())!,taskName: taskName!, taskType: taskType, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished(), intervalized: (toDo?.isIntervalized())!, intervalId: (toDo?.getIntervalId())!, intervalLength: (toDo?.getIntervalLength())! ,intervalIndex: (toDo?.getIntervalIndex())!, intervalDueDate: (toDo?.getIntervalDueDate())!)!)
             }
             
         } else {
@@ -356,16 +409,17 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             let workDate = chosenWorkDate
             let estTime = estTimeField.text
             let dueDate = chosenDueDate
+            let taskType = self.selectedTaskTypePickerData
             
             updateSaveButtonState()
             navigationItem.title = taskName
             
             if toDo == nil  {
-                // Set the ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being created
-                toDo = ToDo(taskId: UUID().uuidString, taskName: taskName!, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())
+                // Set the Non-Intervalized ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being created
+                toDo = ToDo(taskId: UUID().uuidString, taskName: taskName!, taskType: taskType, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())
             } else {
-                // Set the ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being modified and is already  created
-                toDo = ToDo(taskId: (self.toDo?.taskId)!, taskName: taskName!, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())
+                // Set the Non-Intervalized ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being modified and is already  created
+                toDo = ToDo(taskId: (self.toDo?.taskId)!, taskName: taskName!, taskType: taskType, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())
             }
         }
     }
