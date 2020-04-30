@@ -11,6 +11,8 @@ enum ListModificationType {
     case UPDATE
     case REMOVE
     case FINISHNESS
+    case IMPORTANT
+    case NOTIFICATION
 }
 
 enum TaskTypes: String {

@@ -106,13 +106,6 @@ class ToDosController {
     func updateToDos(modificationType: ListModificationType, toDo: ToDo) {
         switch modificationType {
         case .UPDATE:
-            /*
-            let toDoToUpdate = getToDos()[toDo.getTaskId()]
-            if toDoToUpdate?.finished == toDo.finished {
-                ToDoProcessUtils.updateToDo(toDoToUpdate: toDoToUpdate!, newToDo: toDo, updateType: 0)
-            } else {
-                ToDoProcessUtils.updateToDo(toDoToUpdate: toDoToUpdate!, newToDo: toDo, updateType: 1)
-            }*/
             let toDoToUpdate = getToDos()[toDo.getTaskId()]
             ToDoProcessUtils.updateToDo(toDoToUpdate: toDoToUpdate!, newToDo: toDo, updateType: 0)
         case .REMOVE:
@@ -121,6 +114,14 @@ class ToDosController {
             let toDoToUpdate = getToDos()[toDo.getTaskId()]
             toDo.finished = !toDo.finished
             ToDoProcessUtils.updateToDo(toDoToUpdate: toDoToUpdate!, newToDo: toDo, updateType: 1)
+        case .IMPORTANT:
+            let toDoToUpdate = getToDos()[toDo.getTaskId()]
+            toDo.important = !toDo.important
+            ToDoProcessUtils.updateToDo(toDoToUpdate: toDoToUpdate!, newToDo: toDo, updateType: 2)
+        case .NOTIFICATION:
+            let toDoToUpdate = getToDos()[toDo.getTaskId()]
+            toDo.notifying = !toDo.notifying
+            ToDoProcessUtils.updateToDo(toDoToUpdate: toDoToUpdate!, newToDo: toDo, updateType: 3)
         default:
             ToDoProcessUtils.saveToDos(toDoItem: toDo)
         }

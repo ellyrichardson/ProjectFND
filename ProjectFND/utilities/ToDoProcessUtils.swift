@@ -173,11 +173,17 @@ class ToDoProcessUtils {
         let intervalLengthPredicate = NSPredicate(format: "intervalLength = %d", toDoToUpdate.getIntervalLength())
         let intervalIndexPredicate = NSPredicate(format: "intervalIndex = %d", toDoToUpdate.getIntervalIndex())
         let intervalDueDatePredicate = NSPredicate(format: "intervalDueDate == %@", toDoToUpdate.intervalDueDate as NSDate)
-        let isImportantPredicate = NSPredicate(format: "important = %d", toDoToUpdate.isImportant())
-        let isNotifyingPredicate = NSPredicate(format: "notifying = %d", toDoToUpdate.isNotifying())
+        var isImportantPredicate = NSPredicate(format: "important = %d", toDoToUpdate.isImportant())
+        var isNotifyingPredicate = NSPredicate(format: "notifying = %d", toDoToUpdate.isNotifying())
         
         if updateType == 1 {
             statusPredicate = NSPredicate(format: "finished = %d", !toDoToUpdate.finished)
+        }
+        else if updateType == 2 {
+            isImportantPredicate = NSPredicate(format: "important = %d", !toDoToUpdate.isImportant())
+        }
+        else if updateType == 3 {
+            isNotifyingPredicate = NSPredicate(format: "notifying = %d", !toDoToUpdate.isNotifying())
         }
         
         // Combines different filters to one filter
@@ -338,6 +344,23 @@ class ToDoProcessUtils {
         }*/
         
         return intervalizedToDos
+    }
+    
+    static func isToDoOverdue(toDoRowIndex: Int, toDoItems: [(key: String, value: ToDo)]) -> Bool {
+        let currentDate = Date()
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "M/d/yy, h:mm a"
+        
+        let toDoItem = toDoItems[toDoRowIndex]
+        
+        // Neutral status - if ToDo hasn't met due date yet
+        if toDoItem.value.finished == false && currentDate < toDoItem.value.dueDate {
+            return false
+        }
+        else {
+            return true
+        }
     }
     
     /*

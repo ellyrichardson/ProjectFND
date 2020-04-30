@@ -1,16 +1,16 @@
 //
-//  ExpandButton.swift
+//  ImportantButton.swift
 //  ProjectFND
 //
-//  Created by Elly Richardson on 9/20/19.
-//  Copyright © 2019 EllyRichardson. All rights reserved.
+//  Created by Elly Richardson on 4/29/20.
+//  Copyright © 2020 EllyRichardson. All rights reserved.
 //
 
 import UIKit
 
-class ExpandButton: TransformingButton {
-    let expandedImage = UIImage(named: "ExpandToDo")! as UIImage
-    let collapsedImage = UIImage(named: "CollapseToDo")! as UIImage
+class ImportantButton: TransformingButton {
+    let importantImage = UIImage(named: "FilledStar")! as UIImage
+    let unimporantImage = UIImage(named: "EmptyStar")! as UIImage
     
     private var toDoRowIndex: Int = Int()
     
@@ -19,9 +19,9 @@ class ExpandButton: TransformingButton {
             if getPressedStatus() == true {
                 print("pressed status")
                 print(getPressedStatus())
-                self.setImage(collapsedImage, for: UIControl.State.normal)
+                self.setImage(importantImage, for: UIControl.State.normal)
             } else {
-                self.setImage(expandedImage, for: UIControl.State.normal)
+                self.setImage(unimporantImage, for: UIControl.State.normal)
             }
         }
     }
@@ -43,11 +43,11 @@ class ExpandButton: TransformingButton {
         self.toDoRowIndex = Int()
     }
     
-    func setExpandedRowIndex(toDoRowIndex: Int) {
+    func setImportantRowIndex(toDoRowIndex: Int) {
         self.toDoRowIndex = toDoRowIndex
     }
     
-    func getExpandedRowIndex() -> Int {
+    func getImportantRowIndex() -> Int {
         return self.toDoRowIndex
     }
     
