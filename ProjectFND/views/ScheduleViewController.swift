@@ -237,6 +237,17 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         cell.checkBoxButton.tag = indexPath.row
         cell.checkBoxButton.setPressedStatus(isPressed: sortedToDoItems[indexPath.row].value.isFinished())
         cell.checkBoxButton.addTarget(self, action: #selector(onCheckBoxButtonTap(sender:)), for: .touchUpInside)
+        
+        // Assigns an index to the CheckBox button of a row
+        //cell.importantButton.setImportantRowIndex(toDoRowIndex: indexPath.row)
+        // Sets the status of the CheckBox being pressed
+        cell.importantButton.tag = indexPath.row
+        cell.importantButton.setPressedStatus(isPressed: sortedToDoItems[indexPath.row].value.isImportant())
+        cell.importantButton.addTarget(self, action: #selector(onImportantButtonTap(sender:)), for: .touchUpInside)
+        
+        cell.notifyButton.tag = indexPath.row
+        cell.notifyButton.setPressedStatus(isPressed: sortedToDoItems[indexPath.row].value.isNotifying())
+        cell.notifyButton.addTarget(self, action: #selector(onNotificationButtonTap(sender:)), for: .touchUpInside)
         return cell
     }
     
@@ -446,13 +457,29 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         //self.calendarView.cell
         print("value of currentCellIndexPath")
         print(self.currentCellIndexPath)
-        //self.currentCellIndexPath![0] = self.currentCellIndexPath![1]
-        //if self.currentCellIndexPath
         self.shouldReloadTableView = false
         self.calendarView.reloadItems(at: [self.currentCellIndexPath!])
         //self.calendarView.reloadData()
         //self.calendarView.reloadDates([actDate!])
         //GeneralViewUtils.reloadCollectionViewData(collectionView: self.calendarView)
+    }
+    
+    @objc func onImportantButtonTap(sender: ImportantButton) {
+        // The toDosByDay variable should be sorted already
+        var toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
+        let tempToDoItem: ToDo = toDosByDay[sender.tag].value
+        let newToDoItem = tempToDoItem
+        
+        toDosController.updateToDos(modificationType: ListModificationType.IMPORTANT, toDo: newToDoItem)
+    }
+    
+    @objc func onNotificationButtonTap(sender: NotificationButton) {
+        // The toDosByDay variable should be sorted already
+        var toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
+        let tempToDoItem: ToDo = toDosByDay[sender.tag].value
+        let newToDoItem = tempToDoItem
+        
+        toDosController.updateToDos(modificationType: ListModificationType.NOTIFICATION, toDo: newToDoItem)
     }
     
     @objc func onExpandRowButtonTap(sender: ExpandButton) {

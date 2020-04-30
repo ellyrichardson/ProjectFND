@@ -1095,52 +1095,51 @@
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EmptyStar" translatesAutoresizingMaskIntoConstraints="NO" id="bm8-lW-PDT">
-                                                    <rect key="frame" x="20" y="109" width="25" height="25"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="25" id="LVo-E8-Kl0"/>
-                                                        <constraint firstAttribute="width" constant="25" id="PBD-JR-TSM"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EmptyBell" translatesAutoresizingMaskIntoConstraints="NO" id="ys0-CO-k1s">
-                                                    <rect key="frame" x="58" y="109" width="25" height="25"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="25" id="Pxu-hd-cxX"/>
-                                                        <constraint firstAttribute="width" constant="25" id="YGE-zl-fgc"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EmptyFriends" translatesAutoresizingMaskIntoConstraints="NO" id="biT-CS-dJq">
-                                                    <rect key="frame" x="96" y="109" width="25" height="25"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="25" id="1Sa-Kh-cBD"/>
-                                                        <constraint firstAttribute="height" constant="25" id="R0v-5L-klA"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FinishedImage" translatesAutoresizingMaskIntoConstraints="NO" id="23g-cg-Hke">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TaskFinishedImage" translatesAutoresizingMaskIntoConstraints="NO" id="23g-cg-Hke">
                                                     <rect key="frame" x="312" y="50" width="50" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="5Si-3O-bBx"/>
                                                         <constraint firstAttribute="width" constant="50" id="Vnl-Ey-FhU"/>
                                                     </constraints>
                                                 </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4AZ-J1-db4" customClass="ImportantButton" customModule="ProjectFND" customModuleProvider="target">
+                                                    <rect key="frame" x="20" y="103" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="Ncz-de-6zf"/>
+                                                        <constraint firstAttribute="width" constant="30" id="yUQ-Bv-bqi"/>
+                                                    </constraints>
+                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <state key="normal">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tPu-D1-3B3" customClass="NotificationButton" customModule="ProjectFND" customModuleProvider="target">
+                                                    <rect key="frame" x="58" y="103" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="30" id="AdR-hI-EqK"/>
+                                                        <constraint firstAttribute="height" constant="30" id="zd3-Ar-g4B"/>
+                                                    </constraints>
+                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <state key="normal">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="23g-cg-Hke" firstAttribute="leading" secondItem="8ou-jz-3c5" secondAttribute="trailing" constant="15" id="029-fh-Wdl"/>
                                                 <constraint firstItem="9q8-SJ-SQ4" firstAttribute="leading" secondItem="qPA-uZ-bNk" secondAttribute="trailing" constant="8" id="AIr-Ei-JBd"/>
+                                                <constraint firstItem="tPu-D1-3B3" firstAttribute="top" secondItem="PXt-og-tlY" secondAttribute="bottom" constant="8" id="BGh-Ut-qbe"/>
                                                 <constraint firstItem="qPA-uZ-bNk" firstAttribute="leading" secondItem="XUa-SI-VXI" secondAttribute="trailing" constant="8" id="BJI-GL-5wC"/>
-                                                <constraint firstItem="biT-CS-dJq" firstAttribute="leading" secondItem="ys0-CO-k1s" secondAttribute="trailing" constant="13" id="CcS-ME-mVo"/>
                                                 <constraint firstItem="8ou-jz-3c5" firstAttribute="top" secondItem="XUa-SI-VXI" secondAttribute="bottom" constant="14" id="Cto-cc-UcY"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="23g-cg-Hke" secondAttribute="trailing" id="G0d-xz-chd"/>
                                                 <constraint firstItem="8ou-jz-3c5" firstAttribute="leading" secondItem="MpH-B1-QHB" secondAttribute="leadingMargin" id="Hhn-4M-K4z"/>
                                                 <constraint firstItem="23g-cg-Hke" firstAttribute="top" secondItem="9q8-SJ-SQ4" secondAttribute="bottom" constant="14" id="I85-T1-J1J"/>
+                                                <constraint firstItem="tPu-D1-3B3" firstAttribute="leading" secondItem="4AZ-J1-db4" secondAttribute="trailing" constant="8" id="MAo-FP-eo9"/>
                                                 <constraint firstItem="qPA-uZ-bNk" firstAttribute="top" secondItem="MpH-B1-QHB" secondAttribute="topMargin" constant="8" id="P8V-bV-PfD"/>
-                                                <constraint firstItem="ys0-CO-k1s" firstAttribute="top" secondItem="PXt-og-tlY" secondAttribute="bottom" constant="14" id="R89-Er-h0E"/>
                                                 <constraint firstItem="XUa-SI-VXI" firstAttribute="leading" secondItem="MpH-B1-QHB" secondAttribute="leadingMargin" id="SIk-FJ-CSq"/>
-                                                <constraint firstItem="biT-CS-dJq" firstAttribute="top" secondItem="8ou-jz-3c5" secondAttribute="bottom" constant="39" id="cPs-ks-51W"/>
-                                                <constraint firstItem="ys0-CO-k1s" firstAttribute="leading" secondItem="bm8-lW-PDT" secondAttribute="trailing" constant="13" id="kin-Rd-7ho"/>
-                                                <constraint firstItem="bm8-lW-PDT" firstAttribute="leading" secondItem="MpH-B1-QHB" secondAttribute="leadingMargin" id="nJq-l2-bbC"/>
+                                                <constraint firstItem="4AZ-J1-db4" firstAttribute="top" secondItem="PXt-og-tlY" secondAttribute="bottom" constant="8" id="XbZ-TK-iO5"/>
+                                                <constraint firstItem="4AZ-J1-db4" firstAttribute="leading" secondItem="MpH-B1-QHB" secondAttribute="leadingMargin" id="jOT-Qc-0Po"/>
                                                 <constraint firstItem="PXt-og-tlY" firstAttribute="top" secondItem="8ou-jz-3c5" secondAttribute="bottom" constant="3" id="oDj-8i-t3T"/>
-                                                <constraint firstItem="bm8-lW-PDT" firstAttribute="top" secondItem="PXt-og-tlY" secondAttribute="bottom" constant="14" id="rnH-iA-n24"/>
                                                 <constraint firstItem="9q8-SJ-SQ4" firstAttribute="top" secondItem="MpH-B1-QHB" secondAttribute="topMargin" constant="8" id="vzf-Fg-oCR"/>
                                                 <constraint firstItem="PXt-og-tlY" firstAttribute="leading" secondItem="MpH-B1-QHB" secondAttribute="leadingMargin" id="xby-RK-lwb"/>
                                                 <constraint firstItem="XUa-SI-VXI" firstAttribute="top" secondItem="MpH-B1-QHB" secondAttribute="topMargin" constant="8" id="xkz-Ld-11Q"/>
@@ -1150,6 +1149,8 @@
                                             <outlet property="checkBoxButton" destination="qpY-Y2-D8e" id="jLJ-bU-FG0"/>
                                             <outlet property="dueDateLabel" destination="9q8-SJ-SQ4" id="YDo-2Z-Ahd"/>
                                             <outlet property="estTimeLabel" destination="p4a-zy-V6N" id="9XK-m8-o7X"/>
+                                            <outlet property="importantButton" destination="4AZ-J1-db4" id="e02-gA-06s"/>
+                                            <outlet property="notifyButton" destination="tPu-D1-3B3" id="csh-P9-XEl"/>
                                             <outlet property="startDateLabel" destination="XUa-SI-VXI" id="EQe-6v-1xb"/>
                                             <outlet property="taskNameLabel" destination="8ou-jz-3c5" id="Wdh-k5-XAX"/>
                                             <outlet property="taskTypeLabel" destination="PXt-og-tlY" id="qfD-6z-tyo"/>
@@ -1766,11 +1767,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="EmptyBell" width="25" height="25"/>
-        <image name="EmptyFriends" width="25" height="25"/>
-        <image name="EmptyStar" width="25" height="25"/>
         <image name="ExpandToDo" width="25" height="25"/>
-        <image name="FinishedImage" width="32" height="32"/>
+        <image name="TaskFinishedImage" width="32" height="32"/>
         <image name="UncheckBox" width="25" height="25"/>
         <namedColor name="AppYellow">
             <color red="1" green="0.88999998569488525" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
