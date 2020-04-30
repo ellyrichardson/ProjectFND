@@ -115,7 +115,6 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
         //let sortedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDoItems)
         let intervalizedToDoItems = ToDoProcessUtils.retrieveAllIntervalizedTodos(toDoItems: toDoItems)
         let tupledIntervalizedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: intervalizedToDoItems)
-        
         cell.contentView.layer.masksToBounds = true
         
         /*
