@@ -89,12 +89,9 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         
         let toDoItems: [String: ToDo] = getToDos()
-        //let sortedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDoItems)
         let intervalizedToDoItems = ToDoProcessUtils.retrieveAllIntervalizedTodos(toDoItems: toDoItems)
         let tupledIntervalizedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: intervalizedToDoItems)
-        //let sortedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDoItems)
         let randomColor = colorForIntervalsSummary(toDoItem: tupledIntervalizedToDoItems[indexPath.row].value)//.cgColor
-        //let nRandomColor = ToDoTableViewUtils.colorForToDoRow(toDoRowIndex: indexPath.row, toDoItems: tupledIntervalizedToDoItems)
         let intervalizedToDo = tupledIntervalizedToDoItems[indexPath.row].value
         
         cell.intervalizedToDoLabel.text = intervalizedToDo.getTaskName()
@@ -108,14 +105,13 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
         return cell
     }
     
-    private func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         ToDoTableViewUtils.makeCellMoveUpWithFade(cell: cell, indexPath: indexPath)
         
         var toDoItems: [String: ToDo] = getToDos()
         //let sortedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDoItems)
         let intervalizedToDoItems = ToDoProcessUtils.retrieveAllIntervalizedTodos(toDoItems: toDoItems)
         let tupledIntervalizedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: intervalizedToDoItems)
-        
         cell.contentView.layer.masksToBounds = true
         
         /*
