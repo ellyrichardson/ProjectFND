@@ -23,7 +23,7 @@ class ScheduleTableViewCell: UITableViewCell, UITableViewDelegate {
     @IBOutlet weak var expandButton: ExpandButton!
     @IBOutlet weak var importantButton: ImportantButton!
     @IBOutlet weak var notifyButton: NotificationButton!
-    
+    @IBOutlet weak var finishedButton: FinishedButton!
     // Unused - I think
     private var checkButtonPressed = Bool()
     

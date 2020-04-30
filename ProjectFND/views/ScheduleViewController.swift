@@ -248,6 +248,11 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         cell.notifyButton.tag = indexPath.row
         cell.notifyButton.setPressedStatus(isPressed: sortedToDoItems[indexPath.row].value.isNotifying())
         cell.notifyButton.addTarget(self, action: #selector(onNotificationButtonTap(sender:)), for: .touchUpInside)
+        
+        cell.finishedButton.tag = indexPath.row
+        cell.finishedButton.setPressedStatus(isPressed: sortedToDoItems[indexPath.row].value.isFinished())
+        cell.finishedButton.isOverdue(overdue: ToDoProcessUtils.isToDoOverdue(toDoRowIndex: indexPath.row, toDoItems: sortedToDoItems))
+        cell.finishedButton.addTarget(self, action: #selector(onFinishedButtonTap(sender:)), for: .touchUpInside)
         return cell
     }
     
@@ -462,6 +467,21 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         //self.calendarView.reloadData()
         //self.calendarView.reloadDates([actDate!])
         //GeneralViewUtils.reloadCollectionViewData(collectionView: self.calendarView)
+    }
+    
+    @objc func onFinishedButtonTap(sender: FinishedButton) {
+        // The toDosByDay variable should be sorted already
+        var toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
+        let tempToDoItem: ToDo = toDosByDay[sender.tag].value
+        let newToDoItem = tempToDoItem
+        
+        toDosController.updateToDos(modificationType: ListModificationType.FINISHNESS, toDo: newToDoItem)
+        let indexPath = IndexPath(item: sender.tag, section: 0)
+        self.toDoListTableView.reloadRows(at: [indexPath], with: .top)
+        print("value of currentCellIndexPath")
+        print(self.currentCellIndexPath)
+        self.shouldReloadTableView = false
+        self.calendarView.reloadItems(at: [self.currentCellIndexPath!])
     }
     
     @objc func onImportantButtonTap(sender: ImportantButton) {
