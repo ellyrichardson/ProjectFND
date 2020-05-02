@@ -1046,7 +1046,6 @@
                                                         <constraint firstAttribute="height" constant="17" id="Bl1-a2-O88"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="13"/>
-                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Personal" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PXt-og-tlY">
@@ -1069,7 +1068,6 @@
                                                         <constraint firstAttribute="height" constant="17" id="JQ3-8m-ZnF"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="13"/>
-                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ou-jz-3c5">
@@ -1092,7 +1090,6 @@
                                                         <constraint firstAttribute="height" constant="17" id="flG-Tt-zxU"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="13"/>
-                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4AZ-J1-db4" customClass="ImportantButton" customModule="ProjectFND" customModuleProvider="target">
@@ -1182,7 +1179,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Tasks" id="Ecr-D0-8Bb">
+                    <navigationItem key="navigationItem" title="Monthly" id="Ecr-D0-8Bb">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Asg-dA-BLK">
                             <connections>
                                 <segue destination="Hgy-Cw-xVQ" kind="presentation" identifier="AddToDoItem" id="S04-n3-wvv"/>

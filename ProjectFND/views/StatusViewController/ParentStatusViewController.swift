@@ -50,15 +50,15 @@ class ParentStatusViewController: UIViewController, Observer {
     }
     
     private func setupSegmentedControlWidth() {
-        self.statusDeadlineSegment.setWidth(90.0, forSegmentAt: 0)
-        self.statusDeadlineSegment.setWidth(90.0, forSegmentAt: 1)
+        self.statusDeadlineSegment.setWidth(100.0, forSegmentAt: 0)
+        self.statusDeadlineSegment.setWidth(100.0, forSegmentAt: 1)
     }
     
     private func setupSegmentedControl() {
         // Configure Segmented Control
         statusDeadlineSegment.removeAllSegments()
-        statusDeadlineSegment.insertSegment(withTitle: "Deadlines", at: 0, animated: true)
-        statusDeadlineSegment.insertSegment(withTitle: "Status", at: 1, animated: true)
+        statusDeadlineSegment.insertSegment(withTitle: "Non-Repeating", at: 0, animated: true)
+        statusDeadlineSegment.insertSegment(withTitle: "Repeating", at: 1, animated: true)
         statusDeadlineSegment.addTarget(self, action: #selector(selectionDidChange(_:)), for: .valueChanged)
         
         // Select First Segment

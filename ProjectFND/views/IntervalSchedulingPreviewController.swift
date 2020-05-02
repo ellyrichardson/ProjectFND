@@ -513,7 +513,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
             // NOTE: The interval length is the length of a single interval in the whole task
             if determinedInterval >= getIntervalLength() {
                 // TODO: Action here
-                self.toDoIntervalsToAssign[intervalTaskId] = ToDo(taskId: intervalTaskId, taskName: intervalName, taskType: intervalTaskType,taskDescription: intervalDescription, workDate: intervalStartDate, estTime: String(getIntervalLength()), dueDate: intervalDueDate, finished: intervalStatus, intervalized: true, intervalId: intervalId, intervalLength: Int(getIntervalAmount()), intervalIndex: assignedIntervals)!
+                self.toDoIntervalsToAssign[intervalTaskId] = ToDo(taskId: intervalTaskId, taskName: intervalName, taskType: intervalTaskType,taskDescription: intervalDescription, workDate: intervalStartDate, estTime: String(getIntervalLength()), dueDate: intervalDueDate, finished: intervalStatus, intervalized: true, intervalId: intervalId, intervalLength: Int(getIntervalAmount()), intervalIndex: assignedIntervals, intervalDueDate: getToDoToBeIntervalized().getEndDate())!
                 assignedIntervals += 1
             }
             print("Assigned Intervals")
