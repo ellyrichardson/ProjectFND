@@ -13,22 +13,25 @@ import os.log
 class ToDoTableViewUtils {
     
     // Sets the appropriate row color if the ToDo is finished, late, or neutral status
-    static func colorForToDoRow(toDoRowIndex: Int, toDoItems: [ToDo]) -> UIColor {
+    static func colorForToDoRow(toDoRowIndex: Int, toDoItems: [(key: String, value: ToDo)]) -> UIColor {
         let currentDate = Date()
         let dateFormatter = DateFormatter()
+        print("Value  of ToDoRowIndex: " + String(toDoRowIndex))
         
         dateFormatter.dateFormat = "M/d/yy, h:mm a"
         
         let toDoItem = toDoItems[toDoRowIndex]
         
         // Neutral status - if ToDo hasn't met due date yet
-        if toDoItem.finished == false && currentDate < toDoItem.dueDate {
+        if toDoItem.value.finished == false && currentDate < toDoItem.value.dueDate {
             // Yellowish color
+            
             return UIColor(red:1.00, green:0.89, blue:0.00, alpha:1.0)
         }
             // Finished - if ToDo is finished
-        else if toDoItem.finished == true {
+        else if toDoItem.value.finished == true {
             // Greenish color
+            print("GREENN")
             return UIColor(red:0.08, green:0.85, blue:0.42, alpha:1.0)
         }
             // Late - if ToDo hasn't finished yet and is past due date
@@ -46,38 +49,7 @@ class ToDoTableViewUtils {
         let dateFormatter = DateFormatter()
         
         dateFormatter.dateFormat = "M/d/yy, h:mm a"
-        
-        //let toDoItem = toDoItems[toDoTaskId]
-        
-        /*
-        // Neutral status - if ToDo hasn't met due date yet
-        if toDoItem.finished == false && currentDate < toDoItem.dueDate {
-            // If toDoItem is in preview
-            if toDoIntervalsToAssign.contains(toDoItem) {
-                return UIColor(red:0.729, green:0.860, blue:0.354, alpha:1.0)
-            }
-            // Yellowish color
-            return UIColor(red:1.00, green:0.89, blue:0.00, alpha:1.0)
-        }
-            // Finished - if ToDo is finished
-        else if toDoItem.finished == true {
-            // If toDoItem is in preview
-            if toDoIntervalsToAssign.contains(toDoItem) {
-                return UIColor(red:0.729, green:0.860, blue:0.354, alpha:1.0)
-            }
-            // Greenish color
-            return UIColor(red:0.08, green:0.65, blue:0.42, alpha:1.0)
-        }
-            // Late - if ToDo hasn't finished yet and is past due date
-        else {
-            // If toDoItem is in preview
-            if toDoIntervalsToAssign.contains(toDoItem) {
-                return UIColor(red:0.729, green:0.860, blue:0.354, alpha:1.0)
-            }
-            // Reddish orange color
-            return UIColor(red:1.00, green:0.40, blue:0.18, alpha:1.0)
-        }
- */
+
         if toDoItems[toDoTaskId] != nil {
             return UIColor(red:0.729, green:0.860, blue:0.354, alpha:1.0)
         }

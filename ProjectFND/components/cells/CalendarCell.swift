@@ -105,8 +105,8 @@ class CalendarCell: JTAppleCell {
         case 2:
             let greenIndicator = UIView()
             greenIndicator.layer.masksToBounds = false
-            greenIndicator.layer.borderColor = UIColor(red:0.08, green:0.65, blue:0.42, alpha:1.0).cgColor
-            greenIndicator.layer.backgroundColor = UIColor(red:0.08, green:0.65, blue:0.42, alpha:1.0).cgColor
+            greenIndicator.layer.borderColor = UIColor(red:0.08, green:0.85, blue:0.42, alpha:1.0).cgColor
+            greenIndicator.layer.backgroundColor = UIColor(red:0.08, green:0.85, blue:0.42, alpha:1.0).cgColor
             greenIndicator.layer.cornerRadius = 15
             greenIndicator.clipsToBounds = false
             return greenIndicator
@@ -125,8 +125,8 @@ class CalendarCell: JTAppleCell {
         default:
             let redIndicator = UIView()
             redIndicator.layer.masksToBounds = false
-            redIndicator.layer.borderColor = UIColor(red:1.00, green:0.40, blue:0.18, alpha:1.0).cgColor
-            redIndicator.layer.backgroundColor = UIColor(red:1.00, green:0.40, blue:0.18, alpha:1.0).cgColor
+            redIndicator.layer.borderColor = UIColor(red:1.00, green:0.5, blue:0.0, alpha:1.0).cgColor
+            redIndicator.layer.backgroundColor = UIColor(red:1.00, green:0.5, blue:0.0, alpha:1.0).cgColor
             redIndicator.layer.cornerRadius = 15
             redIndicator.clipsToBounds = false
             return redIndicator
