@@ -250,14 +250,19 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         cell.notifyButton.addTarget(self, action: #selector(onNotificationButtonTap(sender:)), for: .touchUpInside)
         
         cell.finishedButton.tag = indexPath.row
-        cell.finishedButton.setPressedStatus(isPressed: sortedToDoItems[indexPath.row].value.isFinished())
         cell.finishedButton.isOverdue(overdue: ToDoProcessUtils.isToDoOverdue(toDoRowIndex: indexPath.row, toDoItems: sortedToDoItems))
+        cell.finishedButton.setPressedStatus(isPressed: sortedToDoItems[indexPath.row].value.isFinished())
+        /*
+        DispatchQueue.main.async {
+            // Perform your async code here
+            cell.finishedButton.isOverdue(overdue: ToDoProcessUtils.isToDoOverdue(toDoRowIndex: indexPath.row, toDoItems: sortedToDoItems))
+        }*/
         cell.finishedButton.addTarget(self, action: #selector(onFinishedButtonTap(sender:)), for: .touchUpInside)
         return cell
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        print("Value of checkButtonTapped "  +  String(checkButtonTapped))
+        //print("Value of index "  +  String(checkButtonTapped))
         print("Value of indexPath.row "  +  String(indexPath.row))
         print("Value of indexPath.section "  +  String(indexPath.section))
 
@@ -269,8 +274,9 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             ToDoTableViewUtils.makeCellSlide(cell: cell, indexPath: indexPath, tableView: toDoListTableView)
         }
         //ToDoTableViewUtils.makeCellMoveUpWithFade(cell: cell, indexPath: indexPath)
-        cell.contentView.layer.backgroundColor = ToDoTableViewUtils.colorForToDoRow(toDoRowIndex: indexPath.row, toDoItems: toDosController.getToDosByDayAsArray(dateChosen: getSelectedDate())).cgColor
-        cell.layer.backgroundColor = ToDoTableViewUtils.colorForToDoRow(toDoRowIndex: indexPath.row, toDoItems: toDosController.getToDosByDayAsArray(dateChosen: getSelectedDate())).cgColor
+        var sortedToDoItems =  ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
+        cell.contentView.layer.backgroundColor = ToDoTableViewUtils.colorForToDoRow(toDoRowIndex: indexPath.row, toDoItems: sortedToDoItems).cgColor
+        cell.layer.backgroundColor = ToDoTableViewUtils.colorForToDoRow(toDoRowIndex: indexPath.row, toDoItems: sortedToDoItems).cgColor
         // This will turn on `masksToBounds` just before showing the cell
         cell.contentView.layer.masksToBounds = true
         
