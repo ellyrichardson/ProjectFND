@@ -91,13 +91,13 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
         let toDoItems: [String: ToDo] = getToDos()
         let intervalizedToDoItems = ToDoProcessUtils.retrieveAllIntervalizedTodos(toDoItems: toDoItems)
         let tupledIntervalizedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: intervalizedToDoItems)
-        let randomColor = colorForIntervalsSummary(toDoItem: tupledIntervalizedToDoItems[indexPath.row].value)//.cgColor
+        let cellColor = colorForIntervalsSummary(toDoItem: tupledIntervalizedToDoItems[indexPath.row].value)//.cgColor
         let intervalizedToDo = tupledIntervalizedToDoItems[indexPath.row].value
         
         cell.intervalizedToDoLabel.text = intervalizedToDo.getTaskName()
-        cell.intervalizedToDoLabel.textColor = randomColor
+        cell.intervalizedToDoLabel.textColor = cellColor
         cell.intervalizedToDoTypeLabel.text = intervalizedToDo.getTaskType()
-        cell.intervalToDoTypeBorder.backgroundColor = randomColor
+        cell.intervalToDoTypeBorder.backgroundColor = cellColor
         cell.intervalizedToDoEstTimeLabel.text = String(Double(getTotalHoursOfIntervalizedToDo(intervalId: intervalizedToDo.getIntervalId()))) + " Hours"
         cell.intervalizedToDoEndingTimeLabel.text = "Due " + formatter.string(from: intervalizedToDo.getIntervalDueDate())
         cell.intervalizedToDoIntervalAmount.text = String(intervalizedToDo.getIntervalLength())
@@ -132,7 +132,7 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
         //let toDoItem = toDoItems[toDoRowIndex]
         
         // Neutral status - if ToDo hasn't met due date yet
-        if toDoItem.finished == false && currentDate < toDoItem.dueDate {
+        if toDoItem.finished == false && currentDate < toDoItem.getIntervalDueDate() {
             // Yellowish color
             return UIColor(red:1.00, green:0.89, blue:0.00, alpha:1.0)
         }
