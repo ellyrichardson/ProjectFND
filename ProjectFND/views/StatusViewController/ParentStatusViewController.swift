@@ -50,8 +50,8 @@ class ParentStatusViewController: UIViewController, Observer {
     }
     
     private func setupSegmentedControlWidth() {
-        self.statusDeadlineSegment.setWidth(100.0, forSegmentAt: 0)
-        self.statusDeadlineSegment.setWidth(100.0, forSegmentAt: 1)
+        self.statusDeadlineSegment.setWidth(105.0, forSegmentAt: 0)
+        self.statusDeadlineSegment.setWidth(105.0, forSegmentAt: 1)
     }
     
     private func setupSegmentedControl() {

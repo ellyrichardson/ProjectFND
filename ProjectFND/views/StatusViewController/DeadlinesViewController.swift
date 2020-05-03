@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Charts
 
 class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, Observer {
     private var _observerId: Int = 1
@@ -121,15 +122,39 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
         cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
     }
     
+    /*
+    func updateChartWithData() {
+      var dataEntries: [BarChartDataEntry] = []
+      let visitorCounts = getVisitorCountsFromDatabase()
+      for i in 0..<visitorCounts.count {
+        let dataEntry = BarChartDataEntry(x: Double(i), y: Double(3))
+        dataEntries.append(dataEntry)
+      }
+        
+      let chartDataSet = BarChartDataSet(values: dataEntries, label: "Visitor count")
+      let chartData = BarChartData(dataSet: chartDataSet)
+      barView.data = chartData
+    }*/
+    
     // TODO: Make this colorForIntervalsSummary() in the future!
     private func colorForIntervalsSummary(toDoItem: ToDo) -> UIColor {
         
         let currentDate = Date()
         let dateFormatter = DateFormatter()
         
+        //let toDoItems: [String: ToDo] = getToDos()
+        //let sortedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDoItems)
+        let intervalizedToDoItems = ToDoProcessUtils.retrieveIntervalizedToDosById(toDoItems: getToDos(), intervalizedTodoId: toDoItem.getIntervalId())
+        let tupledIntervalizedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: intervalizedToDoItems)
+        
         dateFormatter.dateFormat = "M/d/yy, h:mm a"
         
         //let toDoItem = toDoItems[toDoRowIndex]
+        
+        // Determine if interval set is finished
+        for toDoInterval in tupledIntervalizedToDoItems {
+            
+        }
         
         // Neutral status - if ToDo hasn't met due date yet
         if toDoItem.finished == false && currentDate < toDoItem.getIntervalDueDate() {
