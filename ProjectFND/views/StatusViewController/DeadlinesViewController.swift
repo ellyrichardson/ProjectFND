@@ -37,8 +37,8 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        populateToDos()
-        //self.toDos = toDosController.getToDos()
+        //populateToDos()
+        self.toDos = toDosController.getToDos()
         self.deadlinesTableView.reloadData()
         print("Deadlines View Controller Will Appear")
     }

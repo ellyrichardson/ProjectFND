@@ -91,6 +91,7 @@ class ParentStatusViewController: UIViewController, Observer {
         
         // Instantiate View Controller
         var viewController = storyboard.instantiateViewController(withIdentifier: "NonRepeatingDeadlinesView") as! NonRepeatingDeadlinesViewController
+        viewController.setToDosController(toDosController: toDosController)
         
         // Add View Controller as Child View Controller
         self.add(asChildViewController: viewController)
