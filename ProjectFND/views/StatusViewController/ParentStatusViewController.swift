@@ -50,8 +50,8 @@ class ParentStatusViewController: UIViewController, Observer {
     }
     
     private func setupSegmentedControlWidth() {
-        self.statusDeadlineSegment.setWidth(100.0, forSegmentAt: 0)
-        self.statusDeadlineSegment.setWidth(100.0, forSegmentAt: 1)
+        self.statusDeadlineSegment.setWidth(105.0, forSegmentAt: 0)
+        self.statusDeadlineSegment.setWidth(105.0, forSegmentAt: 1)
     }
     
     private func setupSegmentedControl() {
@@ -91,6 +91,7 @@ class ParentStatusViewController: UIViewController, Observer {
         
         // Instantiate View Controller
         var viewController = storyboard.instantiateViewController(withIdentifier: "NonRepeatingDeadlinesView") as! NonRepeatingDeadlinesViewController
+        viewController.setToDosController(toDosController: toDosController)
         
         // Add View Controller as Child View Controller
         self.add(asChildViewController: viewController)

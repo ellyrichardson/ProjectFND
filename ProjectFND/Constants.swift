@@ -20,3 +20,9 @@ enum TaskTypes: String {
     case SCHOOL = "School"
     case WORK = "Work"
 }
+
+enum TaskStatuses {
+    case FINISHED
+    case INPROGRESS
+    case OVERDUE
+}

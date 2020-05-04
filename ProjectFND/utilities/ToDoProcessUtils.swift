@@ -314,35 +314,31 @@ class ToDoProcessUtils {
     
     static func retrieveIntervalizedToDosById(toDoItems: [String: ToDo], intervalizedTodoId: String) -> [String: ToDo] {
         var intervalizedToDosGroupedById: [String: ToDo] = [String: ToDo]()
-        /*
-        let toDoKeys = intervalizedToDosGroupedById // This is a [String: int] dictionary
-            .filter { (k, v) -> Bool in v.getIntervalId() == intervalizedTodoId}
-            .map { (k, v) -> String in k }
-        
-        for toDoKey in toDoKeys {
-            intervalizedToDosGroupedById[toDoKey] = toDoItems[toDoKey]
-        }*/
-        
         intervalizedToDosGroupedById = toDoItems.filter {$0.value.getIntervalId() == intervalizedTodoId}
-        
         return intervalizedToDosGroupedById
     }
     
     static func retrieveAllIntervalizedTodos(toDoItems: [String: ToDo]) -> [String: ToDo] {
         var intervalizedToDos: [String: ToDo] = [String: ToDo]()
-        
-        /*
-        let toDoKeys = toDoItems // This is a [String: int] dictionary
-            .filter { (k, v) -> Bool in v.getIntervalId() != ""}
-            .map { (k, v) -> String in k }*/
-        
         intervalizedToDos = toDoItems.filter { $0.value.getIntervalId() != "" && $0.value.getIntervalIndex() == 0 }
+        return intervalizedToDos
+    }
+    
+    static func retrieveIntervalizedToDosByStatus(toDoItems: [String: ToDo], taskStatus: TaskStatuses) -> [String: ToDo] {
+        var intervalizedToDos: [String: ToDo] = [String: ToDo]()
+        let currentDate = Date()
+        let dateFormatter = DateFormatter()
         
-        /*
-        for toDoKey in toDoKeys {
-            intervalizedToDos[toDoKey] = toDoItems[toDoKey]
-        }*/
+        dateFormatter.dateFormat = "M/d/yy, h:mm a"
         
+        switch taskStatus {
+        case .FINISHED:
+            intervalizedToDos = toDoItems.filter { $0.value.isFinished() }
+        case .INPROGRESS:
+            intervalizedToDos = toDoItems.filter { !$0.value.isFinished() && currentDate < $0.value.dueDate }
+        default:
+            intervalizedToDos = toDoItems.filter { currentDate > $0.value.dueDate }
+        }
         return intervalizedToDos
     }
     

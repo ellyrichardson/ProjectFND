@@ -68,9 +68,9 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         let barViewController = self.tabBarController
         let nav1 = barViewController!.viewControllers?[1] as! UINavigationController
         let statusViewController = nav1.topViewController as! ParentStatusViewController
+        statusViewController.setToDosController(toDosController: toDosController)
         observerVCList.append(statusViewController)
         self.toDosController.setObservers(observers: observerVCList)
-        
         
         // TODO: REFACTOR MESS!
         
@@ -252,11 +252,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         cell.finishedButton.tag = indexPath.row
         cell.finishedButton.isOverdue(overdue: ToDoProcessUtils.isToDoOverdue(toDoRowIndex: indexPath.row, toDoItems: sortedToDoItems))
         cell.finishedButton.setPressedStatus(isPressed: sortedToDoItems[indexPath.row].value.isFinished())
-        /*
-        DispatchQueue.main.async {
-            // Perform your async code here
-            cell.finishedButton.isOverdue(overdue: ToDoProcessUtils.isToDoOverdue(toDoRowIndex: indexPath.row, toDoItems: sortedToDoItems))
-        }*/
         cell.finishedButton.addTarget(self, action: #selector(onFinishedButtonTap(sender:)), for: .touchUpInside)
         return cell
     }

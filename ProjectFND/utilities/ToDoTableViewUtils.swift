@@ -16,7 +16,6 @@ class ToDoTableViewUtils {
     static func colorForToDoRow(toDoRowIndex: Int, toDoItems: [(key: String, value: ToDo)]) -> UIColor {
         let currentDate = Date()
         let dateFormatter = DateFormatter()
-        print("Value  of ToDoRowIndex: " + String(toDoRowIndex))
         
         dateFormatter.dateFormat = "M/d/yy, h:mm a"
         
