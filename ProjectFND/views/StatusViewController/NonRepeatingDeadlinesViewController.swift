@@ -60,6 +60,7 @@ class NonRepeatingDeadlinesViewController: UIViewController {
         summaryBarChart.xAxis.drawLabelsEnabled = false
         summaryBarChart.animate(xAxisDuration: 1)
         summaryBarChart.animate(yAxisDuration: 1)
+        //summaryBarChart.xAxis.labelFont = UIFont(name: "HelveticaNeue-Light", size: 25.0)!
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
