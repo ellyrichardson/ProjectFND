@@ -11,6 +11,8 @@ import Charts
 
 class NonRepeatingDeadlinesViewController: UIViewController {
     
+    private let toDos = ToDoProcessUtils.loadToDos()
+    
     @IBOutlet weak var summaryBarChart: BarChartView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,9 +29,9 @@ class NonRepeatingDeadlinesViewController: UIViewController {
         let toDoBarChartColors = [orangeColor, yellowColor, greenColor]
         
         var dataEntries: [BarChartDataEntry] = []
-        let dataEntry = BarChartDataEntry(x: Double(3), y: Double(4))
-        let dataEntry2 = BarChartDataEntry(x: Double(2), y: Double(6))
-        let dataEntry3 = BarChartDataEntry(x: Double(1), y: Double(2))
+        let dataEntry = BarChartDataEntry(x: Double(3), y: Double(countFinishedToDoItems(toDoItems: toDos!)))
+        let dataEntry2 = BarChartDataEntry(x: Double(2), y: Double(countInProgressToDoItems(toDoItems: toDos!)))
+        let dataEntry3 = BarChartDataEntry(x: Double(1), y: Double(countOverdueToDoItems(toDoItems: toDos!)))
         dataEntries.append(dataEntry)
         dataEntries.append(dataEntry2)
         dataEntries.append(dataEntry3)
@@ -47,16 +49,16 @@ class NonRepeatingDeadlinesViewController: UIViewController {
         summaryBarChart.xAxis.drawGridLinesEnabled = false
         summaryBarChart.xAxis.drawLabelsEnabled = false
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    private func countFinishedToDoItems(toDoItems: [String: ToDo]) -> Int {
+        return ToDoProcessUtils.retrieveIntervalizedToDosByStatus(toDoItems: toDos!, taskStatus: TaskStatuses.FINISHED).count
     }
-    */
-
+    
+    private func countInProgressToDoItems(toDoItems: [String: ToDo]) -> Int {
+        return ToDoProcessUtils.retrieveIntervalizedToDosByStatus(toDoItems: toDos!, taskStatus: TaskStatuses.INPROGRESS).count
+    }
+    
+    private func countOverdueToDoItems(toDoItems: [String: ToDo]) -> Int {
+        return ToDoProcessUtils.retrieveIntervalizedToDosByStatus(toDoItems: toDos!, taskStatus: TaskStatuses.OVERDUE).count
+    }
 }

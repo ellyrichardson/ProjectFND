@@ -37,7 +37,9 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        populateToDos()
+        //self.toDos = toDosController.getToDos()
+        self.deadlinesTableView.reloadData()
         print("Deadlines View Controller Will Appear")
     }
     
@@ -109,10 +111,11 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         ToDoTableViewUtils.makeCellMoveUpWithFade(cell: cell, indexPath: indexPath)
         
-        var toDoItems: [String: ToDo] = getToDos()
+        //let toDoItems: [String: ToDo] = getToDos()
         //let sortedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDoItems)
-        let intervalizedToDoItems = ToDoProcessUtils.retrieveAllIntervalizedTodos(toDoItems: toDoItems)
-        let tupledIntervalizedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: intervalizedToDoItems)
+        /*
+        let intervalizedToDoItems = ToDoProcessUtils.retrieveAllIntervalizedTodos(toDoItems: toDoItems)*/
+        
         cell.contentView.layer.masksToBounds = true
         
         /*
@@ -122,55 +125,41 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
         cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
     }
     
-    /*
-    func updateChartWithData() {
-      var dataEntries: [BarChartDataEntry] = []
-      let visitorCounts = getVisitorCountsFromDatabase()
-      for i in 0..<visitorCounts.count {
-        let dataEntry = BarChartDataEntry(x: Double(i), y: Double(3))
-        dataEntries.append(dataEntry)
-      }
-        
-      let chartDataSet = BarChartDataSet(values: dataEntries, label: "Visitor count")
-      let chartData = BarChartData(dataSet: chartDataSet)
-      barView.data = chartData
-    }*/
-    
-    // TODO: Make this colorForIntervalsSummary() in the future!
     private func colorForIntervalsSummary(toDoItem: ToDo) -> UIColor {
-        
         let currentDate = Date()
         let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "M/d/yy, h:mm a"
         
-        //let toDoItems: [String: ToDo] = getToDos()
-        //let sortedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDoItems)
         let intervalizedToDoItems = ToDoProcessUtils.retrieveIntervalizedToDosById(toDoItems: getToDos(), intervalizedTodoId: toDoItem.getIntervalId())
         let tupledIntervalizedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: intervalizedToDoItems)
         
-        dateFormatter.dateFormat = "M/d/yy, h:mm a"
-        
-        //let toDoItem = toDoItems[toDoRowIndex]
-        
-        // Determine if interval set is finished
-        for toDoInterval in tupledIntervalizedToDoItems {
-            
-        }
+        let yellowColor = UIColor(red:1.00, green:0.89, blue:0.00, alpha:1.0)
+        let greenColor = UIColor(red:0.08, green:0.85, blue:0.42, alpha:1.0)
+        let orangeColor = UIColor(red:1.00, green:0.5, blue:0.0, alpha:1.0)
         
         // Neutral status - if ToDo hasn't met due date yet
-        if toDoItem.finished == false && currentDate < toDoItem.getIntervalDueDate() {
-            // Yellowish color
-            return UIColor(red:1.00, green:0.89, blue:0.00, alpha:1.0)
+        if !checkIfToDoTupleIsAllFinished(toDoTuple: tupledIntervalizedToDoItems) && currentDate < toDoItem.getIntervalDueDate() {
+            return yellowColor
         }
-            // Finished - if ToDo is finished
-        else if toDoItem.finished == true {
-            // Greenish color
-            return UIColor(red:0.08, green:0.85, blue:0.42, alpha:1.0)
+        // Finished - if ToDo is finished
+        // If the whole set of intervals are finished
+        else if checkIfToDoTupleIsAllFinished(toDoTuple: tupledIntervalizedToDoItems) {
+            return greenColor
         }
-            // Late - if ToDo hasn't finished yet and is past due date
+        // Late - if ToDo hasn't finished yet and is past due date
         else {
-            // Reddish orange color
-            return UIColor(red:1.00, green:0.5, blue:0.0, alpha:1.0)
+            return orangeColor
         }
+    }
+    
+    private func checkIfToDoTupleIsAllFinished(toDoTuple: [(key: String, value: ToDo)]) -> Bool {
+        var allFinished = true
+        for item in toDoTuple {
+            if !item.value.isFinished() {
+                allFinished = false
+            }
+        }
+        return allFinished
     }
     
     private func getTotalHoursOfIntervalizedToDo(intervalId: String) -> Int {
@@ -180,5 +169,17 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
             totalIntervalizedToDoTimeLength += Int(Double(toDoItem.value.getEstTime())!)
         }
         return totalIntervalizedToDoTimeLength
+    }
+    
+    // MARK: - Setters
+    
+    func setToDosController(toDosController: ToDosController) {
+        self.toDosController = toDosController
+    }
+    
+    // MARK: - Getters
+    
+    func getToDosController() -> ToDosController {
+        return self.toDosController
     }
 }
