@@ -26,3 +26,10 @@ enum TaskStatuses {
     case INPROGRESS
     case OVERDUE
 }
+
+enum RepeatingFrequencyTypes {
+    case DAILY
+    case WEEKLY
+    case MONTHLY
+    case OTHER
+}
