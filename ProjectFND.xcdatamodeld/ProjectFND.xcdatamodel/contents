@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="IOS_ToDo" representedClassName="IOS_ToDo" syncable="YES" codeGenerationType="class">
+    <entity name="FND_ToDo" representedClassName="FND_ToDo" syncable="YES" codeGenerationType="class">
         <attribute name="dueDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="estTime" optional="YES" attributeType="String"/>
         <attribute name="finished" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -14,6 +14,7 @@
         <attribute name="repeating" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="repeatingEndDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="repeatingFrequenctCode" optional="YES" attributeType="String"/>
+        <attribute name="repeatingId" optional="YES" attributeType="String"/>
         <attribute name="repeatingStartDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="taskDescription" optional="YES" attributeType="String"/>
@@ -22,6 +23,6 @@
         <attribute name="taskType" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="IOS_ToDo" positionX="-63" positionY="-18" width="128" height="328"/>
+        <element name="FND_ToDo" positionX="-63" positionY="-18" width="128" height="343"/>
     </elements>
 </model>

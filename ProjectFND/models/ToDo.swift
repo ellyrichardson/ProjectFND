@@ -24,7 +24,7 @@ class ToDo: NSObject, NSCoding {
     // MARK: - Repeating Properties
     var repeating: Bool
     var repeatingStartDate, repeatingEndDate: Date
-    var repeatingFrequencyCode: String
+    var repeatingId, repeatingFrequencyCode: String
     
     // MARK: - Archiving Paths
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -51,11 +51,12 @@ class ToDo: NSObject, NSCoding {
         static let repeating = "repeating"
         static let repeatingStartDate = "repeatingStartDate"
         static let repeatingEndDate = "repeatingEndDate"
+        static let repeatingId = "repeatingId"
         static let repeatingFrequencyCode = "repeatingFrequencyCode"
     }
     
     // MARK: - Initialization
-    init?(taskId: String, taskName: String, taskType: String = TaskTypes.PERSONAL.rawValue,taskDescription: String, workDate: Date, estTime: String, dueDate: Date, finished: Bool, intervalized: Bool = false, intervalId: String = "", intervalLength: Int = 0, intervalIndex: Int = 0, intervalDueDate: Date = Date(), important: Bool = false, notifying: Bool = false, repeating: Bool = false, repeatingStartDate: Date = Date(), repeatingEndDate: Date = Date(), repeatingFrequencyCode: String = "") {
+    init?(taskId: String, taskName: String, taskType: String = TaskTypes.PERSONAL.rawValue,taskDescription: String, workDate: Date, estTime: String, dueDate: Date, finished: Bool, intervalized: Bool = false, intervalId: String = "", intervalLength: Int = 0, intervalIndex: Int = 0, intervalDueDate: Date = Date(), important: Bool = false, notifying: Bool = false, repeating: Bool = false, repeatingStartDate: Date = Date(), repeatingEndDate: Date = Date(), repeatingId: String = "", repeatingFrequencyCode: String = "") {
         
         
         // To fail init if one of them is empty
@@ -82,6 +83,7 @@ class ToDo: NSObject, NSCoding {
         self.repeating = repeating
         self.repeatingStartDate = repeatingStartDate
         self.repeatingEndDate = repeatingEndDate
+        self.repeatingId = repeatingId
         self.repeatingFrequencyCode = repeatingFrequencyCode
     }
     
@@ -105,6 +107,7 @@ class ToDo: NSObject, NSCoding {
         self.repeating = false
         self.repeatingStartDate = Date()
         self.repeatingEndDate = Date()
+        self.repeatingId = ""
         self.repeatingFrequencyCode = ""
     }
     
@@ -128,6 +131,7 @@ class ToDo: NSObject, NSCoding {
         aCoder.encode(repeating, forKey: PropertyKey.repeating)
         aCoder.encode(repeatingStartDate, forKey: PropertyKey.repeatingStartDate)
         aCoder.encode(repeatingEndDate, forKey: PropertyKey.repeatingEndDate)
+        aCoder.encode(repeatingId, forKey: PropertyKey.repeatingId)
         aCoder.encode(repeatingFrequencyCode, forKey: PropertyKey.repeatingFrequencyCode)
     }
     
@@ -252,8 +256,14 @@ class ToDo: NSObject, NSCoding {
                 return nil
         }
         
+        guard let repeatingId = aDecoder.decodeObject (forKey: PropertyKey.repeatingId) as? String
+            else {
+                os_log("Unable to decode the repeatingId for a ToDo object.", log: OSLog.default, type: .debug)
+                return nil
+        }
+        
         // Must call designated initializer.
-        self.init(taskId: taskId, taskName: taskName, taskType: taskType, taskDescription: taskDescription, workDate: workDate, estTime: estTime, dueDate: dueDate, finished: finished,  intervalized: intervalized, intervalId: intervalId, intervalLength: Int(intervalLength)!, intervalIndex: Int(intervalIndex)!, intervalDueDate: intervalDueDate, important: important, notifying: notifying, repeating: repeating, repeatingStartDate: repeatingStartDate, repeatingEndDate: repeatingEndDate, repeatingFrequencyCode: repeatingFrequencyCode)
+        self.init(taskId: taskId, taskName: taskName, taskType: taskType, taskDescription: taskDescription, workDate: workDate, estTime: estTime, dueDate: dueDate, finished: finished,  intervalized: intervalized, intervalId: intervalId, intervalLength: Int(intervalLength)!, intervalIndex: Int(intervalIndex)!, intervalDueDate: intervalDueDate, important: important, notifying: notifying, repeating: repeating, repeatingStartDate: repeatingStartDate, repeatingEndDate: repeatingEndDate, repeatingId: repeatingId, repeatingFrequencyCode: repeatingFrequencyCode)
     }
     
     func  getTaskId() -> String {
@@ -326,6 +336,10 @@ class ToDo: NSObject, NSCoding {
     
     func getRepeatingEndDate() -> Date {
         return self.repeatingEndDate
+    }
+    
+    func getRepeatingId() -> String {
+        return self.repeatingId
     }
     
     func getRepeatingFrequencyCode() -> String {

@@ -91,7 +91,7 @@ class ToDoProcessUtils {
         let managedContext = appDelegate!.persistentContainer.viewContext
         
         // Prepare the request of type NSTypeRequest for the entity
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "IOS_ToDo")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FND_ToDo")
         
         do {
             let result = try managedContext.fetch(fetchRequest)
@@ -102,7 +102,7 @@ class ToDoProcessUtils {
             if result.count > 0 {
                 for toDo in result as! [NSManagedObject] {
                     let taskId = toDo.value(forKey: "taskId") as! String
-                    loadedToDo = ToDo(taskId: taskId, taskName: toDo.value(forKey: "taskName") as! String, taskType: toDo.value(forKey: "taskType") as! String, taskDescription: toDo.value(forKey: "taskDescription") as! String, workDate: toDo.value(forKey: "startDate") as! Date, estTime: toDo.value(forKey: "estTime") as! String, dueDate: toDo.value(forKey: "dueDate") as! Date, finished: (toDo.value(forKey: "finished") as! Bool), intervalized: (toDo.value(forKey: "intervalized") as! Bool), intervalId: toDo.value(forKey: "intervalId") as! String, intervalLength: Int(toDo.value(forKey: "intervalLength") as! String)!, intervalIndex: Int(toDo.value(forKey: "intervalIndex") as! String)!, intervalDueDate: toDo.value(forKey: "intervalDueDate") as! Date, important: (toDo.value(forKey: "important") as! Bool), notifying: (toDo.value(forKey: "notifying") as! Bool))
+                    loadedToDo = ToDo(taskId: taskId, taskName: toDo.value(forKey: "taskName") as! String, taskType: toDo.value(forKey: "taskType") as! String, taskDescription: toDo.value(forKey: "taskDescription") as! String, workDate: toDo.value(forKey: "startDate") as! Date, estTime: toDo.value(forKey: "estTime") as! String, dueDate: toDo.value(forKey: "dueDate") as! Date, finished: (toDo.value(forKey: "finished") as! Bool), intervalized: (toDo.value(forKey: "intervalized") as! Bool), intervalId: toDo.value(forKey: "intervalId") as! String, intervalLength: Int(toDo.value(forKey: "intervalLength") as! String)!, intervalIndex: Int(toDo.value(forKey: "intervalIndex") as! String)!, intervalDueDate: toDo.value(forKey: "intervalDueDate") as! Date, important: (toDo.value(forKey: "important") as! Bool), notifying: (toDo.value(forKey: "notifying") as! Bool), repeating: (toDo.value(forKey: "repeating") as! Bool), repeatingStartDate: toDo.value(forKey: "repeatingStartDate") as! Date, repeatingEndDate: toDo.value(forKey: "repeatingEndDate") as! Date, repeatingId: toDo.value(forKey: "repeatingId") as! String, repeatingFrequencyCode: toDo.value(forKey: "repeatingFrequencyCode") as! String)
                     loadedToDos[taskId] = loadedToDo
                 }
             }
@@ -123,7 +123,7 @@ class ToDoProcessUtils {
         let managedContext = appDelegate.persistentContainer.viewContext
         
         // Create an entity and new ToDo records
-        let toDoEntity = NSEntityDescription.entity(forEntityName: "IOS_ToDo", in: managedContext)
+        let toDoEntity = NSEntityDescription.entity(forEntityName: "FND_ToDo", in: managedContext)
         
         // Adding data to newly created record
         let toDoToSave = NSManagedObject(entity: toDoEntity!, insertInto: managedContext)
@@ -142,6 +142,11 @@ class ToDoProcessUtils {
         toDoToSave.setValue(toDoItem.intervalDueDate, forKey: "intervalDueDate")
         toDoToSave.setValue(toDoItem.important, forKey: "important")
         toDoToSave.setValue(toDoItem.notifying, forKey: "notifying")
+        toDoToSave.setValue(toDoItem.repeating, forKey: "repeating")
+        toDoToSave.setValue(toDoItem.repeatingStartDate, forKey: "repeatingStartDate")
+        toDoToSave.setValue(toDoItem.repeatingEndDate, forKey: "repeatingEndDate")
+        toDoToSave.setValue(toDoItem.repeatingId, forKey: "repeatingId")
+        toDoToSave.setValue(toDoItem.repeatingFrequencyCode, forKey: "repeatingFrequencyCode")
         
         do {
             try managedContext.save()
@@ -157,7 +162,7 @@ class ToDoProcessUtils {
         // Context needs to be created in this container
         let managedContext = appDelegate.persistentContainer.viewContext
         
-        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "IOS_ToDo")
+        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FND_ToDo")
         
         // Assigning different filters for the ToDo to be updated
         let taskIdPredicate = NSPredicate(format: "taskId = %@", toDoToUpdate.taskId)
@@ -175,6 +180,11 @@ class ToDoProcessUtils {
         let intervalDueDatePredicate = NSPredicate(format: "intervalDueDate == %@", toDoToUpdate.intervalDueDate as NSDate)
         var isImportantPredicate = NSPredicate(format: "important = %d", toDoToUpdate.isImportant())
         var isNotifyingPredicate = NSPredicate(format: "notifying = %d", toDoToUpdate.isNotifying())
+        var isRepeatingPredicate = NSPredicate(format: "repeating = %d", toDoToUpdate.isRepeating())
+        let repeatingStartDatePredicate = NSPredicate(format: "repeatingStartDate == %@", toDoToUpdate.getRepeatingStartDate() as NSDate)
+        let repeatingEndDatePredicate = NSPredicate(format: "repeatingEndDate == %@", toDoToUpdate.getRepeatingEndDate() as NSDate)
+        let repeatingIdPredicate = NSPredicate(format: "repeatingId = %@", toDoToUpdate.getRepeatingId())
+        let repeatingFrequencyCodePredicate = NSPredicate(format: "repeatingFrequencyCode = %@", toDoToUpdate.getRepeatingFrequencyCode())
         
         if updateType == 1 {
             statusPredicate = NSPredicate(format: "finished = %d", !toDoToUpdate.finished)
@@ -185,9 +195,12 @@ class ToDoProcessUtils {
         else if updateType == 3 {
             isNotifyingPredicate = NSPredicate(format: "notifying = %d", !toDoToUpdate.isNotifying())
         }
+        else if updateType == 4 {
+            isRepeatingPredicate = NSPredicate(format: "repeating = %d", !toDoToUpdate.isRepeating())
+        }
         
         // Combines different filters to one filter
-        let propertiesPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [taskIdPredicate, taskNamePredicate, taskTypePredicate, taskDescriptionPredicate, estTimePredicate, startDatePredicate, dueDatePredicate, statusPredicate, intervalizedPredicate, intervalIdPredicate, intervalLengthPredicate, intervalIndexPredicate, intervalDueDatePredicate, isImportantPredicate, isNotifyingPredicate])
+        let propertiesPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [taskIdPredicate, taskNamePredicate, taskTypePredicate, taskDescriptionPredicate, estTimePredicate, startDatePredicate, dueDatePredicate, statusPredicate, intervalizedPredicate, intervalIdPredicate, intervalLengthPredicate, intervalIndexPredicate, intervalDueDatePredicate, isImportantPredicate, isNotifyingPredicate, isRepeatingPredicate, repeatingStartDatePredicate, repeatingEndDatePredicate, repeatingIdPredicate, repeatingFrequencyCodePredicate])
         
         fetchRequest.predicate = propertiesPredicate
         
@@ -210,6 +223,11 @@ class ToDoProcessUtils {
             objectUpdate.setValue(newToDo.intervalDueDate, forKey: "intervalDueDate")
             objectUpdate.setValue(newToDo.important, forKey: "important")
             objectUpdate.setValue(newToDo.notifying, forKey: "notifying")
+            objectUpdate.setValue(newToDo.repeating, forKey: "repeating")
+            objectUpdate.setValue(newToDo.repeatingStartDate, forKey: "repeatingStartDate")
+            objectUpdate.setValue(newToDo.repeatingEndDate, forKey: "repeatingEndDate")
+            objectUpdate.setValue(newToDo.repeatingId, forKey: "repeatingId")
+            objectUpdate.setValue(newToDo.repeatingFrequencyCode, forKey: "repeatingFrequencyCode")
             
             do {
                 try managedContext.save()
@@ -228,7 +246,7 @@ class ToDoProcessUtils {
         // Context needs to be created in this container
         let managedContext = appDelegate.persistentContainer.viewContext
         
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "IOS_ToDo")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FND_ToDo")
         
         // Assigning different filters for the ToDo to be updated
         let taskIdPredicate = NSPredicate(format: "taskId = %@", toDoToDelete.taskId)
@@ -246,9 +264,14 @@ class ToDoProcessUtils {
         let intervalDueDatePredicate = NSPredicate(format: "intervalDueDate == %@", toDoToDelete.intervalDueDate as NSDate)
         let isImportantPredicate = NSPredicate(format: "important = %d", toDoToDelete.isImportant())
         let isNotifyingPredicate = NSPredicate(format: "notifying = %d", toDoToDelete.isNotifying())
+        let isRepeatingPredicate = NSPredicate(format: "repeating = %d", toDoToDelete.isRepeating())
+        let repeatingStartDatePredicate = NSPredicate(format: "repeatingStartDate = %@", toDoToDelete.getRepeatingStartDate() as NSDate)
+        let repeatingEndDatePredicate = NSPredicate(format: "repeatingEndDate = %@", toDoToDelete.getRepeatingEndDate() as NSDate)
+        let repeatingIdPredicate = NSPredicate(format: "repeatingId = %@", toDoToDelete.getRepeatingId())
+        let repeatingFrequencyCodePredicate = NSPredicate(format: "repeatingFrequencyCode= %@", toDoToDelete.getRepeatingFrequencyCode())
         
         // Combines different filters to one filter
-        let propertiesPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [taskIdPredicate, taskNamePredicate, taskTypePredicate, taskDescriptionPredicate, estTimePredicate, startDatePredicate, dueDatePredicate, statusPredicate, intervalizedPredicate, intervalIdPredicate, intervalLengthPredicate, intervalIndexPredicate, intervalDueDatePredicate, isImportantPredicate, isNotifyingPredicate])
+        let propertiesPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [taskIdPredicate, taskNamePredicate, taskTypePredicate, taskDescriptionPredicate, estTimePredicate, startDatePredicate, dueDatePredicate, statusPredicate, intervalizedPredicate, intervalIdPredicate, intervalLengthPredicate, intervalIndexPredicate, intervalDueDatePredicate, isImportantPredicate, isNotifyingPredicate, isRepeatingPredicate, repeatingStartDatePredicate, repeatingEndDatePredicate, repeatingIdPredicate, repeatingFrequencyCodePredicate])
         
         fetchRequest.predicate = propertiesPredicate
         
