@@ -91,7 +91,7 @@ class ToDoProcessUtils {
         let managedContext = appDelegate!.persistentContainer.viewContext
         
         // Prepare the request of type NSTypeRequest for the entity
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FND_ToDo")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FND_TODO")
         
         do {
             let result = try managedContext.fetch(fetchRequest)
@@ -123,7 +123,7 @@ class ToDoProcessUtils {
         let managedContext = appDelegate.persistentContainer.viewContext
         
         // Create an entity and new ToDo records
-        let toDoEntity = NSEntityDescription.entity(forEntityName: "FND_ToDo", in: managedContext)
+        let toDoEntity = NSEntityDescription.entity(forEntityName: "FND_TODO", in: managedContext)
         
         // Adding data to newly created record
         let toDoToSave = NSManagedObject(entity: toDoEntity!, insertInto: managedContext)
@@ -162,7 +162,7 @@ class ToDoProcessUtils {
         // Context needs to be created in this container
         let managedContext = appDelegate.persistentContainer.viewContext
         
-        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FND_ToDo")
+        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "FND_TODO")
         
         // Assigning different filters for the ToDo to be updated
         let taskIdPredicate = NSPredicate(format: "taskId = %@", toDoToUpdate.taskId)
@@ -246,7 +246,7 @@ class ToDoProcessUtils {
         // Context needs to be created in this container
         let managedContext = appDelegate.persistentContainer.viewContext
         
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FND_ToDo")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FND_TODO")
         
         // Assigning different filters for the ToDo to be updated
         let taskIdPredicate = NSPredicate(format: "taskId = %@", toDoToDelete.taskId)

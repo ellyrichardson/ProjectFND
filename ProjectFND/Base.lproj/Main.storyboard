@@ -845,6 +845,9 @@
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bDm-be-GdC">
                                 <rect key="frame" x="20" y="157" width="374" height="689"/>
+                                <connections>
+                                    <segue destination="60u-iQ-vK1" kind="embed" id="TVU-Ak-at2"/>
+                                </connections>
                             </containerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total of XX" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gyh-sg-WR5">
                                 <rect key="frame" x="37" y="120" width="340" height="25"/>
@@ -895,6 +898,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WOH-t9-j7c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1600.0000000000002" y="-635.49107142857144"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="Jzr-MO-g3N">
+            <objects>
+                <tableViewController id="60u-iQ-vK1" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="svz-7v-0VU">
+                        <rect key="frame" x="0.0" y="0.0" width="374" height="689"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="aqg-PO-FgE">
+                                <rect key="frame" x="0.0" y="28" width="374" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aqg-PO-FgE" id="EA6-Xd-y1X">
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="60u-iQ-vK1" id="ruX-hI-PKD"/>
+                            <outlet property="delegate" destination="60u-iQ-vK1" id="FJJ-LQ-sBA"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pHQ-HA-epo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2607" y="-427"/>
         </scene>
         <!--Item-->
         <scene sceneID="jYt-aC-2U0">
@@ -1221,7 +1252,7 @@
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <sections>
-                            <tableViewSection id="08M-DT-dIV">
+                            <tableViewSection footerTitle="" id="08M-DT-dIV">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="209" id="j2G-AA-MWT">
                                         <rect key="frame" x="0.0" y="28" width="414" height="209"/>
@@ -1432,14 +1463,14 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="178" id="SDw-Tp-o25">
-                                        <rect key="frame" x="0.0" y="827" width="414" height="178"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="216" id="SDw-Tp-o25">
+                                        <rect key="frame" x="0.0" y="827" width="414" height="216"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SDw-Tp-o25" id="tKK-Zf-FIy">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="178"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="216"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Interval Scheduling" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idZ-LV-EGz">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Special Scheduling" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idZ-LV-EGz">
                                                     <rect key="frame" x="8" y="17" width="398" height="27.333333333333329"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="27.329999999999998" id="Fwy-fc-Q9S"/>
@@ -1487,6 +1518,20 @@
                                                         <segue destination="kd2-te-07V" kind="show" identifier="setupIntervals" id="Qam-1J-jT7"/>
                                                     </connections>
                                                 </button>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lGs-I0-Ojd">
+                                                    <rect key="frame" x="198" y="157" width="49" height="31"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="checkRepeatingSwitchState:" destination="knJ-Sz-Bcd" eventType="valueChanged" id="jK9-0k-8nE"/>
+                                                    </connections>
+                                                </switch>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Repeating Task" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w3b-ca-q4h">
+                                                    <rect key="frame" x="36" y="164" width="111" height="17"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="15"/>
+                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="idZ-LV-EGz" firstAttribute="top" secondItem="tKK-Zf-FIy" secondAttribute="topMargin" constant="6" id="4n7-3s-dIf"/>
@@ -1527,6 +1572,7 @@
                         <outlet property="intervalSchedulingDayField" destination="vkm-ct-hNM" id="MD3-oD-buN"/>
                         <outlet property="intervalSchedulingHourField" destination="CWO-6e-a98" id="f1n-y6-Vol"/>
                         <outlet property="intervalSchedulingSetupButton" destination="xnm-Bn-EvX" id="fTd-UI-dLc"/>
+                        <outlet property="repeatingSwitch" destination="lGs-I0-Ojd" id="POF-ol-tsQ"/>
                         <outlet property="saveButton" destination="KIg-in-f9m" id="GoQ-ap-lAz"/>
                         <outlet property="startDateLabel" destination="DvV-uM-YSt" id="Apc-qv-Hfr"/>
                         <outlet property="startDatePicker" destination="T3m-eA-xYy" id="ETd-Ui-ioj"/>

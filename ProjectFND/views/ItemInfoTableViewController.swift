@@ -26,10 +26,11 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     @IBOutlet weak var intervalSchedulingDayField: UITextField!
     @IBOutlet weak var intervalSchedulingSetupButton: UIButton!
     @IBOutlet weak var taskTypePicker: UIPickerView!
+    @IBOutlet weak var repeatingSwitch: UISwitch!
     
     private var taskItemCells = [StaticTableCell]()
     private var taskTypePickerData: [String] = [String]()
-    private var selectedTaskTypePickerData: String = String()
+    
     var toDo: ToDo?
     private var toDos = [String: ToDo]()
     var toDoIntervals: [String: ToDo] = [String: ToDo]()
@@ -38,6 +39,10 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     private var chosenWorkDate: Date
     private var chosenDueDate: Date
     private var schedulerWasSet: Bool
+    
+    // MARK: - Trackers
+    private var selectedTaskTypePickerData: String = String()
+    private var repeatingSwitchStatus: Bool = Bool()
     
     required init?(coder aDecoder: NSCoder) {
         self.chosenWorkDate = Date()
@@ -56,6 +61,8 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         self.taskTypePicker.delegate = self
         self.taskTypePicker.dataSource = self
         
+        //self.repeatingSwitch.isEnabled
+        
         taskTypePickerData = ["Personal", "Work", "School"]
         //setPickerViewSelectedRow()
         
@@ -65,6 +72,9 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         
         startDatePicker.setValue(UIColor.white, forKey: "textColor")
         endDatePicker.setValue(UIColor.white, forKey: "textColor")
+        
+        self.repeatingSwitch.addTarget(self, action: #selector(checkRepeatingSwitchState), for: .valueChanged)
+        
         
         // Auto resizing the height of the cell
         tableView.estimatedRowHeight = 44.0
@@ -88,6 +98,8 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         taskDescriptionView.delegate = self
         estTimeField.delegate = self
         
+        repeatingSwitch.isOn = false
+        
         // Set up views if editing an existing ToDo.
         if let toDo = toDo {
             navigationItem.title = toDo.taskName
@@ -101,10 +113,13 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             endDateLabel.text = "Due Date: " + dateFormatter.string(from: toDo.dueDate)
             endDatePicker.date = toDo.dueDate
             taskTypeLabel.text = "Task Type: " + toDo.getTaskType()
+            self.repeatingSwitch.isOn = toDo.isRepeating()
             // TODO: Fix the selecting of already selected Rows!
             //setPickerViewSelectedRow()
         }
+        // Path if not editing an existing ToDo
         
+          
         updateSaveButtonState()
     }
     
@@ -206,6 +221,11 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         let strDate = dateFormatter.string(from: chosenDueDate)
         endDateLabel.text = "End Date: " + strDate
     }
+    
+    @IBAction func checkRepeatingSwitchState(_ sender: UISwitch) {
+        self.repeatingSwitchStatus = sender.isOn
+    }
+    
     
     // NOTE: Don't delete this!
     @IBAction func setupIntervalSchedule(_ sender: UIButton) {
@@ -410,16 +430,17 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             let estTime = estTimeField.text
             let dueDate = chosenDueDate
             let taskType = self.selectedTaskTypePickerData
+            let repeating = self.repeatingSwitchStatus
             
             updateSaveButtonState()
             navigationItem.title = taskName
             
             if toDo == nil  {
                 // Set the Non-Intervalized ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being created
-                toDo = ToDo(taskId: UUID().uuidString, taskName: taskName!, taskType: taskType, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())
+                toDo = ToDo(taskId: UUID().uuidString, taskName: taskName!, taskType: taskType, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished(), repeating: repeating)
             } else {
                 // Set the Non-Intervalized ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being modified and is already  created
-                toDo = ToDo(taskId: (self.toDo?.taskId)!, taskName: taskName!, taskType: taskType, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())
+                toDo = ToDo(taskId: (self.toDo?.taskId)!, taskName: taskName!, taskType: taskType, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished(), repeating: repeating)
             }
         }
     }
