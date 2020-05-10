@@ -57,7 +57,7 @@ class ParentStatusViewController: UIViewController, Observer {
     private func setupSegmentedControl() {
         // Configure Segmented Control
         statusDeadlineSegment.removeAllSegments()
-        statusDeadlineSegment.insertSegment(withTitle: "Non-Repeating", at: 0, animated: true)
+        statusDeadlineSegment.insertSegment(withTitle: "Intervals", at: 0, animated: true)
         statusDeadlineSegment.insertSegment(withTitle: "Repeating", at: 1, animated: true)
         statusDeadlineSegment.addTarget(self, action: #selector(selectionDidChange(_:)), for: .valueChanged)
         

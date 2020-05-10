@@ -225,7 +225,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         
         // Retrieves sorted ToDo Items by date that fall under the chosen day in the calendar
         let toDoItems = ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: getSelectedDate(), toDoItems: getToDosController().getToDos())
-        var sortedToDoItems =  ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDoItems)
+        let sortedToDoItems =  ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDoItems)
         cell.taskNameLabel.text = sortedToDoItems[indexPath.row].value.getTaskName()
         cell.startDateLabel.text = workDateFormatter.string(from: sortedToDoItems[indexPath.row].value.getStartDate())
         cell.estTimeLabel.text = sortedToDoItems[indexPath.row].value.getEstTime()

@@ -275,9 +275,12 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     
     @IBAction func unwindToScheduleView(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? ItemInfoTableViewController, let toDo = sourceViewController.toDo {
+            
+            
             if toDoListTableView.indexPathForSelectedRow != nil {
                 // Replaces the ToDo item in the original array of ToDos.
                 toDosController.updateToDos(modificationType: ListModificationType.UPDATE, toDo: toDo)
+                
                 //ToDoProcessUtils.updateToDo(toDoToUpdate: getToDoItemByIndex(toDoIndex: getSelectedToDoIndex()), newToDo: toDo, updateType: 0)
                 /*
                 ToDoProcessUtils.replaceToDoItemInBaseList(editedToDoItem: toDo, editedToDoItemIndex: getSelectedToDoIndex(), toDoItemCollection: &self.toDos)*/
@@ -302,8 +305,8 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
                    type: .debug)
             return
         }
-        
         // Uses the toDoIntervalsToAssign for the unwindSegue
+        
     }
     
     // MARK: - Setters
@@ -459,7 +462,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         }
     }
  
- */
+     */
     
     // NOTE: Refactor this function
     private func determineInterval(savedToDos: [String: ToDo], dateOfTheDay: Date) {

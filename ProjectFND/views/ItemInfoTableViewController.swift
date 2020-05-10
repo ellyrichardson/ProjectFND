@@ -26,7 +26,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     @IBOutlet weak var intervalSchedulingDayField: UITextField!
     @IBOutlet weak var intervalSchedulingSetupButton: UIButton!
     @IBOutlet weak var taskTypePicker: UIPickerView!
-    @IBOutlet weak var repeatingSwitch: UISwitch!
+    //@IBOutlet weak var repeatingSwitch: UISwitch!
     
     private var taskItemCells = [StaticTableCell]()
     private var taskTypePickerData: [String] = [String]()
@@ -42,7 +42,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     
     // MARK: - Trackers
     private var selectedTaskTypePickerData: String = String()
-    private var repeatingSwitchStatus: Bool = Bool()
+    private var repeatingStatus: Bool = Bool()
     
     required init?(coder aDecoder: NSCoder) {
         self.chosenWorkDate = Date()
@@ -73,7 +73,8 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         startDatePicker.setValue(UIColor.white, forKey: "textColor")
         endDatePicker.setValue(UIColor.white, forKey: "textColor")
         
-        self.repeatingSwitch.addTarget(self, action: #selector(checkRepeatingSwitchState), for: .valueChanged)
+        /*
+        self.repeatingSwitch.addTarget(self, action: #selector(checkRepeatingSwitchState), for: .valueChanged)*/
         
         
         // Auto resizing the height of the cell
@@ -98,7 +99,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         taskDescriptionView.delegate = self
         estTimeField.delegate = self
         
-        repeatingSwitch.isOn = false
+        //repeatingSwitch.isOn = false
         
         // Set up views if editing an existing ToDo.
         if let toDo = toDo {
@@ -113,7 +114,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             endDateLabel.text = "Due Date: " + dateFormatter.string(from: toDo.dueDate)
             endDatePicker.date = toDo.dueDate
             taskTypeLabel.text = "Task Type: " + toDo.getTaskType()
-            self.repeatingSwitch.isOn = toDo.isRepeating()
+            //self.repeatingSwitch.isOn = toDo.isRepeating()
             // TODO: Fix the selecting of already selected Rows!
             //setPickerViewSelectedRow()
         }
@@ -222,9 +223,10 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         endDateLabel.text = "End Date: " + strDate
     }
     
+    /*
     @IBAction func checkRepeatingSwitchState(_ sender: UISwitch) {
         self.repeatingSwitchStatus = sender.isOn
-    }
+    }*/
     
     
     // NOTE: Don't delete this!
@@ -430,7 +432,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             let estTime = estTimeField.text
             let dueDate = chosenDueDate
             let taskType = self.selectedTaskTypePickerData
-            let repeating = self.repeatingSwitchStatus
+            let repeating = self.repeatingStatus
             
             updateSaveButtonState()
             navigationItem.title = taskName
