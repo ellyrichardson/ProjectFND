@@ -1014,7 +1014,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5I2-aH-D6O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-174" y="-1079"/>
+            <point key="canvasLocation" x="-175" y="-1069"/>
         </scene>
         <!--schedule-view-controller-->
         <scene sceneID="tne-QT-ifu">
@@ -1312,7 +1312,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="702.89855072463774" y="-1081.4732142857142"/>
+            <point key="canvasLocation" x="703" y="-1069"/>
         </scene>
         <!--New Task-->
         <scene sceneID="1Tb-Fo-KGs">
@@ -1676,7 +1676,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jYN-KZ-ghY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1600" y="-1412"/>
+            <point key="canvasLocation" x="1600" y="-1357"/>
         </scene>
         <!--Recurrence Selection Pattern Table View Controller-->
         <scene sceneID="FPR-wX-N6N">
