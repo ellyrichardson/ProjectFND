@@ -205,9 +205,10 @@ class IntervalAvailabilitiesCheckingOperations {
         return dateArithmeticOps.addHoursToDate(date: toDo.workDate, hours: toDoWorkTimeLength)
     }
     
+    /*
     func getStartTimeAndEndTimeOfConsecutiveTimeSlots(consecutiveTimeSlot: [String: TimeSlot]) {
         
-    }
+    }*/
     
     /*
      Description: Puts all the timeSlots in the collection of timeSlot collections to a single collection.

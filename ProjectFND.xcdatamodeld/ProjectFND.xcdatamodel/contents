@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="17G2208" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="IOS_ToDo" representedClassName="IOS_ToDo" syncable="YES" codeGenerationType="class">
-        <attribute name="dueDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="estTime" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="finished" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="important" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="intervalDueDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="intervalId" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="intervalIndex" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="intervalized" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="intervalLength" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="notifying" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="taskDescription" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="taskId" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="taskName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="taskType" optional="YES" attributeType="String" syncable="YES"/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="FND_TODO" representedClassName="FND_TODO" syncable="YES" codeGenerationType="class">
+        <attribute name="dueDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="estTime" optional="YES" attributeType="String"/>
+        <attribute name="finished" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="important" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="intervalDueDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="intervalId" optional="YES" attributeType="String"/>
+        <attribute name="intervalIndex" optional="YES" attributeType="String"/>
+        <attribute name="intervalized" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="intervalLength" optional="YES" attributeType="String"/>
+        <attribute name="notifying" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="repeating" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="repeatingEndDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="repeatingFrequencyCode" optional="YES" attributeType="String"/>
+        <attribute name="repeatingId" optional="YES" attributeType="String"/>
+        <attribute name="repeatingStartDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="taskDescription" optional="YES" attributeType="String"/>
+        <attribute name="taskId" optional="YES" attributeType="String"/>
+        <attribute name="taskName" optional="YES" attributeType="String"/>
+        <attribute name="taskType" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="IOS_ToDo" positionX="-63" positionY="-18" width="128" height="270"/>
+        <element name="FND_TODO" positionX="-63" positionY="-18" width="128" height="343"/>
     </elements>
 </model>
