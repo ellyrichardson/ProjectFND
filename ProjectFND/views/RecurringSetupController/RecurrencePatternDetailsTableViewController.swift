@@ -46,7 +46,6 @@ class RecurrencePatternDetailsTableViewController: UITableViewController {
 extension ViewRecurrenceDetailModel: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return items.count
     }
     

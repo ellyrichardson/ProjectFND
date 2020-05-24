@@ -353,9 +353,10 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             os_log("Adding a new ToDo item.", log: OSLog.default, type: .debug)
         case "ShowToDoItemDetails":
             var toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
-            guard let itemInfoTableViewController = segue.destination as? ItemInfoTableViewController else {
+            guard let navigationController = segue.destination as? UINavigationController else {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
+            let itemInfoTableViewController = navigationController.viewControllers.first as! ItemInfoTableViewController
             
             guard let selectedToDoItemCell = sender as? ScheduleTableViewCell else {
                 fatalError("Unexpected sender: \(String(describing: sender))")
