@@ -27,9 +27,9 @@ enum TaskStatuses {
     case OVERDUE
 }
 
-enum RepeatingFrequencyTypes {
+enum RecurrenceDetailType {
     case DAILY
     case WEEKLY
     case MONTHLY
-    case OTHER
+    case YEARLY
 }

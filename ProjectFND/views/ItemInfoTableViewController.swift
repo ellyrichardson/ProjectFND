@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftEntryKit
 import os.log
 
 class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
@@ -39,6 +40,8 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     private var chosenWorkDate: Date
     private var chosenDueDate: Date
     private var schedulerWasSet: Bool
+    
+    private var dataSource = PresetsDataSource()
     
     // MARK: - Trackers
     private var selectedTaskTypePickerData: String = String()
@@ -472,6 +475,9 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func recurrencePatternButton(_ sender: UIButton) {
+        showRecurrenceSelection(with: PresetsDataSource.getCustomPreset())
+    }
     // MARK: - Private Methods
     
     // Disable the save button if the text field is empty
@@ -501,6 +507,15 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         }
         // Enable save button if all conditions are met
         saveButton.isEnabled = true
+    }
+    
+    // MARK: - Popups
+    
+    private func showRecurrenceSelection(with attributes: EKAttributes) {
+        /*
+        let recurrenceViewController = RecurrenceSelectionPatternTableViewController()
+        let recurrenceNavigationController = RecurrenceNavigationViewController(rootViewController: recurrenceViewController)
+        SwiftEntryKit.display(entry: recurrenceNavigationController, using: attributes)*/
     }
     
     // MARK: - Setters

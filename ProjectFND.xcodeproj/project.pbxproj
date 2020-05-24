@@ -8,6 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		0E57FCA780153D63E113FD7B /* Pods_ProjectFND.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F37845617D14E9AE8ECF364B /* Pods_ProjectFND.framework */; };
+		21091B822470D38F00C6F964 /* RecurrenceSelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21091B802470D38F00C6F964 /* RecurrenceSelectionTableViewCell.swift */; };
+		21091B832470D38F00C6F964 /* RecurrenceSelectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21091B812470D38F00C6F964 /* RecurrenceSelectionTableViewCell.xib */; };
+		212F14C6246F8FE10084FBD3 /* RepeatingSetupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212F14C5246F8FE10084FBD3 /* RepeatingSetupTableViewController.swift */; };
+		212F14C8246F91650084FBD3 /* EKAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212F14C7246F91650084FBD3 /* EKAttributes.swift */; };
+		212F14D324704D850084FBD3 /* RecurrencePatternDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212F14D124704D850084FBD3 /* RecurrencePatternDetailsViewController.swift */; };
+		212F14D424704D850084FBD3 /* RecurrencePatternDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 212F14D224704D850084FBD3 /* RecurrencePatternDetailsViewController.xib */; };
+		212F14D62470503B0084FBD3 /* PresetsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212F14D52470503B0084FBD3 /* PresetsDataSource.swift */; };
+		212F14D8247054240084FBD3 /* PresetDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212F14D7247054240084FBD3 /* PresetDescription.swift */; };
+		212F14DB247056150084FBD3 /* UIColor+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212F14DA247056150084FBD3 /* UIColor+Utils.swift */; };
+		212F14DD2470563F0084FBD3 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212F14DC2470563F0084FBD3 /* Font.swift */; };
+		212F14DF247056670084FBD3 /* Object+ClassName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212F14DE247056670084FBD3 /* Object+ClassName.swift */; };
+		212F14E1247056860084FBD3 /* UIScreen+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212F14E0247056860084FBD3 /* UIScreen+Utils.swift */; };
+		212F14E3247056A40084FBD3 /* CGRect+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212F14E2247056A40084FBD3 /* CGRect+Utils.swift */; };
+		212F14E5247056DE0084FBD3 /* UIVIew+Nib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212F14E4247056DE0084FBD3 /* UIVIew+Nib.swift */; };
+		212F14E7247067110084FBD3 /* RecurrenceNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212F14E6247067110084FBD3 /* RecurrenceNavigationViewController.swift */; };
 		213139EC245A79AF00BBB717 /* ImportantButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213139EB245A79AF00BBB717 /* ImportantButton.swift */; };
 		213139EE245A7D9600BBB717 /* NotificationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213139ED245A7D9600BBB717 /* NotificationButton.swift */; };
 		213139F0245A8AC900BBB717 /* FinishedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213139EF245A8AC900BBB717 /* FinishedButton.swift */; };
@@ -33,10 +48,17 @@
 		2187C9522449575C00714617 /* NonRepeatingDeadlinesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2187C9502449575C00714617 /* NonRepeatingDeadlinesViewController.swift */; };
 		2187C9532449575C00714617 /* NonRepeatingDeadlinesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2187C9512449575C00714617 /* NonRepeatingDeadlinesViewController.xib */; };
 		218A99C224303F820005DEB5 /* ToDoInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218A99C124303F820005DEB5 /* ToDoInterval.swift */; };
+		219648E22478DCB80052ECEF /* RecurrencePatternDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219648E12478DCB80052ECEF /* RecurrencePatternDetailsTableViewController.swift */; };
+		219648E42479EFD10052ECEF /* RecurrenceDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219648E32479EFD10052ECEF /* RecurrenceDetailsTableViewCell.swift */; };
+		219648E6247A10C40052ECEF /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219648E5247A10C40052ECEF /* Structs.swift */; };
+		219648E9247A14930052ECEF /* ViewRecurrenceModelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219648E8247A14930052ECEF /* ViewRecurrenceModelItem.swift */; };
+		219648EB247A158A0052ECEF /* ViewRecurrenceDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219648EA247A158A0052ECEF /* ViewRecurrenceDetailModel.swift */; };
 		219A6568232B12B10062BF84 /* ToDoProcessUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219A6567232B12B10062BF84 /* ToDoProcessUtils.swift */; };
 		219CA4A92326C904003ACBDE /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219CA4A82326C904003ACBDE /* ScheduleTableViewCell.swift */; };
 		219CA4AB2326CA18003ACBDE /* CheckBoxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219CA4AA2326CA18003ACBDE /* CheckBoxButton.swift */; };
 		219CEE6C234FD21000A9E819 /* ProjectFND.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 219CEE6A234FD21000A9E819 /* ProjectFND.xcdatamodeld */; };
+		21A05BE024764FDD00123E59 /* RecurrenceSelectionPatternTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A05BDE24764FDD00123E59 /* RecurrenceSelectionPatternTableViewController.swift */; };
+		21A05BE124764FDD00123E59 /* RecurrenceSelectionPatternTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21A05BDF24764FDD00123E59 /* RecurrenceSelectionPatternTableViewController.xib */; };
 		21A4D0F7231ECC3600B5B52A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D0F6231ECC3600B5B52A /* AppDelegate.swift */; };
 		21A4D0F9231ECC3600B5B52A /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D0F8231ECC3600B5B52A /* ScheduleViewController.swift */; };
 		21A4D0FC231ECC3600B5B52A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21A4D0FA231ECC3600B5B52A /* Main.storyboard */; };
@@ -49,7 +71,7 @@
 		21A4D12D2320B6E400B5B52A /* ItemInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D12C2320B6E400B5B52A /* ItemInfoTableViewController.swift */; };
 		21A4D12F2320B9F600B5B52A /* StaticTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D12E2320B9F600B5B52A /* StaticTableCell.swift */; };
 		21A4D1322320CDC000B5B52A /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D1312320CDC000B5B52A /* CalendarCell.swift */; };
-		21A7921224120446004C5770 /* BuildFile in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		21A7921224120446004C5770 /* (null) in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		21B8965323D3B7E100D49827 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8965223D3B7E100D49827 /* DateUtils.swift */; };
 		21B8965623D3BC8000D49827 /* DateArithmeticUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8965523D3BC8000D49827 /* DateArithmeticUtils.swift */; };
 		21BC58AE23E629CA00015ECE /* IntervalAvailabilitiesRetrievingOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BC58AD23E629CA00015ECE /* IntervalAvailabilitiesRetrievingOperations.swift */; };
@@ -79,7 +101,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				21A7921224120446004C5770 /* BuildFile in Embed Frameworks */,
+				21A7921224120446004C5770 /* (null) in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -88,6 +110,21 @@
 
 /* Begin PBXFileReference section */
 		17C953D3C3DBF64E57201050 /* Pods-ProjectFND.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectFND.debug.xcconfig"; path = "Target Support Files/Pods-ProjectFND/Pods-ProjectFND.debug.xcconfig"; sourceTree = "<group>"; };
+		21091B802470D38F00C6F964 /* RecurrenceSelectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurrenceSelectionTableViewCell.swift; sourceTree = "<group>"; };
+		21091B812470D38F00C6F964 /* RecurrenceSelectionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecurrenceSelectionTableViewCell.xib; sourceTree = "<group>"; };
+		212F14C5246F8FE10084FBD3 /* RepeatingSetupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingSetupTableViewController.swift; sourceTree = "<group>"; };
+		212F14C7246F91650084FBD3 /* EKAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKAttributes.swift; sourceTree = "<group>"; };
+		212F14D124704D850084FBD3 /* RecurrencePatternDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurrencePatternDetailsViewController.swift; sourceTree = "<group>"; };
+		212F14D224704D850084FBD3 /* RecurrencePatternDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecurrencePatternDetailsViewController.xib; sourceTree = "<group>"; };
+		212F14D52470503B0084FBD3 /* PresetsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsDataSource.swift; sourceTree = "<group>"; };
+		212F14D7247054240084FBD3 /* PresetDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetDescription.swift; sourceTree = "<group>"; };
+		212F14DA247056150084FBD3 /* UIColor+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Utils.swift"; sourceTree = "<group>"; };
+		212F14DC2470563F0084FBD3 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		212F14DE247056670084FBD3 /* Object+ClassName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Object+ClassName.swift"; sourceTree = "<group>"; };
+		212F14E0247056860084FBD3 /* UIScreen+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Utils.swift"; sourceTree = "<group>"; };
+		212F14E2247056A40084FBD3 /* CGRect+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Utils.swift"; sourceTree = "<group>"; };
+		212F14E4247056DE0084FBD3 /* UIVIew+Nib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIew+Nib.swift"; sourceTree = "<group>"; };
+		212F14E6247067110084FBD3 /* RecurrenceNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurrenceNavigationViewController.swift; sourceTree = "<group>"; };
 		213139EB245A79AF00BBB717 /* ImportantButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportantButton.swift; sourceTree = "<group>"; };
 		213139ED245A7D9600BBB717 /* NotificationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationButton.swift; sourceTree = "<group>"; };
 		213139EF245A8AC900BBB717 /* FinishedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishedButton.swift; sourceTree = "<group>"; };
@@ -113,10 +150,17 @@
 		2187C9502449575C00714617 /* NonRepeatingDeadlinesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonRepeatingDeadlinesViewController.swift; sourceTree = "<group>"; };
 		2187C9512449575C00714617 /* NonRepeatingDeadlinesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NonRepeatingDeadlinesViewController.xib; sourceTree = "<group>"; };
 		218A99C124303F820005DEB5 /* ToDoInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoInterval.swift; sourceTree = "<group>"; };
+		219648E12478DCB80052ECEF /* RecurrencePatternDetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurrencePatternDetailsTableViewController.swift; sourceTree = "<group>"; };
+		219648E32479EFD10052ECEF /* RecurrenceDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurrenceDetailsTableViewCell.swift; sourceTree = "<group>"; };
+		219648E5247A10C40052ECEF /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
+		219648E8247A14930052ECEF /* ViewRecurrenceModelItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRecurrenceModelItem.swift; sourceTree = "<group>"; };
+		219648EA247A158A0052ECEF /* ViewRecurrenceDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRecurrenceDetailModel.swift; sourceTree = "<group>"; };
 		219A6567232B12B10062BF84 /* ToDoProcessUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoProcessUtils.swift; sourceTree = "<group>"; };
 		219CA4A82326C904003ACBDE /* ScheduleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCell.swift; sourceTree = "<group>"; };
 		219CA4AA2326CA18003ACBDE /* CheckBoxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxButton.swift; sourceTree = "<group>"; };
 		219CEE6B234FD21000A9E819 /* ProjectFND.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProjectFND.xcdatamodel; sourceTree = "<group>"; };
+		21A05BDE24764FDD00123E59 /* RecurrenceSelectionPatternTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurrenceSelectionPatternTableViewController.swift; sourceTree = "<group>"; };
+		21A05BDF24764FDD00123E59 /* RecurrenceSelectionPatternTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecurrenceSelectionPatternTableViewController.xib; sourceTree = "<group>"; };
 		21A4D0F3231ECC3600B5B52A /* ProjectFND.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectFND.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21A4D0F6231ECC3600B5B52A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		21A4D0F8231ECC3600B5B52A /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
@@ -176,9 +220,47 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		212F14CC247049DF0084FBD3 /* RecurringSetupController */ = {
+			isa = PBXGroup;
+			children = (
+				212F14D124704D850084FBD3 /* RecurrencePatternDetailsViewController.swift */,
+				212F14D224704D850084FBD3 /* RecurrencePatternDetailsViewController.xib */,
+				212F14E6247067110084FBD3 /* RecurrenceNavigationViewController.swift */,
+				21A05BDE24764FDD00123E59 /* RecurrenceSelectionPatternTableViewController.swift */,
+				21A05BDF24764FDD00123E59 /* RecurrenceSelectionPatternTableViewController.xib */,
+				219648E12478DCB80052ECEF /* RecurrencePatternDetailsTableViewController.swift */,
+			);
+			path = RecurringSetupController;
+			sourceTree = "<group>";
+		};
+		212F14D9247055FF0084FBD3 /* SwiftEntryKit */ = {
+			isa = PBXGroup;
+			children = (
+				212F14DA247056150084FBD3 /* UIColor+Utils.swift */,
+				212F14DC2470563F0084FBD3 /* Font.swift */,
+				212F14DE247056670084FBD3 /* Object+ClassName.swift */,
+				212F14E0247056860084FBD3 /* UIScreen+Utils.swift */,
+				212F14E2247056A40084FBD3 /* CGRect+Utils.swift */,
+				212F14E4247056DE0084FBD3 /* UIVIew+Nib.swift */,
+			);
+			path = SwiftEntryKit;
+			sourceTree = "<group>";
+		};
+		212F14EB2470B1BC0084FBD3 /* recurrence */ = {
+			isa = PBXGroup;
+			children = (
+				21091B802470D38F00C6F964 /* RecurrenceSelectionTableViewCell.swift */,
+				21091B812470D38F00C6F964 /* RecurrenceSelectionTableViewCell.xib */,
+				219648E32479EFD10052ECEF /* RecurrenceDetailsTableViewCell.swift */,
+			);
+			name = recurrence;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		21521C43240E0CC600FC8A8A /* utilities */ = {
 			isa = PBXGroup;
 			children = (
+				212F14D9247055FF0084FBD3 /* SwiftEntryKit */,
 				217974E12425BFC700FE7B4C /* ObservableList.swift */,
 				21B8965523D3BC8000D49827 /* DateArithmeticUtils.swift */,
 				21B8965223D3B7E100D49827 /* DateUtils.swift */,
@@ -193,7 +275,10 @@
 		21521C4A240E17D200FC8A8A /* views */ = {
 			isa = PBXGroup;
 			children = (
+				219648E02478D1AE0052ECEF /* SFKPresets */,
+				212F14CC247049DF0084FBD3 /* RecurringSetupController */,
 				216067DF24219F7700B0E5EF /* StatusViewController */,
+				212F14C5246F8FE10084FBD3 /* RepeatingSetupTableViewController.swift */,
 				21A4D12C2320B6E400B5B52A /* ItemInfoTableViewController.swift */,
 				21F7013C23F26177001942D6 /* IntervalSchedulingPreviewController.swift */,
 				21A4D0F8231ECC3600B5B52A /* ScheduleViewController.swift */,
@@ -215,6 +300,7 @@
 		21521C4D240E190700FC8A8A /* cells */ = {
 			isa = PBXGroup;
 			children = (
+				212F14EB2470B1BC0084FBD3 /* recurrence */,
 				21A4D12E2320B9F600B5B52A /* StaticTableCell.swift */,
 				219CA4A82326C904003ACBDE /* ScheduleTableViewCell.swift */,
 				21A4D1312320CDC000B5B52A /* CalendarCell.swift */,
@@ -243,9 +329,11 @@
 		21521C50240E1BEC00FC8A8A /* models */ = {
 			isa = PBXGroup;
 			children = (
+				219648E7247A14420052ECEF /* Recurrence */,
 				21A4D123231ECE9A00B5B52A /* ToDo.swift */,
 				218A99C124303F820005DEB5 /* ToDoInterval.swift */,
 				214F4F7A23D50DEC00391D7A /* TimeSlot.swift */,
+				219648E5247A10C40052ECEF /* Structs.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -281,6 +369,24 @@
 			path = controllers;
 			sourceTree = "<group>";
 		};
+		219648E02478D1AE0052ECEF /* SFKPresets */ = {
+			isa = PBXGroup;
+			children = (
+				212F14D7247054240084FBD3 /* PresetDescription.swift */,
+				212F14D52470503B0084FBD3 /* PresetsDataSource.swift */,
+			);
+			path = SFKPresets;
+			sourceTree = "<group>";
+		};
+		219648E7247A14420052ECEF /* Recurrence */ = {
+			isa = PBXGroup;
+			children = (
+				219648E8247A14930052ECEF /* ViewRecurrenceModelItem.swift */,
+				219648EA247A158A0052ECEF /* ViewRecurrenceDetailModel.swift */,
+			);
+			path = Recurrence;
+			sourceTree = "<group>";
+		};
 		219A6566232B12750062BF84 /* operations */ = {
 			isa = PBXGroup;
 			children = (
@@ -314,6 +420,7 @@
 		21A4D0F5231ECC3600B5B52A /* ProjectFND */ = {
 			isa = PBXGroup;
 			children = (
+				212F14C7246F91650084FBD3 /* EKAttributes.swift */,
 				217974E62425E0EF00FE7B4C /* Constants.swift */,
 				217974E82427062B00FE7B4C /* controllers */,
 				217974E52425CBAC00FE7B4C /* interfaces */,
@@ -467,6 +574,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				212F14D424704D850084FBD3 /* RecurrencePatternDetailsViewController.xib in Resources */,
 				21A4D101231ECC3600B5B52A /* LaunchScreen.storyboard in Resources */,
 				216067DE24219F3A00B0E5EF /* ParentStatusViewController.xib in Resources */,
 				21A4D0FE231ECC3600B5B52A /* Assets.xcassets in Resources */,
@@ -476,7 +584,9 @@
 				216067E724219FBD00B0E5EF /* DeadlinesViewController.xib in Resources */,
 				21A4D0FC231ECC3600B5B52A /* Main.storyboard in Resources */,
 				21C8DA85237915990084E2D6 /* DeadlinesTableViewController.xib in Resources */,
+				21A05BE124764FDD00123E59 /* RecurrenceSelectionPatternTableViewController.xib in Resources */,
 				21F7013F23F26177001942D6 /* IntervalSchedulingPreviewController.xib in Resources */,
+				21091B832470D38F00C6F964 /* RecurrenceSelectionTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -536,30 +646,45 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				212F14DB247056150084FBD3 /* UIColor+Utils.swift in Sources */,
+				21091B822470D38F00C6F964 /* RecurrenceSelectionTableViewCell.swift in Sources */,
+				219648E9247A14930052ECEF /* ViewRecurrenceModelItem.swift in Sources */,
 				216067E224219FAD00B0E5EF /* StatusViewController.swift in Sources */,
 				217974E42425C19C00FE7B4C /* Observer.swift in Sources */,
 				21A4D12D2320B6E400B5B52A /* ItemInfoTableViewController.swift in Sources */,
 				219CA4A92326C904003ACBDE /* ScheduleTableViewCell.swift in Sources */,
 				217974E22425BFC700FE7B4C /* ObservableList.swift in Sources */,
 				21A4D1322320CDC000B5B52A /* CalendarCell.swift in Sources */,
+				212F14D324704D850084FBD3 /* RecurrencePatternDetailsViewController.swift in Sources */,
 				21521C49240E11C600FC8A8A /* CalendarViewUtils.swift in Sources */,
+				219648E22478DCB80052ECEF /* RecurrencePatternDetailsTableViewController.swift in Sources */,
 				21B8965323D3B7E100D49827 /* DateUtils.swift in Sources */,
 				218A99C224303F820005DEB5 /* ToDoInterval.swift in Sources */,
 				21F2B5B92415A53100B8A548 /* LoadingScreen.swift in Sources */,
 				217974EA2427065100FE7B4C /* ToDosController.swift in Sources */,
+				212F14C6246F8FE10084FBD3 /* RepeatingSetupTableViewController.swift in Sources */,
+				212F14D8247054240084FBD3 /* PresetDescription.swift in Sources */,
+				212F14D62470503B0084FBD3 /* PresetsDataSource.swift in Sources */,
 				217974E72425E0F000FE7B4C /* Constants.swift in Sources */,
 				21A4D0F9231ECC3600B5B52A /* ScheduleViewController.swift in Sources */,
+				21A05BE024764FDD00123E59 /* RecurrenceSelectionPatternTableViewController.swift in Sources */,
 				21521C45240E0D3A00FC8A8A /* GeneralViewUtils.swift in Sources */,
 				217477CF23D5282B001CA394 /* IntervalAvailabilitiesCheckingOperations.swift in Sources */,
 				214F4F7B23D50DEC00391D7A /* TimeSlot.swift in Sources */,
 				21B8965623D3BC8000D49827 /* DateArithmeticUtils.swift in Sources */,
 				21521C47240E106D00FC8A8A /* ToDoTableViewUtils.swift in Sources */,
 				213139EC245A79AF00BBB717 /* ImportantButton.swift in Sources */,
+				212F14E5247056DE0084FBD3 /* UIVIew+Nib.swift in Sources */,
+				212F14C8246F91650084FBD3 /* EKAttributes.swift in Sources */,
+				212F14E1247056860084FBD3 /* UIScreen+Utils.swift in Sources */,
 				219CEE6C234FD21000A9E819 /* ProjectFND.xcdatamodeld in Sources */,
+				212F14E7247067110084FBD3 /* RecurrenceNavigationViewController.swift in Sources */,
+				212F14DD2470563F0084FBD3 /* Font.swift in Sources */,
 				219CA4AB2326CA18003ACBDE /* CheckBoxButton.swift in Sources */,
 				214E0AE9233552C700398AC5 /* TransformingButton.swift in Sources */,
 				216067E92421CD4A00B0E5EF /* DeadlinesTableViewCell.swift in Sources */,
 				213139F0245A8AC900BBB717 /* FinishedButton.swift in Sources */,
+				212F14DF247056670084FBD3 /* Object+ClassName.swift in Sources */,
 				216067DD24219F3A00B0E5EF /* ParentStatusViewController.swift in Sources */,
 				217974EC2428591F00FE7B4C /* Observable.swift in Sources */,
 				21BC58AE23E629CA00015ECE /* IntervalAvailabilitiesRetrievingOperations.swift in Sources */,
@@ -567,11 +692,15 @@
 				2187C9522449575C00714617 /* NonRepeatingDeadlinesViewController.swift in Sources */,
 				21C8DA88237916A90084E2D6 /* ToDoDateSection.swift in Sources */,
 				21A4D124231ECE9A00B5B52A /* ToDo.swift in Sources */,
+				212F14E3247056A40084FBD3 /* CGRect+Utils.swift in Sources */,
 				21A4D122231ECE2300B5B52A /* CalendarHeader.swift in Sources */,
+				219648E6247A10C40052ECEF /* Structs.swift in Sources */,
 				219A6568232B12B10062BF84 /* ToDoProcessUtils.swift in Sources */,
 				21A4D0F7231ECC3600B5B52A /* AppDelegate.swift in Sources */,
 				216067E624219FBD00B0E5EF /* DeadlinesViewController.swift in Sources */,
+				219648E42479EFD10052ECEF /* RecurrenceDetailsTableViewCell.swift in Sources */,
 				21F7013E23F26177001942D6 /* IntervalSchedulingPreviewController.swift in Sources */,
+				219648EB247A158A0052ECEF /* ViewRecurrenceDetailModel.swift in Sources */,
 				213139EE245A7D9600BBB717 /* NotificationButton.swift in Sources */,
 				21A4D12F2320B9F600B5B52A /* StaticTableCell.swift in Sources */,
 			);
