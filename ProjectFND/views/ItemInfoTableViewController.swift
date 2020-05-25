@@ -12,10 +12,10 @@ import os.log
 
 class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    @IBOutlet weak var taskNameDescriptionLabel: UILabel!
     @IBOutlet weak var taskNameField: UITextField!
     @IBOutlet weak var taskTypeLabel: UILabel!
-    @IBOutlet weak var taskDescriptionView: UITextView!
+    // NOTE: Make the description like the notes
+    //@IBOutlet weak var taskDescriptionView: UITextView!
     @IBOutlet weak var estTimeLabel: UILabel!
     @IBOutlet weak var estTimeField: UITextField!
     @IBOutlet weak var startDateLabel: UILabel!
@@ -99,7 +99,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         ]
 
         taskNameField.delegate = self
-        taskDescriptionView.delegate = self
+        //taskDescriptionView.delegate = self
         estTimeField.delegate = self
         
         //repeatingSwitch.isOn = false
@@ -108,8 +108,8 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         if let toDo = toDo {
             navigationItem.title = toDo.taskName
             taskNameField.text = toDo.taskName
-            taskDescriptionView.text = toDo.taskDescription
-            taskNameDescriptionLabel.text = "Task Details: " + toDo.taskName
+            //taskDescriptionView.text = toDo.taskDescription
+            //taskNameDescriptionLabel.text = "Task Details: " + toDo.taskName
             startDateLabel.text = "Work Date: " + dateFormatter.string(from: toDo.workDate)
             startDatePicker.date = toDo.workDate
             estTimeLabel.text = "Estmated Time: " + toDo.estTime
@@ -195,7 +195,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     func textFieldDidEndEditing(_ textField: UITextField) {
         // Determines which of the textfield is it working
         if textField == taskNameField {
-            taskNameDescriptionLabel.text = "Task Details: " + textField.text!
+            //taskNameDescriptionLabel.text = "Task Details: " + textField.text!
         }
         else if textField == estTimeField {
             estTimeLabel.text = "Estimated Time: " + textField.text!
@@ -340,6 +340,10 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     
     // Determines the height of the expansion of the table view cells
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 2 {
+            return 124
+        }
+        /*
         if indexPath.row == 0 {
             if taskItemCells[0].collapsed {
                 return 210
@@ -369,7 +373,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             if taskItemCells[5].collapsed {
                 return 210
             }
-        }
+        }*/
         return 50
     }
     
@@ -386,7 +390,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             let intervalHours = intervalSchedulingHourField.text
             let intervalDays = intervalSchedulingDayField.text
             let taskName = taskNameField.text
-            let taskDescription = taskDescriptionView.text
+            //let taskDescription = taskDescriptionView.text
             let workDate = chosenWorkDate
             let estTime = estTimeField.text
             let dueDate = chosenDueDate
@@ -412,13 +416,13 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             intervalSchedulingPreviewController.setToDoEndDate(toDoEndDate: dueDate)
             if toDo == nil {
                 // Set the ToDo to be intervalized to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being created
-                intervalSchedulingPreviewController.setToDoToBeIntervalized(toDo: ToDo(taskId: stringedUUID, taskName: taskName!, taskType: taskType, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())!)
+                intervalSchedulingPreviewController.setToDoToBeIntervalized(toDo: ToDo(taskId: stringedUUID, taskName: taskName!, taskType: taskType, taskDescription: "", workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())!)
             }
                 /*
                 (taskId: String, taskName: String, taskType: String = TaskTypes.PERSONAL.rawValue,taskDescription: String, workDate: Date, estTime: String, dueDate: Date, finished: Bool, intervalized: Bool = false, intervalId: String = "", intervalLength: Int = 0, intervalIndex: Int = 0, intervalDueDate: Date = Date())*/
             else {
                 // Set the ToDo to be intervalized to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being modified and is already  created
-                intervalSchedulingPreviewController.setToDoToBeIntervalized(toDo: ToDo(taskId: (self.toDo?.getTaskId())!,taskName: taskName!, taskType: taskType, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished(), intervalized: (toDo?.isIntervalized())!, intervalId: (toDo?.getIntervalId())!, intervalLength: (toDo?.getIntervalLength())! ,intervalIndex: (toDo?.getIntervalIndex())!, intervalDueDate: (toDo?.getIntervalDueDate())!)!)
+                intervalSchedulingPreviewController.setToDoToBeIntervalized(toDo: ToDo(taskId: (self.toDo?.getTaskId())!,taskName: taskName!, taskType: taskType, taskDescription: "", workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished(), intervalized: (toDo?.isIntervalized())!, intervalId: (toDo?.getIntervalId())!, intervalLength: (toDo?.getIntervalLength())! ,intervalIndex: (toDo?.getIntervalIndex())!, intervalDueDate: (toDo?.getIntervalDueDate())!)!)
             }
             
         } else {
@@ -430,7 +434,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             }
             
             let taskName = taskNameField.text
-            let taskDescription = taskDescriptionView.text
+            //let taskDescription = taskDescriptionView.text
             let workDate = chosenWorkDate
             let estTime = estTimeField.text
             let dueDate = chosenDueDate
@@ -442,10 +446,10 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             
             if toDo == nil  {
                 // Set the Non-Intervalized ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being created
-                toDo = ToDo(taskId: UUID().uuidString, taskName: taskName!, taskType: taskType, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished(), repeating: repeating)
+                toDo = ToDo(taskId: UUID().uuidString, taskName: taskName!, taskType: taskType, taskDescription: "", workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished(), repeating: repeating)
             } else {
                 // Set the Non-Intervalized ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being modified and is already  created
-                toDo = ToDo(taskId: (self.toDo?.taskId)!, taskName: taskName!, taskType: taskType, taskDescription: taskDescription!, workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished(), repeating: repeating)
+                toDo = ToDo(taskId: (self.toDo?.taskId)!, taskName: taskName!, taskType: taskType, taskDescription: "", workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished(), repeating: repeating)
             }
         }
     }
