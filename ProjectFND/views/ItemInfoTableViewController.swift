@@ -425,7 +425,15 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
                 intervalSchedulingPreviewController.setToDoToBeIntervalized(toDo: ToDo(taskId: (self.toDo?.getTaskId())!,taskName: taskName!, taskType: taskType, taskDescription: "", workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished(), intervalized: (toDo?.isIntervalized())!, intervalId: (toDo?.getIntervalId())!, intervalLength: (toDo?.getIntervalLength())! ,intervalIndex: (toDo?.getIntervalIndex())!, intervalDueDate: (toDo?.getIntervalDueDate())!)!)
             }
             
-        } else {
+        }
+        else if segue.identifier == "SegueToEstimatedEfforts" {
+            guard let simpleItemsTVC = segue.destination as? SimpleItemsTableViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            
+            simpleItemsTVC.setItemTypeToDisplay(itemTypeToDisplay: SimpleStaticTVCReturnType.ESTIMATED_EFFORT)
+        }
+        else {
             // Only prepare view controller when the save button is pressed
             guard let button = sender as? UIBarButtonItem, button === saveButton else {
                 os_log("The save button was not pressed, cancelling new item", log: OSLog.default,

@@ -33,3 +33,8 @@ enum RecurrenceDetailType {
     case MONTHLY
     case YEARLY
 }
+
+enum SimpleStaticTVCReturnType {
+    case RECURRENCE
+    case ESTIMATED_EFFORT
+}

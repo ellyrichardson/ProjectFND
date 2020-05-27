@@ -1148,17 +1148,17 @@
             </objects>
             <point key="canvasLocation" x="2607" y="-427"/>
         </scene>
-        <!--Recurrence Pattern Details Table View Controller-->
+        <!--Simple Items Table View Controller-->
         <scene sceneID="9Lk-uh-FAK">
             <objects>
-                <tableViewController id="Zs9-E0-0Ub" customClass="RecurrencePatternDetailsTableViewController" customModule="ProjectFND" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="Zs9-E0-0Ub" customClass="SimpleItemsTableViewController" customModule="ProjectFND" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hNR-HN-iKE">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="sectionIndexBackgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecurrenceDetailCell" rowHeight="51" id="CPC-tk-z7l" customClass="RecurrenceDetailsTableViewCell" customModule="ProjectFND" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SimpleItemsTVCTableViewCell" rowHeight="51" id="CPC-tk-z7l" customClass="SimpleItemsTVCTableViewCell" customModule="ProjectFND" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="51"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CPC-tk-z7l" id="kEe-O8-SqD">
@@ -1583,6 +1583,9 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <segue destination="hol-Gi-sAf" kind="show" identifier="" id="htG-1M-TiE"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="124" id="Oq2-iK-s6y">
                                         <rect key="frame" x="0.0" y="136" width="414" height="124"/>
@@ -1755,6 +1758,9 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <segue destination="Zs9-E0-0Ub" kind="show" identifier="SegueToEstimatedEfforts" id="hcf-LG-FA8"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="54" id="fVq-Lg-0ux">
                                         <rect key="frame" x="0.0" y="374" width="414" height="54"/>
@@ -2407,10 +2413,53 @@
             </objects>
             <point key="canvasLocation" x="3593" y="-1412"/>
         </scene>
+        <!--Table View Controller-->
+        <scene sceneID="elU-WY-DL2">
+            <objects>
+                <tableViewController id="hol-Gi-sAf" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="edj-nf-3jV">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="58" id="ubt-cx-Iqm">
+                                <rect key="frame" x="0.0" y="28" width="414" height="58"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ubt-cx-Iqm" id="Nul-ja-q5R">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="58"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="514-oZ-fD4">
+                                            <rect key="frame" x="20" y="12" width="34" height="34"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Taglabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qQ4-WR-MtS">
+                                            <rect key="frame" x="62" y="19" width="64" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="hol-Gi-sAf" id="LkE-L0-rvw"/>
+                            <outlet property="delegate" destination="hol-Gi-sAf" id="edb-op-S44"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="LHq-f0-qmX"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FwT-3D-jKx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4640.579710144928" y="-1412.2767857142856"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="IZc-cd-zG3"/>
-        <segue reference="mDA-Bm-bDa"/>
+        <segue reference="hcf-LG-FA8"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="ExpandToDo" width="25" height="25"/>

@@ -8,13 +8,19 @@
 
 import UIKit
 
-class RecurrenceDetailsTableViewCell: UITableViewCell {
+class SimpleItemsTVCTableViewCell: UITableViewCell {
 
     @IBOutlet weak var detailLabel: UILabel!
     
-    var item: ViewRecurrenceDetailModelItem? {
+    var recurrenceItem: ViewRecurrenceDetailModelItem? {
         didSet {
-            detailLabel?.text = item?.recurrenceDetail
+            detailLabel?.text = recurrenceItem?.recurrenceDetail
+        }
+    }
+    
+    var estimatedEffortItem: ViewEstimatedEffortModelItem? {
+        didSet {
+            detailLabel?.text = estimatedEffortItem?.estimatedEffortAmount
         }
     }
     

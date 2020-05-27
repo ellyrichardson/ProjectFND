@@ -10,3 +10,7 @@ struct RecurrenceDetailModel {
     var recurrenceDetail: String
     var recurrenceType: RecurrenceDetailType
 }
+
+struct EstimatedEffortModel {
+    var estimatedEffortAmount: String
+}

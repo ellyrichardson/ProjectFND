@@ -47,8 +47,10 @@
 		2187C9522449575C00714617 /* NonRepeatingDeadlinesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2187C9502449575C00714617 /* NonRepeatingDeadlinesViewController.swift */; };
 		2187C9532449575C00714617 /* NonRepeatingDeadlinesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2187C9512449575C00714617 /* NonRepeatingDeadlinesViewController.xib */; };
 		218A99C224303F820005DEB5 /* ToDoInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218A99C124303F820005DEB5 /* ToDoInterval.swift */; };
+		219628E2247E260F00819A25 /* ViewEstimatedEffortModelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219628E1247E260F00819A25 /* ViewEstimatedEffortModelItem.swift */; };
+		219628E4247E268000819A25 /* ViewEstimatedEffortModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219628E3247E268000819A25 /* ViewEstimatedEffortModel.swift */; };
 		219648E22478DCB80052ECEF /* RecurrencePatternDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219648E12478DCB80052ECEF /* RecurrencePatternDetailsTableViewController.swift */; };
-		219648E42479EFD10052ECEF /* RecurrenceDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219648E32479EFD10052ECEF /* RecurrenceDetailsTableViewCell.swift */; };
+		219648E42479EFD10052ECEF /* SimpleItemsTVCTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219648E32479EFD10052ECEF /* SimpleItemsTVCTableViewCell.swift */; };
 		219648E6247A10C40052ECEF /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219648E5247A10C40052ECEF /* Structs.swift */; };
 		219648E9247A14930052ECEF /* ViewRecurrenceModelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219648E8247A14930052ECEF /* ViewRecurrenceModelItem.swift */; };
 		219648EB247A158A0052ECEF /* ViewRecurrenceDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219648EA247A158A0052ECEF /* ViewRecurrenceDetailModel.swift */; };
@@ -148,8 +150,10 @@
 		2187C9502449575C00714617 /* NonRepeatingDeadlinesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonRepeatingDeadlinesViewController.swift; sourceTree = "<group>"; };
 		2187C9512449575C00714617 /* NonRepeatingDeadlinesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NonRepeatingDeadlinesViewController.xib; sourceTree = "<group>"; };
 		218A99C124303F820005DEB5 /* ToDoInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoInterval.swift; sourceTree = "<group>"; };
+		219628E1247E260F00819A25 /* ViewEstimatedEffortModelItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewEstimatedEffortModelItem.swift; sourceTree = "<group>"; };
+		219628E3247E268000819A25 /* ViewEstimatedEffortModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewEstimatedEffortModel.swift; sourceTree = "<group>"; };
 		219648E12478DCB80052ECEF /* RecurrencePatternDetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurrencePatternDetailsTableViewController.swift; sourceTree = "<group>"; };
-		219648E32479EFD10052ECEF /* RecurrenceDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurrenceDetailsTableViewCell.swift; sourceTree = "<group>"; };
+		219648E32479EFD10052ECEF /* SimpleItemsTVCTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleItemsTVCTableViewCell.swift; sourceTree = "<group>"; };
 		219648E5247A10C40052ECEF /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
 		219648E8247A14930052ECEF /* ViewRecurrenceModelItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRecurrenceModelItem.swift; sourceTree = "<group>"; };
 		219648EA247A158A0052ECEF /* ViewRecurrenceDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRecurrenceDetailModel.swift; sourceTree = "<group>"; };
@@ -247,7 +251,7 @@
 			children = (
 				21091B802470D38F00C6F964 /* RecurrenceSelectionTableViewCell.swift */,
 				21091B812470D38F00C6F964 /* RecurrenceSelectionTableViewCell.xib */,
-				219648E32479EFD10052ECEF /* RecurrenceDetailsTableViewCell.swift */,
+				219648E32479EFD10052ECEF /* SimpleItemsTVCTableViewCell.swift */,
 			);
 			name = recurrence;
 			path = "New Group";
@@ -326,6 +330,7 @@
 		21521C50240E1BEC00FC8A8A /* models */ = {
 			isa = PBXGroup;
 			children = (
+				219628E0247E25C700819A25 /* EstimatedEffort */,
 				219648E7247A14420052ECEF /* Recurrence */,
 				21A4D123231ECE9A00B5B52A /* ToDo.swift */,
 				218A99C124303F820005DEB5 /* ToDoInterval.swift */,
@@ -364,6 +369,15 @@
 				217974E92427065100FE7B4C /* ToDosController.swift */,
 			);
 			path = controllers;
+			sourceTree = "<group>";
+		};
+		219628E0247E25C700819A25 /* EstimatedEffort */ = {
+			isa = PBXGroup;
+			children = (
+				219628E1247E260F00819A25 /* ViewEstimatedEffortModelItem.swift */,
+				219628E3247E268000819A25 /* ViewEstimatedEffortModel.swift */,
+			);
+			path = EstimatedEffort;
 			sourceTree = "<group>";
 		};
 		219648E02478D1AE0052ECEF /* SFKPresets */ = {
@@ -663,6 +677,7 @@
 				217974E72425E0F000FE7B4C /* Constants.swift in Sources */,
 				21A4D0F9231ECC3600B5B52A /* ScheduleViewController.swift in Sources */,
 				212990C7247B88C600A9D618 /* EntryDetailsTableViewController.swift in Sources */,
+				219628E4247E268000819A25 /* ViewEstimatedEffortModel.swift in Sources */,
 				21A05BE024764FDD00123E59 /* RecurrenceSelectionPatternTableViewController.swift in Sources */,
 				21521C45240E0D3A00FC8A8A /* GeneralViewUtils.swift in Sources */,
 				217477CF23D5282B001CA394 /* IntervalAvailabilitiesCheckingOperations.swift in Sources */,
@@ -694,8 +709,9 @@
 				219A6568232B12B10062BF84 /* ToDoProcessUtils.swift in Sources */,
 				21A4D0F7231ECC3600B5B52A /* AppDelegate.swift in Sources */,
 				216067E624219FBD00B0E5EF /* DeadlinesViewController.swift in Sources */,
-				219648E42479EFD10052ECEF /* RecurrenceDetailsTableViewCell.swift in Sources */,
+				219648E42479EFD10052ECEF /* SimpleItemsTVCTableViewCell.swift in Sources */,
 				21F7013E23F26177001942D6 /* IntervalSchedulingPreviewController.swift in Sources */,
+				219628E2247E260F00819A25 /* ViewEstimatedEffortModelItem.swift in Sources */,
 				219648EB247A158A0052ECEF /* ViewRecurrenceDetailModel.swift in Sources */,
 				213139EE245A7D9600BBB717 /* NotificationButton.swift in Sources */,
 				21A4D12F2320B9F600B5B52A /* StaticTableCell.swift in Sources */,
