@@ -49,12 +49,14 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     private var _observerId: Int = 0
     
+    // Id of the ViewController as an Observer
     var observerId: Int {
         get {
             return self._observerId
         }
     }
     
+    // To Update the ViewController
     func update<T>(with newValue: T) {
         setToDoItems(toDoItems: newValue as! [String: ToDo])
         print("ToDo Items for ScheduleViewController has been updated")
@@ -85,15 +87,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         self.toDoListTableView.delegate = self
         self.toDoListTableView.dataSource = self
         self.toDoListTableView.backgroundColor = UIColor.clear
-        
-        /*
-        if let savedToDos = ToDoProcessUtils.loadToDos() {
-            setToDoItems(toDoItems: savedToDos)
-        }
- */
-        /*if let savedToDos = ToDoProcessUtils.loadToDos() {
-            setToDoItems(toDoItems: savedToDos)
-        }*/
         
         configureCalendarView()
         GeneralViewUtils.addTopBorderWithColor(self.toDoListTableView, color: UIColor.lightGray, width: 1.00)

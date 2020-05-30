@@ -32,22 +32,6 @@ class ViewEstimatedEffortModel: NSObject {
         EstimatedEffortModel(estimatedEffortAmount: "6.5"),
         EstimatedEffortModel(estimatedEffortAmount: "7.0"),
         EstimatedEffortModel(estimatedEffortAmount: "7.5"),
-        EstimatedEffortModel(estimatedEffortAmount: "8.0"),
-        EstimatedEffortModel(estimatedEffortAmount: "8.5"),
-        EstimatedEffortModel(estimatedEffortAmount: "9.0"),
-        EstimatedEffortModel(estimatedEffortAmount: "9.5"),
-        EstimatedEffortModel(estimatedEffortAmount: "10.0"),
-        EstimatedEffortModel(estimatedEffortAmount: "10.5"),
-        EstimatedEffortModel(estimatedEffortAmount: "11.0"),
-        EstimatedEffortModel(estimatedEffortAmount: "11.5"),
-        EstimatedEffortModel(estimatedEffortAmount: "12.0"),
-        EstimatedEffortModel(estimatedEffortAmount: "12.5"),
-        EstimatedEffortModel(estimatedEffortAmount: "13.0"),
-        EstimatedEffortModel(estimatedEffortAmount: "13.5"),
-        EstimatedEffortModel(estimatedEffortAmount: "14.0"),
-        EstimatedEffortModel(estimatedEffortAmount: "14.5"),
-        EstimatedEffortModel(estimatedEffortAmount: "15.0"),
-        EstimatedEffortModel(estimatedEffortAmount: "15.5"),
-        EstimatedEffortModel(estimatedEffortAmount: "16.0")]
+        EstimatedEffortModel(estimatedEffortAmount: "8.0")]
     }
 }

@@ -9,6 +9,7 @@
 import UIKit
 import os.log
 
+// NOTE: Maybe it should be named ObservableDict? Its got String Key, and T Value
 class ObservableList<T> : Observable {
     // The key is a string of the id of T
     private var _value: [String: T]! = nil

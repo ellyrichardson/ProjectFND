@@ -28,6 +28,13 @@
 		214E0AE9233552C700398AC5 /* TransformingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214E0AE8233552C700398AC5 /* TransformingButton.swift */; };
 		214E0AEC233552FE00398AC5 /* ExpandButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214E0AEB233552FE00398AC5 /* ExpandButton.swift */; };
 		214F4F7B23D50DEC00391D7A /* TimeSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214F4F7A23D50DEC00391D7A /* TimeSlot.swift */; };
+		2151611924820B4D004BD49B /* SchedulingTaskMonthlyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151611724820B4D004BD49B /* SchedulingTaskMonthlyViewController.swift */; };
+		2151611A24820B4D004BD49B /* SchedulingTaskMonthlyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2151611824820B4D004BD49B /* SchedulingTaskMonthlyViewController.xib */; };
+		2151611C24820B93004BD49B /* SchedulingTaskMonthlyNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151611B24820B93004BD49B /* SchedulingTaskMonthlyNavViewController.swift */; };
+		2151611F24821052004BD49B /* LongOvalButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151611E24821052004BD49B /* LongOvalButtons.swift */; };
+		2151612224821D13004BD49B /* ObservableDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151612124821D13004BD49B /* ObservableDate.swift */; };
+		21516125248228F1004BD49B /* DateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21516124248228F1004BD49B /* DateObserver.swift */; };
+		215161272482380B004BD49B /* ObservableDateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215161262482380B004BD49B /* ObservableDateController.swift */; };
 		21521C45240E0D3A00FC8A8A /* GeneralViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21521C44240E0D3A00FC8A8A /* GeneralViewUtils.swift */; };
 		21521C47240E106D00FC8A8A /* ToDoTableViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21521C46240E106D00FC8A8A /* ToDoTableViewUtils.swift */; };
 		21521C49240E11C600FC8A8A /* CalendarViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21521C48240E11C600FC8A8A /* CalendarViewUtils.swift */; };
@@ -131,6 +138,13 @@
 		214E0AE8233552C700398AC5 /* TransformingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformingButton.swift; sourceTree = "<group>"; };
 		214E0AEB233552FE00398AC5 /* ExpandButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandButton.swift; sourceTree = "<group>"; };
 		214F4F7A23D50DEC00391D7A /* TimeSlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSlot.swift; sourceTree = "<group>"; };
+		2151611724820B4D004BD49B /* SchedulingTaskMonthlyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulingTaskMonthlyViewController.swift; sourceTree = "<group>"; };
+		2151611824820B4D004BD49B /* SchedulingTaskMonthlyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SchedulingTaskMonthlyViewController.xib; sourceTree = "<group>"; };
+		2151611B24820B93004BD49B /* SchedulingTaskMonthlyNavViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulingTaskMonthlyNavViewController.swift; sourceTree = "<group>"; };
+		2151611E24821052004BD49B /* LongOvalButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongOvalButtons.swift; sourceTree = "<group>"; };
+		2151612124821D13004BD49B /* ObservableDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableDate.swift; sourceTree = "<group>"; };
+		21516124248228F1004BD49B /* DateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateObserver.swift; sourceTree = "<group>"; };
+		215161262482380B004BD49B /* ObservableDateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableDateController.swift; sourceTree = "<group>"; };
 		21521C44240E0D3A00FC8A8A /* GeneralViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralViewUtils.swift; sourceTree = "<group>"; };
 		21521C46240E106D00FC8A8A /* ToDoTableViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTableViewUtils.swift; sourceTree = "<group>"; };
 		21521C48240E11C600FC8A8A /* CalendarViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewUtils.swift; sourceTree = "<group>"; };
@@ -257,11 +271,47 @@
 			path = "New Group";
 			sourceTree = "<group>";
 		};
+		2151610E2481FA85004BD49B /* SchedulingTaskViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2151611724820B4D004BD49B /* SchedulingTaskMonthlyViewController.swift */,
+				2151611824820B4D004BD49B /* SchedulingTaskMonthlyViewController.xib */,
+				2151611B24820B93004BD49B /* SchedulingTaskMonthlyNavViewController.swift */,
+			);
+			path = SchedulingTaskViewController;
+			sourceTree = "<group>";
+		};
+		2151611D2482102C004BD49B /* NoStateButtons */ = {
+			isa = PBXGroup;
+			children = (
+				2151611E24821052004BD49B /* LongOvalButtons.swift */,
+			);
+			path = NoStateButtons;
+			sourceTree = "<group>";
+		};
+		2151612024821CE9004BD49B /* Observables */ = {
+			isa = PBXGroup;
+			children = (
+				217974E12425BFC700FE7B4C /* ObservableList.swift */,
+				2151612124821D13004BD49B /* ObservableDate.swift */,
+			);
+			path = Observables;
+			sourceTree = "<group>";
+		};
+		21516123248228E1004BD49B /* Observers */ = {
+			isa = PBXGroup;
+			children = (
+				21516124248228F1004BD49B /* DateObserver.swift */,
+			);
+			path = Observers;
+			sourceTree = "<group>";
+		};
 		21521C43240E0CC600FC8A8A /* utilities */ = {
 			isa = PBXGroup;
 			children = (
+				21516123248228E1004BD49B /* Observers */,
+				2151612024821CE9004BD49B /* Observables */,
 				212F14D9247055FF0084FBD3 /* SwiftEntryKit */,
-				217974E12425BFC700FE7B4C /* ObservableList.swift */,
 				21B8965523D3BC8000D49827 /* DateArithmeticUtils.swift */,
 				21B8965223D3B7E100D49827 /* DateUtils.swift */,
 				219A6567232B12B10062BF84 /* ToDoProcessUtils.swift */,
@@ -275,6 +325,7 @@
 		21521C4A240E17D200FC8A8A /* views */ = {
 			isa = PBXGroup;
 			children = (
+				2151610E2481FA85004BD49B /* SchedulingTaskViewController */,
 				219648E02478D1AE0052ECEF /* SFKPresets */,
 				212F14CC247049DF0084FBD3 /* RecurringSetupController */,
 				216067DF24219F7700B0E5EF /* StatusViewController */,
@@ -367,6 +418,7 @@
 			isa = PBXGroup;
 			children = (
 				217974E92427065100FE7B4C /* ToDosController.swift */,
+				215161262482380B004BD49B /* ObservableDateController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -462,6 +514,7 @@
 		21A4D11A231ECD8600B5B52A /* buttons */ = {
 			isa = PBXGroup;
 			children = (
+				2151611D2482102C004BD49B /* NoStateButtons */,
 				214E0AE8233552C700398AC5 /* TransformingButton.swift */,
 				219CA4AA2326CA18003ACBDE /* CheckBoxButton.swift */,
 				214E0AEB233552FE00398AC5 /* ExpandButton.swift */,
@@ -591,6 +644,7 @@
 				21A4D120231ECE1300B5B52A /* CalendarHeader.xib in Resources */,
 				2187C9532449575C00714617 /* NonRepeatingDeadlinesViewController.xib in Resources */,
 				216067E324219FAD00B0E5EF /* StatusViewController.xib in Resources */,
+				2151611A24820B4D004BD49B /* SchedulingTaskMonthlyViewController.xib in Resources */,
 				216067E724219FBD00B0E5EF /* DeadlinesViewController.xib in Resources */,
 				21A4D0FC231ECC3600B5B52A /* Main.storyboard in Resources */,
 				21C8DA85237915990084E2D6 /* DeadlinesTableViewController.xib in Resources */,
@@ -673,11 +727,14 @@
 				217974EA2427065100FE7B4C /* ToDosController.swift in Sources */,
 				212F14C6246F8FE10084FBD3 /* RepeatingSetupTableViewController.swift in Sources */,
 				212F14D8247054240084FBD3 /* PresetDescription.swift in Sources */,
+				215161272482380B004BD49B /* ObservableDateController.swift in Sources */,
 				212F14D62470503B0084FBD3 /* PresetsDataSource.swift in Sources */,
 				217974E72425E0F000FE7B4C /* Constants.swift in Sources */,
+				2151611F24821052004BD49B /* LongOvalButtons.swift in Sources */,
 				21A4D0F9231ECC3600B5B52A /* ScheduleViewController.swift in Sources */,
 				212990C7247B88C600A9D618 /* EntryDetailsTableViewController.swift in Sources */,
 				219628E4247E268000819A25 /* ViewEstimatedEffortModel.swift in Sources */,
+				2151611924820B4D004BD49B /* SchedulingTaskMonthlyViewController.swift in Sources */,
 				21A05BE024764FDD00123E59 /* RecurrenceSelectionPatternTableViewController.swift in Sources */,
 				21521C45240E0D3A00FC8A8A /* GeneralViewUtils.swift in Sources */,
 				217477CF23D5282B001CA394 /* IntervalAvailabilitiesCheckingOperations.swift in Sources */,
@@ -703,9 +760,12 @@
 				2187C9522449575C00714617 /* NonRepeatingDeadlinesViewController.swift in Sources */,
 				21C8DA88237916A90084E2D6 /* ToDoDateSection.swift in Sources */,
 				21A4D124231ECE9A00B5B52A /* ToDo.swift in Sources */,
+				2151611C24820B93004BD49B /* SchedulingTaskMonthlyNavViewController.swift in Sources */,
 				212F14E3247056A40084FBD3 /* CGRect+Utils.swift in Sources */,
+				21516125248228F1004BD49B /* DateObserver.swift in Sources */,
 				21A4D122231ECE2300B5B52A /* CalendarHeader.swift in Sources */,
 				219648E6247A10C40052ECEF /* Structs.swift in Sources */,
+				2151612224821D13004BD49B /* ObservableDate.swift in Sources */,
 				219A6568232B12B10062BF84 /* ToDoProcessUtils.swift in Sources */,
 				21A4D0F7231ECC3600B5B52A /* AppDelegate.swift in Sources */,
 				216067E624219FBD00B0E5EF /* DeadlinesViewController.swift in Sources */,

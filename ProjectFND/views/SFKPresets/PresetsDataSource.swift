@@ -1171,7 +1171,7 @@ struct PresetsDataSource {
         attributes = .bottomFloat
         attributes.displayMode = displayMode
         attributes.displayDuration = .infinity
-        attributes.screenBackground = .color(color: .dimmedLightBackground)
+        attributes.screenBackground = .color(color: .dimmedDarkBackground)
         attributes.entryBackground = .color(color: .white)
         attributes.screenInteraction = .dismiss
         attributes.entryInteraction = .absorbTouches

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SchedulingTaskMonthlyViewController" customModule="ProjectFND" customModuleProvider="target">
+            <connections>
+                <outlet property="acceptButton" destination="cTB-fJ-9gM" id="ZJP-jD-IEr"/>
+                <outlet property="cancelButton" destination="2sM-kF-sKk" id="ddE-74-RJT"/>
+                <outlet property="dueDatePicker" destination="3yz-2v-zVL" id="rop-Y6-A5X"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="3yz-2v-zVL">
+                    <rect key="frame" x="47" y="88" width="320" height="148"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="148" id="XQd-kT-g54"/>
+                    </constraints>
+                    <connections>
+                        <action selector="dueDatePickerValueChanged:" destination="-1" eventType="valueChanged" id="3Ib-tZ-06V"/>
+                    </connections>
+                </datePicker>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose Due Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H6O-20-Mgd">
+                    <rect key="frame" x="135.5" y="54" width="143" height="24"/>
+                    <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="20"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cTB-fJ-9gM" customClass="LongOvalButton" customModule="ProjectFND" customModuleProvider="target">
+                    <rect key="frame" x="126" y="244" width="145" height="45"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Accept"/>
+                    <connections>
+                        <action selector="acceptButton:" destination="-1" eventType="touchUpInside" id="0EA-Xf-xMh"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2sM-kF-sKk" customClass="LongOvalButton" customModule="ProjectFND" customModuleProvider="target">
+                    <rect key="frame" x="126" y="319" width="145" height="45"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Cancel"/>
+                    <connections>
+                        <action selector="cancelButton:" destination="-1" eventType="touchUpInside" id="cei-An-51l"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="3yz-2v-zVL" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="D8C-FH-voP"/>
+                <constraint firstItem="H6O-20-Mgd" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="10" id="ZZz-sc-zfI"/>
+                <constraint firstItem="3yz-2v-zVL" firstAttribute="top" secondItem="H6O-20-Mgd" secondAttribute="bottom" constant="10" id="gzJ-Ne-rr5"/>
+                <constraint firstItem="H6O-20-Mgd" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="rj5-7H-MyA"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="131.8840579710145" y="115.84821428571428"/>
+        </view>
+    </objects>
+</document>

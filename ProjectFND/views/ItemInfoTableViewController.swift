@@ -10,7 +10,8 @@ import UIKit
 import SwiftEntryKit
 import os.log
 
-class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, Observer {
+    
     
     @IBOutlet weak var taskNameField: UITextField!
     @IBOutlet weak var taskTypeLabel: UILabel!
@@ -28,6 +29,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     @IBOutlet weak var intervalSchedulingSetupButton: UIButton!
     @IBOutlet weak var taskTypePicker: UIPickerView!
     //@IBOutlet weak var repeatingSwitch: UISwitch!
+    @IBOutlet weak var dueDateLabel: UILabel!
     
     private var taskItemCells = [StaticTableCell]()
     private var taskTypePickerData: [String] = [String]()
@@ -47,6 +49,30 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     private var selectedTaskTypePickerData: String = String()
     private var repeatingStatus: Bool = Bool()
     
+    // MARK: - Due Date Observable
+    
+    private var observableDueDateController = ObservableDateController()
+    private var _observerId: Int = 0
+    
+    
+    // Id of the ViewController as an Observer
+    var observerId: Int {
+        get {
+            return self._observerId
+        }
+    }
+    
+    // NOTE: Must use the DateObserver class, or something similar
+    func update<T>(with newValue: T) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy, h:mm a"
+        
+        self.dueDateLabel.text = "Due Date: " + dateFormatter.string(from: newValue as! Date)
+        self.tableView.reloadData()
+    }
+    
+    // MARK: - Essentials
+    
     required init?(coder aDecoder: NSCoder) {
         self.chosenWorkDate = Date()
         self.chosenDueDate = Date()
@@ -64,8 +90,10 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         self.taskTypePicker.delegate = self
         self.taskTypePicker.dataSource = self
         
-        //self.repeatingSwitch.isEnabled
-        
+        // NOTE: Observable area
+        let observerVCs: [Observer] = [self]
+        self.observableDueDateController.setObservers(observers: observerVCs)
+
         taskTypePickerData = ["Personal", "Work", "School"]
         //setPickerViewSelectedRow()
         
@@ -307,6 +335,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             tableView.endUpdates()
         }
         if indexPath.row == 4 {
+            /*
             if taskItemCells[4].collapsed {
                 taskItemCells[4].collapsed = false
             } else {
@@ -319,9 +348,15 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
                 taskItemCells[5].collapsed = false
             }
             tableView.beginUpdates()
-            tableView.endUpdates()
+            tableView.endUpdates()*/
+            //SwiftEntryKit.display(entry: SchedulingTaskMonthlyView(), using: PresetsDataSource.getCustomPreset())
+            let viewController = SchedulingTaskMonthlyViewController()
+            viewController.setObservableDueDateController(observableDueDateController: self.observableDueDateController)
+            let navigationController = SchedulingTaskMonthlyNavViewController(rootViewController: viewController)
+            SwiftEntryKit.display(entry: navigationController, using: PresetsDataSource.getCustomPreset())
         }
         if indexPath.row == 5 {
+            /*
             if taskItemCells[5].collapsed {
                 taskItemCells[5].collapsed = false
             } else {
@@ -335,6 +370,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             }
             tableView.beginUpdates()
             tableView.endUpdates()
+            */
         }
     }
     
