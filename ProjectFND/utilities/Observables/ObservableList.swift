@@ -53,7 +53,7 @@ class ObservableList<T> : Observable {
     
     func notifyAllObservers<T>(with newValue: T) {
         for observer in observers {
-            observer.update(with: newValue)
+            observer.update(with: newValue, with: ObservableType.TODO_LIST)
         }
     }
     

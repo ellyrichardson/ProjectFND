@@ -10,7 +10,7 @@ import UIKit
 import os.log
 
 class ObservableDateController {
-    private var dueDate = ObservableObject<Date>()
+    private var dueDate = ObservableItem<ToDoDate>()
     
     // MARK: - Controller Essentials
     
@@ -33,8 +33,11 @@ class ObservableDateController {
     
     // MARK: - Setters
     
-    func setInitialValue() {
-        self.dueDate.setValue(value: Date())
+    
+    // NOTE: Must be called first thing for the controller
+    func setupData() {
+        self.dueDate.observableType = ObservableType.TODO_DUE_DATE
+        self.dueDate.setValue(value: ToDoDate(dateValue: Date(), assigned: false))
     }
     
     func setObservers(observers: [Observer]) {
@@ -47,13 +50,13 @@ class ObservableDateController {
     
     // MARK: - Getters
     
-    func getDueDate() -> Date {
+    func getDueDate() -> ToDoDate {
         return self.dueDate.getValue()
     }
     
     // MARK: - Controller Operation
     
-    func updateDate(updatedDate: Date) {
+    func updateDate(updatedDate: ToDoDate) {
         self.dueDate.setValue(value: updatedDate)
     }
 }

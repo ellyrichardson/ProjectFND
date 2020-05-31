@@ -13,6 +13,7 @@ import os.log
 class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, Observer {
     
     
+    
     @IBOutlet weak var taskNameField: UITextField!
     @IBOutlet weak var taskTypeLabel: UILabel!
     // NOTE: Make the description like the notes
@@ -30,6 +31,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     @IBOutlet weak var taskTypePicker: UIPickerView!
     //@IBOutlet weak var repeatingSwitch: UISwitch!
     @IBOutlet weak var dueDateLabel: UILabel!
+    @IBOutlet weak var tagsLabel: UILabel!
     
     private var taskItemCells = [StaticTableCell]()
     private var taskTypePickerData: [String] = [String]()
@@ -52,8 +54,14 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     // MARK: - Due Date Observable
     
     private var observableDueDateController = ObservableDateController()
-    private var _observerId: Int = 0
     
+    // MARK: - Tags Observable
+    
+    private var observableTagsController = ObservableTagsController()
+    
+    // MARK: - Observable Essentials
+    
+    private var _observerId: Int = 0
     
     // Id of the ViewController as an Observer
     var observerId: Int {
@@ -63,12 +71,20 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     }
     
     // NOTE: Must use the DateObserver class, or something similar
-    func update<T>(with newValue: T) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy, h:mm a"
-        
-        self.dueDateLabel.text = "Due Date: " + dateFormatter.string(from: newValue as! Date)
-        self.tableView.reloadData()
+    func update<T>(with newValue: T, with observableType: ObservableType) {
+        if observableType == ObservableType.TODO_DUE_DATE {
+            let newValueDate = newValue as! ToDoDate
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM/dd/yyyy, h:mm a"
+            
+            self.dueDateLabel.text = "Due Date: " + dateFormatter.string(from: newValueDate.dateValue!)
+            self.tableView.reloadData()
+        }
+        else if observableType == ObservableType.TODO_TAG {
+            let newValueTag = newValue as! ToDoTags
+            self.tagsLabel.text = "Tags: " + newValueTag.tagValue!
+            print("TAG WAS UPDATED")
+        }
     }
     
     // MARK: - Essentials
@@ -92,7 +108,10 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         
         // NOTE: Observable area
         let observerVCs: [Observer] = [self]
+        self.observableDueDateController.setupData()
         self.observableDueDateController.setObservers(observers: observerVCs)
+        self.observableTagsController.setupData()
+        self.observableTagsController.setObservers(observers: observerVCs)
 
         taskTypePickerData = ["Personal", "Work", "School"]
         //setPickerViewSelectedRow()
@@ -468,6 +487,14 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             }
             
             simpleItemsTVC.setItemTypeToDisplay(itemTypeToDisplay: SimpleStaticTVCReturnType.ESTIMATED_EFFORT)
+        }
+        else if segue.identifier == "SegueToToDoTagsTVC" {
+            guard let toDoTagsTVC = segue.destination as? TagsTableViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            
+            toDoTagsTVC.setObservableTagsController(observableTagsController: self.observableTagsController)
+            print("SegueToToDoTagsTVC wowowowo")
         }
         else {
             // Only prepare view controller when the save button is pressed

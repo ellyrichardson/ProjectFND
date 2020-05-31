@@ -22,43 +22,46 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="3yz-2v-zVL">
-                    <rect key="frame" x="47" y="88" width="320" height="148"/>
+                    <rect key="frame" x="47" y="44" width="320" height="148"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="148" id="XQd-kT-g54"/>
+                        <constraint firstAttribute="height" constant="148" id="0HG-9L-PMG"/>
                     </constraints>
                     <connections>
                         <action selector="dueDatePickerValueChanged:" destination="-1" eventType="valueChanged" id="3Ib-tZ-06V"/>
                     </connections>
                 </datePicker>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose Due Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H6O-20-Mgd">
-                    <rect key="frame" x="135.5" y="54" width="143" height="24"/>
-                    <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="20"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cTB-fJ-9gM" customClass="LongOvalButton" customModule="ProjectFND" customModuleProvider="target">
-                    <rect key="frame" x="126" y="244" width="145" height="45"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cTB-fJ-9gM" customClass="LongOvalButton" customModule="ProjectFND" customModuleProvider="target">
+                    <rect key="frame" x="134.5" y="200" width="145" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="NNv-b5-eo4"/>
+                        <constraint firstAttribute="width" constant="145" id="OnM-0I-Y4n"/>
+                    </constraints>
                     <state key="normal" title="Accept"/>
                     <connections>
                         <action selector="acceptButton:" destination="-1" eventType="touchUpInside" id="0EA-Xf-xMh"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2sM-kF-sKk" customClass="LongOvalButton" customModule="ProjectFND" customModuleProvider="target">
-                    <rect key="frame" x="126" y="319" width="145" height="45"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2sM-kF-sKk" customClass="LongOvalButton" customModule="ProjectFND" customModuleProvider="target">
+                    <rect key="frame" x="134.5" y="268" width="145" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="Bnm-Wq-1fp"/>
+                        <constraint firstAttribute="width" constant="145" id="MMd-v3-jgB"/>
+                    </constraints>
                     <state key="normal" title="Cancel"/>
                     <connections>
                         <action selector="cancelButton:" destination="-1" eventType="touchUpInside" id="cei-An-51l"/>
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="3yz-2v-zVL" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="D8C-FH-voP"/>
-                <constraint firstItem="H6O-20-Mgd" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="10" id="ZZz-sc-zfI"/>
-                <constraint firstItem="3yz-2v-zVL" firstAttribute="top" secondItem="H6O-20-Mgd" secondAttribute="bottom" constant="10" id="gzJ-Ne-rr5"/>
-                <constraint firstItem="H6O-20-Mgd" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="rj5-7H-MyA"/>
+                <constraint firstItem="2sM-kF-sKk" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Dq5-Kt-7ix"/>
+                <constraint firstItem="cTB-fJ-9gM" firstAttribute="top" secondItem="3yz-2v-zVL" secondAttribute="bottom" constant="8" id="OVG-rH-xtQ"/>
+                <constraint firstItem="3yz-2v-zVL" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="TSJ-cV-mSb"/>
+                <constraint firstItem="3yz-2v-zVL" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="47" id="acY-ck-enY"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="3yz-2v-zVL" secondAttribute="trailing" constant="47" id="f7o-ik-iBC"/>
+                <constraint firstItem="cTB-fJ-9gM" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="fTJ-wM-Gzq"/>
+                <constraint firstItem="2sM-kF-sKk" firstAttribute="top" secondItem="cTB-fJ-9gM" secondAttribute="bottom" constant="23" id="hsB-im-fpk"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

@@ -38,3 +38,10 @@ enum SimpleStaticTVCReturnType {
     case RECURRENCE
     case ESTIMATED_EFFORT
 }
+
+enum ObservableType {
+    case TODO_DUE_DATE
+    case TODO_TAG
+    case TODO_LIST
+    case BASE
+}

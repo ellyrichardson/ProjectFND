@@ -57,7 +57,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     // To Update the ViewController
-    func update<T>(with newValue: T) {
+    func update<T>(with newValue: T, with observableType: ObservableType) {
         setToDoItems(toDoItems: newValue as! [String: ToDo])
         print("ToDo Items for ScheduleViewController has been updated")
     }

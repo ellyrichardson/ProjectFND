@@ -10,6 +10,7 @@ import UIKit
 import Charts
 
 class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, Observer {
+    
     private var _observerId: Int = 1
     private var toDosController: ToDosController!
     private let formatter = DateFormatter()
@@ -20,7 +21,7 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    func update<T>(with newValue: T) {
+    func update<T>(with newValue: T, with observableType: ObservableType) {
         //setToDoItems(toDoItems: newValue as! [ToDo])
         print("ToDo Items for ScheduleViewController has been updated")
     }

@@ -32,7 +32,8 @@ class SchedulingTaskMonthlyViewController: UIViewController {
     }
     
     @IBAction func acceptButton(_ sender: UIButton) {
-        self.observableDueDateController.updateDate(updatedDate: changedDateTo)
+        
+        self.observableDueDateController.updateDate(updatedDate: ToDoDate(dateValue: self.changedDateTo, assigned: true))
         SwiftEntryKit.dismiss()
     }
     
@@ -45,24 +46,11 @@ class SchedulingTaskMonthlyViewController: UIViewController {
     }
     
     private func setDueDatePickerValue() {
-        /*
-        if let date = self.observableDueDate.value {
+        let dateReceived: ToDoDate = self.observableDueDateController.getDueDate()
+        if !dateReceived.assigned {
             self.dueDatePicker.date = Date()
+        } else {
+            self.dueDatePicker.date = dateReceived.dateValue!
         }
-        else {
-            self.dueDatePicker.date = Date()
-        }*/
-        self.dueDatePicker.date = Date()
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

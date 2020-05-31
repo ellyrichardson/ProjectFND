@@ -8,9 +8,10 @@
 
 import UIKit
 
-class ObservableObject<T> : Observable {
+class ObservableItem<T> : Observable {
     private var _value: T! = nil
     private var _observers: [Observer] = []
+    private var _observableType = ObservableType.BASE
     
     internal var value : T {
         get {
@@ -20,6 +21,15 @@ class ObservableObject<T> : Observable {
             
             self._value = newValue
             self.notifyAllObservers(with: newValue)
+        }
+    }
+    
+    internal var observableType : ObservableType {
+        get {
+            return self._observableType
+        }
+        set {
+            self._observableType = newValue
         }
     }
     
@@ -50,7 +60,7 @@ class ObservableObject<T> : Observable {
     
     func notifyAllObservers<T>(with newValue: T) {
         for observer in observers {
-            observer.update(with: newValue)
+            observer.update(with: newValue, with: observableType)
         }
     }
     
