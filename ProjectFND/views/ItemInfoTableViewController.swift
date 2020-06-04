@@ -47,6 +47,13 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     
     private var dataSource = PresetsDataSource()
     
+    // MARK: - Start/End Date UIView
+    
+    @IBOutlet weak var startDateUIView: ItemInfoView!
+    @IBOutlet weak var endDateUIView: ItemInfoView!
+    @IBOutlet weak var startDateStringValue: UILabel!
+    @IBOutlet weak var endDateStringValue: UILabel!
+    
     // MARK: - Trackers
     private var selectedTaskTypePickerData: String = String()
     private var repeatingStatus: Bool = Bool()
@@ -170,7 +177,15 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         }
         // Path if not editing an existing ToDo
         
-          
+        // NOTE: UIView area
+        startDateUIView.cornerRadius = 10
+        endDateUIView.cornerRadius = 10
+        
+        let gestureRecSD = UITapGestureRecognizer(target: self, action:  #selector (self.segueToSchedulingAssistance(sender:)))
+        let gestureRecED = UITapGestureRecognizer(target: self, action:  #selector (self.segueToSchedulingAssistance(sender:)))
+        startDateUIView.addGestureRecognizer(gestureRecSD)
+        endDateUIView.addGestureRecognizer(gestureRecED)
+        
         updateSaveButtonState()
     }
     
@@ -288,6 +303,12 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         
         // Send the interval hours and days from here to next view!
  
+    }
+    
+    // MARK: - Selector Functions
+    
+    @objc func segueToSchedulingAssistance(sender:UITapGestureRecognizer){
+        performSegue(withIdentifier: "segueToSchedulingAssistance", sender: self)
     }
     
     // MARK: - Table view data source
