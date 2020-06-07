@@ -25,6 +25,7 @@ class SchedulingAssistanceViewController: UIViewController {
         
     }
     
+    /*
     private func drawLineFromPoint(start : CGPoint, toPoint end:CGPoint, ofColor lineColor: UIColor, inView view:UIView) {
 
         //design the path
@@ -37,11 +38,10 @@ class SchedulingAssistanceViewController: UIViewController {
         shapeLayer.path = path.cgPath
         shapeLayer.strokeColor = lineColor.cgColor
         shapeLayer.lineWidth = 1.0
-
         //return shapeLayer
         
         view.layer.addSublayer(shapeLayer)
-    }
+    }*/
     
     private func createScrollView() -> UIScrollView {
         let screensize: CGRect = UIScreen.main.bounds
@@ -50,17 +50,19 @@ class SchedulingAssistanceViewController: UIViewController {
         return UIScrollView(frame: CGRect(x: 0, y: 120, width: screenWidth, height: screenHeight))
     }
     
+    /*
     private func createTimeUILabel(timeString: String) -> UILabel {
         let label = UILabel()
         label.text = timeString
         //label.backgroundColor = .green
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
-    }
+    }*/
     
     private func addTimeLabelsToScrollView(scrollView: UIScrollView, timeStringList: [String]) {
         var indexCounter = 0
         for timeString in timeStringList {
+            /*
             let timeUILabel = createTimeUILabel(timeString: timeString)
             scrollView.addSubview(timeUILabel)
             NSLayoutConstraint(item: timeUILabel, attribute: .leading, relatedBy: .equal, toItem: scrollView, attribute: .leadingMargin, multiplier: 1, constant: 10).isActive = true
@@ -68,10 +70,54 @@ class SchedulingAssistanceViewController: UIViewController {
             NSLayoutConstraint(item: timeUILabel, attribute: .top, relatedBy: .equal, toItem: scrollView, attribute: .topMargin, multiplier: 1, constant: CGFloat(indexCounter * 60)).isActive = true
             NSLayoutConstraint(item: timeUILabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 30).isActive = true
             
-            drawLineFromPoint(start: CGPoint(x: 100,y: indexCounter * 150), toPoint: CGPoint(x: 500,y: indexCounter * 150), ofColor: UIColor.green, inView: scrollView)
+            drawLineFromPoint(start: CGPoint(x: 100,y: indexCounter * 60), toPoint: CGPoint(x: 500,y: indexCounter * 60), ofColor: UIColor.green, inView: scrollView)
+            */
+            //let someView = SchedulingAssistanceLabel()
+            //scrollView.addSubview(someView)
+            /*
+            NSLayoutConstraint(item: someView, attribute: .leading, relatedBy: .equal, toItem: scrollView, attribute: .leadingMargin, multiplier: 1, constant: 10).isActive = true
+            NSLayoutConstraint(item: someView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 200).isActive = true
+            NSLayoutConstraint(item: someView, attribute: .top, relatedBy: .equal, toItem: scrollView, attribute: .topMargin, multiplier: 1, constant: CGFloat(indexCounter * 60)).isActive = true
+            NSLayoutConstraint(item: someView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 30).isActive = true
+            */
+            
+            let customizedLabel = SchedulingAssistanceLabel()
+            let dynamicConst = CGFloat(indexCounter * 120)
+            customizedLabel.label.text = timeString
+            customizedLabel.label.textColor = UIColor.gray
+            customizedLabel.label.font = customizedLabel.label.font.withSize(13)
+            //customizedLabel.scrollViewItHas = scrollView
+            customizedLabel.backgroundColor = UIColor.red
+            scrollView.addSubview(customizedLabel)
+            customizedLabel.translatesAutoresizingMaskIntoConstraints = false
+            
+            
+            NSLayoutConstraint(item: customizedLabel, attribute: .leading, relatedBy: .equal, toItem: scrollView, attribute: .leadingMargin, multiplier: 1, constant: 10).isActive = true
+            NSLayoutConstraint(item: customizedLabel, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: scrollView.frame.width).isActive = true
+            NSLayoutConstraint(item: customizedLabel, attribute: .top, relatedBy: .equal, toItem: scrollView, attribute: .topMargin, multiplier: 1, constant: dynamicConst).isActive = true
+            NSLayoutConstraint(item: customizedLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 30).isActive = true
+            
             indexCounter += 1
         }
     }
+    
+    /*
+    override func drawRect(rect: CGRect)
+    {
+        let lineWidth = label.frame.minX - rect.minX - lineInsideOffset - lineOutsideOffset
+        if lineWidth <= 0 {return}
+
+        let lineLeft = UIBezierPath(rect: CGRectMake(rect.minX + lineOutsideOffset, rect.midY, lineWidth, 1))
+        let lineRight = UIBezierPath(rect: CGRectMake(label.frame.maxX + lineInsideOffset, rect.midY, lineWidth, 1))
+
+        lineLeft.lineWidth = lineHeight
+        lineColor.set()
+        lineLeft.stroke()
+
+        lineRight.lineWidth = lineHeight
+        lineColor.set()
+        lineRight.stroke()
+    }*/
     
 
     /*

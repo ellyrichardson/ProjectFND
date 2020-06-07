@@ -10,6 +10,7 @@
 		0E57FCA780153D63E113FD7B /* Pods_ProjectFND.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F37845617D14E9AE8ECF364B /* Pods_ProjectFND.framework */; };
 		21091B822470D38F00C6F964 /* RecurrenceSelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21091B802470D38F00C6F964 /* RecurrenceSelectionTableViewCell.swift */; };
 		21091B832470D38F00C6F964 /* RecurrenceSelectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21091B812470D38F00C6F964 /* RecurrenceSelectionTableViewCell.xib */; };
+		21094A20248CAB6400AA095B /* SchedulingAssistanceLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21094A1F248CAB6400AA095B /* SchedulingAssistanceLabel.swift */; };
 		212990C7247B88C600A9D618 /* EntryDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212990C6247B88C600A9D618 /* EntryDetailsTableViewController.swift */; };
 		212F14C6246F8FE10084FBD3 /* RepeatingSetupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212F14C5246F8FE10084FBD3 /* RepeatingSetupTableViewController.swift */; };
 		212F14C8246F91650084FBD3 /* EKAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212F14C7246F91650084FBD3 /* EKAttributes.swift */; };
@@ -129,6 +130,7 @@
 		17C953D3C3DBF64E57201050 /* Pods-ProjectFND.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectFND.debug.xcconfig"; path = "Target Support Files/Pods-ProjectFND/Pods-ProjectFND.debug.xcconfig"; sourceTree = "<group>"; };
 		21091B802470D38F00C6F964 /* RecurrenceSelectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurrenceSelectionTableViewCell.swift; sourceTree = "<group>"; };
 		21091B812470D38F00C6F964 /* RecurrenceSelectionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecurrenceSelectionTableViewCell.xib; sourceTree = "<group>"; };
+		21094A1F248CAB6400AA095B /* SchedulingAssistanceLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulingAssistanceLabel.swift; sourceTree = "<group>"; };
 		212990C6247B88C600A9D618 /* EntryDetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryDetailsTableViewController.swift; sourceTree = "<group>"; };
 		212F14C5246F8FE10084FBD3 /* RepeatingSetupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingSetupTableViewController.swift; sourceTree = "<group>"; };
 		212F14C7246F91650084FBD3 /* EKAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKAttributes.swift; sourceTree = "<group>"; };
@@ -560,6 +562,7 @@
 			isa = PBXGroup;
 			children = (
 				21DA2E7E248730E90035B237 /* ItemInfoView.swift */,
+				21094A1F248CAB6400AA095B /* SchedulingAssistanceLabel.swift */,
 			);
 			path = uiview;
 			sourceTree = "<group>";
@@ -823,6 +826,7 @@
 				216067E624219FBD00B0E5EF /* DeadlinesViewController.swift in Sources */,
 				219648E42479EFD10052ECEF /* SimpleItemsTVCTableViewCell.swift in Sources */,
 				21F7013E23F26177001942D6 /* IntervalSchedulingPreviewController.swift in Sources */,
+				21094A20248CAB6400AA095B /* SchedulingAssistanceLabel.swift in Sources */,
 				219628E2247E260F00819A25 /* ViewEstimatedEffortModelItem.swift in Sources */,
 				219648EB247A158A0052ECEF /* ViewRecurrenceDetailModel.swift in Sources */,
 				213139EE245A7D9600BBB717 /* NotificationButton.swift in Sources */,
