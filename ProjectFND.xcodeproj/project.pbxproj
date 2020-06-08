@@ -49,6 +49,7 @@
 		216067E624219FBD00B0E5EF /* DeadlinesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216067E424219FBD00B0E5EF /* DeadlinesViewController.swift */; };
 		216067E724219FBD00B0E5EF /* DeadlinesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 216067E524219FBD00B0E5EF /* DeadlinesViewController.xib */; };
 		216067E92421CD4A00B0E5EF /* DeadlinesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216067E82421CD4A00B0E5EF /* DeadlinesTableViewCell.swift */; };
+		2172C147248DE93300BC9F24 /* OccupiedAndUnoccupiedTimesRetrieving.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2172C146248DE93300BC9F24 /* OccupiedAndUnoccupiedTimesRetrieving.swift */; };
 		217477CF23D5282B001CA394 /* IntervalAvailabilitiesCheckingOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217477CE23D5282B001CA394 /* IntervalAvailabilitiesCheckingOperations.swift */; };
 		21748F9224832D2D00A27938 /* ToDoDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21748F9124832D2D00A27938 /* ToDoDate.swift */; };
 		217974E22425BFC700FE7B4C /* ObservableList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217974E12425BFC700FE7B4C /* ObservableList.swift */; };
@@ -169,6 +170,7 @@
 		216067E424219FBD00B0E5EF /* DeadlinesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadlinesViewController.swift; sourceTree = "<group>"; };
 		216067E524219FBD00B0E5EF /* DeadlinesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeadlinesViewController.xib; sourceTree = "<group>"; };
 		216067E82421CD4A00B0E5EF /* DeadlinesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadlinesTableViewCell.swift; sourceTree = "<group>"; };
+		2172C146248DE93300BC9F24 /* OccupiedAndUnoccupiedTimesRetrieving.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OccupiedAndUnoccupiedTimesRetrieving.swift; sourceTree = "<group>"; };
 		217477CE23D5282B001CA394 /* IntervalAvailabilitiesCheckingOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalAvailabilitiesCheckingOperations.swift; sourceTree = "<group>"; };
 		21748F9124832D2D00A27938 /* ToDoDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDate.swift; sourceTree = "<group>"; };
 		217974E12425BFC700FE7B4C /* ObservableList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableList.swift; sourceTree = "<group>"; };
@@ -345,6 +347,7 @@
 		21521C4A240E17D200FC8A8A /* views */ = {
 			isa = PBXGroup;
 			children = (
+				2172C144248DE8D100BC9F24 /* Unsure */,
 				2151610E2481FA85004BD49B /* SchedulingTaskViewController */,
 				219648E02478D1AE0052ECEF /* SFKPresets */,
 				212F14CC247049DF0084FBD3 /* RecurringSetupController */,
@@ -356,7 +359,6 @@
 				21A4D0F8231ECC3600B5B52A /* ScheduleViewController.swift */,
 				21521C4C240E17F300FC8A8A /* xibs */,
 				21312F18248344AF00870920 /* TagsTableViewController.swift */,
-				21A3D8B724889CDB00D8C3AD /* SchedulingAssistanceViewController.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -429,6 +431,14 @@
 			path = StatusViewController;
 			sourceTree = "<group>";
 		};
+		2172C144248DE8D100BC9F24 /* Unsure */ = {
+			isa = PBXGroup;
+			children = (
+				21A3D8B724889CDB00D8C3AD /* SchedulingAssistanceViewController.swift */,
+			);
+			path = Unsure;
+			sourceTree = "<group>";
+		};
 		217974E52425CBAC00FE7B4C /* interfaces */ = {
 			isa = PBXGroup;
 			children = (
@@ -480,6 +490,7 @@
 			children = (
 				217477CE23D5282B001CA394 /* IntervalAvailabilitiesCheckingOperations.swift */,
 				21BC58AD23E629CA00015ECE /* IntervalAvailabilitiesRetrievingOperations.swift */,
+				2172C146248DE93300BC9F24 /* OccupiedAndUnoccupiedTimesRetrieving.swift */,
 			);
 			path = operations;
 			sourceTree = "<group>";
@@ -796,6 +807,7 @@
 				21312F19248344AF00870920 /* TagsTableViewController.swift in Sources */,
 				212F14C8246F91650084FBD3 /* EKAttributes.swift in Sources */,
 				212F14E1247056860084FBD3 /* UIScreen+Utils.swift in Sources */,
+				2172C147248DE93300BC9F24 /* OccupiedAndUnoccupiedTimesRetrieving.swift in Sources */,
 				219CEE6C234FD21000A9E819 /* ProjectFND.xcdatamodeld in Sources */,
 				212F14E7247067110084FBD3 /* RecurrenceNavigationViewController.swift in Sources */,
 				212F14DD2470563F0084FBD3 /* Font.swift in Sources */,

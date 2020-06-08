@@ -305,7 +305,7 @@ class ToDoProcessUtils {
     }
     
     // NOTE: Formerly addToDoArrayToAToDoArray
-    static func addToDoArrayToAToDoArray(toDoDictionary: inout [String: ToDo], toDosToBeAdded: [String: ToDo]) {
+    static func addToDoDictionaryToAToDoDictionary(toDoDictionary: inout [String: ToDo], toDosToBeAdded: [String: ToDo]) {
         toDosToBeAdded.forEach { (k,v) in toDoDictionary[k] = v }
     }
     

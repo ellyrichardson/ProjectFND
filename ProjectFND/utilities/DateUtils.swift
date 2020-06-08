@@ -27,4 +27,9 @@ class DateUtils{
         // Adds hours (hours * (60 * 60)) to the date that needs to increase
         return date.addingTimeInterval(hours * (60.0 * 60.0))
     }
+    
+    func addDayToDate(date: Date, days: Double) -> Date {
+        // Adds days (day * (60 * 60 * 24)) to the date that needs to increase
+        return date.addingTimeInterval(days * (60.0 * 60.0 * 24.0))
+    }
 }
