@@ -11,6 +11,64 @@ import UIKit
 import os.log
 
 class OccupiedAndUnoccupiedTimesOperations {
+    private var sortedTasksByDay = [(key: String, value:ToDo)]()
+    private var occupiedTimesDict = [String: Set<ToDo>]() // Otd
+    
+    // MARK: - Populating Otd
+    func populateOtd(timeSpanStart: Date, timeSpanEnd: Date) {
+        var currentDate = timeSpanStart
+        let dateUtil = DateUtils()
+        while currentDate < timeSpanEnd {
+            assignTasksThatStartsUnderHourOfToOtd(date: currentDate)
+            currentDate = dateUtil.addHoursToDate(date: currentDate, hours: 1.0)
+        }
+    }
+    
+    func addTaskToOtd(otdKey: String, taskSet: Set<ToDo>) {
+        self.occupiedTimesDict[otdKey] = taskSet
+    }
+    
+    // MARK: - Utilities
+    private func assignTasksThatStartsUnderHourOfToOtd(date: Date) {
+        var taskSet = Set<ToDo>()
+        var otdKey = String()
+        for taskItem in self.sortedTasksByDay {
+            let taskValue = taskItem.value
+            if doesTaskStartUnderHourOf(date: date, taskItem: taskValue) {
+                taskSet.insert(taskValue)
+                otdKey = getCurrentHourOfDateAsString(date: taskValue.getStartDate())
+            }
+        }
+        addTaskToOtd(otdKey: otdKey, taskSet: taskSet)
+    }
+    
+    private func doesTaskStartUnderHourOf(date: Date, taskItem: ToDo) -> Bool {
+        return getCurrentHourOfDateAsString(date: date) == getCurrentHourOfDateAsString(date: taskItem.getStartDate())
+    }
+    
+    private func getCurrentHourOfDateAsString(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "hh a" // i.e. 12 AM
+        return dateFormatter.string(from: date)
+    }
+    
+    // MARK: - Setters
+    func setTaskItems(tasks: [(key: String, value:ToDo)]) {
+        self.sortedTasksByDay = tasks
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     // Should just be called for time span of days
