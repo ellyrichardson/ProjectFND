@@ -45,3 +45,10 @@ enum ObservableType {
     case TODO_LIST
     case BASE
 }
+
+// TimeSlotOccupanyType
+enum TSOType {
+    case OCCUPIED
+    case VACANT
+    case FILLER
+}

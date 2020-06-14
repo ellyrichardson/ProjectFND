@@ -11,6 +11,9 @@ import UIKit
 import os.log
 
 class DateUtils{
+    private let dateFormatter = DateFormatter()
+    private let calendar = Calendar.current
+    
     func changeDateFormatToMDYY(dateToChange: Date) -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "M/d/yy"
@@ -28,8 +31,25 @@ class DateUtils{
         return date.addingTimeInterval(hours * (60.0 * 60.0))
     }
     
+    func subtractHoursToDate(date: Date, hours: Double) -> Date {
+        // Adds hours (hours * (60 * 60)) to the date that needs to increase
+        return date.addingTimeInterval(-(hours) * (60.0 * 60.0))
+    }
+    
     func addDayToDate(date: Date, days: Double) -> Date {
         // Adds days (day * (60 * 60 * 24)) to the date that needs to increase
         return date.addingTimeInterval(days * (60.0 * 60.0 * 24.0))
+    }
+    
+    /*
+     Example date: "2020/01/15 16:30"
+     */
+    func createDate(dateString: String) -> Date{
+        dateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
+        return dateFormatter.date(from: dateString)!
+    }
+    
+    func minutesBetweenTwoDates(earlyDate: Date, laterDate: Date) -> Int {
+        return calendar.dateComponents([.minute], from: earlyDate, to: laterDate).minute!
     }
 }

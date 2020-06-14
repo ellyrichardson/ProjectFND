@@ -28,3 +28,12 @@ struct ToDoTags {
     var assigned: Bool
     //var observableType: ObservableType
 }
+
+// MARK: - Time Scheduling
+
+struct Oter {
+    var startDate: Date
+    var endDate: Date
+    var ownerTaskId: String
+    var occupancyType: TSOType
+}
