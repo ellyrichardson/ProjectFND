@@ -37,3 +37,8 @@ struct Oter {
     var ownerTaskId: String
     var occupancyType: TSOType
 }
+
+struct TimeSpan {
+    var startDate: Date
+    var endDate: Date
+}

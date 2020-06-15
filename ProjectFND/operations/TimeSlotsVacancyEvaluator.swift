@@ -14,7 +14,8 @@ class TimeSlotsVacancyEvaluator {
     private var sortedTasksByDay = [(key: String, value:ToDo)]()
     private var occupiedTimesDict = [String: [ToDo]]() // Otd
     private var oterList = [Oter]()
-    private let totalHoursOfDay = 24
+    private var dayTimeSpans = [TimeSpan]()
+    //private let totalHoursOfDay = 24
     
     // MARK: - Event Trackers
     
@@ -22,10 +23,10 @@ class TimeSlotsVacancyEvaluator {
     
     // MARK: - Populating Otd Section
     
-    func populateOtd(timeSpanStart: Date, timeSpanEnd: Date) {
-        var currentDate = timeSpanStart
+    func populateOtd(timeSpan: TimeSpan) {
+        var currentDate = timeSpan.startDate
         let dateUtil = DateUtils()
-        while currentDate <= timeSpanEnd {
+        while currentDate <= timeSpan.endDate {
             assignTasksToOtdThatStartsUnderHourOf(date: currentDate)
             currentDate = dateUtil.addHoursToDate(date: currentDate, hours: 1.0)
         }
@@ -59,11 +60,13 @@ class TimeSlotsVacancyEvaluator {
     
     // MARK: - Evaluate Otd Section
     
-    func evaluateOtd(timeSpanStart: Date, timeSpanEnd: Date) {
+    func evaluateOtd(timeSpan: TimeSpan) {
+        
         let dateUtil = DateUtils()
-        var currentTime = timeSpanStart
-        self.vacantTimeSlotStart = timeSpanStart
-        while currentTime <= timeSpanEnd {
+        var currentTime = timeSpan.startDate
+        // Initiates the vacantTimeSlotStart
+        self.vacantTimeSlotStart = timeSpan.startDate
+        while currentTime <= timeSpan.endDate {
             let otdKey = getCurrentHourOfDateAsString(date: currentTime)
             if let otdVal = self.occupiedTimesDict[otdKey] {
                 assignAppropriateOterObjects(forDate: currentTime, taskList: otdVal)
@@ -107,7 +110,7 @@ class TimeSlotsVacancyEvaluator {
     
     private func getCurrentHourOfDateAsString(date: Date) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "hh a" // i.e. 12 AM
+        dateFormatter.dateFormat = "YYYY/MM/DD hh a" // i.e. 12 AM
         return dateFormatter.string(from: date)
     }
     
@@ -124,4 +127,9 @@ class TimeSlotsVacancyEvaluator {
     func getOtd() -> [String: [ToDo]] {
         return self.occupiedTimesDict
     }
+    
+    // MARK: - Notes
+    /*
+     TODO: Add a functionality where the algorithm won't have to iterate through a day without a task existing in it.
+     */
 }
