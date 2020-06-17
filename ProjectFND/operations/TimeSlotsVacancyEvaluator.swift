@@ -15,7 +15,6 @@ class TimeSlotsVacancyEvaluator {
     private var occupiedTimesDict = [String: [ToDo]]() // Otd
     private var oterList = [Oter]()
     private var dayTimeSpans = [TimeSpan]()
-    //private let totalHoursOfDay = 24
     
     // MARK: - Event Trackers
     

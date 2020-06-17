@@ -308,7 +308,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     // MARK: - Selector Functions
     
     @objc func segueToSchedulingAssistance(sender:UITapGestureRecognizer){
-        performSegue(withIdentifier: "segueToSchedulingAssistance", sender: self)
+        performSegue(withIdentifier: "SegueToSchedulingAssistance", sender: self)
     }
     
     // MARK: - Table view data source
@@ -516,6 +516,20 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             
             toDoTagsTVC.setObservableTagsController(observableTagsController: self.observableTagsController)
             print("SegueToToDoTagsTVC wowowowo")
+        }
+            
+        else if segue.identifier == "SegueToSchedulingAssistance" {
+            // NOTE: PLEASE clean this thing up
+            guard let navigationController = segue.destination as? UINavigationController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            let schedulingAstncViewController = navigationController.viewControllers.first as! SchedulingAssistanceViewController
+            // NOTE: CLEAN UP THE USE OF CHOSENWORKDATE,  NOT GOOD, USED JUST FOR TEST
+            schedulingAstncViewController.setTaskItems(taskItems: ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: self.chosenWorkDate, toDoItems: getToDos()))
+            
+            print("WEw")
+            print(self.chosenWorkDate)
+            schedulingAstncViewController.setDayToAssist(dayDate: self.chosenWorkDate)
         }
         else {
             // Only prepare view controller when the save button is pressed

@@ -52,4 +52,8 @@ class DateUtils{
     func minutesBetweenTwoDates(earlyDate: Date, laterDate: Date) -> Int {
         return calendar.dateComponents([.minute], from: earlyDate, to: laterDate).minute!
     }
+    
+    func hoursBetweenTwoDates(earlyDate: Date, laterDate: Date) -> Int {
+        return calendar.dateComponents([.hour], from: earlyDate, to: laterDate).hour!
+    }
 }

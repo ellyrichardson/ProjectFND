@@ -365,6 +365,12 @@ class ToDoProcessUtils {
         return intervalizedToDos
     }
     
+    static func retrieveTaskById(taskItems: [String: ToDo], taskId: String) -> ToDo {
+        var filteredTaskItems: [String: ToDo] = [String: ToDo]()
+        filteredTaskItems = taskItems.filter { $0.value.getTaskId() == taskId }
+        return filteredTaskItems[taskId] ?? ToDo()
+    }
+    
     static func isToDoOverdue(toDoRowIndex: Int, toDoItems: [(key: String, value: ToDo)]) -> Bool {
         let currentDate = Date()
         let dateFormatter = DateFormatter()

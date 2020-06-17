@@ -12,7 +12,6 @@ import Nimble
 
 class TimeSlotsVacancyEvaluatorSpecs: QuickSpec {
     override func spec() {
-        //var taskList: [ToDo]!
         var taskPackager: TaskPackager!
         var tsve: TimeSlotsVacancyEvaluator!
         var dateUtils: DateUtils!

@@ -368,11 +368,13 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             // Sets the finish status of the todo in the itemInfoTableViewController to avoid its reset
             itemInfoTableViewController.setIsFinished(isFinished: selectedToDoItem.isFinished())
             itemInfoTableViewController.setSelectedTaskType(selectedTaskTypePickerData: selectedToDoItem.getTaskType())
+            itemInfoTableViewController.setToDos(toDos: ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: getSelectedDate(), toDoItems: toDosController.getToDos()))
             // Retrieves the index of the selected toDo
             /*
             setSelectedToDoIndex(toDoItemIndex: retrieveRealIndexOfToDo(toDoItem: selectedToDoItem))
  */
             os_log("Showing details for the selected ToDo item.", log: OSLog.default, type: .debug)
+            
         default:
             fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")
         }
