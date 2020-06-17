@@ -526,10 +526,8 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             let schedulingAstncViewController = navigationController.viewControllers.first as! SchedulingAssistanceViewController
             // NOTE: CLEAN UP THE USE OF CHOSENWORKDATE,  NOT GOOD, USED JUST FOR TEST
             schedulingAstncViewController.setTaskItems(taskItems: ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: self.chosenWorkDate, toDoItems: getToDos()))
-            
-            print("WEw")
-            print(self.chosenWorkDate)
             schedulingAstncViewController.setDayToAssist(dayDate: self.chosenWorkDate)
+            schedulingAstncViewController.setCurrentTaskId(taskId: (self.toDo?.getTaskId())!)
         }
         else {
             // Only prepare view controller when the save button is pressed

@@ -2186,15 +2186,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Wvy-T9-ADb">
-                                <rect key="frame" x="0.0" y="56" width="414" height="752"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Wvy-T9-ADb">
+                                <rect key="frame" x="20" y="56" width="374" height="752"/>
+                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ScheduleAstncTableViewCell" rowHeight="85" id="QE5-lc-N65" customClass="SchedulingAssistanceTableViewCell" customModule="ProjectFND" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="85"/>
+                                        <rect key="frame" x="0.0" y="28" width="374" height="85"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QE5-lc-N65" id="kXY-hb-bcZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="85"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="85"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="XX:XX XX" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ROh-dD-QCT">
@@ -2254,12 +2254,12 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="hF6-sU-zB1" firstAttribute="trailing" secondItem="Wvy-T9-ADb" secondAttribute="trailing" id="7bJ-Jx-9cl"/>
-                            <constraint firstItem="hF6-sU-zB1" firstAttribute="bottom" secondItem="Wvy-T9-ADb" secondAttribute="bottom" id="BIA-gU-RhH"/>
-                            <constraint firstItem="Wvy-T9-ADb" firstAttribute="leading" secondItem="hF6-sU-zB1" secondAttribute="leading" id="DwA-47-KU3"/>
-                            <constraint firstItem="Wvy-T9-ADb" firstAttribute="top" secondItem="hF6-sU-zB1" secondAttribute="top" id="PvF-1a-ewA"/>
+                            <constraint firstItem="Wvy-T9-ADb" firstAttribute="bottom" secondItem="hF6-sU-zB1" secondAttribute="bottom" id="8bl-Sh-RAh"/>
+                            <constraint firstItem="Wvy-T9-ADb" firstAttribute="top" secondItem="hF6-sU-zB1" secondAttribute="top" id="KQf-aZ-1NH"/>
+                            <constraint firstItem="hF6-sU-zB1" firstAttribute="trailing" secondItem="Wvy-T9-ADb" secondAttribute="trailing" constant="20" id="nf4-H0-nRI"/>
+                            <constraint firstItem="Wvy-T9-ADb" firstAttribute="leading" secondItem="hF6-sU-zB1" secondAttribute="leading" constant="20" id="unb-r5-baV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hF6-sU-zB1"/>
                     </view>
@@ -2273,7 +2273,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QxD-0D-Y5G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3412" y="-2091"/>
+            <point key="canvasLocation" x="3411.594202898551" y="-2091.2946428571427"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="TX7-a5-4eN">

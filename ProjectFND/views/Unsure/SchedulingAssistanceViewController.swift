@@ -15,6 +15,7 @@ class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate,
     private var scheduleTimeSpan: TimeSpan?
     private var dateFormatter = DateFormatter()
     private var tsveResult = [Oter]()
+    private var currentTaskId = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,8 @@ class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate,
         
         evaluateVacantTimes()
     }
+    
+    // MARK: - Table View
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tsveResult.count
@@ -48,9 +51,22 @@ class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate,
         
         let tsverItem = self.tsveResult[indexPath.row]
         let taskFromId = ToDoProcessUtils.retrieveTaskById(taskItems: self.taskItems, taskId: tsverItem.ownerTaskId)
+        
+        if tsverItem.occupancyType == TSOType.VACANT {
+            cell.setBackgroundColor(backgroundClr: ColorUtils.paleGray())
+            cell.taskNameLabel.text = "VACANT"
+        } else {
+            if tsverItem.ownerTaskId == self.currentTaskId {
+                cell.setBackgroundColor(backgroundClr: ColorUtils.paleGreen())
+            }
+            else {
+                cell.setBackgroundColor(backgroundClr: ColorUtils.paleBlue())
+            }
+            cell.taskNameLabel.text = taskFromId.getTaskName()
+        }
+        
         cell.startTimeLabel.text = startTimeFormatter.string(from: tsverItem.startDate)
         cell.endTimeLabel.text = endTimeFormatter.string(from: tsverItem.endDate)
-        cell.taskNameLabel.text = taskFromId.getTaskName()
         return cell
     }
     
@@ -89,6 +105,10 @@ class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate,
         let beginningOfDay = dateUtil.createDate(dateString: stringForBeginningOfDay)
         let endOfDay = dateUtil.addHoursToDate(date: beginningOfDay, hours: 24.0)
         self.scheduleTimeSpan = TimeSpan(startDate: beginningOfDay, endDate: endOfDay)
+    }
+    
+    func setCurrentTaskId(taskId: String) {
+        self.currentTaskId = taskId
     }
     
     // MARK: - Getter

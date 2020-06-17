@@ -14,6 +14,8 @@ class SchedulingAssistanceTableViewCell: UITableViewCell {
     @IBOutlet weak var endTimeLabel: UILabel!
     @IBOutlet weak var taskNameLabel: UILabel!
     
+    //private var backgroundClr: UIColor?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -43,7 +45,6 @@ class SchedulingAssistanceTableViewCell: UITableViewCell {
     private func setOvalShape() {
         self.contentView.layer.masksToBounds = true
         self.contentView.layer.cornerRadius = 8
-
         self.layer.backgroundColor = UIColor.clear.cgColor
         self.layer.shadowColor = UIColor.black.cgColor
         self.layer.shadowOffset = CGSize(width: 0, height: 2.0)
@@ -52,5 +53,9 @@ class SchedulingAssistanceTableViewCell: UITableViewCell {
         self.layer.cornerRadius = 8
         self.layer.masksToBounds = false
         self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.contentView.layer.cornerRadius).cgPath
+    }
+    
+    func setBackgroundColor(backgroundClr: UIColor) {
+        self.layer.backgroundColor = backgroundClr.cgColor
     }
 }
