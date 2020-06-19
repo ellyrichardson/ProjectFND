@@ -6,6 +6,7 @@
 //  Copyright © 2020 EllyRichardson. All rights reserved.
 //
 
+import SwiftEntryKit
 import UIKit
 
 class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -34,7 +35,19 @@ class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate,
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return CGFloat(85 * getLengthOfOterInHours(oter: self.tsveResult[indexPath.row]))
+        let heightForRow = CGFloat(85 * getLengthOfOterInHours(oter: self.tsveResult[indexPath.row]))
+        if heightForRow > 680 {
+            return 680
+        }
+        return heightForRow
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if self.tsveResult[indexPath.row].occupancyType == TSOType.VACANT {
+            let timeSlotsAssgnmentViewCntrlr = TimeSlotsAssignmentViewController()
+            let timeSlotsAssgnmentNavCntrlr = TimeSlotsAssignmentNavViewController(rootViewController: timeSlotsAssgnmentViewCntrlr)
+            SwiftEntryKit.display(entry: timeSlotsAssgnmentNavCntrlr, using: PresetsDataSource.getCustomPreset())
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -77,8 +90,14 @@ class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate,
     private func evaluateVacantTimes() {
         let tsve = TimeSlotsVacancyEvaluator()
         tsve.setTaskItems(tasks: ToDoProcessUtils.sortToDoItemsByDate(toDoItems: self.taskItems))
+        
+        if self.scheduleTimeSpan == nil {
+            setDayToAssist(dayDate: Date())
+        }
+        
         tsve.populateOtd(timeSpan: self.scheduleTimeSpan!)
         tsve.evaluateOtd(timeSpan: self.scheduleTimeSpan!)
+        
         self.tsveResult = tsve.getOterAvailabilities()
     }
     

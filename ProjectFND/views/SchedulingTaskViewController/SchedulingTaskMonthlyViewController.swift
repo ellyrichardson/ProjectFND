@@ -25,6 +25,7 @@ class SchedulingTaskMonthlyViewController: UIViewController {
         navigationItem.title = "Due Date"
         // Do any additional setup after loading the view.
         setDueDatePickerValue()
+        setButtonColors()
     }
 
     @IBAction func dueDatePickerValueChanged(_ sender: UIDatePicker) {
@@ -43,6 +44,12 @@ class SchedulingTaskMonthlyViewController: UIViewController {
     
     func setObservableDueDateController(observableDueDateController: ObservableDateController) {
         self.observableDueDateController = observableDueDateController
+    }
+    
+    private func setButtonColors() {
+        //self.acceptButton =
+        self.acceptButton.backgroundColor = ColorUtils.classicGreen()
+        self.cancelButton.backgroundColor =  ColorUtils.classicOrange()
     }
     
     private func setDueDatePickerValue() {

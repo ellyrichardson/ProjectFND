@@ -494,8 +494,6 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
                 // Set the ToDo to be intervalized to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being created
                 intervalSchedulingPreviewController.setToDoToBeIntervalized(toDo: ToDo(taskId: stringedUUID, taskName: taskName!, taskType: taskType, taskDescription: "", workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished())!)
             }
-                /*
-                (taskId: String, taskName: String, taskType: String = TaskTypes.PERSONAL.rawValue,taskDescription: String, workDate: Date, estTime: String, dueDate: Date, finished: Bool, intervalized: Bool = false, intervalId: String = "", intervalLength: Int = 0, intervalIndex: Int = 0, intervalDueDate: Date = Date())*/
             else {
                 // Set the ToDo to be intervalized to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being modified and is already  created
                 intervalSchedulingPreviewController.setToDoToBeIntervalized(toDo: ToDo(taskId: (self.toDo?.getTaskId())!,taskName: taskName!, taskType: taskType, taskDescription: "", workDate: workDate, estTime: estTime!, dueDate: dueDate, finished: getIsFinished(), intervalized: (toDo?.isIntervalized())!, intervalId: (toDo?.getIntervalId())!, intervalLength: (toDo?.getIntervalLength())! ,intervalIndex: (toDo?.getIntervalIndex())!, intervalDueDate: (toDo?.getIntervalDueDate())!)!)
@@ -525,9 +523,15 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             }
             let schedulingAstncViewController = navigationController.viewControllers.first as! SchedulingAssistanceViewController
             // NOTE: CLEAN UP THE USE OF CHOSENWORKDATE,  NOT GOOD, USED JUST FOR TEST
-            schedulingAstncViewController.setTaskItems(taskItems: ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: self.chosenWorkDate, toDoItems: getToDos()))
             schedulingAstncViewController.setDayToAssist(dayDate: self.chosenWorkDate)
-            schedulingAstncViewController.setCurrentTaskId(taskId: (self.toDo?.getTaskId())!)
+            if toDo == nil {
+                schedulingAstncViewController.setTaskItems(taskItems: ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: self.chosenWorkDate, toDoItems: [String: ToDo]()))
+                schedulingAstncViewController.setCurrentTaskId(taskId: ("Non-Existing"))
+            }
+            else {
+                schedulingAstncViewController.setTaskItems(taskItems: ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: self.chosenWorkDate, toDoItems: getToDos()))
+                schedulingAstncViewController.setCurrentTaskId(taskId: (self.toDo?.getTaskId())!)
+            }
         }
         else {
             // Only prepare view controller when the save button is pressed
@@ -643,7 +647,6 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     }
     
     func getToDos() -> [String: ToDo] {
-        print(self.toDos)
         return self.toDos
     }
 }
