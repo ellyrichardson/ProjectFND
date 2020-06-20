@@ -17,6 +17,7 @@ class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate,
     private var dateFormatter = DateFormatter()
     private var tsveResult = [Oter]()
     private var currentTaskId = String()
+    private var schedlngAsstncHelper = SchedulingAssistanceHelper()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,9 +44,13 @@ class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate,
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if self.tsveResult[indexPath.row].occupancyType == TSOType.VACANT {
+        let tsveResultRow = tsveResult[indexPath.row]
+        if tsveResultRow.occupancyType == TSOType.VACANT {
             let timeSlotsAssgnmentViewCntrlr = TimeSlotsAssignmentViewController()
+            timeSlotsAssgnmentViewCntrlr.setMinAndMaxTime(minTime: tsveResultRow.startDate, maxTime: tsveResultRow.endDate)
+            
             let timeSlotsAssgnmentNavCntrlr = TimeSlotsAssignmentNavViewController(rootViewController: timeSlotsAssgnmentViewCntrlr)
+            
             SwiftEntryKit.display(entry: timeSlotsAssgnmentNavCntrlr, using: PresetsDataSource.getCustomPreset())
         }
     }
@@ -79,7 +84,8 @@ class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate,
         }
         
         cell.startTimeLabel.text = startTimeFormatter.string(from: tsverItem.startDate)
-        cell.endTimeLabel.text = endTimeFormatter.string(from: tsverItem.endDate)
+        let appropriateEndTime = schedlngAsstncHelper.adjustTaskEndTimeIf12AMNextDay(startTime: tsverItem.startDate, endTime: tsverItem.endDate)
+        cell.endTimeLabel.text = endTimeFormatter.string(from: appropriateEndTime)
         return cell
     }
     

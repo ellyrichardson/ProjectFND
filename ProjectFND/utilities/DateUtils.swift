@@ -56,4 +56,15 @@ class DateUtils{
     func hoursBetweenTwoDates(earlyDate: Date, laterDate: Date) -> Int {
         return calendar.dateComponents([.hour], from: earlyDate, to: laterDate).hour!
     }
+    
+    func daysBetweenTwoDates(earlyDate: Date, laterDate: Date) -> Int {
+        return calendar.dateComponents([.day], from: earlyDate, to: laterDate).day!
+    }
+    
+    func areTimesSameDay(earlyTime: Date, laterTime: Date) -> Bool {
+        if daysBetweenTwoDates(earlyDate: earlyTime, laterDate: laterTime) > 0 {
+            return false
+        }
+        return true
+    }
 }

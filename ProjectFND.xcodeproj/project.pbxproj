@@ -93,6 +93,7 @@
 		21A4D12F2320B9F600B5B52A /* StaticTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D12E2320B9F600B5B52A /* StaticTableCell.swift */; };
 		21A4D1322320CDC000B5B52A /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D1312320CDC000B5B52A /* CalendarCell.swift */; };
 		21A7921224120446004C5770 /* (null) in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		21A7B604249DE95500A6F4E2 /* SchedulingAssistanceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7B603249DE95500A6F4E2 /* SchedulingAssistanceHelper.swift */; };
 		21B8965323D3B7E100D49827 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8965223D3B7E100D49827 /* DateUtils.swift */; };
 		21B8965623D3BC8000D49827 /* DateArithmeticUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8965523D3BC8000D49827 /* DateArithmeticUtils.swift */; };
 		21BC58AE23E629CA00015ECE /* IntervalAvailabilitiesRetrievingOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BC58AD23E629CA00015ECE /* IntervalAvailabilitiesRetrievingOperations.swift */; };
@@ -225,6 +226,7 @@
 		21A4D12C2320B6E400B5B52A /* ItemInfoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemInfoTableViewController.swift; sourceTree = "<group>"; };
 		21A4D12E2320B9F600B5B52A /* StaticTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticTableCell.swift; sourceTree = "<group>"; };
 		21A4D1312320CDC000B5B52A /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
+		21A7B603249DE95500A6F4E2 /* SchedulingAssistanceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulingAssistanceHelper.swift; sourceTree = "<group>"; };
 		21B8965223D3B7E100D49827 /* DateUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
 		21B8965523D3BC8000D49827 /* DateArithmeticUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateArithmeticUtils.swift; sourceTree = "<group>"; };
 		21BC58AD23E629CA00015ECE /* IntervalAvailabilitiesRetrievingOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalAvailabilitiesRetrievingOperations.swift; sourceTree = "<group>"; };
@@ -465,6 +467,7 @@
 		2172C144248DE8D100BC9F24 /* SchedulingAssistance */ = {
 			isa = PBXGroup;
 			children = (
+				21A7B603249DE95500A6F4E2 /* SchedulingAssistanceHelper.swift */,
 				21A3D8B724889CDB00D8C3AD /* SchedulingAssistanceViewController.swift */,
 				21998998249C705C0024BDA5 /* TimeSlotsAssignmentViewController.swift */,
 				21998999249C705C0024BDA5 /* TimeSlotsAssignmentViewController.xib */,
@@ -906,6 +909,7 @@
 				21D9E9DA2499B00700D7F529 /* SchedulingAssistanceTableViewCell.swift in Sources */,
 				217974EC2428591F00FE7B4C /* Observable.swift in Sources */,
 				21BC58AE23E629CA00015ECE /* IntervalAvailabilitiesRetrievingOperations.swift in Sources */,
+				21A7B604249DE95500A6F4E2 /* SchedulingAssistanceHelper.swift in Sources */,
 				214E0AEC233552FE00398AC5 /* ExpandButton.swift in Sources */,
 				2187C9522449575C00714617 /* NonRepeatingDeadlinesViewController.swift in Sources */,
 				2199899D249C70850024BDA5 /* TimeSlotsAssignmentNavViewController.swift in Sources */,

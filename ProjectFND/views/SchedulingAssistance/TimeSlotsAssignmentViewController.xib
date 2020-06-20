@@ -86,6 +86,9 @@
                         <constraint firstAttribute="width" constant="187" id="s84-Wv-dIT"/>
                     </constraints>
                     <state key="normal" title="Accept"/>
+                    <connections>
+                        <action selector="acceptButtonAction:" destination="-1" eventType="touchUpInside" id="Su6-6T-nnL"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j3s-c6-2hn" customClass="LongOvalButton" customModule="ProjectFND" customModuleProvider="target">
                     <rect key="frame" x="127.5" y="399" width="187" height="45"/>
@@ -94,6 +97,9 @@
                         <constraint firstAttribute="height" constant="45" id="iKB-we-B5C"/>
                     </constraints>
                     <state key="normal" title="Cancel"/>
+                    <connections>
+                        <action selector="cancelButtonAction:" destination="-1" eventType="touchUpInside" id="TvR-wb-VJT"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
