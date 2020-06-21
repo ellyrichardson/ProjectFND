@@ -20,6 +20,11 @@ class TimeSlotsAssignmentViewController: UIViewController {
     private var schedlngAsstncHelper = SchedulingAssistanceHelper()
     private var minimumTime: Date?, maximumTime: Date?
     private let dateUtil = DateUtils()
+    private var selectedOter: Oter?
+    
+    // MARK: - Observable Items
+    
+    private var observableOterController = ObservableOterController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +33,10 @@ class TimeSlotsAssignmentViewController: UIViewController {
         
         configureTimePickers()
         configureButtons()
+    }
+    
+    func setObservableOterController(observableOterController: ObservableOterController) {
+        self.observableOterController = observableOterController
     }
 
     private func configureTimePickers() {
@@ -73,9 +82,14 @@ class TimeSlotsAssignmentViewController: UIViewController {
         self.maximumTime = maxTime
     }
     
+    func setSelectedOter(selectedOter: Oter) {
+        self.selectedOter = selectedOter
+    }
+    
     // MARK: - IB Actions
     
     @IBAction func acceptButtonAction(_ sender: UIButton) {
+        self.observableOterController.updateOter(updatedOter: Oter(startDate: self.startTimePicker.date, endDate: self.endTimePicker.date, ownerTaskId: self.selectedOter!.ownerTaskId, occupancyType: TSOType.OCCUPIED))
         SwiftEntryKit.dismiss()
     }
     

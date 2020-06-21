@@ -1,30 +1,29 @@
 //
-//  ObservableDateController.swift
+//  ObservableTimespanController.swift
 //  ProjectFND
 //
-//  Created by Elly Richardson on 5/30/20.
+//  Created by Elly Richardson on 6/20/20.
 //  Copyright © 2020 EllyRichardson. All rights reserved.
 //
 
 import UIKit
 import os.log
 
-class ObservableDateController {
-    // NOTE: Rename this variable to be more generic
-    private var dueDate = ObservableItem<ToDoDate>()
+class ObservableOterController {
+    private var oter = ObservableItem<Oter>()
     
     // MARK: - Controller Essentials
     
     // For initial observers
     func haveObservables() -> Bool {
-        if self.dueDate.getObservers().count > 0 {
+        if self.oter.getObservers().count > 0 {
             return true
         }
         return false
     }
     
     func checkIfContainsObservable(observerId: Int) -> Bool {
-        for observable in self.dueDate.getObservers() {
+        for observable in self.oter.getObservers() {
             if observable.observerId == observerId {
                 return true
             }
@@ -37,27 +36,27 @@ class ObservableDateController {
     
     // NOTE: Must be called first thing for the controller
     func setupData() {
-        self.dueDate.observableType = ObservableType.TODO_DUE_DATE
-        self.dueDate.setValue(value: ToDoDate(dateValue: Date(), assigned: false))
+        self.oter.observableType = ObservableType.OTER
+        self.oter.setValue(value: Oter(startDate: Date(), endDate: Date(), ownerTaskId: "default", occupancyType: TSOType.FILLER))
     }
     
     func setObservers(observers: [Observer]) {
         for observer in observers {
             if !checkIfContainsObservable(observerId: observer.observerId) {
-                self.dueDate.addObserver(observer: observer)
+                self.oter.addObserver(observer: observer)
             }
         }
     }
     
     // MARK: - Getters
     
-    func getDueDate() -> ToDoDate {
-        return self.dueDate.getValue()
+    func getDueDate() -> Oter {
+        return self.oter.getValue()
     }
     
     // MARK: - Controller Operation
     
-    func updateDate(updatedDate: ToDoDate) {
-        self.dueDate.setValue(value: updatedDate)
+    func updateOter(updatedOter: Oter) {
+        self.oter.setValue(value: updatedOter)
     }
 }

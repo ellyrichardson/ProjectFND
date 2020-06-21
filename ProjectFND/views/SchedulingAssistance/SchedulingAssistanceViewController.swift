@@ -9,7 +9,7 @@
 import SwiftEntryKit
 import UIKit
 
-class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, Observer {
     
     @IBOutlet weak var schedulingAstncTableView: UITableView!
     private var taskItems = [String: ToDo]()
@@ -19,6 +19,35 @@ class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate,
     private var currentTaskId = String()
     private var schedlngAsstncHelper = SchedulingAssistanceHelper()
     
+    // MARK: - TimeSpan Observable
+    
+    private var observableOterController = ObservableOterController()
+    
+    // MARK: - Observable Essentials
+    
+    private var _observerId: Int = 0
+    
+    // Id of the ViewController as an Observer
+    var observerId: Int {
+        get {
+            return self._observerId
+        }
+    }
+    
+    func update<T>(with newValue: T, with observableType: ObservableType) {
+        // TODO: Need to fix this algorithm
+        if observableType == ObservableType.OTER {
+            let newValueOter = newValue as! Oter
+            for oterItem in tsveResult {
+                if oterItem.ownerTaskId == newValueOter.ownerTaskId {
+                    //oterItem = newValueOter
+                    // NOTE: My thought was to create a new ToDo after the selection of time, add it to the taskItems dictionary, then run the evaluation again
+                    //ToDo(taskId: <#T##String#>, taskName: <#T##String#>, taskDescription: <#T##String#>, workDate: <#T##Date#>, estTime: <#T##String#>, dueDate: <#T##Date#>, finished: <#T##Bool#>)
+                }
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,6 +56,13 @@ class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate,
         self.schedulingAstncTableView.backgroundColor = UIColor.clear
         
         evaluateVacantTimes()
+    }
+    
+    private func configureObserversAndObservables() {
+        // NOTE: Observable area
+        let observerVCs: [Observer] = [self]
+        self.observableOterController.setupData()
+        self.observableOterController.setObservers(observers: observerVCs)
     }
     
     // MARK: - Table View
@@ -48,6 +84,7 @@ class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate,
         if tsveResultRow.occupancyType == TSOType.VACANT {
             let timeSlotsAssgnmentViewCntrlr = TimeSlotsAssignmentViewController()
             timeSlotsAssgnmentViewCntrlr.setMinAndMaxTime(minTime: tsveResultRow.startDate, maxTime: tsveResultRow.endDate)
+            timeSlotsAssgnmentViewCntrlr.setSelectedOter(selectedOter: tsveResultRow)
             
             let timeSlotsAssgnmentNavCntrlr = TimeSlotsAssignmentNavViewController(rootViewController: timeSlotsAssgnmentViewCntrlr)
             

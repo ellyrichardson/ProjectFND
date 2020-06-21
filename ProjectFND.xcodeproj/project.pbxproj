@@ -11,6 +11,7 @@
 		21091B822470D38F00C6F964 /* RecurrenceSelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21091B802470D38F00C6F964 /* RecurrenceSelectionTableViewCell.swift */; };
 		21091B832470D38F00C6F964 /* RecurrenceSelectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21091B812470D38F00C6F964 /* RecurrenceSelectionTableViewCell.xib */; };
 		21094A20248CAB6400AA095B /* SchedulingAssistanceLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21094A1F248CAB6400AA095B /* SchedulingAssistanceLabel.swift */; };
+		2115D13F249EFA0000AE9379 /* ObservableOterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2115D13E249EFA0000AE9379 /* ObservableOterController.swift */; };
 		2124504D2499CDA80007E198 /* ColorsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2124504C2499CDA80007E198 /* ColorsUtils.swift */; };
 		212990C7247B88C600A9D618 /* EntryDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212990C6247B88C600A9D618 /* EntryDetailsTableViewController.swift */; };
 		212F14C6246F8FE10084FBD3 /* RepeatingSetupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212F14C5246F8FE10084FBD3 /* RepeatingSetupTableViewController.swift */; };
@@ -141,6 +142,7 @@
 		21091B802470D38F00C6F964 /* RecurrenceSelectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurrenceSelectionTableViewCell.swift; sourceTree = "<group>"; };
 		21091B812470D38F00C6F964 /* RecurrenceSelectionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecurrenceSelectionTableViewCell.xib; sourceTree = "<group>"; };
 		21094A1F248CAB6400AA095B /* SchedulingAssistanceLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulingAssistanceLabel.swift; sourceTree = "<group>"; };
+		2115D13E249EFA0000AE9379 /* ObservableOterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableOterController.swift; sourceTree = "<group>"; };
 		2124504C2499CDA80007E198 /* ColorsUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsUtils.swift; sourceTree = "<group>"; };
 		212990C6247B88C600A9D618 /* EntryDetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryDetailsTableViewController.swift; sourceTree = "<group>"; };
 		212F14C5246F8FE10084FBD3 /* RepeatingSetupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingSetupTableViewController.swift; sourceTree = "<group>"; };
@@ -491,6 +493,7 @@
 				217974E92427065100FE7B4C /* ToDosController.swift */,
 				215161262482380B004BD49B /* ObservableDateController.swift */,
 				214064C1248455BE00FB9480 /* ObservableTagsController.swift */,
+				2115D13E249EFA0000AE9379 /* ObservableOterController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -883,6 +886,7 @@
 				21A05BE024764FDD00123E59 /* RecurrenceSelectionPatternTableViewController.swift in Sources */,
 				21521C45240E0D3A00FC8A8A /* GeneralViewUtils.swift in Sources */,
 				217477CF23D5282B001CA394 /* IntervalAvailabilitiesCheckingOperations.swift in Sources */,
+				2115D13F249EFA0000AE9379 /* ObservableOterController.swift in Sources */,
 				214F4F7B23D50DEC00391D7A /* TimeSlot.swift in Sources */,
 				21B8965623D3BC8000D49827 /* DateArithmeticUtils.swift in Sources */,
 				21521C47240E106D00FC8A8A /* ToDoTableViewUtils.swift in Sources */,

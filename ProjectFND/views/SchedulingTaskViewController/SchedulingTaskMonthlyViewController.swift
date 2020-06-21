@@ -22,7 +22,7 @@ class SchedulingTaskMonthlyViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Due Date"
+        navigationItem.title = "Due Date" // THIS IS THE DUE DATE VIEW
         // Do any additional setup after loading the view.
         setDueDatePickerValue()
         setButtonColors()
