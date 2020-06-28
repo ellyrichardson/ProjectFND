@@ -65,6 +65,7 @@
 		2187C9522449575C00714617 /* NonRepeatingDeadlinesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2187C9502449575C00714617 /* NonRepeatingDeadlinesViewController.swift */; };
 		2187C9532449575C00714617 /* NonRepeatingDeadlinesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2187C9512449575C00714617 /* NonRepeatingDeadlinesViewController.xib */; };
 		218A99C224303F820005DEB5 /* ToDoInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218A99C124303F820005DEB5 /* ToDoInterval.swift */; };
+		2194909924A88DA000506D76 /* IntervalizedTaskButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2194909824A88DA000506D76 /* IntervalizedTaskButton.swift */; };
 		219628E2247E260F00819A25 /* ViewEstimatedEffortModelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219628E1247E260F00819A25 /* ViewEstimatedEffortModelItem.swift */; };
 		219628E4247E268000819A25 /* ViewEstimatedEffortModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219628E3247E268000819A25 /* ViewEstimatedEffortModel.swift */; };
 		219648E22478DCB80052ECEF /* RecurrencePatternDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219648E12478DCB80052ECEF /* RecurrencePatternDetailsTableViewController.swift */; };
@@ -106,7 +107,6 @@
 		21DA2E7F248730E90035B237 /* ItemInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DA2E7E248730E90035B237 /* ItemInfoView.swift */; };
 		21DA2E82248734B10035B237 /* RegularTaskButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DA2E81248734B10035B237 /* RegularTaskButton.swift */; };
 		21DA2E84248734BF0035B237 /* RecurringTaskButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DA2E83248734BF0035B237 /* RecurringTaskButton.swift */; };
-		21DA2E86248734CF0035B237 /* IntervalizedTaskButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DA2E85248734CF0035B237 /* IntervalizedTaskButton.swift */; };
 		21F2B5B92415A53100B8A548 /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F2B5B82415A53100B8A548 /* LoadingScreen.swift */; };
 		21F511DD2412121B00E11B71 /* JTAppleCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21F511DC2412121B00E11B71 /* JTAppleCalendar.framework */; };
 		21F7013E23F26177001942D6 /* IntervalSchedulingPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7013C23F26177001942D6 /* IntervalSchedulingPreviewController.swift */; };
@@ -197,6 +197,7 @@
 		2187C9502449575C00714617 /* NonRepeatingDeadlinesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonRepeatingDeadlinesViewController.swift; sourceTree = "<group>"; };
 		2187C9512449575C00714617 /* NonRepeatingDeadlinesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NonRepeatingDeadlinesViewController.xib; sourceTree = "<group>"; };
 		218A99C124303F820005DEB5 /* ToDoInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoInterval.swift; sourceTree = "<group>"; };
+		2194909824A88DA000506D76 /* IntervalizedTaskButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalizedTaskButton.swift; sourceTree = "<group>"; };
 		219628E1247E260F00819A25 /* ViewEstimatedEffortModelItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewEstimatedEffortModelItem.swift; sourceTree = "<group>"; };
 		219628E3247E268000819A25 /* ViewEstimatedEffortModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewEstimatedEffortModel.swift; sourceTree = "<group>"; };
 		219648E12478DCB80052ECEF /* RecurrencePatternDetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurrencePatternDetailsTableViewController.swift; sourceTree = "<group>"; };
@@ -241,7 +242,6 @@
 		21DA2E7E248730E90035B237 /* ItemInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemInfoView.swift; sourceTree = "<group>"; };
 		21DA2E81248734B10035B237 /* RegularTaskButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularTaskButton.swift; sourceTree = "<group>"; };
 		21DA2E83248734BF0035B237 /* RecurringTaskButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringTaskButton.swift; sourceTree = "<group>"; };
-		21DA2E85248734CF0035B237 /* IntervalizedTaskButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalizedTaskButton.swift; sourceTree = "<group>"; };
 		21F2B5B82415A53100B8A548 /* LoadingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreen.swift; sourceTree = "<group>"; };
 		21F511DC2412121B00E11B71 /* JTAppleCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JTAppleCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		21F7013C23F26177001942D6 /* IntervalSchedulingPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalSchedulingPreviewController.swift; sourceTree = "<group>"; };
@@ -633,7 +633,7 @@
 				213139EF245A8AC900BBB717 /* FinishedButton.swift */,
 				21DA2E81248734B10035B237 /* RegularTaskButton.swift */,
 				21DA2E83248734BF0035B237 /* RecurringTaskButton.swift */,
-				21DA2E85248734CF0035B237 /* IntervalizedTaskButton.swift */,
+				2194909824A88DA000506D76 /* IntervalizedTaskButton.swift */,
 			);
 			path = statefulButtons;
 			sourceTree = "<group>";
@@ -886,6 +886,7 @@
 				219628E4247E268000819A25 /* ViewEstimatedEffortModel.swift in Sources */,
 				2151611924820B4D004BD49B /* SchedulingTaskMonthlyViewController.swift in Sources */,
 				214064C2248455BE00FB9480 /* ObservableTagsController.swift in Sources */,
+				2194909924A88DA000506D76 /* IntervalizedTaskButton.swift in Sources */,
 				21A05BE024764FDD00123E59 /* RecurrenceSelectionPatternTableViewController.swift in Sources */,
 				21521C45240E0D3A00FC8A8A /* GeneralViewUtils.swift in Sources */,
 				2150B0DD24A7D9BF0044D244 /* ObservableTaskController.swift in Sources */,
@@ -904,7 +905,6 @@
 				219CEE6C234FD21000A9E819 /* ProjectFND.xcdatamodeld in Sources */,
 				212F14E7247067110084FBD3 /* RecurrenceNavigationViewController.swift in Sources */,
 				212F14DD2470563F0084FBD3 /* Font.swift in Sources */,
-				21DA2E86248734CF0035B237 /* IntervalizedTaskButton.swift in Sources */,
 				219CA4AB2326CA18003ACBDE /* CheckBoxButton.swift in Sources */,
 				21748F9224832D2D00A27938 /* ToDoDate.swift in Sources */,
 				214E0AE9233552C700398AC5 /* TransformingButton.swift in Sources */,
