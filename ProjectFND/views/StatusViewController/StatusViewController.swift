@@ -18,7 +18,7 @@ class StatusViewController: UIViewController, Observer {
         }
     }
     
-    func update<T>(with newValue: T) {
+    func update<T>(with newValue: T, with observableType: ObservableType) {
         //setToDoItems(toDoItems: newValue as! [ToDo])
         print("ToDo Items for ScheduleViewController has been updated")
     }

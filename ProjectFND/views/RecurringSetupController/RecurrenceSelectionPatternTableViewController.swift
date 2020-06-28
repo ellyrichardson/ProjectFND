@@ -43,88 +43,26 @@ class RecurrenceSelectionPatternTableViewController: UITableViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        guard let recurrencePatternDetailsTVC = segue.destination as? RecurrencePatternDetailsTableViewController else {
+        
+        guard let simpleItemsTVC = segue.destination as? SimpleItemsTableViewController else {
             fatalError("Unexpected destination: \(segue.destination)")
         }
+        
+        simpleItemsTVC.setItemTypeToDisplay(itemTypeToDisplay: SimpleStaticTVCReturnType.RECURRENCE)
+        
+        prepareRecurrenceDetailsSegue(segue: segue, simpleItemsTVC: simpleItemsTVC)
+    }
+    
+    private func prepareRecurrenceDetailsSegue(segue: UIStoryboardSegue, simpleItemsTVC: SimpleItemsTableViewController) {
         switch segue.identifier {
         case "SegueToRecurrenceDailyDetails":
-        recurrencePatternDetailsTVC.setDetailsToReturn(detailsToReturn: RecurrenceDetailType.DAILY)
+            simpleItemsTVC.setRecurrenceDetailsToReturn(recurrenceDetailsToReturn: RecurrenceDetailType.DAILY)
         case "SegueToRecurrenceWeeklyDetails":
-        recurrencePatternDetailsTVC.setDetailsToReturn(detailsToReturn: RecurrenceDetailType.WEEKLY)
+            simpleItemsTVC.setRecurrenceDetailsToReturn(recurrenceDetailsToReturn: RecurrenceDetailType.WEEKLY)
         case "SegueToRecurrenceMonthlyDetails":
-        recurrencePatternDetailsTVC.setDetailsToReturn(detailsToReturn: RecurrenceDetailType.MONTHLY)
+            simpleItemsTVC.setRecurrenceDetailsToReturn(recurrenceDetailsToReturn: RecurrenceDetailType.MONTHLY)
         default:
-        recurrencePatternDetailsTVC.setDetailsToReturn(detailsToReturn: RecurrenceDetailType.YEARLY)
-            
+            simpleItemsTVC.setRecurrenceDetailsToReturn(recurrenceDetailsToReturn: RecurrenceDetailType.YEARLY)
         }
     }
-    /*
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.row {
-        case 0:
-            self.recurrenceDetailsToShow = RecurrenceDetailType.DAILY
-        case 1:
-            self.recurrenceDetailsToShow = RecurrenceDetailType.WEEKLY
-        case 2:
-            self.recurrenceDetailsToShow = RecurrenceDetailType.MONTHLY
-        default:
-            self.recurrenceDetailsToShow = RecurrenceDetailType.YEARLY
-        }
-    }*/
-    /*
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
-    }*/
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-    
 }

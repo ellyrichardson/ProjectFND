@@ -8,5 +8,5 @@
 
 protocol Observer {
     var observerId : Int { get } // property to get an id
-    func update<T>(with newValue: T)
+    func update<T>(with newValue: T, with observableType: ObservableType)
 }

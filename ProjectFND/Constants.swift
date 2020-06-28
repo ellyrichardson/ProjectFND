@@ -33,3 +33,24 @@ enum RecurrenceDetailType {
     case MONTHLY
     case YEARLY
 }
+
+enum SimpleStaticTVCReturnType {
+    case RECURRENCE
+    case ESTIMATED_EFFORT
+}
+
+enum ObservableType {
+    case TODO_DUE_DATE
+    case TODO_TAG
+    case TODO_LIST
+    case OTER
+    case TASK
+    case BASE
+}
+
+// TimeSlotOccupanyType
+enum TSOType {
+    case OCCUPIED
+    case VACANT
+    case FILLER
+}

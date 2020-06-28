@@ -1,20 +1,19 @@
 //
-//  ToDoListObservable.swift
+//  ObservableObject.swift
 //  ProjectFND
 //
-//  Created by Elly Richardson on 3/20/20.
+//  Created by Elly Richardson on 5/29/20.
 //  Copyright © 2020 EllyRichardson. All rights reserved.
 //
 
 import UIKit
-import os.log
 
-class ObservableList<T> : Observable {
-    // The key is a string of the id of T
-    private var _value: [String: T]! = nil
+class ObservableItem<T> : Observable {
+    private var _value: T! = nil
     private var _observers: [Observer] = []
+    private var _observableType = ObservableType.BASE
     
-    internal var value : [String: T] {
+    internal var value : T {
         get {
             return self._value
         }
@@ -22,6 +21,15 @@ class ObservableList<T> : Observable {
             
             self._value = newValue
             self.notifyAllObservers(with: newValue)
+        }
+    }
+    
+    internal var observableType : ObservableType {
+        get {
+            return self._observableType
+        }
+        set {
+            self._observableType = newValue
         }
     }
     
@@ -52,18 +60,19 @@ class ObservableList<T> : Observable {
     
     func notifyAllObservers<T>(with newValue: T) {
         for observer in observers {
-            observer.update(with: newValue)
+            observer.update(with: newValue, with: observableType)
         }
     }
     
-    func setValue(value: [String: T]) {
+    func setValue(value: T) {
         self.value = value
     }
     
-    func getValue() -> [String: T] {
+    func getValue() -> T {
         return self.value
     }
     
+    /*
     func updateValue(modificationType: ListModificationType, elementId: String, element: T?) {
         switch modificationType {
         case .UPDATE:
@@ -80,5 +89,5 @@ class ObservableList<T> : Observable {
             self.value[elementId] = element
             print("LOG: Added element " + elementId)
         }
-    }
+    }*/
 }

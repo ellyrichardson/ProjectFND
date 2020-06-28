@@ -305,7 +305,7 @@ class ToDoProcessUtils {
     }
     
     // NOTE: Formerly addToDoArrayToAToDoArray
-    static func addToDoArrayToAToDoArray(toDoDictionary: inout [String: ToDo], toDosToBeAdded: [String: ToDo]) {
+    static func addToDoDictionaryToAToDoDictionary(toDoDictionary: inout [String: ToDo], toDosToBeAdded: [String: ToDo]) {
         toDosToBeAdded.forEach { (k,v) in toDoDictionary[k] = v }
     }
     
@@ -363,6 +363,12 @@ class ToDoProcessUtils {
             intervalizedToDos = toDoItems.filter { currentDate > $0.value.dueDate }
         }
         return intervalizedToDos
+    }
+    
+    static func retrieveTaskById(taskItems: [String: ToDo], taskId: String) -> ToDo {
+        var filteredTaskItems: [String: ToDo] = [String: ToDo]()
+        filteredTaskItems = taskItems.filter { $0.value.getTaskId() == taskId }
+        return filteredTaskItems[taskId] ?? ToDo()
     }
     
     static func isToDoOverdue(toDoRowIndex: Int, toDoItems: [(key: String, value: ToDo)]) -> Bool {
