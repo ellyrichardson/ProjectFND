@@ -2267,9 +2267,14 @@
                         <viewLayoutGuide key="safeArea" id="hF6-sU-zB1"/>
                     </view>
                     <navigationItem key="navigationItem" id="F01-rN-cKT">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="W5r-Aa-CyY"/>
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="W5r-Aa-CyY">
+                            <connections>
+                                <action selector="backButtonAction:" destination="x2s-56-K9X" id="GBZ-4M-qVa"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="backButton" destination="W5r-Aa-CyY" id="ucb-Tu-oSV"/>
                         <outlet property="schedulingAstncTableView" destination="Wvy-T9-ADb" id="lWJ-qP-nJz"/>
                     </connections>
                 </viewController>

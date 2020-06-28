@@ -44,6 +44,7 @@ enum ObservableType {
     case TODO_TAG
     case TODO_LIST
     case OTER
+    case TASK
     case BASE
 }
 

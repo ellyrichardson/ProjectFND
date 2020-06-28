@@ -34,6 +34,7 @@
 		214E0AE9233552C700398AC5 /* TransformingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214E0AE8233552C700398AC5 /* TransformingButton.swift */; };
 		214E0AEC233552FE00398AC5 /* ExpandButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214E0AEB233552FE00398AC5 /* ExpandButton.swift */; };
 		214F4F7B23D50DEC00391D7A /* TimeSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214F4F7A23D50DEC00391D7A /* TimeSlot.swift */; };
+		2150B0DD24A7D9BF0044D244 /* ObservableTaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2150B0DC24A7D9BF0044D244 /* ObservableTaskController.swift */; };
 		2151611924820B4D004BD49B /* SchedulingTaskMonthlyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151611724820B4D004BD49B /* SchedulingTaskMonthlyViewController.swift */; };
 		2151611A24820B4D004BD49B /* SchedulingTaskMonthlyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2151611824820B4D004BD49B /* SchedulingTaskMonthlyViewController.xib */; };
 		2151611C24820B93004BD49B /* SchedulingTaskMonthlyNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151611B24820B93004BD49B /* SchedulingTaskMonthlyNavViewController.swift */; };
@@ -165,6 +166,7 @@
 		214E0AE8233552C700398AC5 /* TransformingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformingButton.swift; sourceTree = "<group>"; };
 		214E0AEB233552FE00398AC5 /* ExpandButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandButton.swift; sourceTree = "<group>"; };
 		214F4F7A23D50DEC00391D7A /* TimeSlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSlot.swift; sourceTree = "<group>"; };
+		2150B0DC24A7D9BF0044D244 /* ObservableTaskController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableTaskController.swift; sourceTree = "<group>"; };
 		2151611724820B4D004BD49B /* SchedulingTaskMonthlyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulingTaskMonthlyViewController.swift; sourceTree = "<group>"; };
 		2151611824820B4D004BD49B /* SchedulingTaskMonthlyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SchedulingTaskMonthlyViewController.xib; sourceTree = "<group>"; };
 		2151611B24820B93004BD49B /* SchedulingTaskMonthlyNavViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulingTaskMonthlyNavViewController.swift; sourceTree = "<group>"; };
@@ -494,6 +496,7 @@
 				215161262482380B004BD49B /* ObservableDateController.swift */,
 				214064C1248455BE00FB9480 /* ObservableTagsController.swift */,
 				2115D13E249EFA0000AE9379 /* ObservableOterController.swift */,
+				2150B0DC24A7D9BF0044D244 /* ObservableTaskController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -885,6 +888,7 @@
 				214064C2248455BE00FB9480 /* ObservableTagsController.swift in Sources */,
 				21A05BE024764FDD00123E59 /* RecurrenceSelectionPatternTableViewController.swift in Sources */,
 				21521C45240E0D3A00FC8A8A /* GeneralViewUtils.swift in Sources */,
+				2150B0DD24A7D9BF0044D244 /* ObservableTaskController.swift in Sources */,
 				217477CF23D5282B001CA394 /* IntervalAvailabilitiesCheckingOperations.swift in Sources */,
 				2115D13F249EFA0000AE9379 /* ObservableOterController.swift in Sources */,
 				214F4F7B23D50DEC00391D7A /* TimeSlot.swift in Sources */,

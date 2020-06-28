@@ -10,9 +10,15 @@ import UIKit
 import os.log
 
 /*
+ NOTES:
+ Add a taskJustBeingCreated state tracker in this object and remove the worrying of task only being created in ViewControllers. Look at FND-00001
+ */
+
+/*
  ToDo automatically accesses the storage when its object is being accessed because of
  */
-class ToDo: NSObject, NSCoding {
+class ToDo: NSObject, NSCoding, NSCopying {
+    
     // MARK: - Properties
     var taskId, intervalId, taskType: String
     var taskName, taskDescription, estTime: String
@@ -109,6 +115,12 @@ class ToDo: NSObject, NSCoding {
         self.repeatingEndDate = Date()
         self.repeatingId = ""
         self.repeatingFrequencyCode = ""
+    }
+    
+    // MARK: - NSCopying
+    func copy(with zone: NSZone? = nil) -> Any {
+        let copy = ToDo(taskId: self.taskId, taskName: self.taskName, taskType: self.taskType, taskDescription: self.taskDescription, workDate: self.workDate, estTime: self.estTime, dueDate: self.dueDate, finished: self.finished, intervalized: self.intervalized, intervalId: self.intervalId, intervalLength: Int(self.intervalLength)!, intervalIndex: Int(self.intervalIndex)!, intervalDueDate: self.intervalDueDate, important: self.important, notifying: self.notifying, repeating: self.repeating, repeatingStartDate: self.repeatingStartDate, repeatingEndDate: self.repeatingEndDate, repeatingId: self.repeatingId, repeatingFrequencyCode: self.repeatingFrequencyCode)
+        return copy as Any
     }
     
     // MARK: - NSCoding

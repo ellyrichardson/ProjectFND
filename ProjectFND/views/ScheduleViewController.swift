@@ -95,6 +95,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.toDoListTableView.reloadData()
         //GeneralViewUtils.reloadCollectionViewData(collectionView: self.calendarView)
         //GeneralViewUtils.reloadTableViewData(tableView: self.toDoListTableView)
     }

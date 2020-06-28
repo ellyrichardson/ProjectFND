@@ -55,8 +55,13 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     @IBOutlet weak var endDateStringValue: UILabel!
     
     // MARK: - Trackers
+    // NOTE: These trackers need to be categorized
     private var selectedTaskTypePickerData: String = String()
     private var repeatingStatus: Bool = Bool()
+    
+    // In Queue Task Trackers
+    private var inQueueTask = ToDo()
+    private var inQueueTaskContainsNewValue = false
     
     // MARK: - Due Date Observable
     
@@ -65,6 +70,10 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     // MARK: - Tags Observable
     
     private var observableTagsController = ObservableTagsController()
+    
+    // MARK: - Task Observable
+    
+    private var observableTaskController = ObservableTaskController()
     
     // MARK: - Observable Essentials
     
@@ -91,6 +100,19 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             let newValueTag = newValue as! ToDoTags
             self.tagsLabel.text = "Tags: " + newValueTag.tagValue!
             print("TAG WAS UPDATED")
+        }
+        else if observableType == ObservableType.TASK {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "h:mm a"
+            let newValueTask = newValue as! ToDo
+            
+            self.inQueueTask = newValueTask
+            self.inQueueTaskContainsNewValue = true
+            self.startDateStringValue.text = dateFormatter.string(from: newValueTask.getStartDate())
+            self.endDateStringValue.text = dateFormatter.string(from: newValueTask.getEndDate())
+            print("The DATE!!")
+            print(self.inQueueTask.getStartDate())
+            print(self.inQueueTask.getEndDate())
         }
     }
     
@@ -119,6 +141,8 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         self.observableDueDateController.setObservers(observers: observerVCs)
         self.observableTagsController.setupData()
         self.observableTagsController.setObservers(observers: observerVCs)
+        self.observableTaskController.setupData()
+        self.observableTaskController.setObservers(observers: observerVCs)
 
         taskTypePickerData = ["Personal", "Work", "School"]
         //setPickerViewSelectedRow()
@@ -526,12 +550,36 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             schedulingAstncViewController.setDayToAssist(dayDate: self.chosenWorkDate)
             if toDo == nil {
                 schedulingAstncViewController.setTaskItems(taskItems: ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: self.chosenWorkDate, toDoItems: [String: ToDo]()))
-                schedulingAstncViewController.setCurrentTaskId(taskId: ("Non-Existing"))
+                
+                // TODO: Refactor the having of TargetTaskJustCreated being set in this controller, to just setting it in the ToDo Task itself.
+                if !self.inQueueTaskContainsNewValue {
+                    self.inQueueTask = ToDo(taskId: UUID().uuidString, taskName: "TEST_NAME", taskDescription: "TEST_DESC", workDate: Date(), estTime: "0.0", dueDate: Date(), finished: false)!
+                    schedulingAstncViewController.setTargetTaskJustCreated(targetTaskJustCreated: true)
+                }
+                //self.inQueueTask = self.toDo!.copy() as! ToDo
+                schedulingAstncViewController.setTargetTask(taskItem: self.inQueueTask)
+                schedulingAstncViewController.setObservableTaskController(observableTaskController: self.observableTaskController)
             }
             else {
                 schedulingAstncViewController.setTaskItems(taskItems: ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: self.chosenWorkDate, toDoItems: getToDos()))
-                schedulingAstncViewController.setCurrentTaskId(taskId: (self.toDo?.getTaskId())!)
+                // Need a copy so that this actual self.ToDo don't get updated in the next viewController and reflect on the main page
+                
+                /*
+                if self.inQueueTaskContainsNewValue {
+                    schedulingAstncViewController.setTargetTask(taskItem: self.inQueueTask)
+                } else {
+                    schedulingAstncViewController.setTargetTask(taskItem: self.toDo!.copy() as! ToDo)
+                }*/
+                if !self.inQueueTaskContainsNewValue {
+                    self.inQueueTask = self.toDo!.copy() as! ToDo
+                }
+                //self.inQueueTask = self.toDo!.copy() as! ToDo
+                schedulingAstncViewController.setTargetTask(taskItem: self.inQueueTask)
+                schedulingAstncViewController.setObservableTaskController(observableTaskController: self.observableTaskController) 
             }
+            print("The DATE22!!")
+            print(self.inQueueTask.getStartDate())
+            print(self.inQueueTask.getEndDate())
         }
         else {
             // Only prepare view controller when the save button is pressed

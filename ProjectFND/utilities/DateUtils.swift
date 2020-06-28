@@ -61,7 +61,7 @@ class DateUtils{
         return calendar.dateComponents([.day], from: earlyDate, to: laterDate).day!
     }
     
-    func areTimesSameDay(earlyTime: Date, laterTime: Date) -> Bool {
+    func areTimesInSameDay(earlyTime: Date, laterTime: Date) -> Bool {
         if daysBetweenTwoDates(earlyDate: earlyTime, laterDate: laterTime) > 0 {
             return false
         }

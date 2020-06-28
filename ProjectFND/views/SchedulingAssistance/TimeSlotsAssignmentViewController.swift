@@ -9,6 +9,7 @@
 import SwiftEntryKit
 import UIKit
 
+// Maybe call this time slot selector instead?
 class TimeSlotsAssignmentViewController: UIViewController {
     @IBOutlet weak var startTimeUiView: UIView!
     @IBOutlet weak var endTimeUiView: UIView!
@@ -79,6 +80,14 @@ class TimeSlotsAssignmentViewController: UIViewController {
     
     func setMinAndMaxTime(minTime: Date, maxTime: Date) {
         self.minimumTime = minTime
+        self.maximumTime = maxTime
+    }
+    
+    func setMinTime(minTime: Date) {
+        self.minimumTime = minTime
+    }
+    
+    func setMaxTime(maxTime: Date) {
         self.maximumTime = maxTime
     }
     
