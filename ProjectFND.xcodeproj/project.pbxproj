@@ -12,6 +12,7 @@
 		21091B832470D38F00C6F964 /* RecurrenceSelectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21091B812470D38F00C6F964 /* RecurrenceSelectionTableViewCell.xib */; };
 		21094A20248CAB6400AA095B /* SchedulingAssistanceLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21094A1F248CAB6400AA095B /* SchedulingAssistanceLabel.swift */; };
 		2115D13F249EFA0000AE9379 /* ObservableOterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2115D13E249EFA0000AE9379 /* ObservableOterController.swift */; };
+		211E4AED24ADAF0500CD22D9 /* DeviceTypeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211E4AEC24ADAF0500CD22D9 /* DeviceTypeDetector.swift */; };
 		2124504D2499CDA80007E198 /* ColorsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2124504C2499CDA80007E198 /* ColorsUtils.swift */; };
 		212990C7247B88C600A9D618 /* EntryDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212990C6247B88C600A9D618 /* EntryDetailsTableViewController.swift */; };
 		212F14C6246F8FE10084FBD3 /* RepeatingSetupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212F14C5246F8FE10084FBD3 /* RepeatingSetupTableViewController.swift */; };
@@ -107,6 +108,9 @@
 		21DA2E7F248730E90035B237 /* ItemInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DA2E7E248730E90035B237 /* ItemInfoView.swift */; };
 		21DA2E82248734B10035B237 /* RegularTaskButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DA2E81248734B10035B237 /* RegularTaskButton.swift */; };
 		21DA2E84248734BF0035B237 /* RecurringTaskButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DA2E83248734BF0035B237 /* RecurringTaskButton.swift */; };
+		21DB50B624AD975000386749 /* ScheduleIntervalizerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DB50B424AD975000386749 /* ScheduleIntervalizerVC.swift */; };
+		21DB50B724AD975000386749 /* ScheduleIntervalizerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21DB50B524AD975000386749 /* ScheduleIntervalizerVC.xib */; };
+		21DB50B924AD9FB700386749 /* ScheduleIntervalizerNavVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DB50B824AD9FB700386749 /* ScheduleIntervalizerNavVC.swift */; };
 		21F2B5B92415A53100B8A548 /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F2B5B82415A53100B8A548 /* LoadingScreen.swift */; };
 		21F511DD2412121B00E11B71 /* JTAppleCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21F511DC2412121B00E11B71 /* JTAppleCalendar.framework */; };
 		21F7013E23F26177001942D6 /* IntervalSchedulingPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7013C23F26177001942D6 /* IntervalSchedulingPreviewController.swift */; };
@@ -144,6 +148,7 @@
 		21091B812470D38F00C6F964 /* RecurrenceSelectionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecurrenceSelectionTableViewCell.xib; sourceTree = "<group>"; };
 		21094A1F248CAB6400AA095B /* SchedulingAssistanceLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulingAssistanceLabel.swift; sourceTree = "<group>"; };
 		2115D13E249EFA0000AE9379 /* ObservableOterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableOterController.swift; sourceTree = "<group>"; };
+		211E4AEC24ADAF0500CD22D9 /* DeviceTypeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTypeDetector.swift; sourceTree = "<group>"; };
 		2124504C2499CDA80007E198 /* ColorsUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsUtils.swift; sourceTree = "<group>"; };
 		212990C6247B88C600A9D618 /* EntryDetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryDetailsTableViewController.swift; sourceTree = "<group>"; };
 		212F14C5246F8FE10084FBD3 /* RepeatingSetupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingSetupTableViewController.swift; sourceTree = "<group>"; };
@@ -242,6 +247,9 @@
 		21DA2E7E248730E90035B237 /* ItemInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemInfoView.swift; sourceTree = "<group>"; };
 		21DA2E81248734B10035B237 /* RegularTaskButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularTaskButton.swift; sourceTree = "<group>"; };
 		21DA2E83248734BF0035B237 /* RecurringTaskButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringTaskButton.swift; sourceTree = "<group>"; };
+		21DB50B424AD975000386749 /* ScheduleIntervalizerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleIntervalizerVC.swift; sourceTree = "<group>"; };
+		21DB50B524AD975000386749 /* ScheduleIntervalizerVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleIntervalizerVC.xib; sourceTree = "<group>"; };
+		21DB50B824AD9FB700386749 /* ScheduleIntervalizerNavVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleIntervalizerNavVC.swift; sourceTree = "<group>"; };
 		21F2B5B82415A53100B8A548 /* LoadingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreen.swift; sourceTree = "<group>"; };
 		21F511DC2412121B00E11B71 /* JTAppleCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JTAppleCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		21F7013C23F26177001942D6 /* IntervalSchedulingPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalSchedulingPreviewController.swift; sourceTree = "<group>"; };
@@ -368,6 +376,7 @@
 				21521C46240E106D00FC8A8A /* ToDoTableViewUtils.swift */,
 				21521C48240E11C600FC8A8A /* CalendarViewUtils.swift */,
 				2124504C2499CDA80007E198 /* ColorsUtils.swift */,
+				211E4AEC24ADAF0500CD22D9 /* DeviceTypeDetector.swift */,
 			);
 			path = utilities;
 			sourceTree = "<group>";
@@ -375,6 +384,7 @@
 		21521C4A240E17D200FC8A8A /* views */ = {
 			isa = PBXGroup;
 			children = (
+				21DB50B324AD96BB00386749 /* SchedulingIntervalizer */,
 				2172C144248DE8D100BC9F24 /* SchedulingAssistance */,
 				2151610E2481FA85004BD49B /* SchedulingTaskViewController */,
 				219648E02478D1AE0052ECEF /* SFKPresets */,
@@ -638,6 +648,16 @@
 			path = statefulButtons;
 			sourceTree = "<group>";
 		};
+		21DB50B324AD96BB00386749 /* SchedulingIntervalizer */ = {
+			isa = PBXGroup;
+			children = (
+				21DB50B424AD975000386749 /* ScheduleIntervalizerVC.swift */,
+				21DB50B524AD975000386749 /* ScheduleIntervalizerVC.xib */,
+				21DB50B824AD9FB700386749 /* ScheduleIntervalizerNavVC.swift */,
+			);
+			path = SchedulingIntervalizer;
+			sourceTree = "<group>";
+		};
 		21F2B5B72415A4FB00B8A548 /* loading */ = {
 			isa = PBXGroup;
 			children = (
@@ -744,6 +764,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				21A4D101231ECC3600B5B52A /* LaunchScreen.storyboard in Resources */,
+				21DB50B724AD975000386749 /* ScheduleIntervalizerVC.xib in Resources */,
 				216067DE24219F3A00B0E5EF /* ParentStatusViewController.xib in Resources */,
 				21A4D0FE231ECC3600B5B52A /* Assets.xcassets in Resources */,
 				21A4D120231ECE1300B5B52A /* CalendarHeader.xib in Resources */,
@@ -869,6 +890,7 @@
 				21B8965323D3B7E100D49827 /* DateUtils.swift in Sources */,
 				21DA2E84248734BF0035B237 /* RecurringTaskButton.swift in Sources */,
 				2124504D2499CDA80007E198 /* ColorsUtils.swift in Sources */,
+				211E4AED24ADAF0500CD22D9 /* DeviceTypeDetector.swift in Sources */,
 				2199899A249C705C0024BDA5 /* TimeSlotsAssignmentViewController.swift in Sources */,
 				218A99C224303F820005DEB5 /* ToDoInterval.swift in Sources */,
 				21F2B5B92415A53100B8A548 /* LoadingScreen.swift in Sources */,
@@ -880,6 +902,7 @@
 				215161272482380B004BD49B /* ObservableDateController.swift in Sources */,
 				212F14D62470503B0084FBD3 /* PresetsDataSource.swift in Sources */,
 				217974E72425E0F000FE7B4C /* Constants.swift in Sources */,
+				21DB50B624AD975000386749 /* ScheduleIntervalizerVC.swift in Sources */,
 				2151611F24821052004BD49B /* LongOvalButtons.swift in Sources */,
 				21A4D0F9231ECC3600B5B52A /* ScheduleViewController.swift in Sources */,
 				212990C7247B88C600A9D618 /* EntryDetailsTableViewController.swift in Sources */,
@@ -890,6 +913,7 @@
 				21A05BE024764FDD00123E59 /* RecurrenceSelectionPatternTableViewController.swift in Sources */,
 				21521C45240E0D3A00FC8A8A /* GeneralViewUtils.swift in Sources */,
 				2150B0DD24A7D9BF0044D244 /* ObservableTaskController.swift in Sources */,
+				21DB50B924AD9FB700386749 /* ScheduleIntervalizerNavVC.swift in Sources */,
 				217477CF23D5282B001CA394 /* IntervalAvailabilitiesCheckingOperations.swift in Sources */,
 				2115D13F249EFA0000AE9379 /* ObservableOterController.swift in Sources */,
 				214F4F7B23D50DEC00391D7A /* TimeSlot.swift in Sources */,

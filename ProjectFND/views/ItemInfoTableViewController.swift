@@ -33,6 +33,8 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     
     
     // UI UPDATE - @IBOutlet weak var taskTypePicker: UIPickerView!
+    @IBOutlet weak var intervalizedTaskButton: IntervalizedTaskButton!
+    @IBOutlet weak var regularTaskButton: RegularTaskButton!
     
     
     @IBOutlet weak var dueDateLabel: UILabel!
@@ -629,6 +631,16 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         }
     }
     
+    @IBAction func regularTaskButton(_ sender: Any) {
+    }
+    
+    @IBAction func intervalizedTaskButton(_ sender: IntervalizedTaskButton) {
+        let viewController = ScheduleIntervalizerVC()
+        //viewController.setObservableDueDateController(observableDueDateController: self.observableDueDateController)
+        let navigationController = ScheduleIntervalizerNavVC(rootViewController: viewController)
+        SwiftEntryKit.display(entry: navigationController, using: PresetsDataSource.getSmallerCustomPreset())
+    }
+    
     @IBAction func cancelButton(_ sender: UIBarButtonItem) {
         // Depending on style of presentation (modal or push presentation), this view controller needs to be dismissed in two different ways.
         let isPresentingInAddToDoMode = presentingViewController is UINavigationController
@@ -646,6 +658,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         dismiss(animated: true, completion: nil)
     }
     
+    // NOTES: Probably not being used
     @IBAction func recurrencePatternButton(_ sender: UIButton) {
         showRecurrenceSelection(with: PresetsDataSource.getCustomPreset())
     }

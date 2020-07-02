@@ -1688,6 +1688,9 @@
                                                         <constraint firstAttribute="width" constant="40" id="iFn-KZ-ENK"/>
                                                     </constraints>
                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <connections>
+                                                        <action selector="regularTaskButton:" destination="knJ-Sz-Bcd" eventType="touchUpInside" id="BpN-DB-gMK"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uHR-8p-RfR" customClass="RecurringTaskButton" customModule="ProjectFND" customModuleProvider="target">
                                                     <rect key="frame" x="90" y="7" width="50" height="50"/>
@@ -1704,6 +1707,9 @@
                                                         <constraint firstAttribute="width" constant="50" id="7U2-qV-OAb"/>
                                                     </constraints>
                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <connections>
+                                                        <action selector="intervalizedTaskButton:" destination="knJ-Sz-Bcd" eventType="touchUpInside" id="lIc-9P-5jT"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -1789,6 +1795,8 @@
                         <outlet property="dueDateLabel" destination="mJx-B7-yva" id="v4X-Rh-hFs"/>
                         <outlet property="endDateStringValue" destination="uG0-rZ-hqX" id="KIq-Cr-fUT"/>
                         <outlet property="endDateUIView" destination="d7N-0s-pk0" id="XNW-K2-RDl"/>
+                        <outlet property="intervalizedTaskButton" destination="fGn-kg-Lnj" id="nPX-gE-dZV"/>
+                        <outlet property="regularTaskButton" destination="HrG-Mx-AZ9" id="aQA-VL-xPo"/>
                         <outlet property="saveButton" destination="KIg-in-f9m" id="GoQ-ap-lAz"/>
                         <outlet property="startDateStringValue" destination="qig-Ko-GfG" id="IuF-ke-ZZl"/>
                         <outlet property="startDateUIView" destination="zcE-Tw-f2j" id="hZj-tZ-1GG"/>
