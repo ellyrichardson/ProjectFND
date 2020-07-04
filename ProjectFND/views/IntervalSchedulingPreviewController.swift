@@ -312,17 +312,13 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     // MARK: - Setters
     
     // USED HERE IN THIS CONTEXT
-    func setIntervalAmount(intervalAmount: String) {
-        if intervalAmount != "" {
-            self.intervalAmount = Int(intervalAmount)!
-        }
+    func setIntervalHours(intervalHours: Int) {
+        self.intervalAmount = intervalHours
     }
     
     // USED HERE IN THIS CONTEXT
-    func setIntervalLength(intervalLength: String) {
-        if intervalLength != "" {
-            self.intervalLength = Double(intervalLength)!
-        }
+    func setIntervalDays(intervalDays: Int) {
+        self.intervalLength = Double(intervalDays)
     }
     
     // USED HERE IN THIS CONTEXT
@@ -333,6 +329,8 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     // USED HERE IN THIS CONTEXT
     func setToDoEndDate(toDoEndDate: Date) {
         self.toDoEndDate = toDoEndDate
+        print("DIDATE")
+        print(self.toDoEndDate)
     }
     
     // USED HERE IN THIS CONTEXT

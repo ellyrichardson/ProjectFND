@@ -66,6 +66,8 @@
 		2187C9522449575C00714617 /* NonRepeatingDeadlinesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2187C9502449575C00714617 /* NonRepeatingDeadlinesViewController.swift */; };
 		2187C9532449575C00714617 /* NonRepeatingDeadlinesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2187C9512449575C00714617 /* NonRepeatingDeadlinesViewController.xib */; };
 		218A99C224303F820005DEB5 /* ToDoInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218A99C124303F820005DEB5 /* ToDoInterval.swift */; };
+		218BDDCC24B05272002E8E80 /* DetachedVCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218BDDCB24B05272002E8E80 /* DetachedVCDelegate.swift */; };
+		218BDDCF24B06286002E8E80 /* ScheduleIntervalizerVCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218BDDCE24B06286002E8E80 /* ScheduleIntervalizerVCDelegate.swift */; };
 		2194909924A88DA000506D76 /* IntervalizedTaskButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2194909824A88DA000506D76 /* IntervalizedTaskButton.swift */; };
 		219628E2247E260F00819A25 /* ViewEstimatedEffortModelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219628E1247E260F00819A25 /* ViewEstimatedEffortModelItem.swift */; };
 		219628E4247E268000819A25 /* ViewEstimatedEffortModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219628E3247E268000819A25 /* ViewEstimatedEffortModel.swift */; };
@@ -202,6 +204,8 @@
 		2187C9502449575C00714617 /* NonRepeatingDeadlinesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonRepeatingDeadlinesViewController.swift; sourceTree = "<group>"; };
 		2187C9512449575C00714617 /* NonRepeatingDeadlinesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NonRepeatingDeadlinesViewController.xib; sourceTree = "<group>"; };
 		218A99C124303F820005DEB5 /* ToDoInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoInterval.swift; sourceTree = "<group>"; };
+		218BDDCB24B05272002E8E80 /* DetachedVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetachedVCDelegate.swift; sourceTree = "<group>"; };
+		218BDDCE24B06286002E8E80 /* ScheduleIntervalizerVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleIntervalizerVCDelegate.swift; sourceTree = "<group>"; };
 		2194909824A88DA000506D76 /* IntervalizedTaskButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalizedTaskButton.swift; sourceTree = "<group>"; };
 		219628E1247E260F00819A25 /* ViewEstimatedEffortModelItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewEstimatedEffortModelItem.swift; sourceTree = "<group>"; };
 		219628E3247E268000819A25 /* ViewEstimatedEffortModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewEstimatedEffortModel.swift; sourceTree = "<group>"; };
@@ -495,6 +499,7 @@
 			children = (
 				217974E32425C19C00FE7B4C /* Observer.swift */,
 				217974EB2428591F00FE7B4C /* Observable.swift */,
+				218BDDCB24B05272002E8E80 /* DetachedVCDelegate.swift */,
 			);
 			path = interfaces;
 			sourceTree = "<group>";
@@ -509,6 +514,14 @@
 				2150B0DC24A7D9BF0044D244 /* ObservableTaskController.swift */,
 			);
 			path = controllers;
+			sourceTree = "<group>";
+		};
+		218BDDCD24B0626E002E8E80 /* delegates */ = {
+			isa = PBXGroup;
+			children = (
+				218BDDCE24B06286002E8E80 /* ScheduleIntervalizerVCDelegate.swift */,
+			);
+			path = delegates;
 			sourceTree = "<group>";
 		};
 		219628E0247E25C700819A25 /* EstimatedEffort */ = {
@@ -574,6 +587,7 @@
 			children = (
 				212F14C7246F91650084FBD3 /* EKAttributes.swift */,
 				217974E62425E0EF00FE7B4C /* Constants.swift */,
+				218BDDCD24B0626E002E8E80 /* delegates */,
 				217974E82427062B00FE7B4C /* controllers */,
 				217974E52425CBAC00FE7B4C /* interfaces */,
 				21521C50240E1BEC00FC8A8A /* models */,
@@ -877,6 +891,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				212F14DB247056150084FBD3 /* UIColor+Utils.swift in Sources */,
+				218BDDCC24B05272002E8E80 /* DetachedVCDelegate.swift in Sources */,
 				21091B822470D38F00C6F964 /* RecurrenceSelectionTableViewCell.swift in Sources */,
 				219648E9247A14930052ECEF /* ViewRecurrenceModelItem.swift in Sources */,
 				216067E224219FAD00B0E5EF /* StatusViewController.swift in Sources */,
@@ -923,6 +938,7 @@
 				21DA2E82248734B10035B237 /* RegularTaskButton.swift in Sources */,
 				212F14E5247056DE0084FBD3 /* UIVIew+Nib.swift in Sources */,
 				21312F19248344AF00870920 /* TagsTableViewController.swift in Sources */,
+				218BDDCF24B06286002E8E80 /* ScheduleIntervalizerVCDelegate.swift in Sources */,
 				212F14C8246F91650084FBD3 /* EKAttributes.swift in Sources */,
 				212F14E1247056860084FBD3 /* UIScreen+Utils.swift in Sources */,
 				2172C147248DE93300BC9F24 /* TimeSlotsVacancyEvaluator.swift in Sources */,

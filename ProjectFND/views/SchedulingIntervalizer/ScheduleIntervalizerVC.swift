@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import SwiftEntryKit
 
-class ScheduleIntervalizerVC: UIViewController {
+class ScheduleIntervalizerVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
     @IBOutlet weak var hoursUiView: ItemInfoView!
     @IBOutlet weak var daysUiView: ItemInfoView!
@@ -17,19 +18,64 @@ class ScheduleIntervalizerVC: UIViewController {
     @IBOutlet weak var validImage: UIImageView!
     @IBOutlet weak var intervalizeButton: LongOvalButton!
     
+    weak var detachedVCDelegate: DetachedVCDelegate?
+    
+    private var hoursSelection = [String]()
+    
+    // MARK: - Trackers
+    
+    private var selectedHour: String?
+    
+    // MARK: - UIPickerView
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        self.hoursSelection.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        //self.hoursSelection = hoursSelection[row]
+        self.selectedHour = hoursSelection[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return self.hoursSelection[row]
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         configureUiViews()
+        setupHoursSelection()
+        setupPickerViewDelegation()
     }
     
     func configureUiViews() {
         self.hoursUiView.cornerRadius = 10
         self.daysUiView.cornerRadius = 10
     }
+    
+    func setupHoursSelection() {
+        self.hoursSelection = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"]
+    }
+    
+    func setupPickerViewDelegation() {
+        self.hoursPickerView.delegate = self
+        self.hoursPickerView.dataSource = self
+    }
 
-
+    @IBAction func intervalizeButton(_ sender: LongOvalButton) {
+        let daysValue = daysTextField.text
+        detachedVCDelegate?.setIntervalHours(intervalHours: Int(self.selectedHour!)!)
+        detachedVCDelegate?.setIntervalDays(intervalDays: Int(daysValue!)!)
+        detachedVCDelegate?.transitionToNextVC()
+        SwiftEntryKit.dismiss()
+    }
+    
     /*
     // MARK: - Navigation
 

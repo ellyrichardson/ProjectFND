@@ -117,6 +117,9 @@
                     </constraints>
                     <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="20"/>
                     <state key="normal" title="Intervalize"/>
+                    <connections>
+                        <action selector="intervalizeButton:" destination="-1" eventType="touchUpInside" id="SK6-zk-tjw"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

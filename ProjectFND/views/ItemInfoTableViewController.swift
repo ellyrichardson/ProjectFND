@@ -10,7 +10,9 @@ import UIKit
 import SwiftEntryKit
 import os.log
 
-class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate, Observer {
+class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate, Observer, DetachedVCDelegate {
+    
+    
     
     
     
@@ -65,6 +67,10 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     // NOTE: These trackers need to be categorized
     private var selectedTaskTypePickerData: String = String()
     private var repeatingStatus: Bool = Bool()
+    
+    // Intervalizer Trackers
+    private var intervalHours = 0
+    private var intervalDays = 0
     
     // In Queue Task Trackers
     private var inQueueTask = ToDo()
@@ -121,6 +127,19 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             print(self.inQueueTask.getStartDate())
             print(self.inQueueTask.getEndDate())
         }
+    }
+    
+    // MARK: - DetachedVCDelegate
+    func transitionToNextVC() {
+        performSegue(withIdentifier: "SegueToIntervalizerVC", sender: self)
+    }
+    
+    func setIntervalHours(intervalHours: Int) {
+        self.intervalHours = intervalHours
+    }
+    
+    func setIntervalDays(intervalDays: Int) {
+        self.intervalDays = intervalDays
     }
     
     // MARK: - Essentials
@@ -496,8 +515,8 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
-        if segue.identifier == "setupIntervals" {
-            guard let intervalSchedulingPreviewController = segue.destination as? IntervalSchedulingPreviewController else {
+        if segue.identifier == "SegueToIntervalizerVC" {
+            guard let scheduleIntervalizerVC = segue.destination as? IntervalSchedulingPreviewController else {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
             //let intervalHours = intervalSchedulingHourField.text
@@ -515,7 +534,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             // TODO: REMOVE TIGHT COUPLING!
             let stringedUUID = UUID().uuidString
             print(getToDos())
-            intervalSchedulingPreviewController.setToDos(toDos: getToDos())
+            scheduleIntervalizerVC.setToDos(toDos: getToDos())
             /*
             if toDo == nil {
                 stringedUUID = UUID().uuidString
@@ -523,17 +542,17 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
  */
             
             // Set the ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue
-            intervalSchedulingPreviewController.setIntervalAmount(intervalAmount: "0.0")
-            intervalSchedulingPreviewController.setIntervalLength(intervalLength: "0.0")
-            intervalSchedulingPreviewController.setToDoStartDate(toDoStartDate: workDate)
-            intervalSchedulingPreviewController.setToDoEndDate(toDoEndDate: dueDate)
+            scheduleIntervalizerVC.setIntervalHours(intervalHours: self.intervalHours)
+            scheduleIntervalizerVC.setIntervalDays(intervalDays: self.intervalDays)
+            scheduleIntervalizerVC.setToDoStartDate(toDoStartDate: workDate)
+            scheduleIntervalizerVC.setToDoEndDate(toDoEndDate: dueDate)
             if toDo == nil {
                 // Set the ToDo to be intervalized to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being created
-                intervalSchedulingPreviewController.setToDoToBeIntervalized(toDo: ToDo(taskId: stringedUUID, taskName: taskName!, taskType: taskType, taskDescription: "", workDate: workDate, estTime: "0.0", dueDate: dueDate, finished: getIsFinished())!)
+                scheduleIntervalizerVC.setToDoToBeIntervalized(toDo: ToDo(taskId: stringedUUID, taskName: taskName!, taskType: taskType, taskDescription: "", workDate: workDate, estTime: "0.0", dueDate: dueDate, finished: getIsFinished())!)
             }
             else {
                 // Set the ToDo to be intervalized to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being modified and is already  created
-                intervalSchedulingPreviewController.setToDoToBeIntervalized(toDo: ToDo(taskId: (self.toDo?.getTaskId())!,taskName: taskName!, taskType: taskType, taskDescription: "", workDate: workDate, estTime: "0.0", dueDate: dueDate, finished: getIsFinished(), intervalized: (toDo?.isIntervalized())!, intervalId: (toDo?.getIntervalId())!, intervalLength: (toDo?.getIntervalLength())! ,intervalIndex: (toDo?.getIntervalIndex())!, intervalDueDate: (toDo?.getIntervalDueDate())!)!)
+                scheduleIntervalizerVC.setToDoToBeIntervalized(toDo: ToDo(taskId: (self.toDo?.getTaskId())!,taskName: taskName!, taskType: taskType, taskDescription: "", workDate: workDate, estTime: "0.0", dueDate: dueDate, finished: getIsFinished(), intervalized: (toDo?.isIntervalized())!, intervalId: (toDo?.getIntervalId())!, intervalLength: (toDo?.getIntervalLength())! ,intervalIndex: (toDo?.getIntervalIndex())!, intervalDueDate: (toDo?.getIntervalDueDate())!)!)
             }
             
         }
@@ -594,6 +613,19 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             print(self.inQueueTask.getStartDate())
             print(self.inQueueTask.getEndDate())
         }
+            
+            /*
+        else if segue.identifier == "SegueToIntervalizerVC" {
+            guard let scheduleIntervalizerVC = segue.destination as? IntervalSchedulingPreviewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            
+            scheduleIntervalizerVC.setToDos(toDos: getToDos())
+            scheduleIntervalizerVC.setIntervalAmount(intervalAmount: "0.0")
+            scheduleIntervalizerVC.setIntervalLength(intervalLength: "0.0")
+            scheduleIntervalizerVC.setToDoStartDate(toDoStartDate: workDate)
+            scheduleIntervalizerVC.setToDoEndDate(toDoEndDate: dueDate)
+        }*/
         else {
             // Only prepare view controller when the save button is pressed
             guard let button = sender as? UIBarButtonItem, button === saveButton else {
@@ -636,6 +668,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     
     @IBAction func intervalizedTaskButton(_ sender: IntervalizedTaskButton) {
         let viewController = ScheduleIntervalizerVC()
+        viewController.detachedVCDelegate = self
         //viewController.setObservableDueDateController(observableDueDateController: self.observableDueDateController)
         let navigationController = ScheduleIntervalizerNavVC(rootViewController: viewController)
         SwiftEntryKit.display(entry: navigationController, using: PresetsDataSource.getSmallerCustomPreset())
