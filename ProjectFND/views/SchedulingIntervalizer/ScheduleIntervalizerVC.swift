@@ -49,9 +49,19 @@ class ScheduleIntervalizerVC: UIViewController, UIPickerViewDelegate, UIPickerVi
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        configureNavigationBar()
         configureUiViews()
         setupHoursSelection()
         setupPickerViewDelegation()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        configureNavigationBar()
+    }
+    
+    func configureNavigationBar() {
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     func configureUiViews() {
