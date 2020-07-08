@@ -548,11 +548,11 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             scheduleIntervalizerVC.setToDoEndDate(toDoEndDate: dueDate)
             if toDo == nil {
                 // Set the ToDo to be intervalized to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being created
-                scheduleIntervalizerVC.setToDoToBeIntervalized(toDo: ToDo(taskId: stringedUUID, taskName: taskName!, taskType: taskType, taskDescription: "", workDate: workDate, estTime: "0.0", dueDate: dueDate, finished: getIsFinished())!)
+                //scheduleIntervalizerVC.setToDoToBeIntervalized(toDo: ToDo(taskId: stringedUUID, taskName: taskName!, taskType: taskType, taskDescription: "", workDate: workDate, estTime: "0.0", dueDate: dueDate, finished: getIsFinished())!)
             }
             else {
                 // Set the ToDo to be intervalized to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being modified and is already  created
-                scheduleIntervalizerVC.setToDoToBeIntervalized(toDo: ToDo(taskId: (self.toDo?.getTaskId())!,taskName: taskName!, taskType: taskType, taskDescription: "", workDate: workDate, estTime: "0.0", dueDate: dueDate, finished: getIsFinished(), intervalized: (toDo?.isIntervalized())!, intervalId: (toDo?.getIntervalId())!, intervalLength: (toDo?.getIntervalLength())! ,intervalIndex: (toDo?.getIntervalIndex())!, intervalDueDate: (toDo?.getIntervalDueDate())!)!)
+                //scheduleIntervalizerVC.setToDoToBeIntervalized(toDo: ToDo(taskId: (self.toDo?.getTaskId())!,taskName: taskName!, taskType: taskType, taskDescription: "", workDate: workDate, estTime: "0.0", dueDate: dueDate, finished: getIsFinished(), intervalized: (toDo?.isIntervalized())!, intervalId: (toDo?.getIntervalId())!, intervalLength: (toDo?.getIntervalLength())! ,intervalIndex: (toDo?.getIntervalIndex())!, intervalDueDate: (toDo?.getIntervalDueDate())!)!)
             }
             
         }
@@ -659,7 +659,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     @IBAction func unwindToItemInfo(sender:UIStoryboardSegue) {
         if let sourceViewController = sender.source as? IntervalSchedulingPreviewController {
             self.toDoIntervalsExist = true
-            self.toDoIntervals  = sourceViewController.getToDoIntervalsToAssign()
+            //self.toDoIntervals  = sourceViewController.getToDoIntervalsToAssign()
         }
     }
     

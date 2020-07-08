@@ -67,4 +67,10 @@ class DateUtils{
         }
         return true
     }
+    
+    func getDayAsString(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY/MM/DD" // i.e. 12 AM
+        return dateFormatter.string(from: date)
+    }
 }

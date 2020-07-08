@@ -10,6 +10,13 @@ import CoreData
 import UIKit
 import os.log
 
+/*
+ NOTE:
+ TimeSpans are used to determine the time span of the day the needs to be evaluated.
+    (Many times these are 24 hrs of the day so that it is limited to only that day,
+    and is not overlapping to next day, like 25 hrs)
+ */
+
 class TimeSlotsVacancyEvaluator {
     private var sortedTasksByDay = [(key: String, value:ToDo)]()
     private var occupiedTimesDict = [String: [ToDo]]() // Otd

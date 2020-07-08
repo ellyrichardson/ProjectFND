@@ -317,6 +317,13 @@ class ToDoProcessUtils {
         selectedIndexPaths.removeAll()
     }
     
+    static func convertTaskTupleToDictionary(taskTuple: [(key: String, value: ToDo)]) -> [String: ToDo]{
+        let taskItemDict = taskTuple.reduce(into: [:]) {
+            $0[$1.0] = $1.1
+        }
+        return taskItemDict
+    }
+    
     static func retrieveIntervalizedToDosLeadById(toDoItems: [String: ToDo], intervalizedToDoId: String) -> ToDo {
         var intervalizedToDosLead: ToDo = ToDo()
         
