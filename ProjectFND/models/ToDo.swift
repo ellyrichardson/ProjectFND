@@ -95,7 +95,8 @@ class ToDo: NSObject, NSCoding, NSCopying {
     
     override init() {
         // Init stored properties
-        self.taskId = UUID().uuidString
+        //self.taskId = UUID().uuidString
+        self.taskId = "empty-id-please-dont-use"
         self.taskName = ""
         self.taskType = TaskTypes.PERSONAL.rawValue
         self.taskDescription = ""

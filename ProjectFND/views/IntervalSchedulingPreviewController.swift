@@ -38,8 +38,8 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     //private var selectedIndexPath: IndexPath?
     //private var selectedIndexPaths: [IndexPath] = [IndexPath]()
     //private var coreToDoData: [NSManagedObject] = []
-    private var intervalAmount: Int = 0
-    private var intervalLength: Double = 0.0
+    private var intervalHours: Double = 0.0
+    private var intervalDays: Double = 0.0
     private var dateOfTheDay: String = ""
     //private var toDoToBeIntervalized = ToDo()
     private var toDoStartDate: Date = Date()
@@ -323,12 +323,12 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     
     // USED HERE IN THIS CONTEXT
     func setIntervalHours(intervalHours: Int) {
-        self.intervalAmount = intervalHours
+        self.intervalHours = Double(intervalHours)
     }
     
     // USED HERE IN THIS CONTEXT
     func setIntervalDays(intervalDays: Int) {
-        self.intervalLength = Double(intervalDays)
+        self.intervalDays = Double(intervalDays)
     }
     
     // USED HERE IN THIS CONTEXT
@@ -394,12 +394,12 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     
     // USED HERE IN THIS CONTEXT
     func getIntervalAmount() -> Int {
-        return self.intervalAmount
+        return Int(self.intervalHours)
     }
     
     // USED HERE IN THIS CONTEXT
     func getIntervalLength() -> Double {
-        return self.intervalLength
+        return self.intervalDays
     }
     
     // USED HERE IN THIS CONTEXT
@@ -625,6 +625,9 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     }
     
     
+    // ----- NEW STUFF HERE
+    
+    
     private func retrieveTasksForDate(date: Date) -> [(key: String, value: ToDo)] {
         let taskItemTuple = ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: date, toDoItems: self.toDos)
         return ToDoProcessUtils.sortToDoItemsByDate(toDoItems: taskItemTuple)
@@ -642,7 +645,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     
     // NOTE: This function just makes a list of [Oter]
     private func processOterList() -> [String: [Oter]] {
-        var oterList = [String: [Oter]]()
+        var oterCollectionDict = [String: [Oter]]()
         var currentDate = self.toDoStartDate
         
         // NOTE: This timeSpan is just for dummy code
@@ -652,15 +655,46 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         let dayTimeSpan = TimeSpan(startDate: june15Start, endDate: june16Start)
         
         while currentDate < self.toDoDueDate {
-            oterList[dateUtils.getDayAsString(date: currentDate)] = evaluateVacantTimesByDate(date: currentDate, scheduleTimeSpan: dayTimeSpan)
+            oterCollectionDict[dateUtils.getDayAsString(date: currentDate)] = evaluateVacantTimesByDate(date: currentDate, scheduleTimeSpan: dayTimeSpan)
             currentDate = dateUtils.addDayToDate(date: currentDate, days: 1.0)
         }
         
-        return oterList
+        return oterCollectionDict
+    }
+
+    private func processAvailableSlot(oterList: [Oter]) -> ToDo {
+        var slottedTask = ToDo()
+        for oter in oterList {
+            if Double(dateUtils.hoursBetweenTwoDates(earlyDate: oter.startDate, laterDate: oter.endDate)) >= self.intervalHours {
+                
+                slottedTask = ToDo(taskId: UUID().uuidString, taskName: "Task" + String(self.intervalHours), taskType: "test", taskDescription: "", workDate: oter.startDate, estTime: "0.0", dueDate: dateUtils.addHoursToDate(date: oter.startDate, hours: self.intervalHours), finished: false, repeating: false)!
+                
+                return slottedTask
+            }
+        }
+        return slottedTask
     }
     
-    private func determineAvailabilities() {
+    private func determineSlottedTasks() -> [ToDo] {
+        let oterCollectionDict: [String: [Oter]] = processOterList()
+        var currentDate = self.toDoStartDate
+        var slottedTasks: [ToDo] = [ToDo]()
+        var daysAssignedCounter = 0
         
+        while currentDate < self.toDoDueDate && Double(daysAssignedCounter) < self.intervalDays {
+            if let oterList = oterCollectionDict[dateUtils.getDayAsString(date: currentDate)] {
+                let potentialSlottedTask = processAvailableSlot(oterList: oterList)
+                
+                if potentialSlottedTask.getTaskId() != "empty-id-please-dont-use" {
+                    slottedTasks.append(potentialSlottedTask)
+                }
+            }
+            
+            currentDate = dateUtils.addDayToDate(date: currentDate, days: 1.0)
+            daysAssignedCounter += 1
+        }
+        
+        return slottedTasks
     }
 }
 
