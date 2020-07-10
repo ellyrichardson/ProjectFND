@@ -519,6 +519,8 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             guard let scheduleIntervalizerVC = segue.destination as? IntervalSchedulingPreviewController else {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
+            
+            scheduleIntervalizerVC.setToDos(toDos: self.toDos)
             //let intervalHours = intervalSchedulingHourField.text
             //let intervalDays = intervalSchedulingDayField.text
             let taskName = taskNameField.text

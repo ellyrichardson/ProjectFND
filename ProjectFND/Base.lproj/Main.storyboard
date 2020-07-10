@@ -2194,8 +2194,8 @@
                                                     <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="15"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Est. Time:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3xr-sl-cqT">
-                                                    <rect key="frame" x="10" y="111" width="114" height="21.666666666666671"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Trying to hide this thing" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3xr-sl-cqT">
+                                                    <rect key="frame" x="10" y="112" width="114" height="21.666666666666671"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="13"/>
                                                     <nil key="highlightedColor"/>

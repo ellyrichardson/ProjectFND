@@ -70,7 +70,14 @@ class DateUtils{
     
     func getDayAsString(date: Date) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YYYY/MM/DD" // i.e. 12 AM
+        dateFormatter.dateFormat = "yyyy/MM/dd" // i.e. 12 AM
         return dateFormatter.string(from: date)
+    }
+    
+    func revertDateToZeroHours(date: Date) -> Date {
+        let stringDate = getDayAsString(date: date)
+        let formattedDate = createDate(dateString: stringDate + " 00:00")
+        
+        return formattedDate
     }
 }

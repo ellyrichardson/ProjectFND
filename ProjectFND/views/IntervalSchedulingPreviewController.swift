@@ -32,11 +32,12 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     // Properties
     
     private var toDos = [String: ToDo]()
+    private var tasksToBeAdded = [String: ToDo]()
     //private var toDosToBeAdded = [String: ToDo]()
     private var selectedDate: Date = Date()
     //private var selectedToDoIndex: Int = -1
-    //private var selectedIndexPath: IndexPath?
-    //private var selectedIndexPaths: [IndexPath] = [IndexPath]()
+    private var selectedIndexPath: IndexPath?
+    private var selectedIndexPaths: [IndexPath] = [IndexPath]()
     //private var coreToDoData: [NSManagedObject] = []
     private var intervalHours: Double = 0.0
     private var intervalDays: Double = 0.0
@@ -76,6 +77,14 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         }*/
         
         configureCalendarView()
+        
+        // 07/09/2020 UPDATE >>>>>>>>>>>>>>>>>>>>>>>>
+        
+        self.tasksToBeAdded = determineSlottedTasks()
+        ToDoProcessUtils.addToDoDictionaryToAToDoDictionary(toDoDictionary: &self.toDos, toDosToBeAdded: tasksToBeAdded)
+        
+        // <<<<<<<<<<<<<<<<<<<<<<< <07/09/2020 UPDATE
+        
         // Determines the interval starting from the start date of ToDo
         loadingScreen.showSpinner(onView: self.view)
         DispatchQueue.global(qos: .background).async {
@@ -126,7 +135,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         configureSelectedStateFor(cell: currentCell, cellState: cellState)
         configureTextColorFor(cell: currentCell, cellState: cellState)
         configureSelectedDay(cell: currentCell, cellState: cellState)
-        //previewToDoIntervals(cell: currentCell, dateChosen: getSelectedDate())
+        previewToDoIntervals(cell: currentCell, dateChosen: self.selectedDate)
         let cellHidden = cellState.dateBelongsTo != .thisMonth
         currentCell.isHidden = cellHidden
     }
@@ -173,16 +182,15 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     func configureSelectedDay(cell: JTAppleCell?, cellState: CellState) {
         if cellState.isSelected{
             setSelectedDate(selectedDate: cellState.date)
-            /*
-            ToDoProcessUtils.removeAllSelectedIndexPaths(selectedIndexPaths: &selectedIndexPaths)
- */
+            
+            ToDoProcessUtils.removeAllSelectedIndexPaths(selectedIndexPaths: &self.selectedIndexPaths)
             // To track if the selected day in the calendar was changed
             setCalendarDayChanged(didChange: true)
             GeneralViewUtils.reloadTableViewData(tableView: self.toDoListTableView)
             // To track how many expand row buttons will be reset if the selected was changed
-            /*
-            setRemainingExpandButtonsToReset(remainingButtons: getToDoItemsByDay(dateChosen: getSelectedDate()).count)
- */
+            
+            //setRemainingExpandButtonsToReset(remainingButtons:  getToDoItemsByDay(dateChosen: self.selectedDate)).count)
+            setRemainingExpandButtonsToReset(remainingButtons:  ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: self.selectedDate, toDoItems: self.toDos).count)
         }
     }
     
@@ -193,16 +201,19 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         /*let toDoIntervalsToAssignOnCurrentDay = ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: getSelectedDate(), toDoItems: getToDosWithToDosToBeAdded())*/
         /*let sortedToDoItemsOnCurrentDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDoIntervalsToAssignOnCurrentDay)*/
         //return sortedToDoItemsOnCurrentDay.count
-        return 1
         //return getToDoItemsByDay(dateChosen: getSelectedDate()).count
+        
+        let tasksForSelectedDay = ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: self.selectedDate, toDoItems: self.toDos)
+        return tasksForSelectedDay.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        //if selectedIndexPaths.count > 0 {
-        //    if selectedIndexPaths.contains(indexPath) {
-        //        return 120
-        //    }
-        //}
+        if self.selectedIndexPaths.count > 0 {
+            if self.selectedIndexPaths.contains(indexPath) {
+                return 120
+            }
+        }
+        
         return 55
     }
     
@@ -221,7 +232,11 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         
         
         //var toDoItems = getToDoItemsByDay(dateChosen: getSelectedDate())
+        let tasksForSelectedDay = ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: self.selectedDate, toDoItems: self.toDos)
+        
         /*let toDosWithToDosToBeAddedOnCurrentDay = ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: getSelectedDate(), toDoItems: getToDosWithToDosToBeAdded())*/
+        
+        let sortedTasks = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: tasksForSelectedDay)
         /*
         let sortedtoDosWithToDosToBeAddedOnCurrentDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosWithToDosToBeAddedOnCurrentDay)
         //let sortedToDoItems = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDoItems)
@@ -230,13 +245,17 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         cell.estTimeLabel.text = sortedtoDosWithToDosToBeAddedOnCurrentDay[indexPath.row].value.getEstTime()
         cell.dueDateLabel.text = dueDateFormatter.string(from: sortedtoDosWithToDosToBeAddedOnCurrentDay[indexPath.row].value.getEndDate())
         */
+        cell.taskNameLabel.text = sortedTasks[indexPath.row].value.getTaskName()
+        cell.startDateLabel.text = workDateFormatter.string(from: sortedTasks[indexPath.row].value.getStartDate())
+        cell.estTimeLabel.text = sortedTasks[indexPath.row].value.getEstTime()
+        cell.dueDateLabel.text = dueDateFormatter.string(from: sortedTasks[indexPath.row].value.getEndDate())
         // If calendar day was changed, then make the state of to-be loaded expand row buttons false
-        /*
+        
         if getCalendarDayChanged() == true {
             cell.expandButton.setPressedStatus(isPressed: false)
             // Determines if more buttons need to be reset
             trackExpandButtonsToBeReset()
-        }*/
+        }
         
         cell.expandButton.setExpandedRowIndex(toDoRowIndex: indexPath.row)
         cell.expandButton.addTarget(self, action: #selector(onExpandRowButtonTap(sender:)), for: .touchUpInside)
@@ -254,6 +273,15 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         cell.backgroundColor = ToDoTableViewUtils.intervalsColorForToDoRow(toDoTaskId: sortedToDoItemsOnCurrentDay[indexPath.row].value.getTaskId(), toDoItems: getToDoIntervalsToAssign())
         //cell.backgroundColor = ToDoTableViewUtils.intervalsColorForToDoRow(toDoRowIndex: indexPath.row, toDoItems: getToDoItemsByDay(dateChosen: getSelectedDate()), toDoIntervalsToAssign: self.toDoIntervalsToAssign)
         cell.layer.backgroundColor = ToDoTableViewUtils.intervalsColorForToDoRow(toDoTaskId: sortedToDoItemsOnCurrentDay[indexPath.row].value.getTaskId(), toDoItems: getToDoIntervalsToAssign() ).cgColor*/
+        
+        let tasksForSelectedDay = ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: self.selectedDate, toDoItems: self.toDos)
+        
+        let sortedTasks = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: tasksForSelectedDay)
+        
+        cell.backgroundColor = ToDoTableViewUtils.intervalsColorForToDoRowIfInTaskItems(toDoTaskId: sortedTasks[indexPath.row].value.getTaskId(), toDoItems: self.tasksToBeAdded)
+        
+        cell.layer.backgroundColor = ToDoTableViewUtils.intervalsColorForToDoRowIfInTaskItems(toDoTaskId: sortedTasks[indexPath.row].value.getTaskId(), toDoItems: self.tasksToBeAdded).cgColor
+        
         //cell.layer.backgroundColor = ToDoTableViewUtils.intervalsColorForToDoRow(toDoRowIndex: indexPath.row, toDoItems: getToDoItemsByDay(dateChosen: getSelectedDate()), toDoIntervalsToAssign: self.toDoIntervalsToAssign).cgColor
         
         // This will turn on `masksToBounds` just before showing the cell
@@ -384,11 +412,10 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         }
     }*/
     
-    /*
+    
     func setRemainingExpandButtonsToReset(remainingButtons: Int) {
         self.remainingExpandButtonsToReset = remainingButtons
     }
- */
     
     // MARK: - Getters
     
@@ -468,7 +495,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         return self.toDosWithToDosToBeAdded
     }*/
     
-    /*
+    
     // Tracks the expand row buttons that needs to be reset
     private func trackExpandButtonsToBeReset() {
         setRemainingExpandButtonsToReset(remainingButtons: getRemainingButtonsToReset() - 1)
@@ -478,8 +505,6 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
             setRemainingExpandButtonsToReset(remainingButtons: -1)
         }
     }
- 
-     */
     
     // NOTE: Refactor this function
     
@@ -572,25 +597,25 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         return false
     }
     
-    /*
+    
     private func isToDoOnDay(toDoToCheck: ToDo, date: Date) -> Bool {
-        if ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: date, toDoItems: getToDosWithToDosToBeAdded())[toDoToCheck.taskId] != nil  {
+        if ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: date, toDoItems: self.toDos)[toDoToCheck.taskId] != nil  {
             return true
         }
         return false
-    }*/
+    }
     
-    /*
+    
     func previewToDoIntervals(cell: CalendarCell, dateChosen: Date) {
         // NOTE: REFACTOR, like use a dictionary instead
         print("yhecount of getToDoIntervalsToAssign")
-        print(getToDoIntervalsToAssign())
-        for toDoInterval in getToDoIntervalsToAssign() {
+        //print(getToDoIntervalsToAssign())
+        for toDoInterval in self.tasksToBeAdded {
             if isToDoIntervalOnDay(toDoInterval: toDoInterval.value, dateOfDay: dateChosen) && isToDoOnDay(toDoToCheck: toDoInterval.value, date: dateChosen) {
                 cell.setShouldDrawStripes(shouldDraw: true)
             }
         }
-    }*/
+    }
     
     @objc func onCheckBoxButtonTap(sender: CheckBoxButton) {
         /*
@@ -609,19 +634,18 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         let buttonIndexPath = IndexPath(row: sender.getExpandedRowIndex(), section: 0)
         
         // If there is no expanded row yet
-        /*
-        if !getSelectedIndexPaths().contains(buttonIndexPath) {
-            ToDoProcessUtils.addSelectedIndexPath(indexPath: buttonIndexPath, selectedIndexPaths: &selectedIndexPaths)
+        if !self.selectedIndexPaths.contains(buttonIndexPath) {
+            ToDoProcessUtils.addSelectedIndexPath(indexPath: buttonIndexPath, selectedIndexPaths: &self.selectedIndexPaths)
             self.toDoListTableView.beginUpdates()
             self.toDoListTableView.endUpdates()
             //reloadTableViewData()
         } else {
-            let indPath: Int = selectedIndexPaths.firstIndex(of: buttonIndexPath)!
-            ToDoProcessUtils.removeSelectedIndexPath(indexPathAsInt: indPath, selectedIndexPaths: &selectedIndexPaths)
+            let indPath: Int = self.selectedIndexPaths.firstIndex(of: buttonIndexPath)!
+            ToDoProcessUtils.removeSelectedIndexPath(indexPathAsInt: indPath, selectedIndexPaths: &self.selectedIndexPaths)
             self.toDoListTableView.beginUpdates()
             self.toDoListTableView.endUpdates()
             //reloadTableViewData()
-        }*/
+        }
     }
     
     
@@ -648,13 +672,12 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         var oterCollectionDict = [String: [Oter]]()
         var currentDate = self.toDoStartDate
         
-        // NOTE: This timeSpan is just for dummy code
-        let june15Start = dateUtils.createDate(dateString: "2020/01/15 00:00")
-        let june16Start = dateUtils.createDate(dateString: "2020/01/16 00:00")
-        
-        let dayTimeSpan = TimeSpan(startDate: june15Start, endDate: june16Start)
-        
         while currentDate < self.toDoDueDate {
+            let formattedStartDate = dateUtils.revertDateToZeroHours(date: currentDate)
+            let formattedEndDate = dateUtils.revertDateToZeroHours(date: dateUtils.addDayToDate(date: currentDate, days: 1.0))
+
+            let dayTimeSpan = TimeSpan(startDate: formattedStartDate, endDate: formattedEndDate)
+            
             oterCollectionDict[dateUtils.getDayAsString(date: currentDate)] = evaluateVacantTimesByDate(date: currentDate, scheduleTimeSpan: dayTimeSpan)
             currentDate = dateUtils.addDayToDate(date: currentDate, days: 1.0)
         }
@@ -675,10 +698,10 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         return slottedTask
     }
     
-    private func determineSlottedTasks() -> [ToDo] {
+    private func determineSlottedTasks() -> [String: ToDo] {
         let oterCollectionDict: [String: [Oter]] = processOterList()
         var currentDate = self.toDoStartDate
-        var slottedTasks: [ToDo] = [ToDo]()
+        var slottedTasks: [String: ToDo] = [String: ToDo]()
         var daysAssignedCounter = 0
         
         while currentDate < self.toDoDueDate && Double(daysAssignedCounter) < self.intervalDays {
@@ -686,7 +709,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
                 let potentialSlottedTask = processAvailableSlot(oterList: oterList)
                 
                 if potentialSlottedTask.getTaskId() != "empty-id-please-dont-use" {
-                    slottedTasks.append(potentialSlottedTask)
+                    slottedTasks[potentialSlottedTask.getTaskId()] = potentialSlottedTask
                 }
             }
             
@@ -731,7 +754,7 @@ extension IntervalSchedulingPreviewController: JTAppleCalendarViewDelegate {
  
         var cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "CalendarCell", for: indexPath) as! CalendarCell
         
-        //previewToDoIntervals(cell: cell, dateChosen: date)
+        previewToDoIntervals(cell: cell, dateChosen: date)
         
         configureCell(cell: cell, cellState: cellState)
         return cell
