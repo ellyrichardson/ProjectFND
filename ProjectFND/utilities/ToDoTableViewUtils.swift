@@ -43,7 +43,7 @@ class ToDoTableViewUtils {
     
     // Sets the appropriate row color if the ToDo is finished, late, or neutral status that involves intervals
     // NOTE: Was originally static func intervalsColorForToDoRow(toDoTaskId: String, toDoItems: [ToDo], toDoIntervalsToAssign: [ToDo])
-    static func intervalsColorForToDoRow(toDoTaskId: String, toDoItems: [String: ToDo]) -> UIColor {
+    static func intervalsColorForToDoRowIfInTaskItems(toDoTaskId: String, toDoItems: [String: ToDo]) -> UIColor {
         //let currentDate = Date()
         let dateFormatter = DateFormatter()
         

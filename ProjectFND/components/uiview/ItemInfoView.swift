@@ -8,6 +8,9 @@
 
 import UIKit
 
+/*
+ NOTE: Rename this class to be more generic as this is not just used in ItemInfo
+ */
 class ItemInfoView: UIView {
     
     @IBInspectable var shadow: Bool {
