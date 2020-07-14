@@ -56,6 +56,10 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     
     private var dataSource = PresetsDataSource()
     
+    // MARK: - Helpers
+    
+    private var dateUtil = DateUtils()
+    
     // MARK: - Start/End Date UIView
     
     @IBOutlet weak var startDateUIView: ItemInfoView!
@@ -104,7 +108,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         if observableType == ObservableType.TODO_DUE_DATE {
             let newValueDate = newValue as! ToDoDate
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yyyy, h:mm a"
+            dateFormatter.dateFormat = "MM/dd/yy, h:mm a"
             
             self.dueDateLabel.text = "Due Date: " + dateFormatter.string(from: newValueDate.dateValue!)
             self.tableView.reloadData()
@@ -116,7 +120,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         }
         else if observableType == ObservableType.TASK {
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "h:mm a"
+            dateFormatter.dateFormat = "MM/dd/yy h:mm a"
             let newValueTask = newValue as! ToDo
             
             self.inQueueTask = newValueTask
@@ -496,7 +500,12 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             
             let taskName = taskNameField.text
             //let taskDescription = taskDescriptionView.text
-            let workDate = chosenWorkDate
+            //let workDate = chosenWorkDate
+            print("DD")
+            print(self.startDateStringValue.text!)
+            let startTime = dateUtil.createDateMmDdYy(dateString: self.startDateStringValue.text!)
+            let endTime = dateUtil.createDateMmDdYy(dateString: self.endDateStringValue.text!)
+        
             //let estTime = estTimeField.text
             let dueDate = chosenDueDate
             let taskType = self.selectedTaskTypePickerData
@@ -507,11 +516,11 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             
             if toDo == nil  {
                 // Set the Non-Intervalized ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being created
-                toDo = ToDo(taskId: UUID().uuidString, taskName: taskName!, taskTag: taskType, startTime: workDate, endTime: dueDate, dueDate: dueDate, finished: getIsFinished(), repeating: repeating)
+                toDo = ToDo(taskId: UUID().uuidString, taskName: taskName!, taskTag: taskType, startTime: startTime, endTime: endTime, dueDate: dueDate, finished: getIsFinished(), repeating: repeating)
                 
             } else {
                 // Set the Non-Intervalized ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being modified and is already  created
-                toDo = ToDo(taskId: (self.toDo?.taskId)!, taskName: taskName!, taskTag: taskType, startTime: workDate, endTime: dueDate, dueDate: dueDate, finished: getIsFinished(), repeating: repeating)
+                toDo = ToDo(taskId: (self.toDo?.taskId)!, taskName: taskName!, taskTag: taskType, startTime: startTime, endTime: endTime, dueDate: dueDate, finished: getIsFinished(), repeating: repeating)
             }
         }
     }

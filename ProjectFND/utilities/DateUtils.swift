@@ -49,6 +49,11 @@ class DateUtils{
         return dateFormatter.date(from: dateString)!
     }
     
+    func createDateMmDdYy(dateString: String) -> Date{
+        dateFormatter.dateFormat = "MM/dd/yy HH:mm a"
+        return dateFormatter.date(from: dateString)!
+    }
+    
     func minutesBetweenTwoDates(earlyDate: Date, laterDate: Date) -> Int {
         return calendar.dateComponents([.minute], from: earlyDate, to: laterDate).minute!
     }
