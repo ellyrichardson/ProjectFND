@@ -246,9 +246,9 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         cell.dueDateLabel.text = dueDateFormatter.string(from: sortedtoDosWithToDosToBeAddedOnCurrentDay[indexPath.row].value.getEndDate())
         */
         cell.taskNameLabel.text = sortedTasks[indexPath.row].value.getTaskName()
-        cell.startDateLabel.text = workDateFormatter.string(from: sortedTasks[indexPath.row].value.getStartDate())
-        cell.estTimeLabel.text = sortedTasks[indexPath.row].value.getEstTime()
-        cell.dueDateLabel.text = dueDateFormatter.string(from: sortedTasks[indexPath.row].value.getEndDate())
+        cell.startDateLabel.text = workDateFormatter.string(from: sortedTasks[indexPath.row].value.getStartTime())
+        cell.estTimeLabel.text = "DELETE EST TIME PLEASE"
+        cell.dueDateLabel.text = dueDateFormatter.string(from: sortedTasks[indexPath.row].value.getEndTime())
         // If calendar day was changed, then make the state of to-be loaded expand row buttons false
         
         if getCalendarDayChanged() == true {
@@ -584,7 +584,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         formatter.dateFormat = "yyyy/MM/dd"
         let stringDateOfDay: String = formatter.string(from: dateOfDay)
         //let actualDateOfDay: Date = formatter.date(from: stringDateOfDay)!
-        let strToDoIntervalStartDate: String = formatter.string(from: toDoInterval.getStartDate())
+        let strToDoIntervalStartDate: String = formatter.string(from: toDoInterval.getStartTime())
         //let actToDoIntervalStartDate: Date = formatter.date(from: strToDoIntervalStartDate)!
         if strToDoIntervalStartDate == stringDateOfDay {
         //if actToDoIntervalStartDate == actualDateOfDay {
@@ -690,7 +690,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         for oter in oterList {
             if Double(dateUtils.hoursBetweenTwoDates(earlyDate: oter.startDate, laterDate: oter.endDate)) >= self.intervalHours {
                 
-                slottedTask = ToDo(taskId: UUID().uuidString, taskName: "Task" + String(self.intervalHours), taskType: "test", taskDescription: "", workDate: oter.startDate, estTime: "0.0", dueDate: dateUtils.addHoursToDate(date: oter.startDate, hours: self.intervalHours), finished: false, repeating: false)!
+                ToDo(taskId: UUID().uuidString, taskName: "Task" + String(self.intervalHours), startTime: oter.startDate, endTime: dateUtils.addHoursToDate(date: oter.startDate, hours: self.intervalHours), dueDate: dateUtils.addHoursToDate(date: oter.startDate, hours: self.intervalHours), finished: false)
                 
                 return slottedTask
             }

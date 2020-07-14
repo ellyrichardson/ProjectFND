@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="FND_TODO" representedClassName="FND_TODO" syncable="YES" codeGenerationType="class">
+    <entity name="FND_TASK" representedClassName="FND_TASK" syncable="YES" codeGenerationType="class">
         <attribute name="dueDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="estTime" optional="YES" attributeType="String"/>
         <attribute name="finished" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -23,6 +23,6 @@
         <attribute name="taskType" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="FND_TODO" positionX="-63" positionY="-18" width="128" height="343"/>
+        <element name="FND_TASK" positionX="-63" positionY="-18" width="128" height="343"/>
     </elements>
 </model>

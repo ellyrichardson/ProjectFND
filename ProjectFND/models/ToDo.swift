@@ -20,9 +20,9 @@ import os.log
 class ToDo: NSObject, NSCoding, NSCopying {
     
     // MARK: - Properties
-    var taskId, intervalId, taskType: String
-    var taskName, taskDescription, estTime: String
-    var workDate, dueDate, intervalDueDate: Date
+    var taskId, intervalId: String
+    var taskName, taskNotes, taskTag: String
+    var startTime, endTime, dueDate, intervalDueDate: Date
     var finished, intervalized: Bool
     var important, notifying: Bool
     var intervalLength, intervalIndex: String
@@ -40,10 +40,10 @@ class ToDo: NSObject, NSCoding, NSCopying {
     struct PropertyKey {
         static let taskId = "taskId"
         static let taskName = "taskName"
-        static let taskType = "taskType"
-        static let taskDescription = "taskDescription"
-        static let workDate = "workDate"
-        static let estTime = "estTime"
+        static let taskNotes = "taskNotes"
+        static let taskTag = "taskTag"
+        static let startTime = "startTime"
+        static let endTime = "endTime"
         static let dueDate = "dueDate"
         //static let doneCheckBox = "doneCheckBox"
         static let finished = "finished"
@@ -62,21 +62,21 @@ class ToDo: NSObject, NSCoding, NSCopying {
     }
     
     // MARK: - Initialization
-    init?(taskId: String, taskName: String, taskType: String = TaskTypes.PERSONAL.rawValue,taskDescription: String, workDate: Date, estTime: String, dueDate: Date, finished: Bool, intervalized: Bool = false, intervalId: String = "", intervalLength: Int = 0, intervalIndex: Int = 0, intervalDueDate: Date = Date(), important: Bool = false, notifying: Bool = false, repeating: Bool = false, repeatingStartDate: Date = Date(), repeatingEndDate: Date = Date(), repeatingId: String = "", repeatingFrequencyCode: String = "") {
+    init?(taskId: String, taskName: String, taskNotes: String = "", taskTag: String = "", startTime: Date, endTime: Date, dueDate: Date, finished: Bool, intervalized: Bool = false, intervalId: String = "", intervalLength: Int = 0, intervalIndex: Int = 0, intervalDueDate: Date = Date(), important: Bool = false, notifying: Bool = false, repeating: Bool = false, repeatingStartDate: Date = Date(), repeatingEndDate: Date = Date(), repeatingId: String = "", repeatingFrequencyCode: String = "") {
         
         
         // To fail init if one of them is empty
-        if taskId.isEmpty || taskName.isEmpty || workDate == nil || estTime.isEmpty || dueDate == nil {
+        if taskId.isEmpty || taskName.isEmpty || startTime == nil || endTime == nil || dueDate == nil {
             return nil
         }
         
         // Init stored properties
         self.taskId = taskId
         self.taskName = taskName
-        self.taskType = taskType
-        self.taskDescription = taskDescription
-        self.workDate = workDate
-        self.estTime = estTime
+        self.taskNotes = taskNotes
+        self.taskTag = taskTag
+        self.startTime = startTime
+        self.endTime = endTime
         self.dueDate = dueDate
         self.finished = finished
         self.intervalized = intervalized
@@ -98,10 +98,10 @@ class ToDo: NSObject, NSCoding, NSCopying {
         //self.taskId = UUID().uuidString
         self.taskId = "empty-id-please-dont-use"
         self.taskName = ""
-        self.taskType = TaskTypes.PERSONAL.rawValue
-        self.taskDescription = ""
-        self.workDate = Date()
-        self.estTime = ""
+        self.taskNotes = ""
+        self.taskTag = ""
+        self.startTime = Date()
+        self.endTime = Date()
         self.dueDate = Date()
         self.finished = false
         self.intervalized = false
@@ -120,7 +120,7 @@ class ToDo: NSObject, NSCoding, NSCopying {
     
     // MARK: - NSCopying
     func copy(with zone: NSZone? = nil) -> Any {
-        let copy = ToDo(taskId: self.taskId, taskName: self.taskName, taskType: self.taskType, taskDescription: self.taskDescription, workDate: self.workDate, estTime: self.estTime, dueDate: self.dueDate, finished: self.finished, intervalized: self.intervalized, intervalId: self.intervalId, intervalLength: Int(self.intervalLength)!, intervalIndex: Int(self.intervalIndex)!, intervalDueDate: self.intervalDueDate, important: self.important, notifying: self.notifying, repeating: self.repeating, repeatingStartDate: self.repeatingStartDate, repeatingEndDate: self.repeatingEndDate, repeatingId: self.repeatingId, repeatingFrequencyCode: self.repeatingFrequencyCode)
+        let copy = ToDo(taskId: self.taskId, taskName: self.taskName, taskNotes: self.taskNotes, taskTag: self.taskTag, startTime: self.startTime, endTime: self.endTime, dueDate: self.dueDate, finished: self.finished, intervalized: self.intervalized, intervalId: self.intervalId, intervalLength: Int(self.intervalLength)!, intervalIndex: Int(self.intervalIndex)!, intervalDueDate: self.intervalDueDate, important: self.important, notifying: self.notifying, repeating: self.repeating, repeatingStartDate: self.repeatingStartDate, repeatingEndDate: self.repeatingEndDate, repeatingId: self.repeatingId, repeatingFrequencyCode: self.repeatingFrequencyCode)
         return copy as Any
     }
     
@@ -128,10 +128,10 @@ class ToDo: NSObject, NSCoding, NSCopying {
     func encode(with aCoder: NSCoder) {
         aCoder.encode(taskId, forKey: PropertyKey.taskId)
         aCoder.encode(taskName, forKey: PropertyKey.taskName)
-        aCoder.encode(taskType, forKey: PropertyKey.taskType)
-        aCoder.encode(taskDescription, forKey: PropertyKey.taskDescription)
-        aCoder.encode(workDate, forKey: PropertyKey.workDate)
-        aCoder.encode(estTime, forKey: PropertyKey.estTime)
+        aCoder.encode(taskNotes, forKey: PropertyKey.taskNotes)
+        aCoder.encode(taskTag, forKey: PropertyKey.taskTag)
+        aCoder.encode(startTime, forKey: PropertyKey.startTime)
+        aCoder.encode(endTime, forKey: PropertyKey.endTime)
         aCoder.encode(dueDate, forKey: PropertyKey.dueDate)
         aCoder.encode(finished, forKey: PropertyKey.finished)
         aCoder.encode(intervalId, forKey: PropertyKey.intervalId)
@@ -162,33 +162,41 @@ class ToDo: NSObject, NSCoding, NSCopying {
                 return nil
         }
         
-        guard let taskType = aDecoder.decodeObject(forKey: PropertyKey.taskType) as? String
+        
+        // The notes is required. If we cannot decode a name string, the initializer should fail.
+        guard let taskNotes = aDecoder.decodeObject(forKey: PropertyKey.taskNotes) as? String
             else {
-                os_log("Unable to decode the type for a ToDo object.", log: OSLog.default, type: .debug)
+                os_log("Unable to decode the notes for a ToDo object.", log: OSLog.default, type: .debug)
+                return nil
+        }
+        
+        guard let taskTag = aDecoder.decodeObject(forKey: PropertyKey.taskTag) as? String
+            else {
+                os_log("Unable to decode the tag for a ToDo object.", log: OSLog.default, type: .debug)
                 return nil
         }
         
         // Because taskDescription is a required property of ToDo, although can be empty, just use conditional cast.
+        /*
         guard let taskDescription = aDecoder.decodeObject(forKey: PropertyKey.taskDescription) as? String
             else {
                 os_log("Unable to decode the description for a ToDo object.", log: OSLog.default, type: .debug)
                 return nil
-        }
+        }*/
         
-        // Because workDate is a required property of ToDo, just use conditional cast.
-        guard let workDate = aDecoder.decodeObject(forKey: PropertyKey.workDate) as? Date
+        // Because startTime is a required property of ToDo, just use conditional cast.
+        guard let startTime = aDecoder.decodeObject (forKey: PropertyKey.startTime) as? Date
             else {
-                os_log("Unable to decode the work date for a ToDo object.", log: OSLog.default, type: .debug)
+                os_log("Unable to decode the start time for a ToDo object.", log: OSLog.default, type: .debug)
                 return nil
         }
         
-        // Because estTime is a required property of ToDo, just use conditional cast.
-        guard let estTime = aDecoder.decodeObject (forKey: PropertyKey.estTime) as? String
+        // Because endTime is a required property of ToDo, just use conditional cast.
+        guard let endTime = aDecoder.decodeObject (forKey: PropertyKey.endTime) as? Date
             else {
-                os_log("Unable to decode the estimated time for a ToDo object.", log: OSLog.default, type: .debug)
+                os_log("Unable to decode the end time for a ToDo object.", log: OSLog.default, type: .debug)
                 return nil
         }
-        
         
         // Because dueDate is a required property of ToDo, just use conditional cast.
         guard let dueDate = aDecoder.decodeObject (forKey: PropertyKey.dueDate) as? Date
@@ -276,7 +284,7 @@ class ToDo: NSObject, NSCoding, NSCopying {
         }
         
         // Must call designated initializer.
-        self.init(taskId: taskId, taskName: taskName, taskType: taskType, taskDescription: taskDescription, workDate: workDate, estTime: estTime, dueDate: dueDate, finished: finished,  intervalized: intervalized, intervalId: intervalId, intervalLength: Int(intervalLength)!, intervalIndex: Int(intervalIndex)!, intervalDueDate: intervalDueDate, important: important, notifying: notifying, repeating: repeating, repeatingStartDate: repeatingStartDate, repeatingEndDate: repeatingEndDate, repeatingId: repeatingId, repeatingFrequencyCode: repeatingFrequencyCode)
+        self.init(taskId: taskId, taskName: taskName, taskNotes: taskNotes, taskTag: taskTag, startTime: startTime, endTime: endTime, dueDate: dueDate, finished: finished,  intervalized: intervalized, intervalId: intervalId, intervalLength: Int(intervalLength)!, intervalIndex: Int(intervalIndex)!, intervalDueDate: intervalDueDate, important: important, notifying: notifying, repeating: repeating, repeatingStartDate: repeatingStartDate, repeatingEndDate: repeatingEndDate, repeatingId: repeatingId, repeatingFrequencyCode: repeatingFrequencyCode)
     }
     
     func  getTaskId() -> String {
@@ -287,23 +295,24 @@ class ToDo: NSObject, NSCoding, NSCopying {
         return self.taskName
     }
     
-    func getTaskType() -> String {
-        return self.taskType
+    func getTaskNotes() -> String {
+        return self.taskNotes
     }
     
-    func getTaskDescription() -> String {
-        return self.taskDescription
+    func getTaskTag() -> String {
+        return self.taskTag
     }
     
-    func getEstTime() -> String {
-        return self.estTime
+    func getStartTime() -> Date {
+        return self.startTime
     }
     
-    func getStartDate() -> Date {
-        return self.workDate
+    func getEndTime() -> Date {
+        return self.endTime
     }
     
-    func getEndDate() -> Date {
+    // FROM getEndDate()
+    func getDueDate() -> Date {
         return self.dueDate
     }
     

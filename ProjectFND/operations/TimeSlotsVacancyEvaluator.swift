@@ -51,7 +51,7 @@ class TimeSlotsVacancyEvaluator {
             let taskValue = taskItem.value
             if doesTaskStartUnderHourOf(date: date, taskItem: taskValue) {
                 taskList.append(taskValue)
-                otdKey = getCurrentHourOfDateAsString(date: taskValue.getStartDate())
+                otdKey = getCurrentHourOfDateAsString(date: taskValue.getStartTime())
             }
         }
         // If otdKey is not empty String, it means its got a value
@@ -61,7 +61,7 @@ class TimeSlotsVacancyEvaluator {
     }
     
     private func doesTaskStartUnderHourOf(date: Date, taskItem: ToDo) -> Bool {
-        return getCurrentHourOfDateAsString(date: date) == getCurrentHourOfDateAsString(date: taskItem.getStartDate())
+        return getCurrentHourOfDateAsString(date: date) == getCurrentHourOfDateAsString(date: taskItem.getStartTime())
     }
     
     // MARK: - Evaluate Otd Section
@@ -87,13 +87,13 @@ class TimeSlotsVacancyEvaluator {
     private func assignAppropriateOterObjects(forDate: Date, taskList: [ToDo]) {
         let firstTask = taskList[0]
         let oterStartDate = self.vacantTimeSlotStart
-        let oterEndDate = firstTask.getStartDate()
+        let oterEndDate = firstTask.getStartTime()
         let lastTaskIndex = taskList.count-1
         
         assignVacantOter(oterSD: oterStartDate, oterED: oterEndDate)
         assignOcupiedOterFromTaskList(taskList: taskList)
         
-        self.vacantTimeSlotStart = taskList[lastTaskIndex].getEndDate()
+        self.vacantTimeSlotStart = taskList[lastTaskIndex].getEndTime()
     }
     
     private func assignVacantOter(oterSD: Date, oterED: Date) {
@@ -107,7 +107,7 @@ class TimeSlotsVacancyEvaluator {
     
     private func assignOcupiedOterFromTaskList(taskList: [ToDo]) {
         for taskItem in taskList {
-            let oterObject = Oter(startDate: taskItem.getStartDate(), endDate: taskItem.getEndDate(), ownerTaskId: taskItem.getTaskId(), occupancyType: TSOType.OCCUPIED)
+            let oterObject = Oter(startDate: taskItem.getStartTime(), endDate: taskItem.getEndTime(), ownerTaskId: taskItem.getTaskId(), occupancyType: TSOType.OCCUPIED)
             self.oterList.append(oterObject)
         }
     }
