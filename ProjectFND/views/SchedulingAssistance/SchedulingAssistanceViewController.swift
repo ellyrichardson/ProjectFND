@@ -54,8 +54,8 @@ class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate,
                     //oterItem = newValueOter
                     // NOTE: My thought was to create a new ToDo after the selection of time, add it to the taskItems dictionary, then run the evaluation again
                     //ToDo(taskId: taskToBeCreatedId, taskName: <#T##String#>, taskDescription: <#T##String#>, workDate: <#T##Date#>, estTime: <#T##String#>, dueDate: <#T##Date#>, finished: <#T##Bool#>)
-                    self.targetTask.workDate = newValueOter.startDate
-                    self.targetTask.dueDate = newValueOter.endDate
+                    self.targetTask.startTime = newValueOter.startDate
+                    self.targetTask.endTime = newValueOter.endDate
                     self.taskItems[self.targetTask.getTaskId()] = self.targetTask
                     evaluateVacantTimes()
                     self.schedulingAstncTableView.reloadData()

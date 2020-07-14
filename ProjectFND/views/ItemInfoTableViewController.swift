@@ -121,11 +121,8 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             
             self.inQueueTask = newValueTask
             self.inQueueTaskContainsNewValue = true
-            self.startDateStringValue.text = dateFormatter.string(from: newValueTask.getStartDate())
-            self.endDateStringValue.text = dateFormatter.string(from: newValueTask.getEndDate())
-            print("The DATE!!")
-            print(self.inQueueTask.getStartDate())
-            print(self.inQueueTask.getEndDate())
+            self.startDateStringValue.text = dateFormatter.string(from: newValueTask.getStartTime())
+            self.endDateStringValue.text = dateFormatter.string(from: newValueTask.getEndTime())
         }
     }
     
@@ -461,7 +458,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
                 
                 // TODO: Refactor the having of TargetTaskJustCreated being set in this controller, to just setting it in the ToDo Task itself.
                 if !self.inQueueTaskContainsNewValue {
-                    self.inQueueTask = ToDo(taskId: UUID().uuidString, taskName: "TEST_NAME", taskDescription: "TEST_DESC", workDate: Date(), estTime: "0.0", dueDate: Date(), finished: false)!
+                    self.inQueueTask = ToDo(taskId: UUID().uuidString, taskName: "TEST_NAME", startTime: Date(), endTime: Date(), dueDate: Date(), finished: false)!
                     schedulingAstncViewController.setTargetTaskJustCreated(targetTaskJustCreated: true)
                 }
                 //self.inQueueTask = self.toDo!.copy() as! ToDo
@@ -486,8 +483,8 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
                 schedulingAstncViewController.setObservableTaskController(observableTaskController: self.observableTaskController) 
             }
             print("The DATE22!!")
-            print(self.inQueueTask.getStartDate())
-            print(self.inQueueTask.getEndDate())
+            print(self.inQueueTask.getStartTime())
+            print(self.inQueueTask.getEndTime())
         }
         else {
             // Only prepare view controller when the save button is pressed
@@ -510,10 +507,11 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             
             if toDo == nil  {
                 // Set the Non-Intervalized ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being created
-                toDo = ToDo(taskId: UUID().uuidString, taskName: taskName!, taskType: taskType, taskDescription: "", workDate: workDate, estTime: "0.0", dueDate: dueDate, finished: getIsFinished(), repeating: repeating)
+                toDo = ToDo(taskId: UUID().uuidString, taskName: taskName!, taskTag: taskType, startTime: workDate, endTime: dueDate, dueDate: dueDate, finished: getIsFinished(), repeating: repeating)
+                
             } else {
                 // Set the Non-Intervalized ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being modified and is already  created
-                toDo = ToDo(taskId: (self.toDo?.taskId)!, taskName: taskName!, taskType: taskType, taskDescription: "", workDate: workDate, estTime: "0.0", dueDate: dueDate, finished: getIsFinished(), repeating: repeating)
+                toDo = ToDo(taskId: (self.toDo?.taskId)!, taskName: taskName!, taskTag: taskType, startTime: workDate, endTime: dueDate, dueDate: dueDate, finished: getIsFinished(), repeating: repeating)
             }
         }
     }

@@ -100,9 +100,9 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
         
         cell.intervalizedToDoLabel.text = intervalizedToDo.getTaskName()
         cell.intervalizedToDoLabel.textColor = cellColor
-        cell.intervalizedToDoTypeLabel.text = intervalizedToDo.getTaskType()
+        cell.intervalizedToDoTypeLabel.text = intervalizedToDo.getTaskTag()
         cell.intervalToDoTypeBorder.backgroundColor = cellColor
-        cell.intervalizedToDoEstTimeLabel.text = String(Double(getTotalHoursOfIntervalizedToDo(intervalId: intervalizedToDo.getIntervalId()))) + " Hours"
+        //cell.intervalizedToDoEstTimeLabel.text = String(Double(getTotalHoursOfIntervalizedToDo(intervalId: intervalizedToDo.getIntervalId()))) + " Hours"
         cell.intervalizedToDoEndingTimeLabel.text = "Due " + formatter.string(from: intervalizedToDo.getIntervalDueDate())
         cell.intervalizedToDoIntervalAmount.text = String(intervalizedToDo.getIntervalLength())
         
@@ -163,6 +163,7 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
         return allFinished
     }
     
+    /*
     private func getTotalHoursOfIntervalizedToDo(intervalId: String) -> Int {
         let intervalizedToDoItems = ToDoProcessUtils.retrieveIntervalizedToDosById(toDoItems: getToDos(), intervalizedTodoId: intervalId)
         var totalIntervalizedToDoTimeLength: Int = 0
@@ -170,7 +171,7 @@ class DeadlinesViewController: UIViewController, UITableViewDelegate, UITableVie
             totalIntervalizedToDoTimeLength += Int(Double(toDoItem.value.getEstTime())!)
         }
         return totalIntervalizedToDoTimeLength
-    }
+    }*/
     
     // MARK: - Setters
     

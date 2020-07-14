@@ -10,6 +10,7 @@ import CoreData
 import UIKit
 import os.log
 
+/*
 class IntervalAvailabilitiesCheckingOperations {
     var dateArithmeticOps = DateUtils()
     
@@ -274,4 +275,4 @@ class IntervalAvailabilitiesCheckingOperations {
         }
         return singleDictionaryOfTimeSlots
     }
-}
+}*/

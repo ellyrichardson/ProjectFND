@@ -51,7 +51,7 @@ class ToDosController {
     
     func setInitialDummyToDos() {
         var theString = UUID().uuidString
-        let dummyToDo = ToDo(taskId: theString, taskName: "Dummy stuff", taskDescription: "Nothing", workDate: Date(), estTime: "2.0", dueDate: Date(), finished: false)
+        let dummyToDo = ToDo(taskId: theString, taskName: "Dummy stuff", startTime: Date(), endTime: Date(), dueDate: Date(), finished: false)
         var keyValueDummy: [String: ToDo] = [String: ToDo]()
         keyValueDummy[dummyToDo!.getTaskId()] = dummyToDo
         self.toDos.setValue(value: keyValueDummy)

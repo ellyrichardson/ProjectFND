@@ -221,10 +221,10 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         let toDoItems = ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: getSelectedDate(), toDoItems: getToDosController().getToDos())
         let sortedToDoItems =  ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDoItems)
         cell.taskNameLabel.text = sortedToDoItems[indexPath.row].value.getTaskName()
-        cell.startDateLabel.text = workDateFormatter.string(from: sortedToDoItems[indexPath.row].value.getStartDate())
-        cell.estTimeLabel.text = sortedToDoItems[indexPath.row].value.getEstTime()
-        cell.dueDateLabel.text = dueDateFormatter.string(from: sortedToDoItems[indexPath.row].value.getEndDate())
-        cell.taskTypeLabel.text = sortedToDoItems[indexPath.row].value.getTaskType()
+        cell.startDateLabel.text = workDateFormatter.string(from: sortedToDoItems[indexPath.row].value.getStartTime())
+        cell.estTimeLabel.text = "Irrelevant"
+        cell.dueDateLabel.text = dueDateFormatter.string(from: sortedToDoItems[indexPath.row].value.getEndTime())
+        cell.taskTypeLabel.text = sortedToDoItems[indexPath.row].value.getTaskTag()
         // Assigns an index to the CheckBox button of a row
         cell.checkBoxButton.setToDoRowIndex(toDoRowIndex: indexPath.row)
         // Sets the status of the CheckBox being pressed
@@ -364,11 +364,11 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             //itemInfoTableViewController.setToDos(toDos: toDosController.getToDos())
             itemInfoTableViewController.toDo = selectedToDoItem
             // Sets the chosen work and due date in the itemInfoTableViewController to avoid its reset
-            itemInfoTableViewController.setChosenWorkDate(chosenWorkDate: selectedToDoItem.getStartDate())
-            itemInfoTableViewController.setChosenDueDate(chosenDueDate: selectedToDoItem.getEndDate())
+            itemInfoTableViewController.setChosenWorkDate(chosenWorkDate: selectedToDoItem.getStartTime())
+            itemInfoTableViewController.setChosenDueDate(chosenDueDate: selectedToDoItem.getEndTime())
             // Sets the finish status of the todo in the itemInfoTableViewController to avoid its reset
             itemInfoTableViewController.setIsFinished(isFinished: selectedToDoItem.isFinished())
-            itemInfoTableViewController.setSelectedTaskType(selectedTaskTypePickerData: selectedToDoItem.getTaskType())
+            itemInfoTableViewController.setSelectedTaskType(selectedTaskTypePickerData: selectedToDoItem.getTaskTag())
             itemInfoTableViewController.setToDos(toDos: ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: getSelectedDate(), toDoItems: toDosController.getToDos()))
             // Retrieves the index of the selected toDo
             /*
@@ -566,9 +566,9 @@ extension ScheduleViewController: JTAppleCalendarViewDelegate {
         let toDosForTheDay = toDosController.getToDosByDay(dateChosen: date)
         
         // Checks if these kinds of ToDos exist in the date of the current cell.
-        let onProgressToDo = toDosForTheDay.first(where: {Date() < $0.value.getEndDate() && !$0.value.isFinished()})
+        let onProgressToDo = toDosForTheDay.first(where: {Date() < $0.value.getEndTime() && !$0.value.isFinished()})
         let finishedToDo = toDosForTheDay.first(where: {$0.value.isFinished() == true})
-        let overdueToDo = toDosForTheDay.first(where: {Date() > $0.value.getEndDate() && !$0.value.isFinished()})
+        let overdueToDo = toDosForTheDay.first(where: {Date() > $0.value.getEndTime() && !$0.value.isFinished()})
         
         // Sets boolean variables if types of ToDos exist.
         if onProgressToDo != nil {
