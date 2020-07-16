@@ -20,6 +20,10 @@ class SchedulingTaskMonthlyViewController: UIViewController {
     // MARK: - Unsaved Changes Trackers
     private var changedDateTo: Date = Date()
     
+    // MARK: - Selection Tracker
+    private var selectedDueDateTracker = Date()
+    private var isDueDatePreSelected = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Due Date" // THIS IS THE DUE DATE VIEW
@@ -52,10 +56,22 @@ class SchedulingTaskMonthlyViewController: UIViewController {
         self.cancelButton.backgroundColor =  ColorUtils.classicOrange()
     }
     
+    func setSelectedDate(dateVal: Date) {
+        self.selectedDueDateTracker = dateVal
+        self.isDueDatePreSelected = true
+    }
+    
     private func setDueDatePickerValue() {
         let dateReceived: ToDoDate = self.observableDueDateController.getDueDate()
         if !dateReceived.assigned {
-            self.dueDatePicker.date = Date()
+            
+            if self.isDueDatePreSelected {
+                self.dueDatePicker.date = self.selectedDueDateTracker
+                self.isDueDatePreSelected = false
+            } else {
+                self.dueDatePicker.date = Date()
+            }
+            
         } else {
             self.dueDatePicker.date = dateReceived.dateValue!
         }

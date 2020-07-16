@@ -76,9 +76,22 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     private var intervalHours = 0
     private var intervalDays = 0
     
+    // Date Label Trackers
+    private var startTimeTracker = Date()
+    private var endTimeTracker = Date()
+    private var dueDateTracker = Date()
+    
+    // Tag Tracker
+    private var taskTagTracker = String()
+    
     // In Queue Task Trackers
     private var inQueueTask = ToDo()
     private var inQueueTaskContainsNewValue = false
+    
+    // Pressed Items Trackers
+    private var isSchedulingAssistancePressedTracker = false
+    private var isDueDatePickerPressedTracker = false
+    private var didSelectInTagSelectionTracker = false
     
     // MARK: - Due Date Observable
     
@@ -111,11 +124,15 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             dateFormatter.dateFormat = "MM/dd/yy, h:mm a"
             
             self.dueDateLabel.text = "Due Date: " + dateFormatter.string(from: newValueDate.dateValue!)
+            self.dueDateTracker = newValueDate.dateValue!
+            self.isDueDatePickerPressedTracker = true
             self.tableView.reloadData()
         }
         else if observableType == ObservableType.TODO_TAG {
             let newValueTag = newValue as! ToDoTags
-            self.tagsLabel.text = "Tags: " + newValueTag.tagValue!
+            self.tagsLabel.text = newValueTag.tagValue!
+            self.taskTagTracker = newValueTag.tagValue!
+            self.didSelectInTagSelectionTracker = true
             print("TAG WAS UPDATED")
         }
         else if observableType == ObservableType.TASK {
@@ -127,6 +144,9 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             self.inQueueTaskContainsNewValue = true
             self.startDateStringValue.text = dateFormatter.string(from: newValueTask.getStartTime())
             self.endDateStringValue.text = dateFormatter.string(from: newValueTask.getEndTime())
+            self.startTimeTracker = newValueTask.getStartTime()
+            self.endTimeTracker = newValueTask.getEndTime()
+            self.isSchedulingAssistancePressedTracker = true
         }
     }
     
@@ -157,9 +177,37 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let nav = self.navigationController?.navigationBar
-        
-        // NOTE: Observable area
+        configureObservableControllers()
+        configureNavBar()
+        configureTableViews()
+        configureUiValues()
+        configureUiObjects()
+        configureGestureRecognizers()
+        updateSaveButtonState()
+    }
+    
+    // MARK: - Configurations
+    
+    private func configureUiValues() {
+        // Set up views if editing an existing ToDo.
+        if let toDo = toDo {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM/dd/yy, h:mm a"
+            
+            navigationItem.title = toDo.taskName
+            taskNameField.text = toDo.taskName
+            self.startDateStringValue.text = dateFormatter.string(from: toDo.getStartTime())
+            self.endDateStringValue.text = dateFormatter.string(from: toDo.getEndTime())
+            self.dueDateLabel.text = "Due Date: " + dateFormatter.string(from: toDo.getDueDate())
+            self.tagsLabel.text = toDo.getTaskTag()
+            if toDo.getTaskTag() == "" {
+                self.tagsLabel.text = "Tags "
+            }
+        }
+        // Simply proceed if not editing an existing ToDo
+    }
+    
+    private func configureObservableControllers() {
         let observerVCs: [Observer] = [self]
         self.observableDueDateController.setupData()
         self.observableDueDateController.setObservers(observers: observerVCs)
@@ -167,51 +215,47 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         self.observableTagsController.setObservers(observers: observerVCs)
         self.observableTaskController.setupData()
         self.observableTaskController.setObservers(observers: observerVCs)
+    }
+    
+    private func configureNavBar() {
+        let nav = self.navigationController?.navigationBar
+        
+        let yellowColor = UIColor(red:1.00, green:0.89, blue:0.00, alpha:1.0)
         
         // Sets the navigation bar to color black with tintColor of yellow.
         nav?.barStyle = UIBarStyle.black
-        nav?.tintColor = UIColor(red:1.00, green:0.89, blue:0.00, alpha:1.0)
-        
-        
+        nav?.tintColor = yellowColor
+    }
+    
+    private func configureUiObjects() {
+        self.taskNameField.delegate = self
+        self.startDateUIView.cornerRadius = 10
+        self.endDateUIView.cornerRadius = 10
+    }
+    
+    private func configureVcObjets() {
+        if let toDo = toDo {
+            self.startTimeTracker = toDo.getStartTime()
+            self.endTimeTracker = toDo.getEndTime()
+            self.dueDateTracker = toDo.getDueDate()
+            self.taskTagTracker = toDo.getTaskTag()
+        }
+    }
+    
+    private func configureGestureRecognizers() {
+        let gestureRecSD = UITapGestureRecognizer(target: self, action:  #selector (self.segueToSchedulingAssistance(sender:)))
+        let gestureRecED = UITapGestureRecognizer(target: self, action:  #selector (self.segueToSchedulingAssistance(sender:)))
+        startDateUIView.addGestureRecognizer(gestureRecSD)
+        endDateUIView.addGestureRecognizer(gestureRecED)
+    }
+    
+    private func configureTableViews() {
         // Auto resizing the height of the cell
         tableView.estimatedRowHeight = 44.0
         tableView.rowHeight = UITableView.automaticDimension
         
         tableView.tableFooterView = UIView()
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "M/d/yy, h:mm a"
-        
-        taskItemCells = [
-            StaticTableCell(name: "Task Details"),
-            StaticTableCell(name: "Task Type"),
-            StaticTableCell(name: "Work Date"),
-            StaticTableCell(name: "Estimated Time"),
-            StaticTableCell(name: "Due Date"),
-            StaticTableCell(name: "Interval Scheduling"),
-        ]
-
-        taskNameField.delegate = self
-        
-        // Set up views if editing an existing ToDo.
-        if let toDo = toDo {
-            navigationItem.title = toDo.taskName
-            taskNameField.text = toDo.taskName
-        }
-        // Path if not editing an existing ToDo
-        
-        // NOTE: UIView area
-        startDateUIView.cornerRadius = 10
-        endDateUIView.cornerRadius = 10
-        
-        let gestureRecSD = UITapGestureRecognizer(target: self, action:  #selector (self.segueToSchedulingAssistance(sender:)))
-        let gestureRecED = UITapGestureRecognizer(target: self, action:  #selector (self.segueToSchedulingAssistance(sender:)))
-        startDateUIView.addGestureRecognizer(gestureRecSD)
-        endDateUIView.addGestureRecognizer(gestureRecED)
-        
-        updateSaveButtonState()
     }
-    
     
     // MARK: - Picker Utilities
     
@@ -307,72 +351,14 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     
     // Collapses and expands table view cells
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
-            if taskItemCells[0].collapsed {
-                taskItemCells[0].collapsed = false
-            } else {
-                taskItemCells[0].collapsed = true
-                // Uncollapse all other table rows
-                taskItemCells[1].collapsed = false
-                taskItemCells[2].collapsed = false
-                taskItemCells[3].collapsed = false
-            }
-            tableView.beginUpdates()
-            tableView.endUpdates()
-        }
-        
-        if indexPath.row == 1 {
-            if taskItemCells[1].collapsed {
-                taskItemCells[1].collapsed = false
-            } else {
-                taskItemCells[1].collapsed = true
-                // Uncollapse all other table rows
-                taskItemCells[0].collapsed = false
-                taskItemCells[2].collapsed = false
-                taskItemCells[3].collapsed = false
-                taskItemCells[4].collapsed = false
-                taskItemCells[5].collapsed = false
-            }
-            tableView.beginUpdates()
-            tableView.endUpdates()
-        }
-        if indexPath.row == 2 {
-            if taskItemCells[2].collapsed {
-                taskItemCells[2].collapsed = false
-            } else {
-                taskItemCells[1].collapsed = false
-                // Uncollapse all other table rows
-                taskItemCells[0].collapsed = false
-                taskItemCells[2].collapsed = true
-                taskItemCells[3].collapsed = false
-                taskItemCells[4].collapsed = false
-                taskItemCells[5].collapsed = false
-            }
-            tableView.beginUpdates()
-            tableView.endUpdates()
-        }
-        if indexPath.row == 3 {
-            if taskItemCells[3].collapsed {
-                taskItemCells[3].collapsed = false
-            } else {
-                taskItemCells[2].collapsed = false
-                // Uncollapse all other table rows
-                taskItemCells[0].collapsed = false
-                taskItemCells[1].collapsed = false
-                taskItemCells[3].collapsed = true
-                taskItemCells[4].collapsed = false
-                taskItemCells[5].collapsed = false
-            }
-            tableView.beginUpdates()
-            tableView.endUpdates()
-        }
         if indexPath.row == 4 {
             let viewController = SchedulingTaskMonthlyViewController()
             viewController.setObservableDueDateController(observableDueDateController: self.observableDueDateController)
+            
+            setDueDatePopupView(viewController: viewController)
+            
             let navigationController = SchedulingTaskMonthlyNavViewController(rootViewController: viewController)
             SwiftEntryKit.display(entry: navigationController, using: PresetsDataSource.getCustomPreset())
-        }
-        if indexPath.row == 5 {
         }
     }
     
@@ -382,6 +368,16 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             return 124
         }
         return 50
+    }
+    
+    // MARK: - Due Date Utilities
+    
+    private func setDueDatePopupView(viewController: SchedulingTaskMonthlyViewController) {
+        if let toDo = toDo {
+            print("The due DATE")
+            print(toDo.getDueDate())
+            viewController.setSelectedDate(dateVal: toDo.getDueDate())
+        }
     }
     
     // MARK: - Navigation
@@ -396,12 +392,8 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             }
             
             scheduleIntervalizerVC.setToDos(toDos: self.toDos)
-            //let intervalHours = intervalSchedulingHourField.text
-            //let intervalDays = intervalSchedulingDayField.text
             let taskName = taskNameField.text
-            //let taskDescription = taskDescriptionView.text
             let workDate = chosenWorkDate
-            //let estTime = estTimeField.text
             let dueDate = chosenDueDate
             let taskType = self.selectedTaskTypePickerData
             
@@ -444,8 +436,11 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             guard let toDoTagsTVC = segue.destination as? TagsTableViewController else {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
-            
             toDoTagsTVC.setObservableTagsController(observableTagsController: self.observableTagsController)
+            // This tracker gets assigned if there is new ToDo and the selected in the selection for the first time, or if editing an existing ToDo
+            if toDo?.getTaskTag() != "" && toDo != nil {
+                toDoTagsTVC.setAssignedTag(tagName: (toDo?.getTaskTag())!)
+            }
             print("SegueToToDoTagsTVC wowowowo")
         }
             
@@ -486,9 +481,6 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
                 schedulingAstncViewController.setTargetTask(taskItem: self.inQueueTask)
                 schedulingAstncViewController.setObservableTaskController(observableTaskController: self.observableTaskController) 
             }
-            print("The DATE22!!")
-            print(self.inQueueTask.getStartTime())
-            print(self.inQueueTask.getEndTime())
         }
         else {
             // Only prepare view controller when the save button is pressed
@@ -499,16 +491,9 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             }
             
             let taskName = taskNameField.text
-            //let taskDescription = taskDescriptionView.text
-            //let workDate = chosenWorkDate
-            print("DD")
-            print(self.startDateStringValue.text!)
-            let startTime = dateUtil.createDateMmDdYy(dateString: self.startDateStringValue.text!)
-            let endTime = dateUtil.createDateMmDdYy(dateString: self.endDateStringValue.text!)
-        
+            
             //let estTime = estTimeField.text
-            let dueDate = chosenDueDate
-            let taskType = self.selectedTaskTypePickerData
+            
             let repeating = self.repeatingStatus
             
             updateSaveButtonState()
@@ -516,11 +501,31 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             
             if toDo == nil  {
                 // Set the Non-Intervalized ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being created
-                toDo = ToDo(taskId: UUID().uuidString, taskName: taskName!, taskTag: taskType, startTime: startTime, endTime: endTime, dueDate: dueDate, finished: getIsFinished(), repeating: repeating)
+                
+                toDo = ToDo(taskId: UUID().uuidString, taskName: taskName!, taskTag: self.taskTagTracker, startTime: self.startTimeTracker, endTime: self.endTimeTracker, dueDate: self.dueDateTracker, finished: getIsFinished(), repeating: repeating)
                 
             } else {
                 // Set the Non-Intervalized ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being modified and is already  created
-                toDo = ToDo(taskId: (self.toDo?.taskId)!, taskName: taskName!, taskTag: taskType, startTime: startTime, endTime: endTime, dueDate: dueDate, finished: getIsFinished(), repeating: repeating)
+                
+                // This is to track if anything has changed and the Save button was pressed.
+                var dueDate = toDo?.getDueDate()
+                var startTime = toDo?.getStartTime()
+                var endTime = toDo?.getEndTime()
+                var taskTag = toDo?.getTaskTag()
+                
+                // The trackers gets assigned with something if the Popups were selected
+                if self.isDueDatePickerPressedTracker {
+                    dueDate = self.dueDateTracker
+                }
+                if self.isSchedulingAssistancePressedTracker {
+                    startTime = self.startTimeTracker
+                    endTime = self.endTimeTracker
+                }
+                if self.didSelectInTagSelectionTracker {
+                    taskTag = self.taskTagTracker
+                }
+                
+                toDo = ToDo(taskId: (self.toDo?.taskId)!, taskName: taskName!, taskTag: taskTag!, startTime: startTime!, endTime: endTime!, dueDate: dueDate!, finished: getIsFinished(), repeating: repeating)
             }
         }
     }
@@ -578,7 +583,6 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         
         // Only allow saveButton if textFields are not empty
         taskNameField.addTarget(self, action: #selector(textFieldsAreNotEmpty), for: .editingChanged)
-        //estTimeField.addTarget(self, action: #selector(textFieldsAreNotEmpty), for: .editingChanged)
     }
     
     // MARK: - Observers
@@ -598,10 +602,6 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     // MARK: - Popups
     
     private func showRecurrenceSelection(with attributes: EKAttributes) {
-        /*
-        let recurrenceViewController = RecurrenceSelectionPatternTableViewController()
-        let recurrenceNavigationController = RecurrenceNavigationViewController(rootViewController: recurrenceViewController)
-        SwiftEntryKit.display(entry: recurrenceNavigationController, using: attributes)*/
     }
     
     // MARK: - Setters

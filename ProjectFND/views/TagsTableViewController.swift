@@ -13,6 +13,10 @@ class TagsTableViewController: UITableViewController {
     private var tagsList = [String]()
     
     private var observableTagsController = ObservableTagsController()
+    
+    // Trackers
+    private var isTagPreAssignedTracker = false
+    private var preAssignedTagTracker = String()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,12 +24,6 @@ class TagsTableViewController: UITableViewController {
         tagsList = ["Work", "Personal", "School"]
         
         setSelectedRow()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     // MARK: - Table view data source
@@ -52,11 +50,13 @@ class TagsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Haha
         self.observableTagsController.updateTag(updatedDate: ToDoTags(tagValue: tagsList[indexPath.row], assigned: true))
     }
     
-    
+    // This is not working right now
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        /*self.observableTagsController.updateTag(updatedDate: ToDoTags(tagValue: tagsList[indexPath.row], assigned: false))*/
+    }
     
     func setObservableTagsController(observableTagsController: ObservableTagsController) {
         self.observableTagsController = observableTagsController
@@ -65,8 +65,15 @@ class TagsTableViewController: UITableViewController {
     private func setSelectedRow() {
         let selectedTag = self.observableTagsController.getTag().tagValue
         let isTagAssigned = self.observableTagsController.getTag().assigned
+        var indexPath = IndexPath()
         if isTagAssigned {
-            let indexPath = IndexPath(row: getCorrectTagRow(tagName: selectedTag!), section: 0)
+            indexPath = IndexPath(row: getCorrectTagRow(tagName: selectedTag!), section: 0)
+            DispatchQueue.main.async {
+                self.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+            }
+        }
+        else if isTagPreAssignedTracker {
+            indexPath = IndexPath(row: getCorrectTagRow(tagName: self.preAssignedTagTracker), section: 0)
             DispatchQueue.main.async {
                 self.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
             }
@@ -84,49 +91,10 @@ class TagsTableViewController: UITableViewController {
             return 2
         }
     }
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    func setAssignedTag(tagName: String) {
+        self.preAssignedTagTracker = tagName
+        self.isTagPreAssignedTracker = true
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
