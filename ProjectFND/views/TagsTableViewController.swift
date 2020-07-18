@@ -66,6 +66,7 @@ class TagsTableViewController: UITableViewController {
         let selectedTag = self.observableTagsController.getTag().tagValue
         let isTagAssigned = self.observableTagsController.getTag().assigned
         var indexPath = IndexPath()
+        
         if isTagAssigned {
             indexPath = IndexPath(row: getCorrectTagRow(tagName: selectedTag!), section: 0)
             DispatchQueue.main.async {
