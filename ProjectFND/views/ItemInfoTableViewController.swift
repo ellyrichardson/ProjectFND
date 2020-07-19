@@ -130,7 +130,14 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         }
         else if observableType == ObservableType.TODO_TAG {
             let newValueTag = newValue as! ToDoTags
-            self.tagsLabel.text = newValueTag.tagValue!
+            
+            if newValueTag.tagValue == "" {
+                self.tagsLabel.text = "Tag"
+            }
+            else {
+                self.tagsLabel.text = newValueTag.tagValue!
+            }
+            //self.tagsLabel.text = newValueTag.tagValue!
             self.taskTagTracker = newValueTag.tagValue!
             self.didSelectInTagSelectionTracker = true
             print("TAG WAS UPDATED")
@@ -439,8 +446,20 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             toDoTagsTVC.setObservableTagsController(observableTagsController: self.observableTagsController)
             // This tracker gets assigned if there is new ToDo and the selected in the selection for the first time, or if editing an existing ToDo
             if toDo?.getTaskTag() != "" && toDo != nil {
-                toDoTagsTVC.setAssignedTag(tagName: (toDo?.getTaskTag())!)
+                // If already chosen something from tag selection, then always use the last selected tag when going back to selection after closing out
+                if self.didSelectInTagSelectionTracker {
+                    toDoTagsTVC.setAssignedTag(tagName: (self.taskTagTracker))
+                }
+                else {
+                    toDoTagsTVC.setAssignedTag(tagName: (toDo?.getTaskTag())!)
+                }
             }
+            else {
+                if self.didSelectInTagSelectionTracker {
+                    toDoTagsTVC.setAssignedTag(tagName: (self.taskTagTracker))
+                }
+            }
+            
             print("SegueToToDoTagsTVC wowowowo")
         }
             

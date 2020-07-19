@@ -10,6 +10,8 @@ import UIKit
 
 class TagsTableViewController: UITableViewController {
     
+    private let EMPTY_TAG = ""
+    
     private var tagsList = [String]()
     
     private var observableTagsController = ObservableTagsController()
@@ -50,12 +52,28 @@ class TagsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.observableTagsController.updateTag(updatedDate: ToDoTags(tagValue: tagsList[indexPath.row], assigned: true))
+        if self.observableTagsController.getTag().tagValue == tagsList[indexPath.row] {
+            shouldDeselectRows()
+        }
+        /*
+        if self.observableTagsController.getTag().assigned || isTagPreAssignedTracker {
+            deselectRow()
+            if isTagPreAssignedTracker {
+                self.isTagPreAssignedTracker = false
+            }
+        }*/
+        else {
+            self.observableTagsController.updateTag(updatedDate: ToDoTags(tagValue: tagsList[indexPath.row], assigned: true))
+        }
     }
     
-    // This is not working right now
-    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        /*self.observableTagsController.updateTag(updatedDate: ToDoTags(tagValue: tagsList[indexPath.row], assigned: false))*/
+    private func shouldDeselectRows() {
+        if self.observableTagsController.getTag().assigned || isTagPreAssignedTracker {
+            deselectRow()
+            if isTagPreAssignedTracker {
+                self.isTagPreAssignedTracker = false
+            }
+        }
     }
     
     func setObservableTagsController(observableTagsController: ObservableTagsController) {
@@ -64,10 +82,9 @@ class TagsTableViewController: UITableViewController {
     
     private func setSelectedRow() {
         let selectedTag = self.observableTagsController.getTag().tagValue
-        let isTagAssigned = self.observableTagsController.getTag().assigned
         var indexPath = IndexPath()
         
-        if isTagAssigned {
+        if self.observableTagsController.getTag().assigned {
             indexPath = IndexPath(row: getCorrectTagRow(tagName: selectedTag!), section: 0)
             DispatchQueue.main.async {
                 self.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
@@ -78,6 +95,16 @@ class TagsTableViewController: UITableViewController {
             DispatchQueue.main.async {
                 self.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
             }
+        }
+    }
+    
+    private func deselectRow() {
+        let selectedTag = self.observableTagsController.getTag().tagValue
+        var indexPath = IndexPath()
+        indexPath = IndexPath(row: getCorrectTagRow(tagName: selectedTag!), section: 0)
+        self.observableTagsController.updateTag(updatedDate: ToDoTags(tagValue: EMPTY_TAG, assigned: false))
+        DispatchQueue.main.async {
+            self.tableView.deselectRow(at: indexPath, animated: false)
         }
     }
 
@@ -93,8 +120,23 @@ class TagsTableViewController: UITableViewController {
         }
     }
     
+    /*
+    private func configureRows() {
+        deselectAllRows()
+        setSelectedRow()
+    }
+    
+    private func deselectAllRows() {
+        var counter = 0
+        while counter < tagsList.count {
+            self.tableView.deselectRow(at: IndexPath(row: counter, section: 0), animated: false)
+            counter += 1
+        }
+    }*/
+    
     func setAssignedTag(tagName: String) {
         self.preAssignedTagTracker = tagName
+        self.observableTagsController.updateTag(updatedDate: ToDoTags(tagValue: tagName, assigned: true))
         self.isTagPreAssignedTracker = true
     }
 
