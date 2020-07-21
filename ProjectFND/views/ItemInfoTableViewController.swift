@@ -374,6 +374,9 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         if indexPath.row == 2 {
             return 124
         }
+        else if indexPath.row == 5 {
+            return 216
+        }
         return 50
     }
     
