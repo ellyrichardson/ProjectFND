@@ -56,6 +56,10 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     
     private var dataSource = PresetsDataSource()
     
+    //@IBOutlet weak var notesTextView: UITextView!
+    @IBOutlet weak var notesUIView: UIView!
+    
+    
     // MARK: - Helpers
     
     private var dateUtil = DateUtils()
@@ -191,6 +195,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         configureUiObjects()
         configureGestureRecognizers()
         updateSaveButtonState()
+        configureNotesTextView()
     }
     
     // MARK: - Configurations
@@ -262,6 +267,43 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         tableView.rowHeight = UITableView.automaticDimension
         
         tableView.tableFooterView = UIView()
+    }
+    
+    private func configureNotesTextView() {
+        let notesTextView = UITextView()
+        notesTextView.frame = CGRect(x: 0, y: 0, width: 200, height: 100)
+        
+        notesTextView.backgroundColor = .lightGray
+        notesTextView.text = "Testing sds fsd f sd f sfsdfsdfsdf  sd fsdfsdfs df sd f"
+        notesTextView.translatesAutoresizingMaskIntoConstraints = false
+        
+        notesUIView.addSubview(notesTextView)
+        [
+            notesTextView.bottomAnchor.constraint(equalTo: notesUIView.safeAreaLayoutGuide.bottomAnchor),
+            notesTextView.leadingAnchor.constraint(equalTo: notesUIView.leadingAnchor),
+            notesTextView.trailingAnchor.constraint(equalTo: notesUIView.trailingAnchor),
+            notesTextView.heightAnchor.constraint(equalToConstant: 50)
+            ].forEach{ $0.isActive = true }
+        
+        notesTextView.delegate = self
+        notesTextView.isScrollEnabled = false
+        notesTextView.font = UIFont.preferredFont(forTextStyle: .headline)
+        
+        notesTextViewDidChange(notesTextView)
+    }
+    
+    // MARK: - Notes Utilities
+    
+    func notesTextViewDidChange(_ notesTextView: UITextView) {
+        print(notesTextView.text)
+        let size = CGSize(width: notesUIView.frame.width, height: .infinity)
+        let estimatedSize = notesTextView.sizeThatFits(size)
+        
+        notesTextView.constraints.forEach { (constraint) in
+            if constraint.firstAttribute == .height {
+                constraint.constant = estimatedSize.height
+            }
+        }
     }
     
     // MARK: - Picker Utilities
@@ -358,7 +400,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     
     // Collapses and expands table view cells
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 4 {
+        if indexPath.row == 2 {
             let viewController = SchedulingTaskMonthlyViewController()
             viewController.setObservableDueDateController(observableDueDateController: self.observableDueDateController)
             
@@ -371,7 +413,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     
     // Determines the height of the expansion of the table view cells
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 2 {
+        if indexPath.row == 3 {
             return 124
         }
         return 50
