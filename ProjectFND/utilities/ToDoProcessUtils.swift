@@ -132,7 +132,7 @@ class ToDoProcessUtils {
         toDoToSave.setValue(toDoItem.taskNotes, forKey: "taskNotes")
         toDoToSave.setValue(toDoItem.taskTag, forKey: "taskTag")
         toDoToSave.setValue(toDoItem.startTime, forKey: "startTime")
-        toDoToSave.setValue(toDoItem.endTime, forKey: "endtime")
+        toDoToSave.setValue(toDoItem.endTime, forKey: "endTime")
         toDoToSave.setValue(toDoItem.dueDate, forKey: "dueDate")
         toDoToSave.setValue(toDoItem.finished, forKey: "finished")
         toDoToSave.setValue(toDoItem.intervalized, forKey: "intervalized")

@@ -48,22 +48,22 @@ class TimeSlotsVacancyEvaluatorSpecs: QuickSpec {
                     expect(tsve.getOtd().count).to(be(4))
                     
                     expect(tsve.getOtd()[keyFor9AM]?.count).to(be(1))
-                    expect(tsve.getOtd()[keyFor9AM]?[0].getStartDate()).to(be(dateUtils.createDate(dateString: "2020/01/15 09:30")))
-                    expect(tsve.getOtd()[keyFor9AM]?[0].getEndDate()).to(be(dateUtils.createDate(dateString: "2020/01/15 10:15")))
+                    expect(tsve.getOtd()[keyFor9AM]?[0].getStartTime()).to(be(dateUtils.createDate(dateString: "2020/01/15 09:30")))
+                    expect(tsve.getOtd()[keyFor9AM]?[0].getEndTime()).to(be(dateUtils.createDate(dateString: "2020/01/15 10:15")))
                     
                     expect(tsve.getOtd()[keyFor10AM]?.count).to(be(1))
-                    expect(tsve.getOtd()[keyFor10AM]?[0].getStartDate()).to(be(dateUtils.createDate(dateString: "2020/01/15 10:15")))
-                    expect(tsve.getOtd()[keyFor10AM]?[0].getEndDate()).to(be(dateUtils.createDate(dateString: "2020/01/15 10:45")))
+                    expect(tsve.getOtd()[keyFor10AM]?[0].getStartTime()).to(be(dateUtils.createDate(dateString: "2020/01/15 10:15")))
+                    expect(tsve.getOtd()[keyFor10AM]?[0].getEndTime()).to(be(dateUtils.createDate(dateString: "2020/01/15 10:45")))
                     
                     expect(tsve.getOtd()[keyFor11AM]?.count).to(be(1))
-                    expect(tsve.getOtd()[keyFor11AM]?[0].getStartDate()).to(be(dateUtils.createDate(dateString: "2020/01/15 11:15")))
-                    expect(tsve.getOtd()[keyFor11AM]?[0].getEndDate()).to(be(dateUtils.createDate(dateString: "2020/01/15 12:00")))
+                    expect(tsve.getOtd()[keyFor11AM]?[0].getStartTime()).to(be(dateUtils.createDate(dateString: "2020/01/15 11:15")))
+                    expect(tsve.getOtd()[keyFor11AM]?[0].getEndTime()).to(be(dateUtils.createDate(dateString: "2020/01/15 12:00")))
                     
                     expect(tsve.getOtd()[keyFor01PM]?.count).to(be(2))
-                    expect(tsve.getOtd()[keyFor01PM]?[0].getStartDate()).to(be(dateUtils.createDate(dateString: "2020/01/15 13:00")))
-                    expect(tsve.getOtd()[keyFor01PM]?[0].getEndDate()).to(be(dateUtils.createDate(dateString: "2020/01/15 13:45")))
-                    expect(tsve.getOtd()[keyFor01PM]?[1].getStartDate()).to(be(dateUtils.createDate(dateString: "2020/01/15 13:45")))
-                    expect(tsve.getOtd()[keyFor01PM]?[1].getEndDate()).to(be(dateUtils.createDate(dateString: "2020/01/15 14:30")))
+                    expect(tsve.getOtd()[keyFor01PM]?[0].getStartTime()).to(be(dateUtils.createDate(dateString: "2020/01/15 13:00")))
+                    expect(tsve.getOtd()[keyFor01PM]?[0].getEndTime()).to(be(dateUtils.createDate(dateString: "2020/01/15 13:45")))
+                    expect(tsve.getOtd()[keyFor01PM]?[1].getStartTime()).to(be(dateUtils.createDate(dateString: "2020/01/15 13:45")))
+                    expect(tsve.getOtd()[keyFor01PM]?[1].getEndTime()).to(be(dateUtils.createDate(dateString: "2020/01/15 14:30")))
                 }
                 
                 it("should have appropriate otd for 5 tasks scattered every other day") {
@@ -86,22 +86,22 @@ class TimeSlotsVacancyEvaluatorSpecs: QuickSpec {
                     expect(tsve.getOtd().count).to(be(4))
                     
                     expect(tsve.getOtd()[keyFor9AM]?.count).to(be(1))
-                    expect(tsve.getOtd()[keyFor9AM]?[0].getStartDate()).to(be(dateUtils.createDate(dateString: "2020/01/15 09:30")))
-                    expect(tsve.getOtd()[keyFor9AM]?[0].getEndDate()).to(be(dateUtils.createDate(dateString: "2020/01/15 10:15")))
+                    expect(tsve.getOtd()[keyFor9AM]?[0].getStartTime()).to(be(dateUtils.createDate(dateString: "2020/01/15 09:30")))
+                    expect(tsve.getOtd()[keyFor9AM]?[0].getEndTime()).to(be(dateUtils.createDate(dateString: "2020/01/15 10:15")))
                     
                     expect(tsve.getOtd()[keyFor10AM]?.count).to(be(1))
-                    expect(tsve.getOtd()[keyFor10AM]?[0].getStartDate()).to(be(dateUtils.createDate(dateString: "2020/01/15 10:15")))
-                    expect(tsve.getOtd()[keyFor10AM]?[0].getEndDate()).to(be(dateUtils.createDate(dateString: "2020/01/15 10:45")))
+                    expect(tsve.getOtd()[keyFor10AM]?[0].getStartTime()).to(be(dateUtils.createDate(dateString: "2020/01/15 10:15")))
+                    expect(tsve.getOtd()[keyFor10AM]?[0].getEndTime()).to(be(dateUtils.createDate(dateString: "2020/01/15 10:45")))
                     
                     expect(tsve.getOtd()[keyFor11AM]?.count).to(be(1))
-                    expect(tsve.getOtd()[keyFor11AM]?[0].getStartDate()).to(be(dateUtils.createDate(dateString: "2020/01/17 11:15")))
-                    expect(tsve.getOtd()[keyFor11AM]?[0].getEndDate()).to(be(dateUtils.createDate(dateString: "2020/01/17 12:00")))
+                    expect(tsve.getOtd()[keyFor11AM]?[0].getStartTime()).to(be(dateUtils.createDate(dateString: "2020/01/17 11:15")))
+                    expect(tsve.getOtd()[keyFor11AM]?[0].getEndTime()).to(be(dateUtils.createDate(dateString: "2020/01/17 12:00")))
                     
                     expect(tsve.getOtd()[keyFor01PM]?.count).to(be(2))
-                    expect(tsve.getOtd()[keyFor01PM]?[0].getStartDate()).to(be(dateUtils.createDate(dateString: "2020/01/17 13:00")))
-                    expect(tsve.getOtd()[keyFor01PM]?[0].getEndDate()).to(be(dateUtils.createDate(dateString: "2020/01/17 13:45")))
-                    expect(tsve.getOtd()[keyFor01PM]?[1].getStartDate()).to(be(dateUtils.createDate(dateString: "2020/01/17 13:45")))
-                    expect(tsve.getOtd()[keyFor01PM]?[1].getEndDate()).to(be(dateUtils.createDate(dateString: "2020/01/17 14:30")))
+                    expect(tsve.getOtd()[keyFor01PM]?[0].getStartTime()).to(be(dateUtils.createDate(dateString: "2020/01/17 13:00")))
+                    expect(tsve.getOtd()[keyFor01PM]?[0].getEndTime()).to(be(dateUtils.createDate(dateString: "2020/01/17 13:45")))
+                    expect(tsve.getOtd()[keyFor01PM]?[1].getStartTime()).to(be(dateUtils.createDate(dateString: "2020/01/17 13:45")))
+                    expect(tsve.getOtd()[keyFor01PM]?[1].getEndTime()).to(be(dateUtils.createDate(dateString: "2020/01/17 14:30")))
                 }
                 
                 it("should have 1 otd for a single half day task") {
@@ -121,8 +121,8 @@ class TimeSlotsVacancyEvaluatorSpecs: QuickSpec {
                     expect(tsve.getOtd().count).to(be(1))
                     
                     expect(tsve.getOtd()[keyFor9AM]?.count).to(be(1))
-                    expect(tsve.getOtd()[keyFor9AM]?[0].getStartDate()).to(be(dateUtils.createDate(dateString: "2020/01/15 09:30")))
-                    expect(tsve.getOtd()[keyFor9AM]?[0].getEndDate()).to(be(dateUtils.createDate(dateString: "2020/01/15 21:30")))
+                    expect(tsve.getOtd()[keyFor9AM]?[0].getStartTime()).to(be(dateUtils.createDate(dateString: "2020/01/15 09:30")))
+                    expect(tsve.getOtd()[keyFor9AM]?[0].getEndTime()).to(be(dateUtils.createDate(dateString: "2020/01/15 21:30")))
                 }
                 
                 it("should have 1 otd for a single half day task starting 12 AM") {
@@ -142,8 +142,8 @@ class TimeSlotsVacancyEvaluatorSpecs: QuickSpec {
                     expect(tsve.getOtd().count).to(be(1))
                     
                     expect(tsve.getOtd()[keyFor12AM]?.count).to(be(1))
-                    expect(tsve.getOtd()[keyFor12AM]?[0].getStartDate()).to(be(dateUtils.createDate(dateString: "2020/01/15 00:00")))
-                    expect(tsve.getOtd()[keyFor12AM]?[0].getEndDate()).to(be(dateUtils.createDate(dateString: "2020/01/15 12:00")))
+                    expect(tsve.getOtd()[keyFor12AM]?[0].getStartTime()).to(be(dateUtils.createDate(dateString: "2020/01/15 00:00")))
+                    expect(tsve.getOtd()[keyFor12AM]?[0].getEndTime()).to(be(dateUtils.createDate(dateString: "2020/01/15 12:00")))
                 }
                 
                 it("should have 1 otd for a single half day task ending at next day's 12 AM") {
@@ -163,8 +163,8 @@ class TimeSlotsVacancyEvaluatorSpecs: QuickSpec {
                     expect(tsve.getOtd().count).to(be(1))
                     
                     expect(tsve.getOtd()[keyFor12PM]?.count).to(be(1))
-                    expect(tsve.getOtd()[keyFor12PM]?[0].getStartDate()).to(be(dateUtils.createDate(dateString: "2020/01/15 12:00")))
-                    expect(tsve.getOtd()[keyFor12PM]?[0].getEndDate()).to(be(dateUtils.createDate(dateString: "2020/01/16 00:00")))
+                    expect(tsve.getOtd()[keyFor12PM]?[0].getStartTime()).to(be(dateUtils.createDate(dateString: "2020/01/15 12:00")))
+                    expect(tsve.getOtd()[keyFor12PM]?[0].getEndTime()).to(be(dateUtils.createDate(dateString: "2020/01/16 00:00")))
                 }
                 
                 it("should have 1 otd for a single full day task starting 12 AM current day to 12 AM next day") {
@@ -184,8 +184,8 @@ class TimeSlotsVacancyEvaluatorSpecs: QuickSpec {
                     expect(tsve.getOtd().count).to(be(1))
                     
                     expect(tsve.getOtd()[keyFor12AM]?.count).to(be(1))
-                    expect(tsve.getOtd()[keyFor12AM]?[0].getStartDate()).to(be(dateUtils.createDate(dateString: "2020/01/15 00:00")))
-                    expect(tsve.getOtd()[keyFor12AM]?[0].getEndDate()).to(be(dateUtils.createDate(dateString: "2020/01/16 00:00")))
+                    expect(tsve.getOtd()[keyFor12AM]?[0].getStartTime()).to(be(dateUtils.createDate(dateString: "2020/01/15 00:00")))
+                    expect(tsve.getOtd()[keyFor12AM]?[0].getEndTime()).to(be(dateUtils.createDate(dateString: "2020/01/16 00:00")))
                 }
                 
                 it("should have 1 otd for a single full day task starting 12 AM current day to 12 AM next day") {
@@ -205,8 +205,8 @@ class TimeSlotsVacancyEvaluatorSpecs: QuickSpec {
                     expect(tsve.getOtd().count).to(be(1))
                     
                     expect(tsve.getOtd()[keyFor12AM]?.count).to(be(1))
-                    expect(tsve.getOtd()[keyFor12AM]?[0].getStartDate()).to(be(dateUtils.createDate(dateString: "2020/01/15 00:00")))
-                    expect(tsve.getOtd()[keyFor12AM]?[0].getEndDate()).to(be(dateUtils.createDate(dateString: "2020/01/16 00:00")))
+                    expect(tsve.getOtd()[keyFor12AM]?[0].getStartTime()).to(be(dateUtils.createDate(dateString: "2020/01/15 00:00")))
+                    expect(tsve.getOtd()[keyFor12AM]?[0].getEndTime()).to(be(dateUtils.createDate(dateString: "2020/01/16 00:00")))
                 }
                 
                 it("should have 3 otd for three single full day task from 12 AM to 12 AM") {
@@ -228,16 +228,16 @@ class TimeSlotsVacancyEvaluatorSpecs: QuickSpec {
                     expect(tsve.getOtd().count).to(be(3))
                     
                     expect(tsve.getOtd()[keyFor12AM1]?.count).to(be(1))
-                    expect(tsve.getOtd()[keyFor12AM1]?[0].getStartDate()).to(be(dateUtils.createDate(dateString: "2020/01/15 00:00")))
-                    expect(tsve.getOtd()[keyFor12AM1]?[0].getEndDate()).to(be(dateUtils.createDate(dateString: "2020/01/16 00:00")))
+                    expect(tsve.getOtd()[keyFor12AM1]?[0].getStartTime()).to(be(dateUtils.createDate(dateString: "2020/01/15 00:00")))
+                    expect(tsve.getOtd()[keyFor12AM1]?[0].getEndTime()).to(be(dateUtils.createDate(dateString: "2020/01/16 00:00")))
                     
                     expect(tsve.getOtd()[keyFor12AM2]?.count).to(be(1))
-                    expect(tsve.getOtd()[keyFor12AM2]?[0].getStartDate()).to(be(dateUtils.createDate(dateString: "2020/01/16 00:00")))
-                    expect(tsve.getOtd()[keyFor12AM2]?[0].getEndDate()).to(be(dateUtils.createDate(dateString: "2020/01/17 00:00")))
+                    expect(tsve.getOtd()[keyFor12AM2]?[0].getStartTime()).to(be(dateUtils.createDate(dateString: "2020/01/16 00:00")))
+                    expect(tsve.getOtd()[keyFor12AM2]?[0].getEndTime()).to(be(dateUtils.createDate(dateString: "2020/01/17 00:00")))
                     
                     expect(tsve.getOtd()[keyFor12AM3]?.count).to(be(1))
-                    expect(tsve.getOtd()[keyFor12AM3]?[0].getStartDate()).to(be(dateUtils.createDate(dateString: "2020/01/17 00:00")))
-                    expect(tsve.getOtd()[keyFor12AM3]?[0].getEndDate()).to(be(dateUtils.createDate(dateString: "2020/01/18 00:00")))
+                    expect(tsve.getOtd()[keyFor12AM3]?[0].getStartTime()).to(be(dateUtils.createDate(dateString: "2020/01/17 00:00")))
+                    expect(tsve.getOtd()[keyFor12AM3]?[0].getEndTime()).to(be(dateUtils.createDate(dateString: "2020/01/18 00:00")))
                 }
                 
                 it("should have empty otd if no task for day") {
