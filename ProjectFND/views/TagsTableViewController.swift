@@ -12,6 +12,8 @@ class TagsTableViewController: UITableViewController {
     
     private let EMPTY_TAG = ""
     
+    private let OUT_OF_BOUNDS = 4
+    
     private var tagsList = [String]()
     
     private var observableTagsController = ObservableTagsController()
@@ -83,17 +85,23 @@ class TagsTableViewController: UITableViewController {
     private func setSelectedRow() {
         let selectedTag = self.observableTagsController.getTag().tagValue
         var indexPath = IndexPath()
-        
+        var correctTagRow = 0
         if self.observableTagsController.getTag().assigned {
-            indexPath = IndexPath(row: getCorrectTagRow(tagName: selectedTag!), section: 0)
-            DispatchQueue.main.async {
-                self.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+            correctTagRow = getCorrectTagRow(tagName: selectedTag!)
+            if correctTagRow != OUT_OF_BOUNDS {
+                indexPath = IndexPath(row: correctTagRow, section: 0)
+                DispatchQueue.main.async {
+                    self.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+                }
             }
         }
         else if isTagPreAssignedTracker {
-            indexPath = IndexPath(row: getCorrectTagRow(tagName: self.preAssignedTagTracker), section: 0)
-            DispatchQueue.main.async {
-                self.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+            correctTagRow = getCorrectTagRow(tagName: self.preAssignedTagTracker)
+            if correctTagRow != OUT_OF_BOUNDS {
+                indexPath = IndexPath(row: correctTagRow, section: 0)
+                DispatchQueue.main.async {
+                    self.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+                }
             }
         }
     }
@@ -101,22 +109,27 @@ class TagsTableViewController: UITableViewController {
     private func deselectRow() {
         let selectedTag = self.observableTagsController.getTag().tagValue
         var indexPath = IndexPath()
-        indexPath = IndexPath(row: getCorrectTagRow(tagName: selectedTag!), section: 0)
-        self.observableTagsController.updateTag(updatedDate: ToDoTags(tagValue: EMPTY_TAG, assigned: false))
-        DispatchQueue.main.async {
-            self.tableView.deselectRow(at: indexPath, animated: false)
+        let correctTagRow = getCorrectTagRow(tagName: selectedTag!)
+        
+        if correctTagRow != OUT_OF_BOUNDS {
+            indexPath = IndexPath(row: correctTagRow, section: 0)
+            self.observableTagsController.updateTag(updatedDate: ToDoTags(tagValue: EMPTY_TAG, assigned: false))
+            DispatchQueue.main.async {
+                self.tableView.deselectRow(at: indexPath, animated: false)
+            }
         }
     }
 
     private func getCorrectTagRow(tagName: String) -> Int {
-        if tagName == "Work" {
+        switch tagName {
+        case "Work":
             return 0
-        }
-        else if tagName == "Personal" {
+        case "Personal":
             return 1
-        }
-        else {
+        case "School":
             return 2
+        default:
+            return OUT_OF_BOUNDS
         }
     }
     
