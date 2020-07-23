@@ -274,32 +274,33 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         notesTextView.frame = CGRect(x: 0, y: 0, width: 200, height: 100)
         
         notesTextView.backgroundColor = .lightGray
-        notesTextView.text = "Testing sds fsd f sd f sfsdfsdfsdf  sd fsdfsdfs df sd f"
+        notesTextView.text = "Testing sasdasdasdasdasd dfd d fd f ddf d fd f f dfdfdfdf df d  sd s ds s dsdsd s Testing sasdasdasdasdasd dfd d fd f ddf d fd f f dfdfdfdf df d  sd s ds s "
         notesTextView.translatesAutoresizingMaskIntoConstraints = false
         
         notesUIView.addSubview(notesTextView)
         [
-            notesTextView.bottomAnchor.constraint(equalTo: notesUIView.safeAreaLayoutGuide.bottomAnchor),
+            notesTextView.topAnchor.constraint(equalTo: notesUIView.safeAreaLayoutGuide.topAnchor),
             notesTextView.leadingAnchor.constraint(equalTo: notesUIView.leadingAnchor),
             notesTextView.trailingAnchor.constraint(equalTo: notesUIView.trailingAnchor),
             notesTextView.heightAnchor.constraint(equalToConstant: 50)
             ].forEach{ $0.isActive = true }
         
-        notesTextView.delegate = self
-        notesTextView.isScrollEnabled = false
         notesTextView.font = UIFont.preferredFont(forTextStyle: .headline)
         
-        notesTextViewDidChange(notesTextView)
+        notesTextView.delegate = self
+        notesTextView.isScrollEnabled = false
+        
+        textViewDidChange(notesTextView)
     }
     
     // MARK: - Notes Utilities
     
-    func notesTextViewDidChange(_ notesTextView: UITextView) {
-        print(notesTextView.text)
+    func textViewDidChange(_ textView: UITextView) {
+        print(textView.text)
         let size = CGSize(width: notesUIView.frame.width, height: .infinity)
-        let estimatedSize = notesTextView.sizeThatFits(size)
+        let estimatedSize = textView.sizeThatFits(size)
         
-        notesTextView.constraints.forEach { (constraint) in
+        textView.constraints.forEach { (constraint) in
             if constraint.firstAttribute == .height {
                 constraint.constant = estimatedSize.height
             }
@@ -415,6 +416,9 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 3 {
             return 124
+        }
+        else if indexPath.row == 5 {
+            return 300
         }
         return 50
     }
