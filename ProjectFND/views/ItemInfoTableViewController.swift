@@ -97,6 +97,11 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     private var isDueDatePickerPressedTracker = false
     private var didSelectInTagSelectionTracker = false
     
+    // Notes Tracker
+    
+    private var notesTableViewCellHeightTracker = 0
+    private var notesTextViewValue = ""
+    
     // MARK: - Due Date Observable
     
     private var observableDueDateController = ObservableDateController()
@@ -200,6 +205,11 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     
     // MARK: - Configurations
     
+    private func configuteTableViews() {
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableView.automaticDimension
+    }
+    
     private func configureUiValues() {
         // Set up views if editing an existing ToDo.
         if let toDo = toDo {
@@ -215,6 +225,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             if toDo.getTaskTag() == "" {
                 self.tagsLabel.text = "Tags "
             }
+            self.notesTextViewValue = toDo.getTaskNotes()
         }
         // Simply proceed if not editing an existing ToDo
     }
@@ -273,8 +284,16 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         let notesTextView = UITextView()
         notesTextView.frame = CGRect(x: 0, y: 0, width: 200, height: 100)
         
-        notesTextView.backgroundColor = .lightGray
-        notesTextView.text = "Testing sasdasdasdasdasd dfd d fd f ddf d fd f f dfdfdfdf df d  sd s ds s dsdsd s Testing sasdasdasdasdasd dfd d fd f ddf d fd f f dfdfdfdf df d  sd s ds s "
+        notesTextView.backgroundColor = .darkGray
+        
+        if self.notesTextViewValue != "" {
+            notesTextView.text = self.notesTextViewValue
+            notesTextView.textColor = UIColor.black
+        } else {
+            notesTextView.text = "Notes"
+            notesTextView.textColor = UIColor.lightGray
+        }
+        
         notesTextView.translatesAutoresizingMaskIntoConstraints = false
         
         notesUIView.addSubview(notesTextView)
@@ -289,11 +308,12 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         
         notesTextView.delegate = self
         notesTextView.isScrollEnabled = false
+        notesTextView.textContainer.lineFragmentPadding = 0
         
         textViewDidChange(notesTextView)
     }
     
-    // MARK: - Notes Utilities
+    // MARK: - Text View Utilities
     
     func textViewDidChange(_ textView: UITextView) {
         print(textView.text)
@@ -304,6 +324,29 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             if constraint.firstAttribute == .height {
                 constraint.constant = estimatedSize.height
             }
+        }
+        
+        notesTableViewCellHeightTracker = Int(estimatedSize.height)
+        
+        tableView.beginUpdates()
+        tableView.endUpdates()
+        
+        self.notesTextViewValue = textView.text
+    }
+    
+    // For removing the placeholder value of the NotesTextView
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+    }
+    
+    // To determine if placeholder value should be put back
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Notes"
+            textView.textColor = UIColor.lightGray
         }
     }
     
@@ -415,12 +458,20 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     // Determines the height of the expansion of the table view cells
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 3 {
+            return CGFloat(self.notesTableViewCellHeightTracker)
+        }
+        else if indexPath.row == 4 {
             return 124
         }
-        else if indexPath.row == 5 {
-            return 300
-        }
         return 50
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == 3 || indexPath.row == 4 || indexPath.row == 5 || indexPath.row == 6 {
+            // To remove line separator from tableViewCells
+            cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
+            cell.directionalLayoutMargins = .zero
+        }
     }
     
     // MARK: - Due Date Utilities
@@ -567,7 +618,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             if toDo == nil  {
                 // Set the Non-Intervalized ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being created
                 
-                toDo = ToDo(taskId: UUID().uuidString, taskName: taskName!, taskTag: self.taskTagTracker, startTime: self.startTimeTracker, endTime: self.endTimeTracker, dueDate: self.dueDateTracker, finished: getIsFinished(), repeating: repeating)
+                toDo = ToDo(taskId: UUID().uuidString, taskName: taskName!, taskNotes: self.notesTextViewValue, taskTag: self.taskTagTracker, startTime: self.startTimeTracker, endTime: self.endTimeTracker, dueDate: self.dueDateTracker, finished: getIsFinished(), repeating: repeating)
                 
             } else {
                 // Set the Non-Intervalized ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being modified and is already  created
@@ -590,7 +641,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
                     taskTag = self.taskTagTracker
                 }
                 
-                toDo = ToDo(taskId: (self.toDo?.taskId)!, taskName: taskName!, taskTag: taskTag!, startTime: startTime!, endTime: endTime!, dueDate: dueDate!, finished: getIsFinished(), repeating: repeating)
+                toDo = ToDo(taskId: (self.toDo?.taskId)!, taskName: taskName!, taskNotes: self.notesTextViewValue, taskTag: taskTag!, startTime: startTime!, endTime: endTime!, dueDate: dueDate!, finished: getIsFinished(), repeating: repeating)
             }
         }
     }
