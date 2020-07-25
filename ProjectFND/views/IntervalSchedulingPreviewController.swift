@@ -81,7 +81,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         // 07/09/2020 UPDATE >>>>>>>>>>>>>>>>>>>>>>>>
         
         self.tasksToBeAdded = determineSlottedTasks()
-        ToDoProcessUtils.addToDoDictionaryToAToDoDictionary(toDoDictionary: &self.toDos, toDosToBeAdded: tasksToBeAdded)
+        ToDoProcessUtils.addToDoDictionaryToAToDoDictionary(toDoDictionary: &self.toDos, toDosToBeAdded: self.tasksToBeAdded)
         
         // <<<<<<<<<<<<<<<<<<<<<<< <07/09/2020 UPDATE
         
@@ -135,7 +135,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         configureSelectedStateFor(cell: currentCell, cellState: cellState)
         configureTextColorFor(cell: currentCell, cellState: cellState)
         configureSelectedDay(cell: currentCell, cellState: cellState)
-        previewToDoIntervals(cell: currentCell, dateChosen: self.selectedDate)
+        //previewToDoIntervals(cell: currentCell, dateChosen: self.selectedDate)
         let cellHidden = cellState.dateBelongsTo != .thisMonth
         currentCell.isHidden = cellHidden
     }
@@ -366,9 +366,14 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     
     // USED HERE IN THIS CONTEXT
     func setToDoEndDate(toDoEndDate: Date) {
+        /*
         self.toDoEndDate = toDoEndDate
         print("DIDATE")
-        print(self.toDoEndDate)
+        print(self.toDoEndDate)*/
+    }
+    
+    func setTaskDueDate(taskDueDate: Date) {
+        self.toDoDueDate = taskDueDate
     }
     
     // USED HERE IN THIS CONTEXT
@@ -610,8 +615,20 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         // NOTE: REFACTOR, like use a dictionary instead
         print("yhecount of getToDoIntervalsToAssign")
         //print(getToDoIntervalsToAssign())
+        /*
         for toDoInterval in self.tasksToBeAdded {
             if isToDoIntervalOnDay(toDoInterval: toDoInterval.value, dateOfDay: dateChosen) && isToDoOnDay(toDoToCheck: toDoInterval.value, date: dateChosen) {
+                cell.setShouldDrawStripes(shouldDraw: true)
+            }
+        }*/
+        for toDoInterval in self.tasksToBeAdded {
+            let toDoIntervalStartTimeString = dateUtils.getDayAsString(date: toDoInterval.value.getStartTime())
+            let dateChosenString = dateUtils.getDayAsString(date: dateChosen)
+            if toDoIntervalStartTimeString == dateChosenString && isToDoOnDay(toDoToCheck: toDoInterval.value, date: dateChosen) {
+                print("toDoIntervalStartTimeString")
+                print(toDoIntervalStartTimeString)
+                print("dateChosenString")
+                print(dateChosenString)
                 cell.setShouldDrawStripes(shouldDraw: true)
             }
         }
@@ -690,7 +707,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         for oter in oterList {
             if Double(dateUtils.hoursBetweenTwoDates(earlyDate: oter.startDate, laterDate: oter.endDate)) >= self.intervalHours {
                 
-                ToDo(taskId: UUID().uuidString, taskName: "Task" + String(self.intervalHours), startTime: oter.startDate, endTime: dateUtils.addHoursToDate(date: oter.startDate, hours: self.intervalHours), dueDate: dateUtils.addHoursToDate(date: oter.startDate, hours: self.intervalHours), finished: false)
+                slottedTask = ToDo(taskId: UUID().uuidString, taskName: "Task" + String(self.intervalHours), startTime: oter.startDate, endTime: dateUtils.addHoursToDate(date: oter.startDate, hours: self.intervalHours), dueDate: dateUtils.addHoursToDate(date: oter.startDate, hours: self.intervalHours), finished: false)!
                 
                 return slottedTask
             }
@@ -708,7 +725,9 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
             if let oterList = oterCollectionDict[dateUtils.getDayAsString(date: currentDate)] {
                 let potentialSlottedTask = processAvailableSlot(oterList: oterList)
                 
-                if potentialSlottedTask.getTaskId() != "empty-id-please-dont-use" {
+                if potentialSlottedTask.getTaskId() != "" {
+                    print("Determiner day")
+                    print(potentialSlottedTask.getStartTime())
                     slottedTasks[potentialSlottedTask.getTaskId()] = potentialSlottedTask
                 }
             }
@@ -752,7 +771,7 @@ extension IntervalSchedulingPreviewController: JTAppleCalendarViewDataSource {
 extension IntervalSchedulingPreviewController: JTAppleCalendarViewDelegate {
     func calendar(_ calendar: JTAppleCalendarView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTAppleCell {
  
-        var cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "CalendarCell", for: indexPath) as! CalendarCell
+        let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "CalendarCell", for: indexPath) as! CalendarCell
         
         previewToDoIntervals(cell: cell, dateChosen: date)
         
