@@ -286,12 +286,12 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         
         notesTextView.backgroundColor = .darkGray
         
-        if self.notesTextViewValue != "" {
-            notesTextView.text = self.notesTextViewValue
-            notesTextView.textColor = UIColor.black
-        } else {
+        if self.notesTextViewValue == "" || self.notesTextViewValue == "Notes" {
             notesTextView.text = "Notes"
             notesTextView.textColor = UIColor.lightGray
+        } else {
+            notesTextView.text = self.notesTextViewValue
+            notesTextView.textColor = UIColor.black
         }
         
         notesTextView.translatesAutoresizingMaskIntoConstraints = false
