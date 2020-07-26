@@ -35,8 +35,8 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     
     
     // UI UPDATE - @IBOutlet weak var taskTypePicker: UIPickerView!
-    @IBOutlet weak var intervalizedTaskButton: IntervalizedTaskButton!
-    @IBOutlet weak var regularTaskButton: RegularTaskButton!
+    //@IBOutlet weak var intervalizedTaskButton: IntervalizedTaskButton!
+    //@IBOutlet weak var regularTaskButton: RegularTaskButton!
     
     
     @IBOutlet weak var dueDateLabel: UILabel!
@@ -153,7 +153,8 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         }
         else if observableType == ObservableType.TASK {
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yy h:mm a"
+            //dateFormatter.dateFormat = "MM/dd/yy h:mm a"
+            dateFormatter.dateFormat = "h:mm a"
             let newValueTask = newValue as! ToDo
             
             self.inQueueTask = newValueTask
@@ -214,12 +215,13 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         // Set up views if editing an existing ToDo.
         if let toDo = toDo {
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yy, h:mm a"
+            dateFormatter.dateFormat = "h:mm a"
             
             navigationItem.title = toDo.taskName
             taskNameField.text = toDo.taskName
             self.startDateStringValue.text = dateFormatter.string(from: toDo.getStartTime())
             self.endDateStringValue.text = dateFormatter.string(from: toDo.getEndTime())
+            dateFormatter.dateFormat = "MM/dd/yy, h:mm a"
             self.dueDateLabel.text = "Due Date: " + dateFormatter.string(from: toDo.getDueDate())
             self.tagsLabel.text = toDo.getTaskTag()
             if toDo.getTaskTag() == "" {
@@ -399,22 +401,25 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
 
     // MARK: - Actions
     
+    
     @IBAction func startDatePickerValueChanged(_ sender: UIDatePicker) {
+        /*
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = DateFormatter.Style.short
         dateFormatter.timeStyle = DateFormatter.Style.short
         
         setChosenWorkDate(chosenWorkDate: sender.date)
-        let strDate = dateFormatter.string(from: chosenWorkDate)
+        let strDate = dateFormatter.string(from: chosenWorkDate)*/
     }
     
     @IBAction func endDatePickerValueChanged(_ sender: UIDatePicker) {
+        /*
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = DateFormatter.Style.short
         dateFormatter.timeStyle = DateFormatter.Style.short
         
         setChosenDueDate(chosenDueDate: sender.date)
-        let strDate = dateFormatter.string(from: chosenDueDate)
+        let strDate = dateFormatter.string(from: chosenDueDate)*/
     }
     
     /*
@@ -506,8 +511,8 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             
             // TODO: REMOVE TIGHT COUPLING!
             let stringedUUID = UUID().uuidString
-            print(getToDos())
-            scheduleIntervalizerVC.setToDos(toDos: getToDos())
+            print(self.toDos)
+            //scheduleIntervalizerVC.setToDos(toDos: getToDos())
             /*
             if toDo == nil {
                 stringedUUID = UUID().uuidString
@@ -517,8 +522,10 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             // Set the ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue
             scheduleIntervalizerVC.setIntervalHours(intervalHours: self.intervalHours)
             scheduleIntervalizerVC.setIntervalDays(intervalDays: self.intervalDays)
+            // Change this SetToDoStartDate to Start Time
             scheduleIntervalizerVC.setToDoStartDate(toDoStartDate: workDate)
-            scheduleIntervalizerVC.setToDoEndDate(toDoEndDate: dueDate)
+            scheduleIntervalizerVC.setTaskDueDate(taskDueDate: self.dueDateTracker)
+            //scheduleIntervalizerVC.setToDoEndDate(toDoEndDate: dueDate)
             if toDo == nil {
                 // Set the ToDo to be intervalized to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being created
                 //scheduleIntervalizerVC.setToDoToBeIntervalized(toDo: ToDo(taskId: stringedUUID, taskName: taskName!, taskType: taskType, taskDescription: "", workDate: workDate, estTime: "0.0", dueDate: dueDate, finished: getIsFinished())!)

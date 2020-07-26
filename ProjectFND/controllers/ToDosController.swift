@@ -109,7 +109,8 @@ class ToDosController {
             let toDoToUpdate = getToDos()[toDo.getTaskId()]
             ToDoProcessUtils.updateToDo(toDoToUpdate: toDoToUpdate!, newToDo: toDo, updateType: 0)
         case .REMOVE:
-            ToDoProcessUtils.deleteToDo(toDoToDelete: toDo)
+            let toDoToDelete = getToDos()[toDo.getTaskId()]
+            ToDoProcessUtils.deleteToDo(toDoToDelete: toDoToDelete!)
         case .FINISHNESS:
             let toDoToUpdate = getToDos()[toDo.getTaskId()]
             toDo.finished = !toDo.finished
