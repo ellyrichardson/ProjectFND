@@ -1636,7 +1636,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zcE-Tw-f2j" customClass="ItemInfoView" customModule="ProjectFND" customModuleProvider="target">
                                                     <rect key="frame" x="13" y="13" width="185" height="100"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="05/14/20, 11:31 PM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qig-Ko-GfG">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--:-- --" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qig-Ko-GfG">
                                                             <rect key="frame" x="2" y="58" width="181" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="8Ia-2i-EB6"/>
@@ -1645,7 +1645,7 @@
                                                             <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bnw-59-7Sx">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bnw-59-7Sx">
                                                             <rect key="frame" x="2" y="21" width="181" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="nwZ-Z6-txb"/>
@@ -1670,7 +1670,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d7N-0s-pk0" customClass="ItemInfoView" customModule="ProjectFND" customModuleProvider="target">
                                                     <rect key="frame" x="216" y="13" width="185" height="100"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--/--/--, --:-- --" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uG0-rZ-hqX">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--:-- --" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uG0-rZ-hqX">
                                                             <rect key="frame" x="2" y="58" width="181" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="2Gn-bC-ShE"/>
@@ -1679,7 +1679,7 @@
                                                             <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="End Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eet-AU-7iL">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="End Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eet-AU-7iL">
                                                             <rect key="frame" x="2" y="21" width="181" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="qbc-Tk-K03"/>
@@ -1719,49 +1719,6 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YG3-Ak-X5r" id="xA9-sg-wt9">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HrG-Mx-AZ9" customClass="RegularTaskButton" customModule="ProjectFND" customModuleProvider="target">
-                                                    <rect key="frame" x="20" y="7" width="40" height="50"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="50" id="8JH-Py-ovK"/>
-                                                        <constraint firstAttribute="width" constant="40" id="iFn-KZ-ENK"/>
-                                                    </constraints>
-                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <connections>
-                                                        <action selector="regularTaskButton:" destination="knJ-Sz-Bcd" eventType="touchUpInside" id="BpN-DB-gMK"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uHR-8p-RfR" customClass="RecurringTaskButton" customModule="ProjectFND" customModuleProvider="target">
-                                                    <rect key="frame" x="90" y="7" width="50" height="50"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="50" id="R3k-IG-wmM"/>
-                                                        <constraint firstAttribute="width" constant="50" id="e9D-NI-B29"/>
-                                                    </constraints>
-                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fGn-kg-Lnj" customClass="IntervalizedTaskButton" customModule="ProjectFND" customModuleProvider="target">
-                                                    <rect key="frame" x="170" y="7" width="50" height="50"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="50" id="2j7-S2-cWA"/>
-                                                        <constraint firstAttribute="width" constant="50" id="7U2-qV-OAb"/>
-                                                    </constraints>
-                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <connections>
-                                                        <action selector="intervalizedTaskButton:" destination="knJ-Sz-Bcd" eventType="touchUpInside" id="lIc-9P-5jT"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="uHR-8p-RfR" firstAttribute="leading" secondItem="HrG-Mx-AZ9" secondAttribute="trailing" constant="30" id="3fZ-V6-9fd"/>
-                                                <constraint firstItem="fGn-kg-Lnj" firstAttribute="leading" secondItem="uHR-8p-RfR" secondAttribute="trailing" constant="30" id="C8I-jx-Dqo"/>
-                                                <constraint firstItem="HrG-Mx-AZ9" firstAttribute="top" secondItem="xA9-sg-wt9" secondAttribute="top" constant="7" id="EB4-wd-O4d"/>
-                                                <constraint firstItem="fGn-kg-Lnj" firstAttribute="top" secondItem="xA9-sg-wt9" secondAttribute="top" constant="7" id="G06-1q-V0U"/>
-                                                <constraint firstItem="uHR-8p-RfR" firstAttribute="top" secondItem="xA9-sg-wt9" secondAttribute="top" constant="7" id="cgq-pT-Tn7"/>
-                                                <constraint firstAttribute="bottom" secondItem="uHR-8p-RfR" secondAttribute="bottom" constant="7" id="cxi-6V-qn6"/>
-                                                <constraint firstAttribute="bottom" secondItem="HrG-Mx-AZ9" secondAttribute="bottom" constant="7" id="fob-fL-gmw"/>
-                                                <constraint firstAttribute="bottom" secondItem="fGn-kg-Lnj" secondAttribute="bottom" constant="7" id="gLi-ne-wNI"/>
-                                                <constraint firstItem="HrG-Mx-AZ9" firstAttribute="leading" secondItem="xA9-sg-wt9" secondAttribute="leading" constant="20" id="ndf-Np-ozf"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
@@ -1798,9 +1755,7 @@
                         <outlet property="dueDateLabel" destination="mJx-B7-yva" id="v4X-Rh-hFs"/>
                         <outlet property="endDateStringValue" destination="uG0-rZ-hqX" id="KIq-Cr-fUT"/>
                         <outlet property="endDateUIView" destination="d7N-0s-pk0" id="XNW-K2-RDl"/>
-                        <outlet property="intervalizedTaskButton" destination="fGn-kg-Lnj" id="nPX-gE-dZV"/>
                         <outlet property="notesUIView" destination="5aV-hL-Xsa" id="Tci-XR-XtV"/>
-                        <outlet property="regularTaskButton" destination="HrG-Mx-AZ9" id="aQA-VL-xPo"/>
                         <outlet property="saveButton" destination="KIg-in-f9m" id="GoQ-ap-lAz"/>
                         <outlet property="startDateStringValue" destination="qig-Ko-GfG" id="IuF-ke-ZZl"/>
                         <outlet property="startDateUIView" destination="zcE-Tw-f2j" id="hZj-tZ-1GG"/>

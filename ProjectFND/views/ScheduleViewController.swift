@@ -290,6 +290,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let toDoToBeDeleted = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))[indexPath.row]
+            print("tofo to be deleted")
+            print(toDoToBeDeleted.value.getStartTime())
             //let toDoRealIndex = ToDoProcessUtils.retrieveRealIndexOfToDo(toDoItem: toDoToBeDeleted[indexPath.row], toDoItemCollection: self.toDos)
             toDosController.updateToDos(modificationType: ListModificationType.REMOVE, toDo: toDoToBeDeleted.value)
             tableView.deleteRows(at: [indexPath], with: .fade)

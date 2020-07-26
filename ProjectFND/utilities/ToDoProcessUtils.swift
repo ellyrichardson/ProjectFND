@@ -243,6 +243,10 @@ class ToDoProcessUtils {
         // Container is set up in the AppDelegate so it needs to refer to that container.
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else  { return }
         
+        print("todo to delete id")
+        print(toDoToDelete.taskId)
+        
+        
         // Context needs to be created in this container
         let managedContext = appDelegate.persistentContainer.viewContext
         

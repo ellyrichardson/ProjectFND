@@ -22,6 +22,7 @@ class CalendarCell: JTAppleCell {
     @IBOutlet weak var bottomIndicator: UIStackView!
     
     private  var shouldDrawStripes: Bool = false
+    private var cellId = String()
     
     /*
      USAGE:
@@ -169,12 +170,21 @@ class CalendarCell: JTAppleCell {
                 c.addLine( to: CGPoint(x: p+T+H, y: T+H) )
                 c.strokePath()
                 p += G + T + T
+                
             }
+            
+            self.shouldDrawStripes = false
         }
     }
     
-    func setShouldDrawStripes(shouldDraw: Bool) {
-        self.shouldDrawStripes = shouldDraw
+    func setCellDayId(cellDayId: String) {
+        self.cellId = cellDayId
+    }
+    
+    func setShouldDrawStripes(shouldDraw: Bool, dayString: String) {
+        if dayString == self.cellId {
+            self.shouldDrawStripes = shouldDraw
+        }
     }
     
     func getShouldDrawStripes() -> Bool {

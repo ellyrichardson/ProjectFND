@@ -15,8 +15,6 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
 
     // MARK: Properties
     
-    
-    
     //@IBOutlet weak var calendarView: JTAppleCalendarView!
     //@IBOutlet weak var toDoListTableView: UITableView!
     @IBOutlet weak var calendarView: JTAppleCalendarView!
@@ -50,6 +48,11 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     private var toDosController: ToDosController!
     //private var toDosWithToDosToBeAdded = [String: ToDo]()
     
+    // Trackers
+    
+    var datesWithAnIntervalTracker: Set = Set<String>()
+    //var intervalsToPreview = [String: Bool]()
+    
     // Expand row buttons tracker assets
     
     private var calendarDayChanged: Bool = false
@@ -76,6 +79,8 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
             setToDoItems(toDoItems: savedToDos)
         }*/
         
+        loadingScreen.showSpinner(onView: self.view)
+        
         configureCalendarView()
         
         // 07/09/2020 UPDATE >>>>>>>>>>>>>>>>>>>>>>>>
@@ -86,7 +91,9 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         // <<<<<<<<<<<<<<<<<<<<<<< <07/09/2020 UPDATE
         
         // Determines the interval starting from the start date of ToDo
-        loadingScreen.showSpinner(onView: self.view)
+        //loadingScreen.showSpinner(onView: self.view)
+        loadingScreen.removeSpinner()
+        /*
         DispatchQueue.global(qos: .background).async {
             print("This is run on the background queue")
             
@@ -100,7 +107,13 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
                 GeneralViewUtils.reloadCollectionViewData(collectionView: self.calendarView)
                 GeneralViewUtils.reloadTableViewData(tableView: self.toDoListTableView)
             }
-        }
+        }*/
+        /*
+        DispatchQueue.main.async {
+            self.loadingScreen.removeSpinner()
+            GeneralViewUtils.reloadCollectionViewData(collectionView: self.calendarView)
+            GeneralViewUtils.reloadTableViewData(tableView: self.toDoListTableView)
+        }*/
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -126,16 +139,18 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
     }
     
     // Configure the calendar cell
-    func configureCell(cell: JTAppleCell?, cellState: CellState) {
+    func configureCell(cell: JTAppleCell?, cellState: CellState, date: Date) {
         guard let currentCell = cell as? CalendarCell else {
             return
         }
         
         currentCell.dateLabel.text = cellState.text
+        currentCell.setCellDayId(cellDayId: dateUtils.getDayAsString(date: date))
+        
         configureSelectedStateFor(cell: currentCell, cellState: cellState)
         configureTextColorFor(cell: currentCell, cellState: cellState)
         configureSelectedDay(cell: currentCell, cellState: cellState)
-        //previewToDoIntervals(cell: currentCell, dateChosen: self.selectedDate)
+        previewToDoIntervals(cell: currentCell, dateChosen: date)
         let cellHidden = cellState.dateBelongsTo != .thisMonth
         currentCell.isHidden = cellHidden
     }
@@ -621,6 +636,7 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
                 cell.setShouldDrawStripes(shouldDraw: true)
             }
         }*/
+        /*
         for toDoInterval in self.tasksToBeAdded {
             let toDoIntervalStartTimeString = dateUtils.getDayAsString(date: toDoInterval.value.getStartTime())
             let dateChosenString = dateUtils.getDayAsString(date: dateChosen)
@@ -631,7 +647,21 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
                 print(dateChosenString)
                 cell.setShouldDrawStripes(shouldDraw: true)
             }
+        }*/
+        
+        let dateChosenString = dateUtils.getDayAsString(date: dateChosen)
+        if self.datesWithAnIntervalTracker.contains(dateChosenString) {
+            cell.setShouldDrawStripes(shouldDraw: true, dayString: dateChosenString)
+            //cell.setShouldDrawStripes(shouldDraw: false, dayString: dateChosenString)
         }
+        /*
+        let dateChosenString = dateUtils.getDayAsString(date: dateChosen)
+        if let previewing = self.intervalsToPreview[dateChosenString] {
+            if self.intervalsToPreview[dateChosenString] == true {
+                cell.setShouldDrawStripes(shouldDraw: true)
+                self.intervalsToPreview[dateChosenString] = false
+            }
+        }*/
     }
     
     @objc func onCheckBoxButtonTap(sender: CheckBoxButton) {
@@ -728,10 +758,15 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
                 if potentialSlottedTask.getTaskId() != "" {
                     print("Determiner day")
                     print(potentialSlottedTask.getStartTime())
+                    potentialSlottedTask.intervalized = true
                     slottedTasks[potentialSlottedTask.getTaskId()] = potentialSlottedTask
+                    self.datesWithAnIntervalTracker.insert(dateUtils.getDayAsString(date: potentialSlottedTask.getStartTime()))
+                    
+                    // This is to keep track of calendarCells that will have green stripe
+                    //self.intervalsToPreview[dateUtils.getDayAsString(date: potentialSlottedTask.getStartTime())] = true
                 }
             }
-            
+        
             currentDate = dateUtils.addDayToDate(date: currentDate, days: 1.0)
             daysAssignedCounter += 1
         }
@@ -744,7 +779,9 @@ extension IntervalSchedulingPreviewController: JTAppleCalendarViewDataSource {
     func calendar(_ calendar: JTAppleCalendarView, willDisplay cell: JTAppleCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
         
         let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "CalendarCell", for: indexPath) as! CalendarCell
-        configureCell(cell: cell, cellState: cellState)
+        
+        //cell.setCellDayId(cellDayId: dateUtils.getDayAsString(date: date))
+        configureCell(cell: cell, cellState: cellState, date: date)
     }
     
     func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
@@ -773,18 +810,19 @@ extension IntervalSchedulingPreviewController: JTAppleCalendarViewDelegate {
  
         let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "CalendarCell", for: indexPath) as! CalendarCell
         
-        previewToDoIntervals(cell: cell, dateChosen: date)
+        //cell.setCellDayId(cellDayId: dateUtils.getDayAsString(date: date))
         
-        configureCell(cell: cell, cellState: cellState)
+        configureCell(cell: cell, cellState: cellState, date: date)
+        //previewToDoIntervals(cell: cell, dateChosen: date)
         return cell
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
-        configureCell(cell: cell, cellState: cellState)
+        configureCell(cell: cell, cellState: cellState, date: date)
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
-        configureCell(cell: cell, cellState: cellState)
+        configureCell(cell: cell, cellState: cellState, date: date)
     }
     
     func calendar(_ calendar: JTAppleCalendarView, headerViewForDateRange range: (start: Date, end: Date), at indexPath: IndexPath) -> JTAppleCollectionReusableView {

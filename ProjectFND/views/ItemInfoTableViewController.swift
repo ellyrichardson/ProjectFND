@@ -35,8 +35,8 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     
     
     // UI UPDATE - @IBOutlet weak var taskTypePicker: UIPickerView!
-    @IBOutlet weak var intervalizedTaskButton: IntervalizedTaskButton!
-    @IBOutlet weak var regularTaskButton: RegularTaskButton!
+    //@IBOutlet weak var intervalizedTaskButton: IntervalizedTaskButton!
+    //@IBOutlet weak var regularTaskButton: RegularTaskButton!
     
     
     @IBOutlet weak var dueDateLabel: UILabel!
@@ -153,7 +153,8 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         }
         else if observableType == ObservableType.TASK {
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yy h:mm a"
+            //dateFormatter.dateFormat = "MM/dd/yy h:mm a"
+            dateFormatter.dateFormat = "h:mm a"
             let newValueTask = newValue as! ToDo
             
             self.inQueueTask = newValueTask
@@ -214,12 +215,13 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         // Set up views if editing an existing ToDo.
         if let toDo = toDo {
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yy, h:mm a"
+            dateFormatter.dateFormat = "h:mm a"
             
             navigationItem.title = toDo.taskName
             taskNameField.text = toDo.taskName
             self.startDateStringValue.text = dateFormatter.string(from: toDo.getStartTime())
             self.endDateStringValue.text = dateFormatter.string(from: toDo.getEndTime())
+            dateFormatter.dateFormat = "MM/dd/yy, h:mm a"
             self.dueDateLabel.text = "Due Date: " + dateFormatter.string(from: toDo.getDueDate())
             self.tagsLabel.text = toDo.getTaskTag()
             if toDo.getTaskTag() == "" {
