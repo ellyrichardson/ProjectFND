@@ -14,6 +14,8 @@
 		2115D13F249EFA0000AE9379 /* ObservableOterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2115D13E249EFA0000AE9379 /* ObservableOterController.swift */; };
 		211E4AED24ADAF0500CD22D9 /* DeviceTypeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211E4AEC24ADAF0500CD22D9 /* DeviceTypeDetector.swift */; };
 		2124504D2499CDA80007E198 /* ColorsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2124504C2499CDA80007E198 /* ColorsUtils.swift */; };
+		2126727324CFC2F4000E3CC7 /* TagsSegueProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2126727224CFC2F4000E3CC7 /* TagsSegueProcess.swift */; };
+		2126727524CFCC9C000E3CC7 /* SchedulingAssistanceSegueProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2126727424CFCC9C000E3CC7 /* SchedulingAssistanceSegueProcess.swift */; };
 		212990C7247B88C600A9D618 /* EntryDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212990C6247B88C600A9D618 /* EntryDetailsTableViewController.swift */; };
 		212F14C6246F8FE10084FBD3 /* RepeatingSetupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212F14C5246F8FE10084FBD3 /* RepeatingSetupTableViewController.swift */; };
 		212F14C8246F91650084FBD3 /* EKAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212F14C7246F91650084FBD3 /* EKAttributes.swift */; };
@@ -106,7 +108,6 @@
 		21BC58B023E63A4500015ECE /* IntervalAvailabilitiesRetrievalOperationsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BC58AF23E63A4500015ECE /* IntervalAvailabilitiesRetrievalOperationsTest.swift */; };
 		21C8DA85237915990084E2D6 /* DeadlinesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21C8DA83237915990084E2D6 /* DeadlinesTableViewController.xib */; };
 		21C8DA88237916A90084E2D6 /* ToDoDateSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C8DA87237916A90084E2D6 /* ToDoDateSection.swift */; };
-		21CF9F8924CD623C00B88229 /* ItemInfoSegueProcessUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CF9F8824CD623C00B88229 /* ItemInfoSegueProcessUtil.swift */; };
 		21D9E9DA2499B00700D7F529 /* SchedulingAssistanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D9E9D92499B00700D7F529 /* SchedulingAssistanceTableViewCell.swift */; };
 		21DA2E7F248730E90035B237 /* ItemInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DA2E7E248730E90035B237 /* ItemInfoView.swift */; };
 		21DA2E82248734B10035B237 /* RegularTaskButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DA2E81248734B10035B237 /* RegularTaskButton.swift */; };
@@ -153,6 +154,8 @@
 		2115D13E249EFA0000AE9379 /* ObservableOterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableOterController.swift; sourceTree = "<group>"; };
 		211E4AEC24ADAF0500CD22D9 /* DeviceTypeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTypeDetector.swift; sourceTree = "<group>"; };
 		2124504C2499CDA80007E198 /* ColorsUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsUtils.swift; sourceTree = "<group>"; };
+		2126727224CFC2F4000E3CC7 /* TagsSegueProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsSegueProcess.swift; sourceTree = "<group>"; };
+		2126727424CFCC9C000E3CC7 /* SchedulingAssistanceSegueProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulingAssistanceSegueProcess.swift; sourceTree = "<group>"; };
 		212990C6247B88C600A9D618 /* EntryDetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryDetailsTableViewController.swift; sourceTree = "<group>"; };
 		212F14C5246F8FE10084FBD3 /* RepeatingSetupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingSetupTableViewController.swift; sourceTree = "<group>"; };
 		212F14C7246F91650084FBD3 /* EKAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKAttributes.swift; sourceTree = "<group>"; };
@@ -248,7 +251,6 @@
 		21BC58AF23E63A4500015ECE /* IntervalAvailabilitiesRetrievalOperationsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalAvailabilitiesRetrievalOperationsTest.swift; sourceTree = "<group>"; };
 		21C8DA83237915990084E2D6 /* DeadlinesTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeadlinesTableViewController.xib; sourceTree = "<group>"; };
 		21C8DA87237916A90084E2D6 /* ToDoDateSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDateSection.swift; sourceTree = "<group>"; };
-		21CF9F8824CD623C00B88229 /* ItemInfoSegueProcessUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemInfoSegueProcessUtil.swift; sourceTree = "<group>"; };
 		21D9E9D92499B00700D7F529 /* SchedulingAssistanceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulingAssistanceTableViewCell.swift; sourceTree = "<group>"; };
 		21DA2E7E248730E90035B237 /* ItemInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemInfoView.swift; sourceTree = "<group>"; };
 		21DA2E81248734B10035B237 /* RegularTaskButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularTaskButton.swift; sourceTree = "<group>"; };
@@ -298,6 +300,52 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		2113DA3E24CE83B6006C5415 /* viewcontrollers */ = {
+			isa = PBXGroup;
+			children = (
+				2151611724820B4D004BD49B /* SchedulingTaskMonthlyViewController.swift */,
+				21312F18248344AF00870920 /* TagsTableViewController.swift */,
+				21998998249C705C0024BDA5 /* TimeSlotsAssignmentViewController.swift */,
+				21A3D8B724889CDB00D8C3AD /* SchedulingAssistanceViewController.swift */,
+				21A4D12C2320B6E400B5B52A /* ItemInfoTableViewController.swift */,
+			);
+			path = viewcontrollers;
+			sourceTree = "<group>";
+		};
+		2113DA4024CE8490006C5415 /* navViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				2199899C249C70850024BDA5 /* TimeSlotsAssignmentNavViewController.swift */,
+				2151611B24820B93004BD49B /* SchedulingTaskMonthlyNavViewController.swift */,
+			);
+			path = navViewControllers;
+			sourceTree = "<group>";
+		};
+		2113DA4124CE84C1006C5415 /* helpers */ = {
+			isa = PBXGroup;
+			children = (
+				21A7B603249DE95500A6F4E2 /* SchedulingAssistanceHelper.swift */,
+			);
+			path = helpers;
+			sourceTree = "<group>";
+		};
+		2126727024CFC287000E3CC7 /* process */ = {
+			isa = PBXGroup;
+			children = (
+				2126727124CFC295000E3CC7 /* segue */,
+			);
+			path = process;
+			sourceTree = "<group>";
+		};
+		2126727124CFC295000E3CC7 /* segue */ = {
+			isa = PBXGroup;
+			children = (
+				2126727224CFC2F4000E3CC7 /* TagsSegueProcess.swift */,
+				2126727424CFCC9C000E3CC7 /* SchedulingAssistanceSegueProcess.swift */,
+			);
+			path = segue;
+			sourceTree = "<group>";
+		};
 		212F14CC247049DF0084FBD3 /* RecurringSetupController */ = {
 			isa = PBXGroup;
 			children = (
@@ -331,16 +379,6 @@
 			);
 			name = recurrence;
 			path = "New Group";
-			sourceTree = "<group>";
-		};
-		2151610E2481FA85004BD49B /* SchedulingTaskViewController */ = {
-			isa = PBXGroup;
-			children = (
-				2151611724820B4D004BD49B /* SchedulingTaskMonthlyViewController.swift */,
-				2151611824820B4D004BD49B /* SchedulingTaskMonthlyViewController.xib */,
-				2151611B24820B93004BD49B /* SchedulingTaskMonthlyNavViewController.swift */,
-			);
-			path = SchedulingTaskViewController;
 			sourceTree = "<group>";
 		};
 		2151611D2482102C004BD49B /* statelessButtons */ = {
@@ -390,10 +428,10 @@
 		21521C4A240E17D200FC8A8A /* views */ = {
 			isa = PBXGroup;
 			children = (
-				21CF9F8624CD61C400B88229 /* itemInfoVC */,
+				2113DA4124CE84C1006C5415 /* helpers */,
+				2113DA4024CE8490006C5415 /* navViewControllers */,
+				2113DA3E24CE83B6006C5415 /* viewcontrollers */,
 				21DB50B324AD96BB00386749 /* SchedulingIntervalizer */,
-				2172C144248DE8D100BC9F24 /* SchedulingAssistance */,
-				2151610E2481FA85004BD49B /* SchedulingTaskViewController */,
 				219648E02478D1AE0052ECEF /* SFKPresets */,
 				212F14CC247049DF0084FBD3 /* RecurringSetupController */,
 				216067DF24219F7700B0E5EF /* StatusViewController */,
@@ -402,7 +440,6 @@
 				212990C6247B88C600A9D618 /* EntryDetailsTableViewController.swift */,
 				21A4D0F8231ECC3600B5B52A /* ScheduleViewController.swift */,
 				21521C4C240E17F300FC8A8A /* xibs */,
-				21312F18248344AF00870920 /* TagsTableViewController.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -410,6 +447,8 @@
 		21521C4C240E17F300FC8A8A /* xibs */ = {
 			isa = PBXGroup;
 			children = (
+				2151611824820B4D004BD49B /* SchedulingTaskMonthlyViewController.xib */,
+				21998999249C705C0024BDA5 /* TimeSlotsAssignmentViewController.xib */,
 				216067DC24219F3A00B0E5EF /* ParentStatusViewController.xib */,
 				21C8DA83237915990084E2D6 /* DeadlinesTableViewController.xib */,
 				21F7013D23F26177001942D6 /* IntervalSchedulingPreviewController.xib */,
@@ -482,18 +521,6 @@
 				216067E524219FBD00B0E5EF /* DeadlinesViewController.xib */,
 			);
 			path = StatusViewController;
-			sourceTree = "<group>";
-		};
-		2172C144248DE8D100BC9F24 /* SchedulingAssistance */ = {
-			isa = PBXGroup;
-			children = (
-				21A7B603249DE95500A6F4E2 /* SchedulingAssistanceHelper.swift */,
-				21A3D8B724889CDB00D8C3AD /* SchedulingAssistanceViewController.swift */,
-				21998998249C705C0024BDA5 /* TimeSlotsAssignmentViewController.swift */,
-				21998999249C705C0024BDA5 /* TimeSlotsAssignmentViewController.xib */,
-				2199899C249C70850024BDA5 /* TimeSlotsAssignmentNavViewController.swift */,
-			);
-			path = SchedulingAssistance;
 			sourceTree = "<group>";
 		};
 		217974E52425CBAC00FE7B4C /* interfaces */ = {
@@ -593,6 +620,7 @@
 				217974E82427062B00FE7B4C /* controllers */,
 				217974E52425CBAC00FE7B4C /* interfaces */,
 				21521C50240E1BEC00FC8A8A /* models */,
+				2126727024CFC287000E3CC7 /* process */,
 				21521C4A240E17D200FC8A8A /* views */,
 				219A6566232B12750062BF84 /* operations */,
 				21521C43240E0CC600FC8A8A /* utilities */,
@@ -637,23 +665,6 @@
 				21521C4D240E190700FC8A8A /* cells */,
 			);
 			path = components;
-			sourceTree = "<group>";
-		};
-		21CF9F8624CD61C400B88229 /* itemInfoVC */ = {
-			isa = PBXGroup;
-			children = (
-				21CF9F8724CD61FA00B88229 /* segue */,
-				21A4D12C2320B6E400B5B52A /* ItemInfoTableViewController.swift */,
-			);
-			path = itemInfoVC;
-			sourceTree = "<group>";
-		};
-		21CF9F8724CD61FA00B88229 /* segue */ = {
-			isa = PBXGroup;
-			children = (
-				21CF9F8824CD623C00B88229 /* ItemInfoSegueProcessUtil.swift */,
-			);
-			path = segue;
 			sourceTree = "<group>";
 		};
 		21DA2E7D248730920035B237 /* uiview */ = {
@@ -937,12 +948,14 @@
 				212F14D62470503B0084FBD3 /* PresetsDataSource.swift in Sources */,
 				217974E72425E0F000FE7B4C /* Constants.swift in Sources */,
 				21DB50B624AD975000386749 /* ScheduleIntervalizerVC.swift in Sources */,
+				2126727524CFCC9C000E3CC7 /* SchedulingAssistanceSegueProcess.swift in Sources */,
 				2151611F24821052004BD49B /* LongOvalButtons.swift in Sources */,
 				21A4D0F9231ECC3600B5B52A /* ScheduleViewController.swift in Sources */,
 				212990C7247B88C600A9D618 /* EntryDetailsTableViewController.swift in Sources */,
 				219628E4247E268000819A25 /* ViewEstimatedEffortModel.swift in Sources */,
 				2151611924820B4D004BD49B /* SchedulingTaskMonthlyViewController.swift in Sources */,
 				214064C2248455BE00FB9480 /* ObservableTagsController.swift in Sources */,
+				2126727324CFC2F4000E3CC7 /* TagsSegueProcess.swift in Sources */,
 				2194909924A88DA000506D76 /* IntervalizedTaskButton.swift in Sources */,
 				21A05BE024764FDD00123E59 /* RecurrenceSelectionPatternTableViewController.swift in Sources */,
 				21521C45240E0D3A00FC8A8A /* GeneralViewUtils.swift in Sources */,
@@ -963,7 +976,6 @@
 				2172C147248DE93300BC9F24 /* TimeSlotsVacancyEvaluator.swift in Sources */,
 				219CEE6C234FD21000A9E819 /* ProjectFND.xcdatamodeld in Sources */,
 				212F14E7247067110084FBD3 /* RecurrenceNavigationViewController.swift in Sources */,
-				21CF9F8924CD623C00B88229 /* ItemInfoSegueProcessUtil.swift in Sources */,
 				212F14DD2470563F0084FBD3 /* Font.swift in Sources */,
 				219CA4AB2326CA18003ACBDE /* CheckBoxButton.swift in Sources */,
 				21748F9224832D2D00A27938 /* ToDoDate.swift in Sources */,

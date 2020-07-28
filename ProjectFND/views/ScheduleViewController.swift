@@ -375,7 +375,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             // Retrieves the index of the selected toDo
             /*
             setSelectedToDoIndex(toDoItemIndex: retrieveRealIndexOfToDo(toDoItem: selectedToDoItem))
- */
+             */
             os_log("Showing details for the selected ToDo item.", log: OSLog.default, type: .debug)
             
         default:

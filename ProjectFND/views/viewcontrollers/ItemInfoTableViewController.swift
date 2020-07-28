@@ -21,6 +21,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     
     private var taskItemCells = [StaticTableCell]()
     
+    var observerVCs: [Observer] = [Observer]()
     var toDo: ToDo?
     private var toDos = [String: ToDo]()
     var toDoIntervals: [String: ToDo] = [String: ToDo]()
@@ -61,7 +62,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     private var dueDateTracker = Date()
     
     // Tag Tracker
-    private var taskTagTracker = String()
+    private var currentSelectedTag = String()
     
     // In Queue Task Trackers
     private var inQueueTask = ToDo()
@@ -70,7 +71,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     // Pressed Items Trackers
     private var isSchedulingAssistancePressedTracker = false
     private var isDueDatePickerPressedTracker = false
-    private var didSelectInTagSelectionTracker = false
+    private var tagSelectorAccessed = false
     
     // Notes Tracker
     
@@ -80,14 +81,6 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     // MARK: - Due Date Observable
     
     private var observableDueDateController = ObservableDateController()
-    
-    // MARK: - Tags Observable
-    
-    private var observableTagsController = ObservableTagsController()
-    
-    // MARK: - Task Observable
-    
-    private var observableTaskController = ObservableTaskController()
     
     // MARK: - Observable Essentials
     
@@ -122,8 +115,8 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
                 self.tagsLabel.text = newValueTag.tagValue!
             }
             //self.tagsLabel.text = newValueTag.tagValue!
-            self.taskTagTracker = newValueTag.tagValue!
-            self.didSelectInTagSelectionTracker = true
+            self.currentSelectedTag = newValueTag.tagValue!
+            self.tagSelectorAccessed = true
         }
         else if observableType == ObservableType.TASK {
             let dateFormatter = DateFormatter()
@@ -207,13 +200,9 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     }
     
     private func configureObservableControllers() {
-        let observerVCs: [Observer] = [self]
+        observerVCs = [self]
         self.observableDueDateController.setupData()
         self.observableDueDateController.setObservers(observers: observerVCs)
-        self.observableTagsController.setupData()
-        self.observableTagsController.setObservers(observers: observerVCs)
-        self.observableTaskController.setupData()
-        self.observableTaskController.setObservers(observers: observerVCs)
     }
     
     private func configureNavBar() {
@@ -237,7 +226,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             self.startTimeTracker = toDo.getStartTime()
             self.endTimeTracker = toDo.getEndTime()
             self.dueDateTracker = toDo.getDueDate()
-            self.taskTagTracker = toDo.getTaskTag()
+            self.currentSelectedTag = toDo.getTaskTag()
         }
     }
     
@@ -407,11 +396,13 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             segueToEstimatedEfforts(segue: segue)
         }
         else if segue.identifier == "SegueToToDoTagsTVC" {
-            segueToTagsTVC(segue: segue)
+            let tagsSegueProcess = TagsSegueProcess(taskItem: self.toDo, tagSelectorAccessed: self.tagSelectorAccessed, currentSelectedTag: self.currentSelectedTag, observerVCs: self.observerVCs)
+            tagsSegueProcess?.segueToTagsTVC(segue: segue)
         }
             
         else if segue.identifier == "SegueToSchedulingAssistance" {
-            segueToSchedulingAssistance(segue: segue)
+            let schedulingAsstSegueProcess = SchedulingAssistanceSegueProcess(taskItem: self.toDo, startTime: self.chosenWorkDate, inQueueTask: self.inQueueTask, inQueueTaskContainsNewValue: self.inQueueTaskContainsNewValue, taskItemsForSelectedDay: ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: self.chosenWorkDate, toDoItems: getToDos()), observerVCs: self.observerVCs)
+            schedulingAsstSegueProcess?.segueToSchedulingAssistance(segue: segue)
         }
         else {
             // Only prepare view controller when the save button is pressed
@@ -437,7 +428,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         if toDo == nil  {
             // Set the Non-Intervalized ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being created
             
-            toDo = ToDo(taskId: UUID().uuidString, taskName: taskName!, taskNotes: self.notesTextViewValue, taskTag: self.taskTagTracker, startTime: self.startTimeTracker, endTime: self.endTimeTracker, dueDate: self.dueDateTracker, finished: getIsFinished(), repeating: repeating)
+            toDo = ToDo(taskId: UUID().uuidString, taskName: taskName!, taskNotes: self.notesTextViewValue, taskTag: self.currentSelectedTag, startTime: self.startTimeTracker, endTime: self.endTimeTracker, dueDate: self.dueDateTracker, finished: getIsFinished(), repeating: repeating)
             
         } else {
             // Set the Non-Intervalized ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being modified and is already  created
@@ -460,8 +451,8 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             startTime = self.startTimeTracker
             endTime = self.endTimeTracker
         }
-        if self.didSelectInTagSelectionTracker {
-            taskTag = self.taskTagTracker
+        if self.tagSelectorAccessed {
+            taskTag = self.currentSelectedTag
         }
         
         self.toDo = ToDo(taskId: (self.toDo?.taskId)!, taskName: taskName, taskNotes: self.notesTextViewValue, taskTag: taskTag!, startTime: startTime!, endTime: endTime!, dueDate: dueDate!, finished: getIsFinished(), repeating: repeating)
@@ -469,70 +460,13 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     
     // MARK: - Segue Operations
     
+    // NOTE: IS THIS EVEN USED???
     private func segueToEstimatedEfforts(segue: UIStoryboardSegue) {
         guard let simpleItemsTVC = segue.destination as? SimpleItemsTableViewController else {
             fatalError("Unexpected destination: \(segue.destination)")
         }
         
         simpleItemsTVC.setItemTypeToDisplay(itemTypeToDisplay: SimpleStaticTVCReturnType.ESTIMATED_EFFORT)
-    }
-    
-    private func segueToTagsTVC(segue: UIStoryboardSegue) {
-        guard let toDoTagsTVC = segue.destination as? TagsTableViewController else {
-            fatalError("Unexpected destination: \(segue.destination)")
-        }
-        toDoTagsTVC.setObservableTagsController(observableTagsController: self.observableTagsController)
-        // This tracker gets assigned if there is new ToDo and the selected in the selection for the first time, or if editing an existing ToDo
-        if toDo?.getTaskTag() != "" && toDo != nil {
-            // If already chosen something from tag selection, then always use the last selected tag when going back to selection after closing out
-            if self.didSelectInTagSelectionTracker {
-                toDoTagsTVC.setAssignedTag(tagName: (self.taskTagTracker))
-            }
-            else {
-                toDoTagsTVC.setAssignedTag(tagName: (toDo?.getTaskTag())!)
-            }
-        }
-        else {
-            if self.didSelectInTagSelectionTracker {
-                toDoTagsTVC.setAssignedTag(tagName: (self.taskTagTracker))
-            }
-        }
-    }
-    
-    private func segueToSchedulingAssistance(segue: UIStoryboardSegue) {
-        // NOTE: PLEASE clean this thing up
-        guard let navigationController = segue.destination as? UINavigationController else {
-            fatalError("Unexpected destination: \(segue.destination)")
-        }
-        let schedulingAstncViewController = navigationController.viewControllers.first as! SchedulingAssistanceViewController
-        // NOTE: CLEAN UP THE USE OF CHOSENWORKDATE,  NOT GOOD, USED JUST FOR TEST
-        schedulingAstncViewController.setDayToAssist(dayDate: self.chosenWorkDate)
-        if toDo == nil {
-            configureSchedAstncForNewTask(vc: schedulingAstncViewController)
-        }
-        else {
-            configureSchedAstncForExistingTask(vc: schedulingAstncViewController)
-        }
-        schedulingAstncViewController.setTargetTask(taskItem: self.inQueueTask)
-        schedulingAstncViewController.setObservableTaskController(observableTaskController: self.observableTaskController)
-    }
-    
-    private func configureSchedAstncForNewTask(vc: SchedulingAssistanceViewController) {
-        vc.setTaskItems(taskItems: ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: self.chosenWorkDate, toDoItems: [String: ToDo]()))
-        
-        // TODO: Refactor the having of TargetTaskJustCreated being set in this controller, to just setting it in the ToDo Task itself.
-        if !self.inQueueTaskContainsNewValue {
-            self.inQueueTask = ToDo(taskId: UUID().uuidString, taskName: "TEST_NAME", startTime: Date(), endTime: Date(), dueDate: Date(), finished: false)!
-            vc.setTargetTaskJustCreated(targetTaskJustCreated: true)
-        }
-    }
-    
-    private func configureSchedAstncForExistingTask(vc: SchedulingAssistanceViewController) {
-        vc.setTaskItems(taskItems: ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: self.chosenWorkDate, toDoItems: getToDos()))
-        // Need a copy so that this actual self.ToDo don't get updated in the next viewController and reflect on the main page
-        if !self.inQueueTaskContainsNewValue {
-            self.inQueueTask = self.toDo!.copy() as! ToDo
-        }
     }
     
     // MARK: - Actions
