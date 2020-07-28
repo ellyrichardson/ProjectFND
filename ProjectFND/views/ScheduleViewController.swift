@@ -263,7 +263,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             ToDoTableViewUtils.makeCellSlide(cell: cell, indexPath: indexPath, tableView: toDoListTableView)
         }
         //ToDoTableViewUtils.makeCellMoveUpWithFade(cell: cell, indexPath: indexPath)
-        var sortedToDoItems =  ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
+        let sortedToDoItems =  ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
         cell.contentView.layer.backgroundColor = ToDoTableViewUtils.colorForToDoRow(toDoRowIndex: indexPath.row, toDoItems: sortedToDoItems).cgColor
         cell.layer.backgroundColor = ToDoTableViewUtils.colorForToDoRow(toDoRowIndex: indexPath.row, toDoItems: sortedToDoItems).cgColor
         // This will turn on `masksToBounds` just before showing the cell
@@ -348,7 +348,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             itemInfoTableViewController.setToDos(toDos: toDosController.getToDos())
             os_log("Adding a new ToDo item.", log: OSLog.default, type: .debug)
         case "ShowToDoItemDetails":
-            var toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
+            let toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
             guard let navigationController = segue.destination as? UINavigationController else {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
@@ -449,7 +449,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     // TODO: Refactor code to use proper state tracking, like ENUMS!
     @objc func onCheckBoxButtonTap(sender: CheckBoxButton) {
         // The toDosByDay variable should be sorted already
-        var toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
+        let toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
         //let toDoItemToUpdate: (key: String, value: ToDo) = toDosByDay[sender.getToDoRowIndex()]
         let tempToDoItem: ToDo = toDosByDay[sender.tag].value
         let newToDoItem = tempToDoItem
@@ -459,9 +459,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         //self.checkButtonTapped = sender.tag
         let indexPath = IndexPath(item: sender.tag, section: 0)
         self.toDoListTableView.reloadRows(at: [indexPath], with: .top)
-        //self.calendarView.cell
-        print("value of currentCellIndexPath")
-        print(self.currentCellIndexPath)
         self.shouldReloadTableView = false
         self.calendarView.reloadItems(at: [self.currentCellIndexPath!])
         //self.calendarView.reloadData()
@@ -471,22 +468,20 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     @objc func onFinishedButtonTap(sender: FinishedButton) {
         // The toDosByDay variable should be sorted already
-        var toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
+        let toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
         let tempToDoItem: ToDo = toDosByDay[sender.tag].value
         let newToDoItem = tempToDoItem
         
         toDosController.updateToDos(modificationType: ListModificationType.FINISHNESS, toDo: newToDoItem)
         let indexPath = IndexPath(item: sender.tag, section: 0)
         self.toDoListTableView.reloadRows(at: [indexPath], with: .top)
-        print("value of currentCellIndexPath")
-        print(self.currentCellIndexPath)
         self.shouldReloadTableView = false
         self.calendarView.reloadItems(at: [self.currentCellIndexPath!])
     }
     
     @objc func onImportantButtonTap(sender: ImportantButton) {
         // The toDosByDay variable should be sorted already
-        var toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
+        let toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
         let tempToDoItem: ToDo = toDosByDay[sender.tag].value
         let newToDoItem = tempToDoItem
         
@@ -495,7 +490,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     @objc func onNotificationButtonTap(sender: NotificationButton) {
         // The toDosByDay variable should be sorted already
-        var toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
+        let toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
         let tempToDoItem: ToDo = toDosByDay[sender.tag].value
         let newToDoItem = tempToDoItem
         
@@ -568,9 +563,9 @@ extension ScheduleViewController: JTAppleCalendarViewDelegate {
         let toDosForTheDay = toDosController.getToDosByDay(dateChosen: date)
         
         // Checks if these kinds of ToDos exist in the date of the current cell.
-        let onProgressToDo = toDosForTheDay.first(where: {Date() < $0.value.getEndTime() && !$0.value.isFinished()})
+        let onProgressToDo = toDosForTheDay.first(where: {Date() < $0.value.getDueDate() && !$0.value.isFinished()})
         let finishedToDo = toDosForTheDay.first(where: {$0.value.isFinished() == true})
-        let overdueToDo = toDosForTheDay.first(where: {Date() > $0.value.getEndTime() && !$0.value.isFinished()})
+        let overdueToDo = toDosForTheDay.first(where: {Date() > $0.value.getDueDate() && !$0.value.isFinished()})
         
         // Sets boolean variables if types of ToDos exist.
         if onProgressToDo != nil {
