@@ -261,9 +261,9 @@ class IntervalSchedulingPreviewController: UIViewController, UITableViewDelegate
         cell.dueDateLabel.text = dueDateFormatter.string(from: sortedtoDosWithToDosToBeAddedOnCurrentDay[indexPath.row].value.getEndDate())
         */
         cell.taskNameLabel.text = sortedTasks[indexPath.row].value.getTaskName()
-        cell.startDateLabel.text = workDateFormatter.string(from: sortedTasks[indexPath.row].value.getStartTime())
-        cell.estTimeLabel.text = "DELETE EST TIME PLEASE"
-        cell.dueDateLabel.text = dueDateFormatter.string(from: sortedTasks[indexPath.row].value.getEndTime())
+        cell.startTimeLabel.text = workDateFormatter.string(from: sortedTasks[indexPath.row].value.getStartTime())
+        //cell.estTimeLabel.text = "DELETE EST TIME PLEASE"
+        cell.endTimeLabel.text = dueDateFormatter.string(from: sortedTasks[indexPath.row].value.getEndTime())
         // If calendar day was changed, then make the state of to-be loaded expand row buttons false
         
         if getCalendarDayChanged() == true {

@@ -14,9 +14,9 @@ class ScheduleTableViewCell: UITableViewCell, UITableViewDelegate {
     
     // MARK: - Properties
     @IBOutlet weak var taskNameLabel: UILabel!
-    @IBOutlet weak var startDateLabel: UILabel!
-    @IBOutlet weak var estTimeLabel: UILabel!
-    @IBOutlet weak var dueDateLabel: UILabel!
+    @IBOutlet weak var startTimeLabel: UILabel!
+    //@IBOutlet weak var estTimeLabel: UILabel!
+    @IBOutlet weak var endTimeLabel: UILabel!
     
     @IBOutlet weak var taskTypeLabel: UILabel!
     @IBOutlet weak var checkBoxButton: CheckBoxButton!
