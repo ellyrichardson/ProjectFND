@@ -349,6 +349,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     // Collapses and expands table view cells
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 2 {
+            // NOTE: Put this in its own class about PopUp Preparation Process or something
             let viewController = SchedulingTaskMonthlyViewController()
             viewController.setObservableDueDateController(observableDueDateController: self.observableDueDateController)
             

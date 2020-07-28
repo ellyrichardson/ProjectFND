@@ -15,7 +15,7 @@
 		211E4AED24ADAF0500CD22D9 /* DeviceTypeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211E4AEC24ADAF0500CD22D9 /* DeviceTypeDetector.swift */; };
 		2124504D2499CDA80007E198 /* ColorsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2124504C2499CDA80007E198 /* ColorsUtils.swift */; };
 		2126727324CFC2F4000E3CC7 /* TagsSegueProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2126727224CFC2F4000E3CC7 /* TagsSegueProcess.swift */; };
-		2126727524CFCC9C000E3CC7 /* SchedulingAssistanceSegueProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2126727424CFCC9C000E3CC7 /* SchedulingAssistanceSegueProcess.swift */; };
+		2126727724CFD755000E3CC7 /* ScheduleAssistanceSegueProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2126727624CFD755000E3CC7 /* ScheduleAssistanceSegueProcess.swift */; };
 		212990C7247B88C600A9D618 /* EntryDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212990C6247B88C600A9D618 /* EntryDetailsTableViewController.swift */; };
 		212F14C6246F8FE10084FBD3 /* RepeatingSetupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212F14C5246F8FE10084FBD3 /* RepeatingSetupTableViewController.swift */; };
 		212F14C8246F91650084FBD3 /* EKAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212F14C7246F91650084FBD3 /* EKAttributes.swift */; };
@@ -155,7 +155,7 @@
 		211E4AEC24ADAF0500CD22D9 /* DeviceTypeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTypeDetector.swift; sourceTree = "<group>"; };
 		2124504C2499CDA80007E198 /* ColorsUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsUtils.swift; sourceTree = "<group>"; };
 		2126727224CFC2F4000E3CC7 /* TagsSegueProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsSegueProcess.swift; sourceTree = "<group>"; };
-		2126727424CFCC9C000E3CC7 /* SchedulingAssistanceSegueProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulingAssistanceSegueProcess.swift; sourceTree = "<group>"; };
+		2126727624CFD755000E3CC7 /* ScheduleAssistanceSegueProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleAssistanceSegueProcess.swift; sourceTree = "<group>"; };
 		212990C6247B88C600A9D618 /* EntryDetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryDetailsTableViewController.swift; sourceTree = "<group>"; };
 		212F14C5246F8FE10084FBD3 /* RepeatingSetupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingSetupTableViewController.swift; sourceTree = "<group>"; };
 		212F14C7246F91650084FBD3 /* EKAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKAttributes.swift; sourceTree = "<group>"; };
@@ -341,7 +341,7 @@
 			isa = PBXGroup;
 			children = (
 				2126727224CFC2F4000E3CC7 /* TagsSegueProcess.swift */,
-				2126727424CFCC9C000E3CC7 /* SchedulingAssistanceSegueProcess.swift */,
+				2126727624CFD755000E3CC7 /* ScheduleAssistanceSegueProcess.swift */,
 			);
 			path = segue;
 			sourceTree = "<group>";
@@ -948,7 +948,6 @@
 				212F14D62470503B0084FBD3 /* PresetsDataSource.swift in Sources */,
 				217974E72425E0F000FE7B4C /* Constants.swift in Sources */,
 				21DB50B624AD975000386749 /* ScheduleIntervalizerVC.swift in Sources */,
-				2126727524CFCC9C000E3CC7 /* SchedulingAssistanceSegueProcess.swift in Sources */,
 				2151611F24821052004BD49B /* LongOvalButtons.swift in Sources */,
 				21A4D0F9231ECC3600B5B52A /* ScheduleViewController.swift in Sources */,
 				212990C7247B88C600A9D618 /* EntryDetailsTableViewController.swift in Sources */,
@@ -975,6 +974,7 @@
 				212F14E1247056860084FBD3 /* UIScreen+Utils.swift in Sources */,
 				2172C147248DE93300BC9F24 /* TimeSlotsVacancyEvaluator.swift in Sources */,
 				219CEE6C234FD21000A9E819 /* ProjectFND.xcdatamodeld in Sources */,
+				2126727724CFD755000E3CC7 /* ScheduleAssistanceSegueProcess.swift in Sources */,
 				212F14E7247067110084FBD3 /* RecurrenceNavigationViewController.swift in Sources */,
 				212F14DD2470563F0084FBD3 /* Font.swift in Sources */,
 				219CA4AB2326CA18003ACBDE /* CheckBoxButton.swift in Sources */,
