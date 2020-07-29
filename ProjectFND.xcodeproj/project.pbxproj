@@ -17,6 +17,7 @@
 		2126727324CFC2F4000E3CC7 /* TagsSegueProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2126727224CFC2F4000E3CC7 /* TagsSegueProcess.swift */; };
 		2126727724CFD755000E3CC7 /* ScheduleAssistanceSegueProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2126727624CFD755000E3CC7 /* ScheduleAssistanceSegueProcess.swift */; };
 		212990C7247B88C600A9D618 /* EntryDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212990C6247B88C600A9D618 /* EntryDetailsTableViewController.swift */; };
+		212C577F24CFF21100A40831 /* ItemInfoSegueProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212C577E24CFF21100A40831 /* ItemInfoSegueProcess.swift */; };
 		212F14C6246F8FE10084FBD3 /* RepeatingSetupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212F14C5246F8FE10084FBD3 /* RepeatingSetupTableViewController.swift */; };
 		212F14C8246F91650084FBD3 /* EKAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212F14C7246F91650084FBD3 /* EKAttributes.swift */; };
 		212F14D62470503B0084FBD3 /* PresetsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212F14D52470503B0084FBD3 /* PresetsDataSource.swift */; };
@@ -157,6 +158,7 @@
 		2126727224CFC2F4000E3CC7 /* TagsSegueProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsSegueProcess.swift; sourceTree = "<group>"; };
 		2126727624CFD755000E3CC7 /* ScheduleAssistanceSegueProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleAssistanceSegueProcess.swift; sourceTree = "<group>"; };
 		212990C6247B88C600A9D618 /* EntryDetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryDetailsTableViewController.swift; sourceTree = "<group>"; };
+		212C577E24CFF21100A40831 /* ItemInfoSegueProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemInfoSegueProcess.swift; sourceTree = "<group>"; };
 		212F14C5246F8FE10084FBD3 /* RepeatingSetupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingSetupTableViewController.swift; sourceTree = "<group>"; };
 		212F14C7246F91650084FBD3 /* EKAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKAttributes.swift; sourceTree = "<group>"; };
 		212F14D52470503B0084FBD3 /* PresetsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsDataSource.swift; sourceTree = "<group>"; };
@@ -342,6 +344,7 @@
 			children = (
 				2126727224CFC2F4000E3CC7 /* TagsSegueProcess.swift */,
 				2126727624CFD755000E3CC7 /* ScheduleAssistanceSegueProcess.swift */,
+				212C577E24CFF21100A40831 /* ItemInfoSegueProcess.swift */,
 			);
 			path = segue;
 			sourceTree = "<group>";
@@ -976,6 +979,7 @@
 				219CEE6C234FD21000A9E819 /* ProjectFND.xcdatamodeld in Sources */,
 				2126727724CFD755000E3CC7 /* ScheduleAssistanceSegueProcess.swift in Sources */,
 				212F14E7247067110084FBD3 /* RecurrenceNavigationViewController.swift in Sources */,
+				212C577F24CFF21100A40831 /* ItemInfoSegueProcess.swift in Sources */,
 				212F14DD2470563F0084FBD3 /* Font.swift in Sources */,
 				219CA4AB2326CA18003ACBDE /* CheckBoxButton.swift in Sources */,
 				21748F9224832D2D00A27938 /* ToDoDate.swift in Sources */,
