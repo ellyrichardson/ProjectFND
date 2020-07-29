@@ -35,12 +35,9 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
 
     private var toDos = [String: ToDo]()
     private var selectedDate: Date = Date()
-    private var selectedToDoIndex: Int = -1
-    private var selectedIndexPath: IndexPath?
-    private var selectedIndexPaths: [IndexPath] = [IndexPath]()
     private var coreToDoData: [NSManagedObject] = []
     private var checkButtonTapped: Int =  -1
-    private var currentCellIndexPath: IndexPath?
+    private var currentSelectedCalendarCell: IndexPath?
     private var shouldReloadTableView: Bool = true
     private var toDosController: ToDosController = ToDosController()
     
@@ -169,7 +166,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         if cellState.isSelected{
             currentCell.selectedView.isHidden = false
             DispatchQueue.main.async {
-                self.currentCellIndexPath = self.calendarView.indexPath(for: currentCell)
+                self.currentSelectedCalendarCell = self.calendarView.indexPath(for: currentCell)
             }
         } else {
             currentCell.selectedView.isHidden = true
@@ -180,7 +177,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     func configureSelectedDay(cell: JTAppleCell?, cellState: CellState) {
         if cellState.isSelected{
             setSelectedDate(selectedDate: cellState.date)
-            ToDoProcessUtils.removeAllSelectedIndexPaths(selectedIndexPaths: &selectedIndexPaths)
+
             // To track if the selected day in the calendar was changed
             setCalendarDayChanged(didChange: true)
             // If tableView should be reloaded based on todo update, or simply loading the calendar
@@ -331,8 +328,49 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         DispatchQueue.main.async {
             // NOTE: This will make the tableView not reload, only the calendarView item
             self.shouldReloadTableView = false
-            self.calendarView.reloadItems(at: [self.currentCellIndexPath!])
+            self.calendarView.reloadItems(at: [self.currentSelectedCalendarCell!])
         }
+    }
+    
+    // MARK: - Utilities
+    
+    private func configureCellIndicators(cell: CalendarCell, indexPath: IndexPath, date: Date) -> CalendarCell {
+        
+        var onProgressToDoExist: Bool = false
+        var finishedToDoExist: Bool = false
+        var overdueToDoExist: Bool = false
+        
+        // Hides the indicators initially.
+        cell.bottomIndicator.isHidden = true
+        cell.topIndicator.isHidden = true
+        cell.topLeftIndicator.isHidden = true
+        cell.topRightIndicator.isHidden = true
+        
+        // Gets the ToDos based on the date of the current cell.
+        let toDosForTheDay = toDosController.getToDosByDay(dateChosen: date)
+        
+        // Checks if these kinds of ToDos exist in the date of the current cell.
+        let onProgressToDo = toDosForTheDay.first(where: {Date() < $0.value.getDueDate() && !$0.value.isFinished()})
+        let finishedToDo = toDosForTheDay.first(where: {$0.value.isFinished() == true})
+        let overdueToDo = toDosForTheDay.first(where: {Date() > $0.value.getDueDate() && !$0.value.isFinished()})
+        
+        // Sets boolean variables if types of ToDos exist.
+        if onProgressToDo != nil {
+            onProgressToDoExist = true
+        }
+        if finishedToDo != nil {
+            finishedToDoExist = true
+        }
+        if overdueToDo != nil {
+            overdueToDoExist = true
+        }
+        
+        // If either one of the types of ToDo exist.
+        if onProgressToDoExist == true || finishedToDoExist == true || overdueToDoExist == true {
+            // Update the cell to have the indicators it needs.
+            return CalendarViewUtils.showCellIndicators(cell: cell, onProgress: onProgressToDoExist, finished: finishedToDoExist, overdue: overdueToDoExist)
+        }
+        return cell
     }
     
     // MARK: - Actions
@@ -399,17 +437,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     // MARK: - Getters
     
-    // Gets the index of the selected ToDo
-    func getSelectedToDoIndex() -> Int {
-        return self.selectedToDoIndex
-    }
-    
     func getSelectedDate() -> Date {
         return self.selectedDate
-    }
-    
-    func getSelectedIndexPaths() -> [IndexPath] {
-        return self.selectedIndexPaths
     }
     
     func getCalendarDayChanged() -> Bool {
@@ -421,6 +450,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     // TODO: Refactor code to use proper state tracking, like ENUMS!
+    
     @objc func onCheckBoxButtonTap(sender: CheckBoxButton) {
         // The toDosByDay variable should be sorted already
         let toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
@@ -431,7 +461,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         let indexPath = IndexPath(item: sender.tag, section: 0)
         self.toDoListTableView.reloadRows(at: [indexPath], with: .top)
         self.shouldReloadTableView = false
-        self.calendarView.reloadItems(at: [self.currentCellIndexPath!])
+        self.calendarView.reloadItems(at: [self.currentSelectedCalendarCell!])
     }
     
     @objc func onFinishedButtonTap(sender: FinishedButton) {
@@ -444,7 +474,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         let indexPath = IndexPath(item: sender.tag, section: 0)
         self.toDoListTableView.reloadRows(at: [indexPath], with: .top)
         self.shouldReloadTableView = false
-        self.calendarView.reloadItems(at: [self.currentCellIndexPath!])
+        self.calendarView.reloadItems(at: [self.currentSelectedCalendarCell!])
     }
     
     @objc func onImportantButtonTap(sender: ImportantButton) {
@@ -463,21 +493,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         let newToDoItem = tempToDoItem
         
         toDosController.updateToDos(modificationType: ListModificationType.NOTIFICATION, toDo: newToDoItem)
-    }
-    
-    @objc func onExpandRowButtonTap(sender: ExpandButton) {
-        let buttonIndexPath = IndexPath(row: sender.tag, section: 0)
-        // If there is no expanded row yet
-        if !getSelectedIndexPaths().contains(buttonIndexPath) {
-            ToDoProcessUtils.addSelectedIndexPath(indexPath: buttonIndexPath, selectedIndexPaths: &selectedIndexPaths)
-            self.toDoListTableView.beginUpdates()
-            self.toDoListTableView.endUpdates()
-        } else {
-            let indPath: Int = selectedIndexPaths.firstIndex(of: buttonIndexPath)!
-            ToDoProcessUtils.removeSelectedIndexPath(indexPathAsInt: indPath, selectedIndexPaths: &selectedIndexPaths)
-            self.toDoListTableView.beginUpdates()
-            self.toDoListTableView.endUpdates()
-        }
     }
 }
 
@@ -514,43 +529,10 @@ extension ScheduleViewController: JTAppleCalendarViewDelegate {
         
         print("Being CALLED")
         print(date)
-        var onProgressToDoExist: Bool = false
-        var finishedToDoExist: Bool = false
-        var overdueToDoExist: Bool = false
         
         var cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "CalendarCell", for: indexPath) as! CalendarCell
         
-        
-        // Hides the indicators initially.
-        cell.bottomIndicator.isHidden = true
-        cell.topIndicator.isHidden = true
-        cell.topLeftIndicator.isHidden = true
-        cell.topRightIndicator.isHidden = true
-        
-        // Gets the ToDos based on the date of the current cell.
-        let toDosForTheDay = toDosController.getToDosByDay(dateChosen: date)
-        
-        // Checks if these kinds of ToDos exist in the date of the current cell.
-        let onProgressToDo = toDosForTheDay.first(where: {Date() < $0.value.getDueDate() && !$0.value.isFinished()})
-        let finishedToDo = toDosForTheDay.first(where: {$0.value.isFinished() == true})
-        let overdueToDo = toDosForTheDay.first(where: {Date() > $0.value.getDueDate() && !$0.value.isFinished()})
-        
-        // Sets boolean variables if types of ToDos exist.
-        if onProgressToDo != nil {
-            onProgressToDoExist = true
-        }
-        if finishedToDo != nil {
-            finishedToDoExist = true
-        }
-        if overdueToDo != nil {
-            overdueToDoExist = true
-        }
-        
-        // If either one of the types of ToDo exist.
-        if onProgressToDoExist == true || finishedToDoExist == true || overdueToDoExist == true {
-            // Update the cell to have the indicators it needs.
-            cell = CalendarViewUtils.showCellIndicators(cell: cell, onProgress: onProgressToDoExist, finished: finishedToDoExist, overdue: overdueToDoExist)
-        }
+        cell = configureCellIndicators(cell: cell, indexPath: indexPath, date: date)
         
         configureCell(cell: cell, cellState: cellState)
         return cell
