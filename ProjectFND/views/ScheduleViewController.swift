@@ -196,12 +196,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        /*
-        if selectedIndexPaths.count > 0 {
-            if selectedIndexPaths.contains(indexPath) {
-                return 120
-            }
-        }*/
         return 150
     }
     
@@ -537,5 +531,3 @@ extension ScheduleViewController: JTAppleCalendarViewDelegate {
         return MonthSize(defaultSize: 75)
     }
 }
-
-
