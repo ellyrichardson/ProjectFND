@@ -20,6 +20,13 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     final let DELETE = "Delete"
     final let ADD_TASK_ITEM = "AddToDoItem"
     final let SHOW_TASK_ITEM_DETAILS = "ShowToDoItemDetails"
+    final let CALENDAR_HEADER = "CalendarHeader"
+    final let SCHEDULE_TABLE_VIEW_CELL = "ScheduleTableViewCell"
+    final let EMPTY_STRING = ""
+    final let TIME_h_mm_a = "h:mm a"
+    final let TIME_dd_MM_yy = "dd MM yy"
+    final let DATE_MMMM_YYYY =  "MMMM YYYY"
+    final let CALENDAR_CELL = "CalendarCell"
     
     // MARK: Properties
     
@@ -40,12 +47,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     private var currentSelectedCalendarCell: IndexPath?
     private var shouldReloadTableView: Bool = true
     private var toDosController: ToDosController = ToDosController()
-    
-    // Expand row buttons tracker assets
-    
-    private var calendarDayChanged: Bool = false
-    private var remainingExpandButtonsToReset: Int = -1
-    
+
     let formatter = DateFormatter()
     let numberOfRows = 6
     
@@ -110,9 +112,9 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     func configureCalendarView(){
         calendarView.minimumLineSpacing = 0
         calendarView.minimumInteritemSpacing = 0
-        calendarView.register(UINib(nibName: "CalendarHeader", bundle: Bundle.main),
+        calendarView.register(UINib(nibName: CALENDAR_HEADER, bundle: Bundle.main),
                               forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                              withReuseIdentifier: "CalendarHeader")
+                              withReuseIdentifier: CALENDAR_HEADER)
         calendarView.backgroundColor = UIColor.clear
         calendarView.cellSize = calendarView.contentSize.width
         self.calendarView.scrollToDate(Date(),animateScroll: false)
@@ -142,7 +144,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         
         if cellState.isSelected {
             currentCell.dateLabel.textColor = UIColor.black
-            //GeneralViewUtils.reloadTableViewData(tableView: self.toDoListTableView)
         } else {
             if cellState.dateBelongsTo == .thisMonth && cellState.date > Date()  {
                 currentCell.dateLabel.textColor = UIColor.white
@@ -178,8 +179,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         if cellState.isSelected{
             setSelectedDate(selectedDate: cellState.date)
 
-            // To track if the selected day in the calendar was changed
-            setCalendarDayChanged(didChange: true)
             // If tableView should be reloaded based on todo update, or simply loading the calendar
             if self.shouldReloadTableView {
                 GeneralViewUtils.reloadTableViewData(tableView: self.toDoListTableView)
@@ -207,9 +206,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let dateCellIdentifier = "ScheduleTableViewCell"
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: dateCellIdentifier, for: indexPath) as? ScheduleTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SCHEDULE_TABLE_VIEW_CELL, for: indexPath) as? ScheduleTableViewCell else {
             fatalError("The dequeued cell is not an instance of ScheduleTableViewCell.")
         }
         
@@ -220,8 +218,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     private func generalCellPresentationConfig(cell: ScheduleTableViewCell, row: Int) {
         let dueDateFormatter = DateFormatter()
         let workDateFormatter = DateFormatter()
-        dueDateFormatter.dateFormat = "h:mm a"
-        workDateFormatter.dateFormat = "h:mm a"
+        dueDateFormatter.dateFormat = TIME_h_mm_a
+        workDateFormatter.dateFormat = TIME_h_mm_a
         
         // Retrieves sorted ToDo Items by date that fall under the chosen day in the calendar
         let taskItems = ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: getSelectedDate(), toDoItems: getToDosController().getToDos())
@@ -392,7 +390,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        switch(segue.identifier ?? "") {
+        switch(segue.identifier ?? EMPTY_STRING) {
         case ADD_TASK_ITEM:
             let itemInfoSegueProcess = ItemInfoSegueProcess(segue: segue)
             itemInfoSegueProcess!.segueToItemInfoVCForAddingTask(tasks: toDosController.getToDos())
@@ -415,14 +413,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         self.selectedDate = selectedDate
     }
     
-    func setCalendarDayChanged(didChange: Bool) {
-        self.calendarDayChanged = didChange
-    }
-    
-    func setRemainingExpandButtonsToReset(remainingButtons: Int) {
-        self.remainingExpandButtonsToReset = remainingButtons
-    }
-    
     func setToDosController(toDosController: ToDosController) {
         self.toDosController = toDosController
     }
@@ -441,16 +431,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         return self.selectedDate
     }
     
-    func getCalendarDayChanged() -> Bool {
-        return self.calendarDayChanged
-    }
-    
-    func getRemainingButtonsToReset() -> Int {
-        return self.remainingExpandButtonsToReset
-    }
-    
-    // TODO: Refactor code to use proper state tracking, like ENUMS!
-    
+    // TODO: Refactor code to use proper state tracking, like ENUMS! I'm talking about the shouldReloadTableView
     @objc func onCheckBoxButtonTap(sender: CheckBoxButton) {
         // The toDosByDay variable should be sorted already
         let toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
@@ -499,12 +480,12 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
 extension ScheduleViewController: JTAppleCalendarViewDataSource {
     func calendar(_ calendar: JTAppleCalendarView, willDisplay cell: JTAppleCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
         
-        let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "CalendarCell", for: indexPath) as! CalendarCell
+        let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: CALENDAR_CELL, for: indexPath) as! CalendarCell
         configureCell(cell: cell, cellState: cellState)
     }
     
     func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
-        formatter.dateFormat = "dd MM yy"
+        formatter.dateFormat = TIME_dd_MM_yy
         formatter.timeZone = Calendar.current.timeZone
         formatter.locale = Calendar.current.locale
         calendar.scrollingMode = .stopAtEachSection
@@ -527,10 +508,7 @@ extension ScheduleViewController: JTAppleCalendarViewDataSource {
 extension ScheduleViewController: JTAppleCalendarViewDelegate {
     func calendar(_ calendar: JTAppleCalendarView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTAppleCell {
         
-        print("Being CALLED")
-        print(date)
-        
-        var cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "CalendarCell", for: indexPath) as! CalendarCell
+        var cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: CALENDAR_CELL, for: indexPath) as! CalendarCell
         
         cell = configureCellIndicators(cell: cell, indexPath: indexPath, date: date)
         
@@ -547,10 +525,10 @@ extension ScheduleViewController: JTAppleCalendarViewDelegate {
     }
     
     func calendar(_ calendar: JTAppleCalendarView, headerViewForDateRange range: (start: Date, end: Date), at indexPath: IndexPath) -> JTAppleCollectionReusableView {
-        let header = calendar.dequeueReusableJTAppleSupplementaryView(withReuseIdentifier: "CalendarHeader", for: indexPath)
+        let header = calendar.dequeueReusableJTAppleSupplementaryView(withReuseIdentifier: CALENDAR_HEADER, for: indexPath)
         let date = range.start
         let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM YYYY"
+        formatter.dateFormat = DATE_MMMM_YYYY
         (header as! CalendarHeader).title.text = formatter.string(from: date).uppercased()
         return header
     }
