@@ -27,8 +27,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     var toDoIntervals: [String: ToDo] = [String: ToDo]()
     var toDoIntervalsExist: Bool = false
     private var finished: Bool
-    private var chosenWorkDate: Date
-    private var chosenDueDate: Date
+    private var chosenStartDate: Date = Date()
     private var schedulerWasSet: Bool
     
     private var dataSource = PresetsDataSource()
@@ -150,8 +149,6 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     // MARK: - Essentials
     
     required init?(coder aDecoder: NSCoder) {
-        self.chosenWorkDate = Date()
-        self.chosenDueDate = Date()
         self.finished = false
         self.schedulerWasSet = false
 
@@ -402,7 +399,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         }
             
         else if segue.identifier == "SegueToSchedulingAssistance" {
-            let schedulingAsstSegueProcess = SchedulingAssistanceSegueProcess(taskItem: self.toDo, startTime: self.chosenWorkDate, inQueueTask: self.inQueueTask, inQueueTaskContainsNewValue: self.inQueueTaskContainsNewValue, taskItemsForSelectedDay: ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: self.chosenWorkDate, toDoItems: getToDos()), observerVCs: self.observerVCs)
+            let schedulingAsstSegueProcess = SchedulingAssistanceSegueProcess(taskItem: self.toDo, startTime: self.chosenStartDate, inQueueTask: self.inQueueTask, inQueueTaskContainsNewValue: self.inQueueTaskContainsNewValue, taskItemsForSelectedDay: toDos, observerVCs: self.observerVCs)
             schedulingAsstSegueProcess?.segueToSchedulingAssistance(segue: segue)
         }
         else {
@@ -524,12 +521,8 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         self.toDos = toDos
     }
     
-    func setChosenWorkDate(chosenWorkDate: Date) {
-        self.chosenWorkDate = chosenWorkDate
-    }
-    
-    func setChosenDueDate(chosenDueDate: Date) {
-        self.chosenDueDate = chosenDueDate
+    func setChosenStartDate(chosenStartDate: Date) {
+        self.chosenStartDate = chosenStartDate
     }
     
     func setIsFinished(isFinished: Bool) {
