@@ -46,7 +46,7 @@ class SchedulingAssistanceSegueProcess  {
     }
     
     private func configureSchedAstncForNewTask(vc: SchedulingAssistanceViewController) {
-        vc.setTaskItems(taskItems: ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: startTime, toDoItems: [String: ToDo]()))
+        vc.setTaskItems(taskItems: taskItemsForSelectedDay)
         
         // TODO: Refactor the having of TargetTaskJustCreated being set in this controller, to just setting it in the ToDo Task itself.
         if !self.inQueueTaskContainsNewValue {

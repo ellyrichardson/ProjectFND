@@ -23,8 +23,9 @@ class ItemInfoSegueProcess  {
         self.itemInfoTVC = navController.viewControllers.first as! ItemInfoTableViewController
     }
     
-    func segueToItemInfoVCForAddingTask(tasks: [String: ToDo]) {
-        itemInfoTVC.setToDos(toDos: tasks)
+    func segueToItemInfoVCForAddingTask(tasksController: ToDosController, startDate: Date) {
+        itemInfoTVC.setChosenStartDate(chosenStartDate: startDate)
+        itemInfoTVC.setToDos(toDos: ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: startDate, toDoItems: tasksController.getToDos()))
         os_log("Adding a new ToDo item.", log: OSLog.default, type: .debug)
     }
     
@@ -41,8 +42,7 @@ class ItemInfoSegueProcess  {
         let selectedToDoItem = tasksByDay[indexPath.row].value
         itemInfoTVC.toDo = selectedToDoItem
         // Sets the chosen work and due date in the itemInfoTableViewController to avoid its reset
-        itemInfoTVC.setChosenWorkDate(chosenWorkDate: selectedToDoItem.getStartTime())
-        itemInfoTVC.setChosenDueDate(chosenDueDate: selectedToDoItem.getEndTime())
+        itemInfoTVC.setChosenStartDate(chosenStartDate: selectedToDoItem.getStartTime())
         // Sets the finish status of the todo in the itemInfoTableViewController to avoid its reset
         itemInfoTVC.setIsFinished(isFinished: selectedToDoItem.isFinished())
         itemInfoTVC.setSelectedTaskType(selectedTaskTypePickerData: selectedToDoItem.getTaskTag())

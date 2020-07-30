@@ -387,7 +387,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         switch(segue.identifier ?? EMPTY_STRING) {
         case ADD_TASK_ITEM:
             let itemInfoSegueProcess = ItemInfoSegueProcess(segue: segue)
-            itemInfoSegueProcess!.segueToItemInfoVCForAddingTask(tasks: toDosController.getToDos())
+            itemInfoSegueProcess!.segueToItemInfoVCForAddingTask(tasksController: toDosController, startDate: selectedDate)
         case SHOW_TASK_ITEM_DETAILS:
             let itemInfoSegueProcess = ItemInfoSegueProcess(segue: segue)
             itemInfoSegueProcess!.segueToItemInfoVCForShowingTaskDetails(selectedDate: getSelectedDate(), tasksController: toDosController, sender: sender, taskListTableView: toDoListTableView)
