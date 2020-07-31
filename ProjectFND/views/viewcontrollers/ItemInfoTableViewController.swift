@@ -50,8 +50,9 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     // NOTE: These trackers need to be categorized
     private var selectedTaskTypePickerData: String = String()
     private var repeatingStatus: Bool = Bool()
+    private var isSchedulingAssistanceUtilized = false
     
-    // Intervalizer Trackers
+    // Intervalizer Trackers (NOT USED??)
     private var intervalHours = 0
     private var intervalDays = 0
     
@@ -68,7 +69,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     private var inQueueTaskContainsNewValue = false
     
     // Pressed Items Trackers
-    private var isSchedulingAssistancePressedTracker = false
+    private var isSchedulingAssistancePressed = false
     private var isDueDatePickerPressedTracker = false
     private var tagSelectorAccessed = false
     
@@ -129,7 +130,8 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             self.endDateStringValue.text = dateFormatter.string(from: newValueTask.getEndTime())
             self.startTimeTracker = newValueTask.getStartTime()
             self.endTimeTracker = newValueTask.getEndTime()
-            self.isSchedulingAssistancePressedTracker = true
+            self.isSchedulingAssistancePressed = true
+            self.isSchedulingAssistanceUtilized = true
         }
     }
     
@@ -192,6 +194,9 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
                 self.tagsLabel.text = "Tags "
             }
             self.notesTextViewValue = toDo.getTaskNotes()
+            
+            // It is utilized because tasks can't exist without utilizing scheduling asst
+            isSchedulingAssistanceUtilized = true
         }
         // Simply proceed if not editing an existing ToDo
     }
@@ -216,6 +221,9 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         self.taskNameField.delegate = self
         self.startDateUIView.cornerRadius = 10
         self.endDateUIView.cornerRadius = 10
+        
+        // Only allow saveButton if textFields are not empty
+        taskNameField.addTarget(self, action: #selector(textFieldsAreNotEmpty), for: .editingChanged)
     }
     
     private func configureVcObjets() {
@@ -445,7 +453,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         if self.isDueDatePickerPressedTracker {
             dueDate = self.dueDateTracker
         }
-        if self.isSchedulingAssistancePressedTracker {
+        if self.isSchedulingAssistancePressed {
             startTime = self.startTimeTracker
             endTime = self.endTimeTracker
         }
@@ -493,26 +501,16 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         saveButton.isEnabled = false
         
         // Task name or estimated time fields are empty
-        if !(taskNameField.text?.isEmpty)! {
+        if !(taskNameField.text?.isEmpty)! && isSchedulingAssistanceUtilized {
             saveButton.isEnabled = true
         }
-        
-        // Only allow saveButton if textFields are not empty
-        taskNameField.addTarget(self, action: #selector(textFieldsAreNotEmpty), for: .editingChanged)
     }
     
     // MARK: - Observers
     
     // Only allow saveButton if textFields are not empty
     @objc func textFieldsAreNotEmpty(sender: UITextField) {
-        guard
-            let taskName = taskNameField.text, !taskName.isEmpty
-            else {
-                self.saveButton.isEnabled = false
-                return
-        }
-        // Enable save button if all conditions are met
-        saveButton.isEnabled = true
+        updateSaveButtonState()
     }
     
     // MARK: - Setters
