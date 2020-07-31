@@ -114,13 +114,11 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             else {
                 self.tagsLabel.text = newValueTag.tagValue!
             }
-            //self.tagsLabel.text = newValueTag.tagValue!
             self.currentSelectedTag = newValueTag.tagValue!
             self.tagSelectorAccessed = true
         }
         else if observableType == ObservableType.TASK {
             let dateFormatter = DateFormatter()
-            //dateFormatter.dateFormat = "MM/dd/yy h:mm a"
             dateFormatter.dateFormat = "h:mm a"
             let newValueTask = newValue as! ToDo
             
@@ -132,6 +130,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             self.endTimeTracker = newValueTask.getEndTime()
             self.isSchedulingAssistancePressed = true
             self.isSchedulingAssistanceUtilized = true
+            updateSaveButtonState()
         }
     }
     
