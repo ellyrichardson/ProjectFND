@@ -18,7 +18,6 @@ class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate,
     private var scheduleTimeSpan: TimeSpan?
     private var dateFormatter = DateFormatter()
     private var tsveResult = [Oter]()
-    //private var currentTaskId = String()
     private var schedlngAsstncHelper = SchedulingAssistanceHelper()
     private var targetTask = ToDo()
     
@@ -51,9 +50,7 @@ class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate,
             let newValueOter = newValue as! Oter
             for oterItem in tsveResult {
                 if oterItem.ownerTaskId == newValueOter.ownerTaskId {
-                    //oterItem = newValueOter
                     // NOTE: My thought was to create a new ToDo after the selection of time, add it to the taskItems dictionary, then run the evaluation again
-                    //ToDo(taskId: taskToBeCreatedId, taskName: <#T##String#>, taskDescription: <#T##String#>, workDate: <#T##Date#>, estTime: <#T##String#>, dueDate: <#T##Date#>, finished: <#T##Bool#>)
                     self.targetTask.startTime = newValueOter.startDate
                     self.targetTask.endTime = newValueOter.endDate
                     self.taskItems[self.targetTask.getTaskId()] = self.targetTask
@@ -205,7 +202,7 @@ class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate,
         }
         
         cell.startTimeLabel.text = startTimeFormatter.string(from: tsverItem.startDate)
-        let appropriateEndTime = schedlngAsstncHelper.adjustTaskEndTimeIf12AMNextDay(startTime: tsverItem.startDate, endTime: tsverItem.endDate)
+        let appropriateEndTime = schedlngAsstncHelper.adjustTaskEndTimeIf12AMNextDay(endTime: tsverItem.endDate)
         cell.endTimeLabel.text = endTimeFormatter.string(from: appropriateEndTime)
         return cell
     }
