@@ -70,6 +70,7 @@ class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate,
         
         configureObserversAndObservables()
         configureTaskItemsValues()
+        configureNavBar()
         
         evaluateVacantTimes()
     }
@@ -86,6 +87,16 @@ class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate,
         if !self.targetTaskJustCreated {
             self.taskItems[targetTask.getTaskId()] = self.targetTask
         }
+    }
+    
+    private func configureNavBar() {
+        let nav = self.navigationController?.navigationBar
+        
+        let yellowColor = UIColor(red:1.00, green:0.89, blue:0.00, alpha:1.0)
+        
+        // Sets the navigation bar to color black with tintColor of yellow.
+        nav?.barStyle = UIBarStyle.black
+        nav?.tintColor = yellowColor
     }
     
     // MARK: - Table View
