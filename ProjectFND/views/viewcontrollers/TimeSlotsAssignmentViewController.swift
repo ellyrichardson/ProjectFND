@@ -64,14 +64,14 @@ class TimeSlotsAssignmentViewController: UIViewController {
         self.startTimePicker.minimumDate = self.minimumTime
         
         // This is so that the max time is 11:59 PM of the same day, not 12:00 AM of the next day
-        self.startTimePicker.maximumDate = schedlngAsstncHelper.adjustTaskEndTimeIf12AMNextDay(endTime: self.maximumTime!)
+        self.startTimePicker.maximumDate = schedlngAsstncHelper.adjustTaskEndTimeIf12AMNextDay(startTime: self.minimumTime!, endTime: self.maximumTime!)
     }
     
     private func setEndTimePickerMinAndMax() {
         self.endTimePicker.minimumDate =    self.minimumTime
         
         // This is so that the max time is 11:59 PM of the same day, not 12:00 AM of the next day
-        self.endTimePicker.maximumDate = schedlngAsstncHelper.adjustTaskEndTimeIf12AMNextDay(endTime: self.maximumTime!)
+        self.endTimePicker.maximumDate = schedlngAsstncHelper.adjustTaskEndTimeIf12AMNextDay(startTime: self.minimumTime!, endTime: self.maximumTime!)
     }
     
     private func areTimesSameDay(earlyTime: Date, laterTime: Date) -> Bool {
