@@ -196,8 +196,11 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             
             // It is utilized because tasks can't exist without utilizing scheduling asst
             isSchedulingAssistanceUtilized = true
+        } else {
+            // If no Task exist, then jusg have a placeholder in the taskNameField
+            taskNameField.attributedPlaceholder = NSAttributedString(string: "Task Name",
+                                                                     attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         }
-        // Simply proceed if not editing an existing ToDo
     }
     
     private func configureObservableControllers() {
