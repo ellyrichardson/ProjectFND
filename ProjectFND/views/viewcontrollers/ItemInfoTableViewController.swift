@@ -104,6 +104,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             self.dueDateTracker = newValueDate.dateValue!
             self.isDueDatePickerPressedTracker = true
             self.tableView.reloadData()
+            changeDueDateLabelColor()
         }
         else if observableType == ObservableType.TODO_TAG {
             let newValueTag = newValue as! ToDoTags
@@ -116,6 +117,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             }
             self.currentSelectedTag = newValueTag.tagValue!
             self.tagSelectorAccessed = true
+            changeTagsLabelColor()
         }
         else if observableType == ObservableType.TASK {
             let dateFormatter = DateFormatter()
@@ -131,9 +133,11 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             self.isSchedulingAssistancePressed = true
             self.isSchedulingAssistanceUtilized = true
             updateSaveButtonState()
+            changeTaskNameFieldColor()
         }
     }
     
+    // NOTE: DON'T REMOVE THESE ITEMS UNDER THIS MARK! IT MAKES THINGS WEIRD IN A WEIRD WAY!
     // MARK: - DetachedVCDelegate
     func transitionToNextVC() {
         performSegue(withIdentifier: "SegueToIntervalizerVC", sender: self)
@@ -177,6 +181,8 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     }
     
     private func configureUiValues() {
+        taskNameField.textColor = UIColor.black
+        
         // Set up views if editing an existing ToDo.
         if let toDo = toDo {
             let dateFormatter = DateFormatter()
@@ -184,14 +190,21 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             
             navigationItem.title = toDo.taskName
             taskNameField.text = toDo.taskName
+            changeTaskNameFieldColor()  
+            
             self.startDateStringValue.text = dateFormatter.string(from: toDo.getStartTime())
             self.endDateStringValue.text = dateFormatter.string(from: toDo.getEndTime())
+            
             dateFormatter.dateFormat = "MM/dd/yy, h:mm a"
             self.dueDateLabel.text = "Due Date: " + dateFormatter.string(from: toDo.getDueDate())
+            changeDueDateLabelColor()
+            
             self.tagsLabel.text = toDo.getTaskTag()
+            changeTagsLabelColor()
             if toDo.getTaskTag() == "" {
                 self.tagsLabel.text = "Tags "
             }
+            
             self.notesTextViewValue = toDo.getTaskNotes()
             
             // It is utilized because tasks can't exist without utilizing scheduling asst
@@ -506,6 +519,18 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         if !(taskNameField.text?.isEmpty)! && isSchedulingAssistanceUtilized {
             saveButton.isEnabled = true
         }
+    }
+    
+    private func changeTagsLabelColor() {
+        self.tagsLabel.textColor = UIColor.white
+    }
+    
+    private func changeDueDateLabelColor() {
+        self.dueDateLabel.textColor = UIColor.white
+    }
+    
+    private func changeTaskNameFieldColor() {
+        self.taskNameField.textColor = UIColor.black
     }
     
     // MARK: - Observers
