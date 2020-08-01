@@ -11,12 +11,16 @@ import SwiftEntryKit
 import os.log
 
 class SchedulingAssistanceSegueProcess  {
+    final let NEW_TASK = "New Task"
+    
     private var observableTaskController = ObservableTaskController()
     private var taskItem: ToDo?
     private var startTime: Date
     private var inQueueTask: ToDo
     private var inQueueTaskContainsNewValue: Bool
     private var taskItemsForSelectedDay: [String: ToDo]
+    private var presettedTaskName: String
+    private var isTaskNamePreSet: Bool
     
     init?(taskItem: ToDo?, startTime: Date, inQueueTask: ToDo, inQueueTaskContainsNewValue: Bool, taskItemsForSelectedDay: [String: ToDo], observerVCs: [Observer]) {
         self.taskItem = taskItem
@@ -24,6 +28,8 @@ class SchedulingAssistanceSegueProcess  {
         self.inQueueTask = inQueueTask
         self.inQueueTaskContainsNewValue = inQueueTaskContainsNewValue
         self.taskItemsForSelectedDay = taskItemsForSelectedDay
+        self.presettedTaskName = NEW_TASK
+        self.isTaskNamePreSet = false
         
         self.observableTaskController.setupData()
         self.observableTaskController.setObservers(observers: observerVCs)
@@ -45,12 +51,22 @@ class SchedulingAssistanceSegueProcess  {
         schedulingAstncViewController.setObservableTaskController(observableTaskController: observableTaskController)
     }
     
+    func setTaskNameToDisplay(taskName: String) {
+        self.presettedTaskName = taskName
+        self.isTaskNamePreSet = true
+    }
+    
     private func configureSchedAstncForNewTask(vc: SchedulingAssistanceViewController) {
         vc.setTaskItems(taskItems: taskItemsForSelectedDay)
         
+        var taskNameToPass = NEW_TASK
+        if isTaskNamePreSet {
+            taskNameToPass = presettedTaskName
+        }
+        
         // TODO: Refactor the having of TargetTaskJustCreated being set in this controller, to just setting it in the ToDo Task itself.
+        self.inQueueTask = ToDo(taskId: UUID().uuidString, taskName: taskNameToPass, startTime: Date(), endTime: Date(), dueDate: Date(), finished: false)!
         if !self.inQueueTaskContainsNewValue {
-            self.inQueueTask = ToDo(taskId: UUID().uuidString, taskName: "TEST_NAME", startTime: Date(), endTime: Date(), dueDate: Date(), finished: false)!
             vc.setTargetTaskJustCreated(targetTaskJustCreated: true)
         }
     }

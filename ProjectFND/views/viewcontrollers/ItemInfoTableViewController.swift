@@ -427,6 +427,10 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             
         else if segue.identifier == "SegueToSchedulingAssistance" {
             let schedulingAsstSegueProcess = SchedulingAssistanceSegueProcess(taskItem: self.toDo, startTime: self.chosenStartDate, inQueueTask: self.inQueueTask, inQueueTaskContainsNewValue: self.inQueueTaskContainsNewValue, taskItemsForSelectedDay: toDos, observerVCs: self.observerVCs)
+            // Sets the task name if taskNameField was already populated before segueing to the SchedulingAssistance
+            if !taskNameField.text!.isEmpty {
+                schedulingAsstSegueProcess?.setTaskNameToDisplay(taskName: taskNameField.text!)
+            }
             schedulingAsstSegueProcess?.segueToSchedulingAssistance(segue: segue)
         }
         else {
