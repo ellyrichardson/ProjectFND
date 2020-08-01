@@ -213,7 +213,7 @@ class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate,
         }
         
         cell.startTimeLabel.text = startTimeFormatter.string(from: tsverItem.startDate)
-        let appropriateEndTime = schedlngAsstncHelper.adjustTaskEndTimeIf12AMNextDay(endTime: tsverItem.endDate)
+        let appropriateEndTime = schedlngAsstncHelper.adjustTaskEndTimeIf12AMNextDay(startTime: tsverItem.startDate, endTime: tsverItem.endDate)
         cell.endTimeLabel.text = endTimeFormatter.string(from: appropriateEndTime)
         return cell
     }

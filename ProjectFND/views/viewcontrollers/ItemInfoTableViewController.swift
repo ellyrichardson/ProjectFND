@@ -123,17 +123,21 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "h:mm a"
             let newValueTask = newValue as! ToDo
+            let formattedStartTime = dateFormatter.string(from: newValueTask.getStartTime())
+            let formattedEndTime = dateFormatter.string(from: newValueTask.getEndTime())
             
-            self.inQueueTask = newValueTask
-            self.inQueueTaskContainsNewValue = true
-            self.startDateStringValue.text = dateFormatter.string(from: newValueTask.getStartTime())
-            self.endDateStringValue.text = dateFormatter.string(from: newValueTask.getEndTime())
-            self.startTimeTracker = newValueTask.getStartTime()
-            self.endTimeTracker = newValueTask.getEndTime()
-            self.isSchedulingAssistancePressed = true
-            self.isSchedulingAssistanceUtilized = true
-            updateSaveButtonState()
-            changeTaskNameFieldColor()
+            if formattedStartTime != formattedEndTime {
+                self.inQueueTask = newValueTask
+                self.inQueueTaskContainsNewValue = true
+                self.startDateStringValue.text = formattedStartTime
+                self.endDateStringValue.text = formattedEndTime
+                self.startTimeTracker = newValueTask.getStartTime()
+                self.endTimeTracker = newValueTask.getEndTime()
+                self.isSchedulingAssistancePressed = true
+                self.isSchedulingAssistanceUtilized = true
+                updateSaveButtonState()
+                changeTaskNameFieldColor()
+            }
         }
     }
     
@@ -423,6 +427,10 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             
         else if segue.identifier == "SegueToSchedulingAssistance" {
             let schedulingAsstSegueProcess = SchedulingAssistanceSegueProcess(taskItem: self.toDo, startTime: self.chosenStartDate, inQueueTask: self.inQueueTask, inQueueTaskContainsNewValue: self.inQueueTaskContainsNewValue, taskItemsForSelectedDay: toDos, observerVCs: self.observerVCs)
+            // Sets the task name if taskNameField was already populated before segueing to the SchedulingAssistance
+            if !taskNameField.text!.isEmpty {
+                schedulingAsstSegueProcess?.setTaskNameToDisplay(taskName: taskNameField.text!)
+            }
             schedulingAsstSegueProcess?.segueToSchedulingAssistance(segue: segue)
         }
         else {
