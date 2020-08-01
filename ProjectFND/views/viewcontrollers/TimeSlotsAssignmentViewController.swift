@@ -11,6 +11,9 @@ import UIKit
 
 // Maybe call this time slot selector instead?
 class TimeSlotsAssignmentViewController: UIViewController {
+    
+    final let PLACE_HOLDER_DATE = "2020/01/15 00:00"
+    
     @IBOutlet weak var startTimeUiView: UIView!
     @IBOutlet weak var endTimeUiView: UIView!
     @IBOutlet weak var startTimePicker: UIDatePicker!
@@ -61,14 +64,14 @@ class TimeSlotsAssignmentViewController: UIViewController {
         self.startTimePicker.minimumDate = self.minimumTime
         
         // This is so that the max time is 11:59 PM of the same day, not 12:00 AM of the next day
-        self.startTimePicker.maximumDate = schedlngAsstncHelper.adjustTaskEndTimeIf12AMNextDay(startTime: self.minimumTime!, endTime: self.maximumTime!)
+        self.startTimePicker.maximumDate = schedlngAsstncHelper.adjustTaskEndTimeIf12AMNextDay(endTime: self.maximumTime!)
     }
     
     private func setEndTimePickerMinAndMax() {
-        self.endTimePicker.minimumDate = self.minimumTime
+        self.endTimePicker.minimumDate =    self.minimumTime
         
         // This is so that the max time is 11:59 PM of the same day, not 12:00 AM of the next day
-        self.endTimePicker.maximumDate = schedlngAsstncHelper.adjustTaskEndTimeIf12AMNextDay(startTime: self.minimumTime!, endTime: self.maximumTime!)
+        self.endTimePicker.maximumDate = schedlngAsstncHelper.adjustTaskEndTimeIf12AMNextDay(endTime: self.maximumTime!)
     }
     
     private func areTimesSameDay(earlyTime: Date, laterTime: Date) -> Bool {
@@ -79,8 +82,8 @@ class TimeSlotsAssignmentViewController: UIViewController {
     }
     
     func setMinAndMaxTime(minTime: Date, maxTime: Date) {
-        self.minimumTime = minTime
-        self.maximumTime = maxTime
+        setMinTime(minTime: minTime)
+        setMaxTime(maxTime: maxTime)
     }
     
     func setMinTime(minTime: Date) {
