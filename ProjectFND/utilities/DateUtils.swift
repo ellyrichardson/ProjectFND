@@ -85,4 +85,17 @@ class DateUtils{
         
         return formattedDate
     }
+    
+    func isDate12AM(dateTime: Date) -> Bool {
+        let PLACE_HOLDER_DATE = "2020/01/15 00:00"
+        
+        let dayWith12AM =  createDate(dateString: PLACE_HOLDER_DATE)
+        let timeOf12AM = Calendar.current.dateComponents([.hour, .minute], from: dayWith12AM)
+        let timeTarget = Calendar.current.dateComponents([.hour, .minute], from: dateTime)
+
+        if timeOf12AM == timeTarget {
+            return true
+        }
+        return false
+    }
 }
