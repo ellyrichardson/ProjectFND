@@ -47,6 +47,7 @@ class TimeSlotsAssignmentViewController: UIViewController {
         self.startTimePicker.datePickerMode = .time
         self.endTimePicker.datePickerMode = .time
         self.startTimePicker.setDate(self.minimumTime!, animated: false)
+        startTimePicker.addTarget(self, action: #selector(self.startTimePickerValueChanged(_:)), for: .valueChanged)
         configurePickerMinAndMax()
     }
     
@@ -68,7 +69,8 @@ class TimeSlotsAssignmentViewController: UIViewController {
     }
     
     private func setEndTimePickerMinAndMax() {
-        self.endTimePicker.minimumDate =    self.minimumTime
+        //self.endTimePicker.minimumDate = self.minimumTime
+        endTimePicker.minimumDate = startTimePicker.date
         
         // This is so that the max time is 11:59 PM of the same day, not 12:00 AM of the next day
         self.endTimePicker.maximumDate = schedlngAsstncHelper.adjustTaskEndTimeIf12AMNextDay(startTime: self.minimumTime!, endTime: self.maximumTime!)
@@ -107,5 +109,10 @@ class TimeSlotsAssignmentViewController: UIViewController {
     
     @IBAction func cancelButtonAction(_ sender: UIButton) {
         SwiftEntryKit.dismiss()
+    }
+    
+    @IBAction func startTimePickerValueChanged(_ sender: UIDatePicker) {
+        self.endTimePicker.minimumDate = startTimePicker.date
+        self.endTimePicker.reloadInputViews()
     }
 }
