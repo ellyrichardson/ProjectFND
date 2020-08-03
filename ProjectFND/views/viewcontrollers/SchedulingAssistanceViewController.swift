@@ -11,6 +11,8 @@ import UIKit
 
 class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, Observer {
     
+    final let PLACE_HOLDER_DATE = "2020/01/15 00:00"
+    
     @IBOutlet weak var schedulingAstncTableView: UITableView!
     @IBOutlet weak var backButton: UIBarButtonItem!
     
@@ -18,7 +20,6 @@ class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate,
     private var scheduleTimeSpan: TimeSpan?
     private var dateFormatter = DateFormatter()
     private var tsveResult = [Oter]()
-    private var schedlngAsstncHelper = SchedulingAssistanceHelper()
     private var targetTask = ToDo()
     
     // MARK: - Trackers
@@ -52,7 +53,7 @@ class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate,
                 if oterItem.ownerTaskId == newValueOter.ownerTaskId {
                     // NOTE: My thought was to create a new ToDo after the selection of time, add it to the taskItems dictionary, then run the evaluation again
                     self.targetTask.startTime = newValueOter.startDate
-                    self.targetTask.endTime = newValueOter.endDate
+                    self.targetTask.endTime = shouldAdd24HoursToDateTime(dateTime: newValueOter.endDate)
                     self.taskItems[self.targetTask.getTaskId()] = self.targetTask
                     evaluateVacantTimes()
                     self.schedulingAstncTableView.reloadData()
@@ -213,8 +214,7 @@ class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate,
         }
         
         cell.startTimeLabel.text = startTimeFormatter.string(from: tsverItem.startDate)
-        let appropriateEndTime = schedlngAsstncHelper.adjustTaskEndTimeIf12AMNextDay(startTime: tsverItem.startDate, endTime: tsverItem.endDate)
-        cell.endTimeLabel.text = endTimeFormatter.string(from: appropriateEndTime)
+        cell.endTimeLabel.text = endTimeFormatter.string(from: tsverItem.endDate)
         return cell
     }
     
@@ -247,6 +247,14 @@ class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate,
     
     func setTargetTaskJustCreated(targetTaskJustCreated: Bool) {
         self.targetTaskJustCreated = targetTaskJustCreated
+    }
+    
+    private func shouldAdd24HoursToDateTime(dateTime: Date) -> Date {
+        let dateUtil = DateUtils()
+        if dateUtil.isDate12AM(dateTime: dateTime) {
+            return dateUtil.addHoursToDate(date: dateTime, hours: 24.0)
+        }
+        return dateTime
     }
     
     // MARK: - Setter

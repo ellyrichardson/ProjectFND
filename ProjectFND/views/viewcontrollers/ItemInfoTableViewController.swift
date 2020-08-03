@@ -126,19 +126,31 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             let formattedStartTime = dateFormatter.string(from: newValueTask.getStartTime())
             let formattedEndTime = dateFormatter.string(from: newValueTask.getEndTime())
             
-            if formattedStartTime != formattedEndTime {
-                self.inQueueTask = newValueTask
-                self.inQueueTaskContainsNewValue = true
-                self.startDateStringValue.text = formattedStartTime
-                self.endDateStringValue.text = formattedEndTime
-                self.startTimeTracker = newValueTask.getStartTime()
-                self.endTimeTracker = newValueTask.getEndTime()
-                self.isSchedulingAssistancePressed = true
-                self.isSchedulingAssistanceUtilized = true
-                updateSaveButtonState()
-                changeTaskNameFieldColor()
+            if formattedStartTime == formattedEndTime {
+                let isDate12AM = dateUtil.isDate12AM(dateTime: newValueTask.getEndTime())
+                if isDate12AM {
+                    setAppropriateTaskTimes(newValueTask: newValueTask, formattedStartTime: formattedStartTime, formattedEndTime: formattedEndTime, isDate12AM: isDate12AM)
+                }
+            } else {
+                setAppropriateTaskTimes(newValueTask: newValueTask, formattedStartTime: formattedStartTime, formattedEndTime: formattedEndTime, isDate12AM: false)
             }
         }
+    }
+    
+    private func setAppropriateTaskTimes(newValueTask: ToDo, formattedStartTime: String, formattedEndTime: String, isDate12AM: Bool) {
+        self.inQueueTask = newValueTask
+        self.inQueueTaskContainsNewValue = true
+        self.startDateStringValue.text = formattedStartTime
+        self.endDateStringValue.text = formattedEndTime
+        self.startTimeTracker = newValueTask.getStartTime()
+        self.endTimeTracker = newValueTask.getEndTime()
+        if dateUtil.isDate12AM(dateTime: newValueTask.getEndTime()) {
+            self.endTimeTracker = dateUtil.addDayToDate(date: newValueTask.getEndTime(), days: 1.0)
+        }
+        self.isSchedulingAssistancePressed = true
+        self.isSchedulingAssistanceUtilized = true
+        updateSaveButtonState()
+        changeTaskNameFieldColor()
     }
     
     // NOTE: DON'T REMOVE THESE ITEMS UNDER THIS MARK! IT MAKES THINGS WEIRD IN A WEIRD WAY!
@@ -431,6 +443,10 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             if !taskNameField.text!.isEmpty {
                 schedulingAsstSegueProcess?.setTaskNameToDisplay(taskName: taskNameField.text!)
             }
+            print("Details")
+            print(startTimeTracker)
+            print(endTimeTracker)
+            schedulingAsstSegueProcess?.setTaskTimeSpan(timeSpan: TimeSpan(startDate: startTimeTracker, endDate: endTimeTracker))
             schedulingAsstSegueProcess?.segueToSchedulingAssistance(segue: segue)
         }
         else {

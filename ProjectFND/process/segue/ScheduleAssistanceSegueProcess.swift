@@ -21,6 +21,7 @@ class SchedulingAssistanceSegueProcess  {
     private var taskItemsForSelectedDay: [String: ToDo]
     private var presettedTaskName: String
     private var isTaskNamePreSet: Bool
+    private var timeSpan: TimeSpan
     
     init?(taskItem: ToDo?, startTime: Date, inQueueTask: ToDo, inQueueTaskContainsNewValue: Bool, taskItemsForSelectedDay: [String: ToDo], observerVCs: [Observer]) {
         self.taskItem = taskItem
@@ -30,6 +31,7 @@ class SchedulingAssistanceSegueProcess  {
         self.taskItemsForSelectedDay = taskItemsForSelectedDay
         self.presettedTaskName = NEW_TASK
         self.isTaskNamePreSet = false
+        self.timeSpan = TimeSpan(startDate: Date(), endDate: Date())
         
         self.observableTaskController.setupData()
         self.observableTaskController.setObservers(observers: observerVCs)
@@ -56,6 +58,10 @@ class SchedulingAssistanceSegueProcess  {
         self.isTaskNamePreSet = true
     }
     
+    func setTaskTimeSpan(timeSpan: TimeSpan) {
+        self.timeSpan = timeSpan
+    }
+    
     private func configureSchedAstncForNewTask(vc: SchedulingAssistanceViewController) {
         vc.setTaskItems(taskItems: taskItemsForSelectedDay)
         
@@ -65,7 +71,7 @@ class SchedulingAssistanceSegueProcess  {
         }
         
         // TODO: Refactor the having of TargetTaskJustCreated being set in this controller, to just setting it in the ToDo Task itself.
-        self.inQueueTask = ToDo(taskId: UUID().uuidString, taskName: taskNameToPass, startTime: Date(), endTime: Date(), dueDate: Date(), finished: false)!
+        self.inQueueTask = ToDo(taskId: UUID().uuidString, taskName: taskNameToPass, startTime: timeSpan.startDate, endTime: timeSpan.endDate, dueDate: Date(), finished: false)!
         if !self.inQueueTaskContainsNewValue {
             vc.setTargetTaskJustCreated(targetTaskJustCreated: true)
         }
