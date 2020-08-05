@@ -23,7 +23,7 @@ class ToDo: NSObject, NSCoding, NSCopying {
     var taskId, intervalId: String
     var taskName, taskNotes, taskTag: String
     var startTime, endTime, dueDate, intervalDueDate: Date
-    var finished, intervalized: Bool
+    var finished, intervalized, dueDateSet: Bool
     var important, notifying: Bool
     var intervalLength, intervalIndex: String
     
@@ -59,10 +59,11 @@ class ToDo: NSObject, NSCoding, NSCopying {
         static let repeatingEndDate = "repeatingEndDate"
         static let repeatingId = "repeatingId"
         static let repeatingFrequencyCode = "repeatingFrequencyCode"
+        static let dueDateSet = "dueDateSet"
     }
     
     // MARK: - Initialization
-    init?(taskId: String, taskName: String, taskNotes: String = "", taskTag: String = "", startTime: Date, endTime: Date, dueDate: Date, finished: Bool, intervalized: Bool = false, intervalId: String = "", intervalLength: Int = 0, intervalIndex: Int = 0, intervalDueDate: Date = Date(), important: Bool = false, notifying: Bool = false, repeating: Bool = false, repeatingStartDate: Date = Date(), repeatingEndDate: Date = Date(), repeatingId: String = "", repeatingFrequencyCode: String = "") {
+    init?(taskId: String, taskName: String, taskNotes: String = "", taskTag: String = "", startTime: Date, endTime: Date, dueDate: Date, finished: Bool, dueDateSet: Bool = false, intervalized: Bool = false, intervalId: String = "", intervalLength: Int = 0, intervalIndex: Int = 0, intervalDueDate: Date = Date(), important: Bool = false, notifying: Bool = false, repeating: Bool = false, repeatingStartDate: Date = Date(), repeatingEndDate: Date = Date(), repeatingId: String = "", repeatingFrequencyCode: String = "") {
         
         
         // To fail init if one of them is empty
@@ -91,6 +92,7 @@ class ToDo: NSObject, NSCoding, NSCopying {
         self.repeatingEndDate = repeatingEndDate
         self.repeatingId = repeatingId
         self.repeatingFrequencyCode = repeatingFrequencyCode
+        self.dueDateSet = dueDateSet
     }
     
     override init() {
@@ -116,11 +118,12 @@ class ToDo: NSObject, NSCoding, NSCopying {
         self.repeatingEndDate = Date()
         self.repeatingId = ""
         self.repeatingFrequencyCode = ""
+        self.dueDateSet = false
     }
     
     // MARK: - NSCopying
     func copy(with zone: NSZone? = nil) -> Any {
-        let copy = ToDo(taskId: self.taskId, taskName: self.taskName, taskNotes: self.taskNotes, taskTag: self.taskTag, startTime: self.startTime, endTime: self.endTime, dueDate: self.dueDate, finished: self.finished, intervalized: self.intervalized, intervalId: self.intervalId, intervalLength: Int(self.intervalLength)!, intervalIndex: Int(self.intervalIndex)!, intervalDueDate: self.intervalDueDate, important: self.important, notifying: self.notifying, repeating: self.repeating, repeatingStartDate: self.repeatingStartDate, repeatingEndDate: self.repeatingEndDate, repeatingId: self.repeatingId, repeatingFrequencyCode: self.repeatingFrequencyCode)
+        let copy = ToDo(taskId: self.taskId, taskName: self.taskName, taskNotes: self.taskNotes, taskTag: self.taskTag, startTime: self.startTime, endTime: self.endTime, dueDate: self.dueDate, finished: self.finished, dueDateSet: self.dueDateSet, intervalized: self.intervalized, intervalId: self.intervalId, intervalLength: Int(self.intervalLength)!, intervalIndex: Int(self.intervalIndex)!, intervalDueDate: self.intervalDueDate, important: self.important, notifying: self.notifying, repeating: self.repeating, repeatingStartDate: self.repeatingStartDate, repeatingEndDate: self.repeatingEndDate, repeatingId: self.repeatingId, repeatingFrequencyCode: self.repeatingFrequencyCode)
         return copy as Any
     }
     
@@ -146,6 +149,7 @@ class ToDo: NSObject, NSCoding, NSCopying {
         aCoder.encode(repeatingEndDate, forKey: PropertyKey.repeatingEndDate)
         aCoder.encode(repeatingId, forKey: PropertyKey.repeatingId)
         aCoder.encode(repeatingFrequencyCode, forKey: PropertyKey.repeatingFrequencyCode)
+        aCoder.encode(dueDateSet, forKey: PropertyKey.dueDateSet)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
@@ -208,6 +212,12 @@ class ToDo: NSObject, NSCoding, NSCopying {
         let finished = Bool(aDecoder.decodeBool(forKey: PropertyKey.finished))
         if finished == nil {
             os_log("Unable to decode if ToDo object is finished.", log: OSLog.default, type: .debug)
+            return nil
+        }
+        
+        let dueDateSet = Bool(aDecoder.decodeBool(forKey: PropertyKey.dueDateSet))
+        if dueDateSet == nil {
+            os_log("Unable to decode if ToDo object has dueDateSet.", log: OSLog.default, type: .debug)
             return nil
         }
         
@@ -284,7 +294,7 @@ class ToDo: NSObject, NSCoding, NSCopying {
         }
         
         // Must call designated initializer.
-        self.init(taskId: taskId, taskName: taskName, taskNotes: taskNotes, taskTag: taskTag, startTime: startTime, endTime: endTime, dueDate: dueDate, finished: finished,  intervalized: intervalized, intervalId: intervalId, intervalLength: Int(intervalLength)!, intervalIndex: Int(intervalIndex)!, intervalDueDate: intervalDueDate, important: important, notifying: notifying, repeating: repeating, repeatingStartDate: repeatingStartDate, repeatingEndDate: repeatingEndDate, repeatingId: repeatingId, repeatingFrequencyCode: repeatingFrequencyCode)
+        self.init(taskId: taskId, taskName: taskName, taskNotes: taskNotes, taskTag: taskTag, startTime: startTime, endTime: endTime, dueDate: dueDate, finished: finished, dueDateSet: dueDateSet, intervalized: intervalized, intervalId: intervalId, intervalLength: Int(intervalLength)!, intervalIndex: Int(intervalIndex)!, intervalDueDate: intervalDueDate, important: important, notifying: notifying, repeating: repeating, repeatingStartDate: repeatingStartDate, repeatingEndDate: repeatingEndDate, repeatingId: repeatingId, repeatingFrequencyCode: repeatingFrequencyCode)
     }
     
     func  getTaskId() -> String {
@@ -318,6 +328,10 @@ class ToDo: NSObject, NSCoding, NSCopying {
     
     func isFinished() -> Bool {
         return self.finished
+    }
+    
+    func isDueDateSet() -> Bool {
+        return self.dueDateSet
     }
     
     func getIntervalId() -> String {
