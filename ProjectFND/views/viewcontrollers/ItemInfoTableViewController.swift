@@ -51,6 +51,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     private var selectedTaskTypePickerData: String = String()
     private var repeatingStatus: Bool = Bool()
     private var isSchedulingAssistanceUtilized = false
+    private var isDueDateSetTracker = false
     
     // Intervalizer Trackers (NOT USED??)
     private var intervalHours = 0
@@ -103,6 +104,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             self.dueDateLabel.text = "Due Date: " + dateFormatter.string(from: newValueDate.dateValue!)
             self.dueDateTracker = newValueDate.dateValue!
             self.isDueDatePickerPressedTracker = true
+            self.isDueDateSetTracker = true
             self.tableView.reloadData()
             changeDueDateLabelColor()
         }
@@ -212,8 +214,13 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             self.endDateStringValue.text = dateFormatter.string(from: toDo.getEndTime())
             
             dateFormatter.dateFormat = "MM/dd/yy, h:mm a"
-            self.dueDateLabel.text = "Due Date: " + dateFormatter.string(from: toDo.getDueDate())
-            changeDueDateLabelColor()
+            
+            self.isDueDateSetTracker = toDo.isDueDateSet()
+            
+            if toDo.isDueDateSet() {
+                self.dueDateLabel.text = "Due Date: " + dateFormatter.string(from: toDo.getDueDate())
+                changeDueDateLabelColor()
+            }
             
             self.tagsLabel.text = toDo.getTaskTag()
             changeTagsLabelColor()
@@ -473,7 +480,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         if toDo == nil  {
             // Set the Non-Intervalized ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being created
             
-            toDo = ToDo(taskId: UUID().uuidString, taskName: taskName!, taskNotes: self.notesTextViewValue, taskTag: self.currentSelectedTag, startTime: self.startTimeTracker, endTime: self.endTimeTracker, dueDate: self.dueDateTracker, finished: getIsFinished(), repeating: repeating)
+            toDo = ToDo(taskId: UUID().uuidString, taskName: taskName!, taskNotes: self.notesTextViewValue, taskTag: self.currentSelectedTag, startTime: self.startTimeTracker, endTime: self.endTimeTracker, dueDate: self.dueDateTracker, finished: getIsFinished(), dueDateSet: self.isDueDateSetTracker, repeating: repeating)
             
         } else {
             // Set the Non-Intervalized ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being modified and is already  created
@@ -500,7 +507,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             taskTag = self.currentSelectedTag
         }
         
-        self.toDo = ToDo(taskId: (self.toDo?.taskId)!, taskName: taskName, taskNotes: self.notesTextViewValue, taskTag: taskTag!, startTime: startTime!, endTime: endTime!, dueDate: dueDate!, finished: getIsFinished(), repeating: repeating)
+        self.toDo = ToDo(taskId: (self.toDo?.taskId)!, taskName: taskName, taskNotes: self.notesTextViewValue, taskTag: taskTag!, startTime: startTime!, endTime: endTime!, dueDate: dueDate!, finished: getIsFinished(), dueDateSet: self.isDueDateSetTracker, repeating: repeating)
     }
     
     // MARK: - Segue Operations

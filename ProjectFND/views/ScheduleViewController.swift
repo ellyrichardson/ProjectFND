@@ -279,6 +279,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     private func configureCellDesign(cell: UITableViewCell, row: Int, sortedTaskItems: [(key: String, value: ToDo)]) {
         cell.contentView.layer.backgroundColor = ToDoTableViewUtils.colorForToDoRow(toDoRowIndex: row, toDoItems: sortedTaskItems).cgColor
         cell.layer.backgroundColor = ToDoTableViewUtils.colorForToDoRow(toDoRowIndex: row, toDoItems: sortedTaskItems).cgColor
+        
         // This will turn on `masksToBounds` just before showing the cell
         cell.contentView.layer.masksToBounds = true
         
@@ -342,9 +343,12 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         let toDosForTheDay = toDosController.getToDosByDay(dateChosen: date)
         
         // Checks if these kinds of ToDos exist in the date of the current cell.
-        let onProgressToDo = toDosForTheDay.first(where: {Date() < $0.value.getDueDate() && !$0.value.isFinished()})
+        /*
+         Task will be identified as onProgress if due date is not set
+         */
+        let onProgressToDo = toDosForTheDay.first(where: {(Date() < $0.value.getDueDate() || !$0.value.isDueDateSet()) && !$0.value.isFinished() })
         let finishedToDo = toDosForTheDay.first(where: {$0.value.isFinished() == true})
-        let overdueToDo = toDosForTheDay.first(where: {Date() > $0.value.getDueDate() && !$0.value.isFinished()})
+        let overdueToDo = toDosForTheDay.first(where: {(Date() > $0.value.getDueDate() && !$0.value.isFinished()) && $0.value.isDueDateSet()})
         
         // Sets boolean variables if types of ToDos exist.
         if onProgressToDo != nil {

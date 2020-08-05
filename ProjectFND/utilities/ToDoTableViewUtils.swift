@@ -20,9 +20,9 @@ class ToDoTableViewUtils {
         dateFormatter.dateFormat = "M/d/yy, h:mm a"
         
         let toDoItem = toDoItems[toDoRowIndex]
-        
+        /*
         // Neutral status - if ToDo hasn't met due date yet
-        if toDoItem.value.finished == false && currentDate < toDoItem.value.dueDate {
+        if (toDoItem.value.finished == false && currentDate < toDoItem.value.dueDate) || !toDoItem.value.isDueDateSet() {
             // Yellowish color
             
             return UIColor(red:1.00, green:0.89, blue:0.00, alpha:1.0)
@@ -37,7 +37,23 @@ class ToDoTableViewUtils {
         else {
             // Reddish orange color
             return UIColor(red:1.00, green:0.5, blue:0.0, alpha:1.0)
+        }*/
+        
+        // Late - if ToDo hasn't finished yet and is past due date
+        if (toDoItem.value.finished == false && currentDate > toDoItem.value.dueDate) && toDoItem.value.isDueDateSet() {
+            // Reddish orange color
+            return UIColor(red:1.00, green:0.5, blue:0.0, alpha:1.0)
         }
+        // Finished - if ToDo is finished
+        if toDoItem.value.finished == true {
+            // Greenish color
+            print("GREENN")
+            return UIColor(red:0.08, green:0.85, blue:0.42, alpha:1.0)
+        }
+        
+        // Neutral status - if ToDo hasn't met due date yet
+        // Yellowish color
+        return UIColor(red:1.00, green:0.89, blue:0.00, alpha:1.0)
     }
     
     
