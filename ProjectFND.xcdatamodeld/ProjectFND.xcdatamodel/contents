@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="FND_TASK" representedClassName="FND_TASK" syncable="YES" codeGenerationType="class">
+    <entity name="FND_TASK_ENTITY" representedClassName="FND_TASK_ENTITY" syncable="YES" codeGenerationType="class">
         <attribute name="dueDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dueDateSet" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="endTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="finished" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="important" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -23,6 +24,6 @@
         <attribute name="taskTag" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="FND_TASK" positionX="-63" positionY="-18" width="128" height="343"/>
+        <element name="FND_TASK_ENTITY" positionX="-63" positionY="-18" width="128" height="358"/>
     </elements>
 </model>

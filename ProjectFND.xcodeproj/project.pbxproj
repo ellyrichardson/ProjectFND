@@ -60,7 +60,6 @@
 		216067E92421CD4A00B0E5EF /* DeadlinesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216067E82421CD4A00B0E5EF /* DeadlinesTableViewCell.swift */; };
 		2172C147248DE93300BC9F24 /* TimeSlotsVacancyEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2172C146248DE93300BC9F24 /* TimeSlotsVacancyEvaluator.swift */; };
 		217477CF23D5282B001CA394 /* IntervalAvailabilitiesCheckingOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217477CE23D5282B001CA394 /* IntervalAvailabilitiesCheckingOperations.swift */; };
-		21748F9224832D2D00A27938 /* ToDoDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21748F9124832D2D00A27938 /* ToDoDate.swift */; };
 		217974E22425BFC700FE7B4C /* ObservableList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217974E12425BFC700FE7B4C /* ObservableList.swift */; };
 		217974E42425C19C00FE7B4C /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217974E32425C19C00FE7B4C /* Observer.swift */; };
 		217974E72425E0F000FE7B4C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217974E62425E0EF00FE7B4C /* Constants.swift */; };
@@ -200,7 +199,6 @@
 		216067E82421CD4A00B0E5EF /* DeadlinesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadlinesTableViewCell.swift; sourceTree = "<group>"; };
 		2172C146248DE93300BC9F24 /* TimeSlotsVacancyEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSlotsVacancyEvaluator.swift; sourceTree = "<group>"; };
 		217477CE23D5282B001CA394 /* IntervalAvailabilitiesCheckingOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalAvailabilitiesCheckingOperations.swift; sourceTree = "<group>"; };
-		21748F9124832D2D00A27938 /* ToDoDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDate.swift; sourceTree = "<group>"; };
 		217974E12425BFC700FE7B4C /* ObservableList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableList.swift; sourceTree = "<group>"; };
 		217974E32425C19C00FE7B4C /* Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
 		217974E62425E0EF00FE7B4C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -492,7 +490,6 @@
 			children = (
 				219628E0247E25C700819A25 /* EstimatedEffort */,
 				219648E7247A14420052ECEF /* Recurrence */,
-				21748F9124832D2D00A27938 /* ToDoDate.swift */,
 				21A4D123231ECE9A00B5B52A /* ToDo.swift */,
 				218A99C124303F820005DEB5 /* ToDoInterval.swift */,
 				214F4F7A23D50DEC00391D7A /* TimeSlot.swift */,
@@ -979,7 +976,6 @@
 				212C577F24CFF21100A40831 /* ItemInfoSegueProcess.swift in Sources */,
 				212F14DD2470563F0084FBD3 /* Font.swift in Sources */,
 				219CA4AB2326CA18003ACBDE /* CheckBoxButton.swift in Sources */,
-				21748F9224832D2D00A27938 /* ToDoDate.swift in Sources */,
 				214E0AE9233552C700398AC5 /* TransformingButton.swift in Sources */,
 				216067E92421CD4A00B0E5EF /* DeadlinesTableViewCell.swift in Sources */,
 				213139F0245A8AC900BBB717 /* FinishedButton.swift in Sources */,

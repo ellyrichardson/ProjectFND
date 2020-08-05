@@ -51,6 +51,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     private var selectedTaskTypePickerData: String = String()
     private var repeatingStatus: Bool = Bool()
     private var isSchedulingAssistanceUtilized = false
+    private var isDueDateSetTracker = false
     
     // Intervalizer Trackers (NOT USED??)
     private var intervalHours = 0
@@ -103,8 +104,16 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             self.dueDateLabel.text = "Due Date: " + dateFormatter.string(from: newValueDate.dateValue!)
             self.dueDateTracker = newValueDate.dateValue!
             self.isDueDatePickerPressedTracker = true
+            
+            if newValueDate.assigned {
+                self.isDueDateSetTracker = true
+                configureDueDateLabel(dueDateString: dateFormatter.string(from: newValueDate.dateValue!), shouldRemove: false)
+            } else {
+                self.isDueDateSetTracker = false
+                configureDueDateLabel(dueDateString: dateFormatter.string(from: newValueDate.dateValue!), shouldRemove: true)
+            }
+            
             self.tableView.reloadData()
-            changeDueDateLabelColor()
         }
         else if observableType == ObservableType.TODO_TAG {
             let newValueTag = newValue as! ToDoTags
@@ -212,8 +221,12 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             self.endDateStringValue.text = dateFormatter.string(from: toDo.getEndTime())
             
             dateFormatter.dateFormat = "MM/dd/yy, h:mm a"
-            self.dueDateLabel.text = "Due Date: " + dateFormatter.string(from: toDo.getDueDate())
-            changeDueDateLabelColor()
+            
+            self.isDueDateSetTracker = toDo.isDueDateSet()
+            
+            if toDo.isDueDateSet() {
+                configureDueDateLabel(dueDateString: dateFormatter.string(from: toDo.getDueDate()), shouldRemove: false)
+            }
             
             self.tagsLabel.text = toDo.getTaskTag()
             changeTagsLabelColor()
@@ -230,6 +243,15 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             taskNameField.attributedPlaceholder = NSAttributedString(string: "Task Name",
                                                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         }
+    }
+    
+    private func configureDueDateLabel(dueDateString: String, shouldRemove: Bool) {
+        if shouldRemove {
+            self.dueDateLabel.text = "Due Date"
+        } else {
+            self.dueDateLabel.text = "Due Date: " + dueDateString
+        }
+        changeDueDateLabelColor(whiteColor: !shouldRemove)
     }
     
     private func configureObservableControllers() {
@@ -473,7 +495,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         if toDo == nil  {
             // Set the Non-Intervalized ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being created
             
-            toDo = ToDo(taskId: UUID().uuidString, taskName: taskName!, taskNotes: self.notesTextViewValue, taskTag: self.currentSelectedTag, startTime: self.startTimeTracker, endTime: self.endTimeTracker, dueDate: self.dueDateTracker, finished: getIsFinished(), repeating: repeating)
+            toDo = ToDo(taskId: UUID().uuidString, taskName: taskName!, taskNotes: self.notesTextViewValue, taskTag: self.currentSelectedTag, startTime: self.startTimeTracker, endTime: self.endTimeTracker, dueDate: self.dueDateTracker, finished: getIsFinished(), dueDateSet: self.isDueDateSetTracker, repeating: repeating)
             
         } else {
             // Set the Non-Intervalized ToDo to be passed to ToDoListTableViewController after pressing save with unwind segue, IF the ToDo was only being modified and is already  created
@@ -500,7 +522,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             taskTag = self.currentSelectedTag
         }
         
-        self.toDo = ToDo(taskId: (self.toDo?.taskId)!, taskName: taskName, taskNotes: self.notesTextViewValue, taskTag: taskTag!, startTime: startTime!, endTime: endTime!, dueDate: dueDate!, finished: getIsFinished(), repeating: repeating)
+        self.toDo = ToDo(taskId: (self.toDo?.taskId)!, taskName: taskName, taskNotes: self.notesTextViewValue, taskTag: taskTag!, startTime: startTime!, endTime: endTime!, dueDate: dueDate!, finished: getIsFinished(), dueDateSet: self.isDueDateSetTracker, repeating: repeating)
     }
     
     // MARK: - Segue Operations
@@ -549,8 +571,12 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         self.tagsLabel.textColor = UIColor.white
     }
     
-    private func changeDueDateLabelColor() {
-        self.dueDateLabel.textColor = UIColor.white
+    private func changeDueDateLabelColor(whiteColor: Bool) {
+        if whiteColor {
+            self.dueDateLabel.textColor = UIColor.white
+        } else {
+            self.dueDateLabel.textColor = UIColor.lightGray
+        }
     }
     
     private func changeTaskNameFieldColor() {
