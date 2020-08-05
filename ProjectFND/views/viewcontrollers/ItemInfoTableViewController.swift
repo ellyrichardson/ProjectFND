@@ -104,9 +104,16 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             self.dueDateLabel.text = "Due Date: " + dateFormatter.string(from: newValueDate.dateValue!)
             self.dueDateTracker = newValueDate.dateValue!
             self.isDueDatePickerPressedTracker = true
-            self.isDueDateSetTracker = true
+            
+            if newValueDate.assigned {
+                self.isDueDateSetTracker = true
+                configureDueDateLabel(dueDateString: dateFormatter.string(from: newValueDate.dateValue!), shouldRemove: false)
+            } else {
+                self.isDueDateSetTracker = false
+                configureDueDateLabel(dueDateString: dateFormatter.string(from: newValueDate.dateValue!), shouldRemove: true)
+            }
+            
             self.tableView.reloadData()
-            changeDueDateLabelColor()
         }
         else if observableType == ObservableType.TODO_TAG {
             let newValueTag = newValue as! ToDoTags
@@ -218,8 +225,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             self.isDueDateSetTracker = toDo.isDueDateSet()
             
             if toDo.isDueDateSet() {
-                self.dueDateLabel.text = "Due Date: " + dateFormatter.string(from: toDo.getDueDate())
-                changeDueDateLabelColor()
+                configureDueDateLabel(dueDateString: dateFormatter.string(from: toDo.getDueDate()), shouldRemove: false)
             }
             
             self.tagsLabel.text = toDo.getTaskTag()
@@ -237,6 +243,15 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             taskNameField.attributedPlaceholder = NSAttributedString(string: "Task Name",
                                                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         }
+    }
+    
+    private func configureDueDateLabel(dueDateString: String, shouldRemove: Bool) {
+        if shouldRemove {
+            self.dueDateLabel.text = "Due Date"
+        } else {
+            self.dueDateLabel.text = "Due Date: " + dueDateString
+        }
+        changeDueDateLabelColor(whiteColor: !shouldRemove)
     }
     
     private func configureObservableControllers() {
@@ -556,8 +571,12 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         self.tagsLabel.textColor = UIColor.white
     }
     
-    private func changeDueDateLabelColor() {
-        self.dueDateLabel.textColor = UIColor.white
+    private func changeDueDateLabelColor(whiteColor: Bool) {
+        if whiteColor {
+            self.dueDateLabel.textColor = UIColor.white
+        } else {
+            self.dueDateLabel.textColor = UIColor.lightGray
+        }
     }
     
     private func changeTaskNameFieldColor() {

@@ -42,7 +42,9 @@ class SchedulingTaskMonthlyViewController: UIViewController {
         SwiftEntryKit.dismiss()
     }
     
+    // Rename this to be a "Remove" button
     @IBAction func cancelButton(_ sender: UIButton) {
+        self.observableDueDateController.updateDate(updatedDate: ToDoDate(dateValue: self.changedDateTo, assigned: false))
         SwiftEntryKit.dismiss()
     }
     
