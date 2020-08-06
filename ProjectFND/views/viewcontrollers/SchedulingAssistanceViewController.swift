@@ -251,8 +251,11 @@ class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate,
     
     private func shouldAdd24HoursToDateTime(dateTime: Date) -> Date {
         let dateUtil = DateUtils()
+        let occupiedOters = tsveResult.filter{ $0.occupancyType != TSOType.VACANT }
         if dateUtil.isDate12AM(dateTime: dateTime) {
-            return dateUtil.addHoursToDate(date: dateTime, hours: 24.0)
+            if occupiedOters.count < 1 {
+                return dateUtil.addHoursToDate(date: dateTime, hours: 24.0)
+            }
         }
         return dateTime
     }

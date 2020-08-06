@@ -136,10 +136,13 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             let newValueTask = newValue as! ToDo
             let formattedStartTime = dateFormatter.string(from: newValueTask.getStartTime())
             let formattedEndTime = dateFormatter.string(from: newValueTask.getEndTime())
-            
-            if formattedStartTime == formattedEndTime {
+            dateFormatter.dateFormat = "MM/dd/yy, h:mm a"
+            let similarityComparisonStartTime = dateFormatter.string(from: newValueTask.getStartTime())
+            let similarityComparisonEndTime = dateFormatter.string(from: newValueTask.getEndTime())
+            //let isDate12AM = dateUtil.isDate12AM(dateTime: newValueTask.getEndTime())
+            if dateUtil.isDate12AM(dateTime: newValueTask.getEndTime()) {
                 let isDate12AM = dateUtil.isDate12AM(dateTime: newValueTask.getEndTime())
-                if isDate12AM {
+                if similarityComparisonStartTime != similarityComparisonEndTime {
                     setAppropriateTaskTimes(newValueTask: newValueTask, formattedStartTime: formattedStartTime, formattedEndTime: formattedEndTime, isDate12AM: isDate12AM)
                 }
             } else {
