@@ -139,7 +139,6 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             dateFormatter.dateFormat = "MM/dd/yy, h:mm a"
             let similarityComparisonStartTime = dateFormatter.string(from: newValueTask.getStartTime())
             let similarityComparisonEndTime = dateFormatter.string(from: newValueTask.getEndTime())
-            //let isDate12AM = dateUtil.isDate12AM(dateTime: newValueTask.getEndTime())
             if dateUtil.isDate12AM(dateTime: newValueTask.getEndTime()) {
                 let isDate12AM = dateUtil.isDate12AM(dateTime: newValueTask.getEndTime())
                 if similarityComparisonStartTime != similarityComparisonEndTime {
