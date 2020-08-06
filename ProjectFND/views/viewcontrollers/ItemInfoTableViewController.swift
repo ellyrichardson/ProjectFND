@@ -19,6 +19,8 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     @IBOutlet weak var dueDateLabel: UILabel!
     @IBOutlet weak var tagsLabel: UILabel!
     
+    private let notesTextView = UITextView()
+    
     private var taskItemCells = [StaticTableCell]()
     
     var observerVCs: [Observer] = [Observer]()
@@ -207,6 +209,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     
     private func configureUiValues() {
         taskNameField.textColor = UIColor.black
+        taskNameField.inputAccessoryView  = createDoneToolBar()
         
         // Set up views if editing an existing ToDo.
         if let toDo = toDo {
@@ -243,6 +246,29 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             taskNameField.attributedPlaceholder = NSAttributedString(string: "Task Name",
                                                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         }
+    }
+    
+    func createDoneToolBar() -> UIToolbar{
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        doneToolbar.barStyle = .default
+
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.textFieldDoneButtonAction))
+
+        let items = [flexSpace, done]
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+
+        return doneToolbar
+    }
+
+    @objc func textFieldDoneButtonAction(){
+        resignTextFieldsAndViews()
+    }
+    
+    private func resignTextFieldsAndViews() {
+        taskNameField.resignFirstResponder()
+        notesTextView.resignFirstResponder()
     }
     
     private func configureDueDateLabel(dueDateString: String, shouldRemove: Bool) {
@@ -304,10 +330,11 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     }
     
     private func configureNotesTextView() {
-        let notesTextView = UITextView()
+        //let notesTextView = UITextView()
         notesTextView.frame = CGRect(x: 0, y: 0, width: 200, height: 100)
         
         notesTextView.backgroundColor = .darkGray
+        notesTextView.inputAccessoryView = createDoneToolBar()
         
         if self.notesTextViewValue == "" || self.notesTextViewValue == "Notes" {
             notesTextView.text = "Notes"
@@ -407,6 +434,8 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     // Collapses and expands table view cells
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 2 {
+            resignTextFieldsAndViews()
+            
             // NOTE: Put this in its own class about PopUp Preparation Process or something
             let viewController = SchedulingTaskMonthlyViewController()
             viewController.setObservableDueDateController(observableDueDateController: self.observableDueDateController)
