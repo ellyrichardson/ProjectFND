@@ -33,6 +33,7 @@ class TimeSlotsAssignmentViewController: UIViewController {
         super.viewDidLoad()
         
         navigationItem.title = "Task Time"
+        navigationController?.setNavigationBarHidden(true, animated: false)
         
         configureTimePickers()
         configureButtons()
@@ -43,8 +44,8 @@ class TimeSlotsAssignmentViewController: UIViewController {
     }
 
     private func configureTimePickers() {
-        self.startTimePicker.datePickerMode = .time
-        self.endTimePicker.datePickerMode = .time
+        self.startTimePicker.datePickerMode = .dateAndTime
+        self.endTimePicker.datePickerMode = .dateAndTime
         self.startTimePicker.setDate(self.minimumTime!, animated: false)
         startTimePicker.addTarget(self, action: #selector(self.startTimePickerValueChanged(_:)), for: .valueChanged)
         configurePickerMinAndMax()
