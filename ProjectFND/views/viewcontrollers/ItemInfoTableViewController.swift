@@ -144,7 +144,8 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
                 if similarityComparisonStartTime != similarityComparisonEndTime {
                     setAppropriateTaskTimes(newValueTask: newValueTask, formattedStartTime: formattedStartTime, formattedEndTime: formattedEndTime, isDate12AM: isDate12AM)
                 }
-            } else {
+            }
+            else if similarityComparisonStartTime != similarityComparisonEndTime {
                 setAppropriateTaskTimes(newValueTask: newValueTask, formattedStartTime: formattedStartTime, formattedEndTime: formattedEndTime, isDate12AM: false)
             }
         }
