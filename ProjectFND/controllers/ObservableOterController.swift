@@ -48,6 +48,10 @@ class ObservableOterController {
         }
     }
     
+    func getObservers() -> [Observer] {
+        return oter.getObservers()
+    }
+    
     // MARK: - Getters
     
     func getDueDate() -> Oter {
