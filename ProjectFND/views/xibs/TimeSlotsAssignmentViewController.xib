@@ -63,8 +63,8 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7nF-KB-4J6" customClass="LongOvalButton" customModule="ProjectFND" customModuleProvider="target">
                     <rect key="frame" x="20" y="386" width="187" height="45"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="45" id="kNK-oK-LFD"/>
-                        <constraint firstAttribute="width" constant="187" id="tPF-Ur-tEV"/>
+                        <constraint firstAttribute="width" constant="187" id="RvX-SD-17Y"/>
+                        <constraint firstAttribute="height" constant="45" id="XMl-c1-g8T"/>
                     </constraints>
                     <state key="normal" title="Accept"/>
                     <connections>
@@ -74,8 +74,8 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j3s-c6-2hn" customClass="LongOvalButton" customModule="ProjectFND" customModuleProvider="target">
                     <rect key="frame" x="235" y="386" width="187" height="45"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="187" id="pOC-cA-hkp"/>
-                        <constraint firstAttribute="height" constant="45" id="vSV-ys-AMy"/>
+                        <constraint firstAttribute="height" constant="45" id="cc9-2s-ok4"/>
+                        <constraint firstAttribute="width" constant="187" id="oxt-h3-3kk"/>
                     </constraints>
                     <state key="normal" title="Cancel"/>
                     <connections>
@@ -119,13 +119,14 @@
             <constraints>
                 <constraint firstItem="K8q-L1-3CB" firstAttribute="top" secondItem="suO-fZ-B9Q" secondAttribute="bottom" constant="7" id="0dG-Af-Kcf"/>
                 <constraint firstItem="suO-fZ-B9Q" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="7kR-7s-h25"/>
-                <constraint firstItem="7nF-KB-4J6" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="C26-R7-URX"/>
-                <constraint firstItem="j3s-c6-2hn" firstAttribute="leading" secondItem="7nF-KB-4J6" secondAttribute="trailing" constant="28" id="Fcj-OH-eNR"/>
+                <constraint firstItem="j3s-c6-2hn" firstAttribute="leading" secondItem="7nF-KB-4J6" secondAttribute="trailing" constant="28" id="JgN-X4-pYv"/>
+                <constraint firstItem="7nF-KB-4J6" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="Okd-jq-ONP"/>
                 <constraint firstItem="suO-fZ-B9Q" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="11" id="S4L-Tu-Lro"/>
-                <constraint firstItem="j3s-c6-2hn" firstAttribute="top" secondItem="K8q-L1-3CB" secondAttribute="bottom" constant="8" id="SmS-qR-69J"/>
+                <constraint firstItem="j3s-c6-2hn" firstAttribute="top" secondItem="K8q-L1-3CB" secondAttribute="bottom" constant="8" id="gVV-hg-io9"/>
                 <constraint firstItem="K8q-L1-3CB" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="hQt-KI-fUm"/>
-                <constraint firstItem="7nF-KB-4J6" firstAttribute="top" secondItem="K8q-L1-3CB" secondAttribute="bottom" constant="8" id="lY1-re-MWg"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="j3s-c6-2hn" secondAttribute="trailing" constant="20" id="n0h-3c-c5p"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="j3s-c6-2hn" secondAttribute="trailing" constant="20" id="kdf-dG-Q2s"/>
+                <constraint firstItem="7nF-KB-4J6" firstAttribute="top" secondItem="K8q-L1-3CB" secondAttribute="bottom" constant="8" id="t9f-ko-5a3"/>
+                <constraint firstItem="j3s-c6-2hn" firstAttribute="leading" secondItem="7nF-KB-4J6" secondAttribute="trailing" constant="28" id="tJn-iX-P9r"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

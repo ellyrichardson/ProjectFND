@@ -351,34 +351,12 @@ class ToDoProcessUtils {
     }
     
     static func isToDoOverdue(toDoRowIndex: Int, toDoItems: [(key: String, value: ToDo)]) -> Bool {
-        let currentDate = Date()
         let dateFormatter = DateFormatter()
         
         dateFormatter.dateFormat = "M/d/yy, h:mm a"
         
         let toDoItem = toDoItems[toDoRowIndex]
-        
-        // Neutral status - if ToDo hasn't met due date yet
-        if toDoItem.value.finished == false && currentDate < toDoItem.value.dueDate {
-            return false
-        }
-        else {
-            return true
-        }
+
+        return (!toDoItem.value.isFinished() && Date() > toDoItem.value.dueDate) && toDoItem.value.isDueDateSet()
     }
-    
-    /*
-    // Retrieves the index of the ToDo from the base ToDo List instead of by day
-    static func retrieveRealIndexOfToDo(toDoItem: ToDo, toDoItemCollection: [String: ToDo]) -> Int {
-        let toDoItems: [String: ToDo] = toDoItemCollection
-        let retrievedIndex: Int = toDoItems.firstIndex(of: toDoItem)!
-        return retrievedIndex
-    }
-    
-    // Replaces a ToDo item based on its index from an array
-    static func replaceToDoItemInBaseList(editedToDoItem: ToDo, editedToDoItemIndex: Int, toDoItemCollection: inout [String: ToDo]) {
-        //self.toDos[editedToDoItemIndex] = editedToDoItem
-        removeToDoItem(toDoItemIndexToRemove: editedToDoItemIndex, toDoItemCollection: &toDoItemCollection)
-        addToDoItem(toDoItemToAdd: editedToDoItem, toDoItemCollection: &toDoItemCollection)
-    }*/
 }
