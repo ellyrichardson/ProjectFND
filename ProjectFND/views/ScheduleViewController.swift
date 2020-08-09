@@ -401,7 +401,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
 
     // TODO: Move utility setters and getters to the controller
-    // MARK: - Setters
+    // MARK: - Setters and Getters
     
     func setToDoItems(toDoItems: [String: ToDo]) {
         self.toDos = toDoItems
@@ -422,8 +422,6 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     func getObserverId() -> Int {
         return self.observerId
     }
-    
-    // MARK: - Getters
     
     func getSelectedDate() -> Date {
         return self.selectedDate

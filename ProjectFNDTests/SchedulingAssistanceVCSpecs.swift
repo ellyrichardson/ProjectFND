@@ -16,8 +16,6 @@ class SchedulingAssistanceVCSpecs: QuickSpec {
         
         describe("SchedulingAssistanceVC") {
             
-            // MARK: - Populating Tests
-            
             context("When VC loads") {
                 
                 beforeEach {
