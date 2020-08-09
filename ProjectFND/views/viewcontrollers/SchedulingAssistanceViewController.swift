@@ -76,21 +76,21 @@ class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate,
         evaluateVacantTimes()
     }
     
-    private func configureObserversAndObservables() {
+    func configureObserversAndObservables() {
         // NOTE: Observable area
         let observerVCs: [Observer] = [self]
         self.observableOterController.setupData()
         self.observableOterController.setObservers(observers: observerVCs)
     }
     
-    private func configureTaskItemsValues() {
+    func configureTaskItemsValues() {
         // TODO: Refactor the having to worry about TargetTaskJustCreated like this, to just setting it in the ToDo Task itself.
         if !self.targetTaskJustCreated {
             self.taskItems[targetTask.getTaskId()] = self.targetTask
         }
     }
     
-    private func configureNavBar() {
+    func configureNavBar() {
         let nav = self.navigationController?.navigationBar
         
         let yellowColor = UIColor(red:1.00, green:0.89, blue:0.00, alpha:1.0)
@@ -127,6 +127,7 @@ class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate,
         }
     }
     
+    // TODO: Please find a way to unit test this
     private func showTimeSlotsAssignmentView(tsveResultItem: Oter, timeSlotsAssgnmentViewCntrlr: TimeSlotsAssignmentViewController) {
         timeSlotsAssgnmentViewCntrlr.setSelectedOter(selectedOter: tsveResultItem)
         timeSlotsAssgnmentViewCntrlr.setObservableOterController(observableOterController: self.observableOterController)
@@ -136,14 +137,14 @@ class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate,
         SwiftEntryKit.display(entry: timeSlotsAssgnmentNavCntrlr, using: PresetsDataSource.getCustomPreset())
     }
     
-    private func showTimeSlotsAssignmentViewWithVacantTSO(tsveResultItem: Oter) {
+    func showTimeSlotsAssignmentViewWithVacantTSO(tsveResultItem: Oter) {
         let timeSlotsAssgnmentViewCntrlr = TimeSlotsAssignmentViewController()
         timeSlotsAssgnmentViewCntrlr.setMinAndMaxTime(minTime: tsveResultItem.startDate, maxTime: tsveResultItem.endDate)
         
         showTimeSlotsAssignmentView(tsveResultItem: tsveResultItem, timeSlotsAssgnmentViewCntrlr: timeSlotsAssgnmentViewCntrlr)
     }
     
-    private func showTimeSlotsAssignmentViewCurrentTask(tsveResultItem: Oter, indexPathRow: Int) {
+    func showTimeSlotsAssignmentViewCurrentTask(tsveResultItem: Oter, indexPathRow: Int) {
         let timeSlotsAssgnmentViewCntrlr = TimeSlotsAssignmentViewController()
         
         let prevTsveResult = retrieveAppropriatePrevTsveResultItem(currentItemIndex: indexPathRow)
@@ -245,8 +246,16 @@ class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate,
         self.observableTaskController = observableTaskController
     }
     
+    func getObservableTaskController() -> ObservableTaskController {
+        return self.observableTaskController
+    }
+    
     func setTargetTaskJustCreated(targetTaskJustCreated: Bool) {
         self.targetTaskJustCreated = targetTaskJustCreated
+    }
+    
+    func isTargetTaskJustCreated() -> Bool {
+        return self.targetTaskJustCreated
     }
     
     private func shouldAdd24HoursToDateTime(dateTime: Date) -> Date {
@@ -267,6 +276,10 @@ class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate,
         self.taskItems = taskItems
     }
     
+    func getTaskItems() ->[String: ToDo] {
+        return self.taskItems
+    }
+    
     // Step 2
     func setDayToAssist(dayDate: Date) {
         dateFormatter.dateFormat = "yyyy/MM/dd"
@@ -282,10 +295,36 @@ class SchedulingAssistanceViewController: UIViewController, UITableViewDelegate,
         self.targetTask = taskItem
     }
     
-    // MARK: - Getter
+    func getTargetTask() -> ToDo {
+        return self.targetTask
+    }
     
-    func getTaskItems() ->[String: ToDo] {
-        return self.taskItems
+    func setScheduleTimeSpan(timeSpan: TimeSpan) {
+        self.scheduleTimeSpan = timeSpan
+    }
+    
+    func getScheduleTimeSpan() -> TimeSpan {
+        return self.scheduleTimeSpan!
+    }
+    
+    func setTsveResult(tsveResult: [Oter]) {
+        self.tsveResult = tsveResult
+    }
+    
+    func getTsveResult() -> [Oter] {
+        return self.tsveResult
+    }
+    
+    func setObservableOterController(observableOterController: ObservableOterController) {
+        self.observableOterController = observableOterController
+    }
+    
+    func getObservableOterController() -> ObservableOterController {
+        return self.observableOterController
+    }
+    
+    func getObserverId() -> Int {
+        return self.observerId
     }
     
     // MARK: - IBActions

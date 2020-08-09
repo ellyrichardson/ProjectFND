@@ -49,6 +49,10 @@ class ObservableTaskController {
         }
     }
     
+    func getObservers() -> [Observer] {
+        return self.task.getObservers()
+    }
+    
     // MARK: - Getters
     
     func getDueDate() -> ToDo {
