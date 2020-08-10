@@ -456,13 +456,16 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
             return CGFloat(self.notesTableViewCellHeightTracker)
         }
         else if indexPath.row == 4 {
-            return 124
+            return 135
+        }
+        else if indexPath.row == 10 {
+            return 110
         }
         return 50
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == 3 || indexPath.row == 4 || indexPath.row == 5 || indexPath.row == 6 {
+        if indexPath.row == 3 || indexPath.row == 4 || indexPath.row == 5 || indexPath.row == 8 || indexPath.row == 9 || indexPath.row == 10 {
             // To remove line separator from tableViewCells
             cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
             cell.directionalLayoutMargins = .zero
