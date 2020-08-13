@@ -766,6 +766,7 @@
         <!--Entry Details Table View Controller-->
         <scene sceneID="EkD-eO-CmL">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LdA-q3-Zfa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <tableViewController id="o3F-cX-9Ds" customClass="EntryDetailsTableViewController" customModule="ProjectFND" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="cWI-fn-q8B">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -980,7 +981,6 @@
                         <outlet property="taskNameTextField" destination="4IO-QS-XRy" id="un7-1N-TPT"/>
                     </connections>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="LdA-q3-Zfa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3592.753623188406" y="-25.446428571428569"/>
         </scene>
