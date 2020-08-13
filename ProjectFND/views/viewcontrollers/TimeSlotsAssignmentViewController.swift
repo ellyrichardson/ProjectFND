@@ -42,8 +42,12 @@ class TimeSlotsAssignmentViewController: UIViewController {
     func setObservableOterController(observableOterController: ObservableOterController) {
         self.observableOterController = observableOterController
     }
+    
+    func getObservableOterController() -> ObservableOterController {
+        return self.observableOterController
+    }
 
-    private func configureTimePickers() {
+    func configureTimePickers() {
         self.startTimePicker.datePickerMode = .time
         self.endTimePicker.datePickerMode = .time
         self.startTimePicker.setDate(self.minimumTime!, animated: false)
@@ -51,12 +55,12 @@ class TimeSlotsAssignmentViewController: UIViewController {
         configurePickerMinAndMax()
     }
     
-    private func configurePickerMinAndMax() {
+    func configurePickerMinAndMax() {
         setStartTimePickerMinAndMax()
         setEndTimePickerMinAndMax()
     }
     
-    private func configureButtons() {
+    func configureButtons() {
         self.acceptButton.backgroundColor = ColorUtils.classicGreen()
         self.cancelButton.backgroundColor = ColorUtils.classicOrange()
     }
@@ -87,12 +91,24 @@ class TimeSlotsAssignmentViewController: UIViewController {
         self.minimumTime = minTime
     }
     
+    func getMinTime() -> Date {
+        return self.minimumTime!
+    }
+    
     func setMaxTime(maxTime: Date) {
         self.maximumTime = maxTime
     }
     
+    func getMaxTime() -> Date {
+        return self.maximumTime!
+    }
+    
     func setSelectedOter(selectedOter: Oter) {
         self.selectedOter = selectedOter
+    }
+    
+    func getSelectedOter() -> Oter {
+        return self.selectedOter!
     }
     
     // MARK: - IB Actions
@@ -137,5 +153,13 @@ class TimeSlotsAssignmentViewController: UIViewController {
             }
         }
         return updatedTime
+    }
+
+    func getStartTimePicker() -> UIDatePicker {
+        return self.startTimePicker
+    }
+    
+    func getEndTimePicker() -> UIDatePicker {
+        return self.endTimePicker
     }
 }
