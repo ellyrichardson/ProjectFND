@@ -158,9 +158,6 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         self.endDateStringValue.text = formattedEndTime
         self.startTimeTracker = newValueTask.getStartTime()
         self.endTimeTracker = newValueTask.getEndTime()
-        if dateUtil.isDate12AM(dateTime: newValueTask.getEndTime()) {
-            self.endTimeTracker = dateUtil.addDayToDate(date: newValueTask.getEndTime(), days: 1.0)
-        }
         self.isSchedulingAssistancePressed = true
         self.isSchedulingAssistanceUtilized = true
         updateSaveButtonState()

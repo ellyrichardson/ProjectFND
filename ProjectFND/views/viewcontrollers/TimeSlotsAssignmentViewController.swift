@@ -42,21 +42,25 @@ class TimeSlotsAssignmentViewController: UIViewController {
     func setObservableOterController(observableOterController: ObservableOterController) {
         self.observableOterController = observableOterController
     }
+    
+    func getObservableOterController() -> ObservableOterController {
+        return self.observableOterController
+    }
 
-    private func configureTimePickers() {
-        self.startTimePicker.datePickerMode = .dateAndTime
-        self.endTimePicker.datePickerMode = .dateAndTime
+    func configureTimePickers() {
+        self.startTimePicker.datePickerMode = .time
+        self.endTimePicker.datePickerMode = .time
         self.startTimePicker.setDate(self.minimumTime!, animated: false)
         startTimePicker.addTarget(self, action: #selector(self.startTimePickerValueChanged(_:)), for: .valueChanged)
         configurePickerMinAndMax()
     }
     
-    private func configurePickerMinAndMax() {
+    func configurePickerMinAndMax() {
         setStartTimePickerMinAndMax()
         setEndTimePickerMinAndMax()
     }
     
-    private func configureButtons() {
+    func configureButtons() {
         self.acceptButton.backgroundColor = ColorUtils.classicGreen()
         self.cancelButton.backgroundColor = ColorUtils.classicOrange()
     }
@@ -66,9 +70,9 @@ class TimeSlotsAssignmentViewController: UIViewController {
         startTimePicker.maximumDate = self.maximumTime
     }
     
+    // There is no maximum and minimum for EndTimePicker because it is manually handled with updateTimeBasedOnStartTimePickerMinAndMax function
     private func setEndTimePickerMinAndMax() {
-        endTimePicker.minimumDate = startTimePicker.date
-        endTimePicker.maximumDate = self.maximumTime
+        self.endTimePicker.date = updateTimeBasedOnStartTimePickerMinAndMax(dateTime: maximumTime!)
     }
     
     private func areTimesSameDay(earlyTime: Date, laterTime: Date) -> Bool {
@@ -87,16 +91,27 @@ class TimeSlotsAssignmentViewController: UIViewController {
         self.minimumTime = minTime
     }
     
+    func getMinTime() -> Date {
+        return self.minimumTime!
+    }
+    
     func setMaxTime(maxTime: Date) {
         self.maximumTime = maxTime
+    }
+    
+    func getMaxTime() -> Date {
+        return self.maximumTime!
     }
     
     func setSelectedOter(selectedOter: Oter) {
         self.selectedOter = selectedOter
     }
     
-    // MARK: - IB Actions
+    func getSelectedOter() -> Oter {
+        return self.selectedOter!
+    }
     
+    // MARK: - IB Actions
     @IBAction func acceptButtonAction(_ sender: UIButton) {
         self.observableOterController.updateOter(updatedOter: Oter(startDate: self.startTimePicker.date, endDate: self.endTimePicker.date, ownerTaskId: self.selectedOter!.ownerTaskId, occupancyType: TSOType.OCCUPIED))
         SwiftEntryKit.dismiss()
@@ -107,7 +122,44 @@ class TimeSlotsAssignmentViewController: UIViewController {
     }
     
     @IBAction func startTimePickerValueChanged(_ sender: UIDatePicker) {
-        self.endTimePicker.minimumDate = startTimePicker.date
+        self.endTimePicker.date = updateTimeBasedOnStartTimePickerMinAndMax(dateTime: endTimePicker.date)
         self.endTimePicker.reloadInputViews()
+    }
+    
+    @IBAction func endTimePickerValueChanged(_ sender: UIDatePicker) {
+        self.endTimePicker.date = updateTimeBasedOnStartTimePickerMinAndMax(dateTime: endTimePicker.date)
+        self.endTimePicker.reloadInputViews()
+    }
+    
+    // This function was made to adjust the EndTimePicker values. Mainly to allow 12 AM selection for the next day without creating a custom PickerView
+    private func updateTimeBasedOnStartTimePickerMinAndMax(dateTime: Date) -> Date {
+        var updatedTime = dateTime
+        if dateUtil.isDate12AM(dateTime: maximumTime!) {
+            if !dateUtil.isDate12AM(dateTime: dateTime) {
+                if dateTime > startTimePicker.maximumDate! || dateTime < startTimePicker.date {
+                    updatedTime = startTimePicker.date
+                }
+            }
+            else {
+                updatedTime = startTimePicker.maximumDate!
+            }
+        }
+        else {
+            if dateTime > maximumTime! {
+                updatedTime = maximumTime!
+            }
+            else if dateTime < startTimePicker.date {
+                updatedTime = startTimePicker.date
+            }
+        }
+        return updatedTime
+    }
+
+    func getStartTimePicker() -> UIDatePicker {
+        return self.startTimePicker
+    }
+    
+    func getEndTimePicker() -> UIDatePicker {
+        return self.endTimePicker
     }
 }
