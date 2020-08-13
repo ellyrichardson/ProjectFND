@@ -19,6 +19,10 @@
 		212990C7247B88C600A9D618 /* EntryDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212990C6247B88C600A9D618 /* EntryDetailsTableViewController.swift */; };
 		212C577F24CFF21100A40831 /* ItemInfoSegueProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212C577E24CFF21100A40831 /* ItemInfoSegueProcess.swift */; };
 		212E316D24E4C44B00B8D89B /* TimeSlotsAssignmentVCSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212E316C24E4C44B00B8D89B /* TimeSlotsAssignmentVCSpecs.swift */; };
+		212E317224E4F24D00B8D89B /* TimeSpan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212E317124E4F24D00B8D89B /* TimeSpan.swift */; };
+		212E317424E4F27F00B8D89B /* Oter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212E317324E4F27F00B8D89B /* Oter.swift */; };
+		212E317724E4F2E400B8D89B /* FNDTaskDueDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212E317624E4F2E400B8D89B /* FNDTaskDueDate.swift */; };
+		212E317924E4F35300B8D89B /* FNDTaskTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212E317824E4F35300B8D89B /* FNDTaskTag.swift */; };
 		212F14C6246F8FE10084FBD3 /* RepeatingSetupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212F14C5246F8FE10084FBD3 /* RepeatingSetupTableViewController.swift */; };
 		212F14C8246F91650084FBD3 /* EKAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212F14C7246F91650084FBD3 /* EKAttributes.swift */; };
 		212F14D62470503B0084FBD3 /* PresetsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212F14D52470503B0084FBD3 /* PresetsDataSource.swift */; };
@@ -159,6 +163,10 @@
 		212990C6247B88C600A9D618 /* EntryDetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryDetailsTableViewController.swift; sourceTree = "<group>"; };
 		212C577E24CFF21100A40831 /* ItemInfoSegueProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemInfoSegueProcess.swift; sourceTree = "<group>"; };
 		212E316C24E4C44B00B8D89B /* TimeSlotsAssignmentVCSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSlotsAssignmentVCSpecs.swift; sourceTree = "<group>"; };
+		212E317124E4F24D00B8D89B /* TimeSpan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSpan.swift; sourceTree = "<group>"; };
+		212E317324E4F27F00B8D89B /* Oter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Oter.swift; sourceTree = "<group>"; };
+		212E317624E4F2E400B8D89B /* FNDTaskDueDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FNDTaskDueDate.swift; sourceTree = "<group>"; };
+		212E317824E4F35300B8D89B /* FNDTaskTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FNDTaskTag.swift; sourceTree = "<group>"; };
 		212F14C5246F8FE10084FBD3 /* RepeatingSetupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingSetupTableViewController.swift; sourceTree = "<group>"; };
 		212F14C7246F91650084FBD3 /* EKAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKAttributes.swift; sourceTree = "<group>"; };
 		212F14D52470503B0084FBD3 /* PresetsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsDataSource.swift; sourceTree = "<group>"; };
@@ -346,6 +354,39 @@
 			path = segue;
 			sourceTree = "<group>";
 		};
+		212E316E24E4EFED00B8D89B /* MainCalendarVC */ = {
+			isa = PBXGroup;
+			children = (
+				212E316F24E4F00B00B8D89B /* configurations */,
+			);
+			path = MainCalendarVC;
+			sourceTree = "<group>";
+		};
+		212E316F24E4F00B00B8D89B /* configurations */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = configurations;
+			sourceTree = "<group>";
+		};
+		212E317024E4F21000B8D89B /* TimeScheduling */ = {
+			isa = PBXGroup;
+			children = (
+				212E317124E4F24D00B8D89B /* TimeSpan.swift */,
+				212E317324E4F27F00B8D89B /* Oter.swift */,
+			);
+			path = TimeScheduling;
+			sourceTree = "<group>";
+		};
+		212E317524E4F2CD00B8D89B /* FNDTask */ = {
+			isa = PBXGroup;
+			children = (
+				212E317624E4F2E400B8D89B /* FNDTaskDueDate.swift */,
+				212E317824E4F35300B8D89B /* FNDTaskTag.swift */,
+			);
+			path = FNDTask;
+			sourceTree = "<group>";
+		};
 		212F14CC247049DF0084FBD3 /* RecurringSetupController */ = {
 			isa = PBXGroup;
 			children = (
@@ -439,6 +480,7 @@
 				21F7013C23F26177001942D6 /* IntervalSchedulingPreviewController.swift */,
 				212990C6247B88C600A9D618 /* EntryDetailsTableViewController.swift */,
 				21A4D0F8231ECC3600B5B52A /* ScheduleViewController.swift */,
+				212E316E24E4EFED00B8D89B /* MainCalendarVC */,
 				21521C4C240E17F300FC8A8A /* xibs */,
 			);
 			path = views;
@@ -490,6 +532,8 @@
 		21521C50240E1BEC00FC8A8A /* models */ = {
 			isa = PBXGroup;
 			children = (
+				212E317524E4F2CD00B8D89B /* FNDTask */,
+				212E317024E4F21000B8D89B /* TimeScheduling */,
 				219628E0247E25C700819A25 /* EstimatedEffort */,
 				219648E7247A14420052ECEF /* Recurrence */,
 				21A4D123231ECE9A00B5B52A /* ToDo.swift */,
@@ -938,6 +982,7 @@
 				211E4AED24ADAF0500CD22D9 /* DeviceTypeDetector.swift in Sources */,
 				2199899A249C705C0024BDA5 /* TimeSlotsAssignmentViewController.swift in Sources */,
 				218A99C224303F820005DEB5 /* ToDoInterval.swift in Sources */,
+				212E317224E4F24D00B8D89B /* TimeSpan.swift in Sources */,
 				21F2B5B92415A53100B8A548 /* LoadingScreen.swift in Sources */,
 				217974EA2427065100FE7B4C /* ToDosController.swift in Sources */,
 				2154F9792492C99B00B43D64 /* TaskPackager.swift in Sources */,
@@ -954,6 +999,7 @@
 				219628E4247E268000819A25 /* ViewEstimatedEffortModel.swift in Sources */,
 				2151611924820B4D004BD49B /* SchedulingTaskMonthlyViewController.swift in Sources */,
 				214064C2248455BE00FB9480 /* ObservableTagsController.swift in Sources */,
+				212E317424E4F27F00B8D89B /* Oter.swift in Sources */,
 				21306F8524DE72EC00A80CAF /* TsveResultPackager.swift in Sources */,
 				2126727324CFC2F4000E3CC7 /* TagsSegueProcess.swift in Sources */,
 				2194909924A88DA000506D76 /* IntervalizedTaskButton.swift in Sources */,
@@ -972,6 +1018,7 @@
 				21312F19248344AF00870920 /* TagsTableViewController.swift in Sources */,
 				218BDDCF24B06286002E8E80 /* ScheduleIntervalizerVCDelegate.swift in Sources */,
 				212F14C8246F91650084FBD3 /* EKAttributes.swift in Sources */,
+				212E317924E4F35300B8D89B /* FNDTaskTag.swift in Sources */,
 				212F14E1247056860084FBD3 /* UIScreen+Utils.swift in Sources */,
 				2172C147248DE93300BC9F24 /* TimeSlotsVacancyEvaluator.swift in Sources */,
 				219CEE6C234FD21000A9E819 /* ProjectFND.xcdatamodeld in Sources */,
@@ -1000,6 +1047,7 @@
 				21516125248228F1004BD49B /* DateObserver.swift in Sources */,
 				21A4D122231ECE2300B5B52A /* CalendarHeader.swift in Sources */,
 				219648E6247A10C40052ECEF /* Structs.swift in Sources */,
+				212E317724E4F2E400B8D89B /* FNDTaskDueDate.swift in Sources */,
 				2151612224821D13004BD49B /* ObservableItem.swift in Sources */,
 				219A6568232B12B10062BF84 /* ToDoProcessUtils.swift in Sources */,
 				21A4D0F7231ECC3600B5B52A /* AppDelegate.swift in Sources */,
