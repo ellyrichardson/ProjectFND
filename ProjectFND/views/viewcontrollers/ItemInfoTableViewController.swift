@@ -98,60 +98,71 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     
     // NOTE: Must use the DateObserver class, or something similar
     func update<T>(with newValue: T, with observableType: ObservableType) {
+        // If Due Date was selected
         if observableType == ObservableType.TODO_DUE_DATE {
             let newValueDate = newValue as! ToDoDate
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yy, h:mm a"
-            
-            self.dueDateLabel.text = "Due Date: " + dateFormatter.string(from: newValueDate.dateValue!)
-            self.dueDateTracker = newValueDate.dateValue!
-            self.isDueDatePickerPressedTracker = true
-            
-            if newValueDate.assigned {
-                self.isDueDateSetTracker = true
-                configureDueDateLabel(dueDateString: dateFormatter.string(from: newValueDate.dateValue!), shouldRemove: false)
-            } else {
-                self.isDueDateSetTracker = false
-                configureDueDateLabel(dueDateString: dateFormatter.string(from: newValueDate.dateValue!), shouldRemove: true)
-            }
-            
+            updateDueDate(newValueDate: newValueDate)
             self.tableView.reloadData()
         }
         else if observableType == ObservableType.TODO_TAG {
             let newValueTag = newValue as! ToDoTags
-            
-            if newValueTag.tagValue == "" {
-                self.tagsLabel.text = "Tag"
-            }
-            else {
-                self.tagsLabel.text = newValueTag.tagValue!
-            }
-            self.currentSelectedTag = newValueTag.tagValue!
-            self.tagSelectorAccessed = true
-            changeTagsLabelColor()
+            updateTag(newValueTag: newValueTag)
         }
         else if observableType == ObservableType.TASK {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "h:mm a"
             let newValueTask = newValue as! ToDo
-            let formattedStartTime = dateFormatter.string(from: newValueTask.getStartTime())
-            let formattedEndTime = dateFormatter.string(from: newValueTask.getEndTime())
-            dateFormatter.dateFormat = "MM/dd/yy, h:mm a"
-            let similarityComparisonStartTime = dateFormatter.string(from: newValueTask.getStartTime())
-            let similarityComparisonEndTime = dateFormatter.string(from: newValueTask.getEndTime())
-            if dateUtil.isDate12AM(dateTime: newValueTask.getEndTime()) {
-                let isDate12AM = dateUtil.isDate12AM(dateTime: newValueTask.getEndTime())
-                if similarityComparisonStartTime != similarityComparisonEndTime {
-                    setAppropriateTaskTimes(newValueTask: newValueTask, formattedStartTime: formattedStartTime, formattedEndTime: formattedEndTime, isDate12AM: isDate12AM)
-                }
-            }
-            else if similarityComparisonStartTime != similarityComparisonEndTime {
-                setAppropriateTaskTimes(newValueTask: newValueTask, formattedStartTime: formattedStartTime, formattedEndTime: formattedEndTime, isDate12AM: false)
-            }
+            updateTaskStartAndEndTime(newValueTask: newValueTask)
         }
     }
     
-    private func setAppropriateTaskTimes(newValueTask: ToDo, formattedStartTime: String, formattedEndTime: String, isDate12AM: Bool) {
+    func updateDueDate(newValueDate: ToDoDate) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yy, h:mm a"
+        
+        self.dueDateLabel.text = "Due Date: " + dateFormatter.string(from: newValueDate.dateValue!)
+        self.dueDateTracker = newValueDate.dateValue!
+        self.isDueDatePickerPressedTracker = true
+        
+        if newValueDate.assigned {
+            self.isDueDateSetTracker = true
+            configureDueDateLabel(dueDateString: dateFormatter.string(from: newValueDate.dateValue!), shouldRemove: false)
+        } else {
+            self.isDueDateSetTracker = false
+            configureDueDateLabel(dueDateString: dateFormatter.string(from: newValueDate.dateValue!), shouldRemove: true)
+        }
+    }
+    
+    func updateTag(newValueTag: ToDoTags) {
+        if newValueTag.tagValue == "" {
+            self.tagsLabel.text = "Tag"
+        }
+        else {
+            self.tagsLabel.text = newValueTag.tagValue!
+        }
+        self.currentSelectedTag = newValueTag.tagValue!
+        self.tagSelectorAccessed = true
+        changeTagsLabelColor()
+    }
+    
+    func updateTaskStartAndEndTime(newValueTask: ToDo) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        let formattedStartTime = dateFormatter.string(from: newValueTask.getStartTime())
+        let formattedEndTime = dateFormatter.string(from: newValueTask.getEndTime())
+        dateFormatter.dateFormat = "MM/dd/yy, h:mm a"
+        let similarityComparisonStartTime = dateFormatter.string(from: newValueTask.getStartTime())
+        let similarityComparisonEndTime = dateFormatter.string(from: newValueTask.getEndTime())
+        if dateUtil.isDate12AM(dateTime: newValueTask.getEndTime()) {
+            let isDate12AM = dateUtil.isDate12AM(dateTime: newValueTask.getEndTime())
+            if similarityComparisonStartTime != similarityComparisonEndTime {
+                setAppropriateTaskTimes(newValueTask: newValueTask, formattedStartTime: formattedStartTime, formattedEndTime: formattedEndTime, isDate12AM: isDate12AM)
+            }
+        }
+        else if similarityComparisonStartTime != similarityComparisonEndTime {
+            setAppropriateTaskTimes(newValueTask: newValueTask, formattedStartTime: formattedStartTime, formattedEndTime: formattedEndTime, isDate12AM: false)
+        }
+    }
+    
+    func setAppropriateTaskTimes(newValueTask: ToDo, formattedStartTime: String, formattedEndTime: String, isDate12AM: Bool) {
         self.inQueueTask = newValueTask
         self.inQueueTaskContainsNewValue = true
         self.startDateStringValue.text = formattedStartTime
