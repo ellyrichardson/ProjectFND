@@ -8,9 +8,7 @@
 
 import UIKit
 
-class ScheduleTableViewCell: UITableViewCell, UITableViewDelegate {
-    /*var toDos = [ToDo]()
-     var toDoSubMenuTable: UITableView?*/
+class ScheduleTableViewCell: UITableViewCell, UITableViewDelegate, ScheduleTableViewCellProtocol {
     
     // MARK: - Properties
     @IBOutlet weak var taskNameLabel: UILabel!
@@ -26,7 +24,6 @@ class ScheduleTableViewCell: UITableViewCell, UITableViewDelegate {
     @IBOutlet weak var finishedButton: FinishedButton!
     // Unused - I think
     private var checkButtonPressed = Bool()
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -83,6 +80,54 @@ class ScheduleTableViewCell: UITableViewCell, UITableViewDelegate {
     
     func getCheckButtonStatus() -> Bool {
         return self.checkButtonPressed
+    }
+    
+    func setTaskName(taskName: String) {
+        self.taskNameLabel.text = taskName
+    }
+    
+    func setStartTime(startTime: String) {
+        self.startTimeLabel.text = startTime
+    }
+    
+    func setEndTime(endTime: String) {
+        self.endTimeLabel.text = endTime
+    }
+    
+    func setTaskTag(taskTag: String) {
+        self.taskTypeLabel.text = taskTag
+    }
+    
+    func getTaskName() -> String {
+        return taskNameLabel.text!
+    }
+    
+    func getStartTime() -> String {
+        return startTimeLabel.text!
+    }
+    
+    func getEndTime() -> String {
+        return endTimeLabel.text!
+    }
+    
+    func getTaskTag() -> String {
+        return taskTypeLabel.text!
+    }
+    
+    func getCheckBoxButton() -> CheckBoxButton {
+        return checkBoxButton
+    }
+    
+    func getExpandButton() -> ExpandButton {
+        return expandButton
+    }
+    
+    func getImportantButton() -> ImportantButton {
+        return importantButton
+    }
+    
+    func getNotifyButton() -> NotificationButton {
+        return notifyButton
     }
 }
 
