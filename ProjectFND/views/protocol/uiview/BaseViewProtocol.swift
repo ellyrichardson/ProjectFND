@@ -1,5 +1,5 @@
 //
-//  TaskScheduleTableView.swift
+//  BaseViewProtocol.swift
 //  ProjectFND
 //
 //  Created by Elly Richardson on 8/13/20.
@@ -8,6 +8,6 @@
 
 import UIKit
 
-protocol TaskScheduleTableViewProtocol {
-    //
+protocol BaseViewProtocol {
+    func setController(controller: UIViewController)
 }

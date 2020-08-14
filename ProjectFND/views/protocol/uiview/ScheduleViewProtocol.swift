@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import JTAppleCalendar
 
-protocol ScheduleViewProtocol {
-    func getTaskScheduleTableView() -> TaskScheduleTableViewProtocol
-    func getScheduleCalendarView() -> ScheduleCalendarViewProtocol
+protocol ScheduleViewProtocol: BaseViewProtocol {
+    func getTaskScheduleTableView() -> UITableView
+    func getScheduleCalendarView() -> JTAppleCalendarView
 }

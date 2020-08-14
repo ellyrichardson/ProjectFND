@@ -1,5 +1,5 @@
 //
-//  TaskScheduleTableView.swift
+//  ScheduleTableView.swift
 //  ProjectFND
 //
 //  Created by Elly Richardson on 8/13/20.
@@ -8,6 +8,6 @@
 
 import UIKit
 
-protocol TaskScheduleTableViewProtocol {
-    //
+class TaskScheduleTableView: UITableView, TaskScheduleTableViewProtocol {
+    //  
 }

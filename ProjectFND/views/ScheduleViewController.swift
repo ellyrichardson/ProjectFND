@@ -189,7 +189,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     // MARK: - Table View Data Source
-    
+    // --
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Gets the ToDos that fall under the selected day in calendar
         return toDosController.getToDosByDay(dateChosen: getSelectedDate()).count
@@ -198,7 +198,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }
-    
+    // --
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SCHEDULE_TABLE_VIEW_CELL, for: indexPath) as? ScheduleTableViewCell else {
@@ -209,6 +209,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         return cell
     }
     
+    // =====
     private func generalCellPresentationConfig(cell: ScheduleTableViewCell, row: Int) {
         let dueDateFormatter = DateFormatter()
         let workDateFormatter = DateFormatter()
@@ -230,6 +231,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         cellFinishedButtonConfig(cell: cell, row: row, sortedTaskItems: sortedTaskItems)
     }
     
+    // =====
     // NOTE: Is this actually used?????
     private func cellCheckBoxButtonConfig(cell: ScheduleTableViewCell, row: Int, sortedTaskItems: [(key: String, value: ToDo)]) {
         // Sets the status of the CheckBox being pressed
@@ -238,6 +240,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         cell.checkBoxButton.addTarget(self, action: #selector(onCheckBoxButtonTap(sender:)), for: .touchUpInside)
     }
     
+    // =====
     private func cellImportantButtonConfig(cell: ScheduleTableViewCell, row: Int, sortedTaskItems: [(key: String, value: ToDo)]) {
         // Sets the status of the important button being pressed
         cell.importantButton.tag = row
@@ -245,6 +248,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         cell.importantButton.addTarget(self, action: #selector(onImportantButtonTap(sender:)), for: .touchUpInside)
     }
     
+    // =====
     private func cellNotifyButtonConfig(cell: ScheduleTableViewCell, row: Int, sortedTaskItems: [(key: String, value: ToDo)]) {
         // Sets the status of the notify button being pressed
         cell.notifyButton.tag = row
@@ -252,6 +256,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         cell.notifyButton.addTarget(self, action: #selector(onNotificationButtonTap(sender:)), for: .touchUpInside)
     }
     
+    // =====
     private func cellFinishedButtonConfig(cell: ScheduleTableViewCell, row: Int, sortedTaskItems: [(key: String, value: ToDo)]) {
         // Sets the status of the finished button being pressed
         cell.finishedButton.tag = row
@@ -427,8 +432,25 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         return self.selectedDate
     }
     
+    func getTasks() -> [String: ToDo] {
+        return getToDosController().getToDos()
+    }
+    
+    func getTasksForSelectedDay() -> [String: ToDo] {
+        return toDosController.getToDosByDay(dateChosen: getSelectedDate())
+    }
+    
+    func getSortedTasksByDayForSelectedDay() -> [(key: String, value: ToDo)] {
+        let taskItems = toDosController.getToDosByDay(dateChosen: getSelectedDate())
+        return ToDoProcessUtils.sortToDoItemsByDate(toDoItems: taskItems)
+    }
+    
+    func getTasksByDate(date: Date) -> [String : ToDo] {
+        return toDosController.getToDosByDay(dateChosen: date)
+    }
+    
     // TODO: Refactor code to use proper state tracking, like ENUMS! I'm talking about the shouldReloadTableView
-    @objc func onCheckBoxButtonTap(sender: CheckBoxButton) {
+    @objc func onCheckBoxButtonTap(sender: CheckBoxButton) { // =====
         // The toDosByDay variable should be sorted already
         let toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
         let tempToDoItem: ToDo = toDosByDay[sender.tag].value
@@ -441,7 +463,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         self.calendarView.reloadItems(at: [self.currentSelectedCalendarCell!])
     }
     
-    @objc func onFinishedButtonTap(sender: FinishedButton) {
+    @objc func onFinishedButtonTap(sender: FinishedButton) { // ===
         // The toDosByDay variable should be sorted already
         let toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
         let tempToDoItem: ToDo = toDosByDay[sender.tag].value
@@ -454,7 +476,17 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         self.calendarView.reloadItems(at: [self.currentSelectedCalendarCell!])
     }
     
-    @objc func onImportantButtonTap(sender: ImportantButton) {
+    func updateFinishStatusOnTask(taskIndex: Int) {
+        // The toDosByDay variable should be sorted already
+        let tasksByDay = getSortedTasksByDayForSelectedDay()
+        let tempToDoItem: ToDo = tasksByDay[taskIndex].value
+        let newToDoItem = tempToDoItem
+        toDosController.updateToDos(modificationType: ListModificationType.FINISHNESS, toDo: newToDoItem)
+    }
+    
+    
+    
+    @objc func onImportantButtonTap(sender: ImportantButton) { // ====
         // The toDosByDay variable should be sorted already
         let toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
         let tempToDoItem: ToDo = toDosByDay[sender.tag].value
@@ -463,12 +495,28 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         toDosController.updateToDos(modificationType: ListModificationType.IMPORTANT, toDo: newToDoItem)
     }
     
-    @objc func onNotificationButtonTap(sender: NotificationButton) {
+    func updateImportanceStatusOnTask(taskIndex: Int) {
+        // The toDosByDay variable should be sorted already
+        let tasksByDay = getSortedTasksByDayForSelectedDay()
+        let tempToDoItem: ToDo = tasksByDay[taskIndex].value
+        let newToDoItem = tempToDoItem
+        toDosController.updateToDos(modificationType: ListModificationType.IMPORTANT, toDo: newToDoItem)
+    }
+    
+    @objc func onNotificationButtonTap(sender: NotificationButton) { // ====
         // The toDosByDay variable should be sorted already
         let toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
         let tempToDoItem: ToDo = toDosByDay[sender.tag].value
         let newToDoItem = tempToDoItem
         
+        toDosController.updateToDos(modificationType: ListModificationType.NOTIFICATION, toDo: newToDoItem)
+    }
+    
+    func updateNotificationStatusOnTask(taskIndex: Int) {
+        // The toDosByDay variable should be sorted already
+        let tasksByDay = getSortedTasksByDayForSelectedDay()
+        let tempToDoItem: ToDo = tasksByDay[taskIndex].value
+        let newToDoItem = tempToDoItem
         toDosController.updateToDos(modificationType: ListModificationType.NOTIFICATION, toDo: newToDoItem)
     }
 }

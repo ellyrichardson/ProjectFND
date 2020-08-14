@@ -10,6 +10,7 @@ import UIKit
 
 class ScheduleTableViewCell: UITableViewCell, UITableViewDelegate, ScheduleTableViewCellProtocol {
     
+    
     // MARK: - Properties
     @IBOutlet weak var taskNameLabel: UILabel!
     @IBOutlet weak var startTimeLabel: UILabel!

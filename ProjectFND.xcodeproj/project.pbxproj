@@ -117,6 +117,10 @@
 		21CF52A824E620FD00938EC2 /* ScheduleCalendarViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CF52A724E620FD00938EC2 /* ScheduleCalendarViewProtocol.swift */; };
 		21CF52AB24E6234300938EC2 /* ScheduleTableViewCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CF52AA24E6234300938EC2 /* ScheduleTableViewCellProtocol.swift */; };
 		21CF52AD24E627E400938EC2 /* MockScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CF52AC24E627E400938EC2 /* MockScheduleTableViewCell.swift */; };
+		21CF52B024E62C2700938EC2 /* TaskScheduleTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CF52AF24E62C2700938EC2 /* TaskScheduleTableView.swift */; };
+		21CF52B224E638FB00938EC2 /* ScheduleCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CF52B124E638FB00938EC2 /* ScheduleCalendarView.swift */; };
+		21CF52B524E63AD200938EC2 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CF52B424E63AD200938EC2 /* ScheduleView.swift */; };
+		21CF52B724E63C7900938EC2 /* BaseViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CF52B624E63C7900938EC2 /* BaseViewProtocol.swift */; };
 		21D9E9DA2499B00700D7F529 /* SchedulingAssistanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D9E9D92499B00700D7F529 /* SchedulingAssistanceTableViewCell.swift */; };
 		21DA2E7F248730E90035B237 /* ItemInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DA2E7E248730E90035B237 /* ItemInfoView.swift */; };
 		21DA2E82248734B10035B237 /* RegularTaskButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DA2E81248734B10035B237 /* RegularTaskButton.swift */; };
@@ -269,6 +273,10 @@
 		21CF52A724E620FD00938EC2 /* ScheduleCalendarViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCalendarViewProtocol.swift; sourceTree = "<group>"; };
 		21CF52AA24E6234300938EC2 /* ScheduleTableViewCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCellProtocol.swift; sourceTree = "<group>"; };
 		21CF52AC24E627E400938EC2 /* MockScheduleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockScheduleTableViewCell.swift; sourceTree = "<group>"; };
+		21CF52AF24E62C2700938EC2 /* TaskScheduleTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskScheduleTableView.swift; sourceTree = "<group>"; };
+		21CF52B124E638FB00938EC2 /* ScheduleCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCalendarView.swift; sourceTree = "<group>"; };
+		21CF52B424E63AD200938EC2 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
+		21CF52B624E63C7900938EC2 /* BaseViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewProtocol.swift; sourceTree = "<group>"; };
 		21D9E9D92499B00700D7F529 /* SchedulingAssistanceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulingAssistanceTableViewCell.swift; sourceTree = "<group>"; };
 		21DA2E7E248730E90035B237 /* ItemInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemInfoView.swift; sourceTree = "<group>"; };
 		21DA2E81248734B10035B237 /* RegularTaskButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularTaskButton.swift; sourceTree = "<group>"; };
@@ -472,6 +480,7 @@
 		21521C4A240E17D200FC8A8A /* views */ = {
 			isa = PBXGroup;
 			children = (
+				21CF52B324E6397100938EC2 /* implementations */,
 				21CF529D24E61F2900938EC2 /* protocol */,
 				2113DA4024CE8490006C5415 /* navViewControllers */,
 				2113DA3E24CE83B6006C5415 /* viewcontrollers */,
@@ -730,6 +739,7 @@
 				21CF52A624E6209A00938EC2 /* calendarview */,
 				21CF52A124E61FD200938EC2 /* uitableview */,
 				21CF529F24E61F5200938EC2 /* ScheduleViewProtocol.swift */,
+				21CF52B624E63C7900938EC2 /* BaseViewProtocol.swift */,
 			);
 			path = uiview;
 			sourceTree = "<group>";
@@ -764,6 +774,16 @@
 				21CF52AC24E627E400938EC2 /* MockScheduleTableViewCell.swift */,
 			);
 			path = mocks;
+			sourceTree = "<group>";
+		};
+		21CF52B324E6397100938EC2 /* implementations */ = {
+			isa = PBXGroup;
+			children = (
+				21CF52B124E638FB00938EC2 /* ScheduleCalendarView.swift */,
+				21CF52AF24E62C2700938EC2 /* TaskScheduleTableView.swift */,
+				21CF52B424E63AD200938EC2 /* ScheduleView.swift */,
+			);
+			path = implementations;
 			sourceTree = "<group>";
 		};
 		21DA2E7D248730920035B237 /* uiview */ = {
@@ -1036,6 +1056,7 @@
 				21DA2E84248734BF0035B237 /* RecurringTaskButton.swift in Sources */,
 				2124504D2499CDA80007E198 /* ColorsUtils.swift in Sources */,
 				211E4AED24ADAF0500CD22D9 /* DeviceTypeDetector.swift in Sources */,
+				21CF52B724E63C7900938EC2 /* BaseViewProtocol.swift in Sources */,
 				2199899A249C705C0024BDA5 /* TimeSlotsAssignmentViewController.swift in Sources */,
 				218A99C224303F820005DEB5 /* ToDoInterval.swift in Sources */,
 				212E317224E4F24D00B8D89B /* TimeSpan.swift in Sources */,
@@ -1050,6 +1071,7 @@
 				217974E72425E0F000FE7B4C /* Constants.swift in Sources */,
 				21DB50B624AD975000386749 /* ScheduleIntervalizerVC.swift in Sources */,
 				2151611F24821052004BD49B /* LongOvalButtons.swift in Sources */,
+				21CF52B524E63AD200938EC2 /* ScheduleView.swift in Sources */,
 				21A4D0F9231ECC3600B5B52A /* ScheduleViewController.swift in Sources */,
 				212990C7247B88C600A9D618 /* EntryDetailsTableViewController.swift in Sources */,
 				219628E4247E268000819A25 /* ViewEstimatedEffortModel.swift in Sources */,
@@ -1086,6 +1108,7 @@
 				212F14E7247067110084FBD3 /* RecurrenceNavigationViewController.swift in Sources */,
 				212C577F24CFF21100A40831 /* ItemInfoSegueProcess.swift in Sources */,
 				212F14DD2470563F0084FBD3 /* Font.swift in Sources */,
+				21CF52B024E62C2700938EC2 /* TaskScheduleTableView.swift in Sources */,
 				219CA4AB2326CA18003ACBDE /* CheckBoxButton.swift in Sources */,
 				214E0AE9233552C700398AC5 /* TransformingButton.swift in Sources */,
 				216067E92421CD4A00B0E5EF /* DeadlinesTableViewCell.swift in Sources */,
@@ -1097,6 +1120,7 @@
 				21D9E9DA2499B00700D7F529 /* SchedulingAssistanceTableViewCell.swift in Sources */,
 				217974EC2428591F00FE7B4C /* Observable.swift in Sources */,
 				21BC58AE23E629CA00015ECE /* IntervalAvailabilitiesRetrievingOperations.swift in Sources */,
+				21CF52B224E638FB00938EC2 /* ScheduleCalendarView.swift in Sources */,
 				214E0AEC233552FE00398AC5 /* ExpandButton.swift in Sources */,
 				2187C9522449575C00714617 /* NonRepeatingDeadlinesViewController.swift in Sources */,
 				2199899D249C70850024BDA5 /* TimeSlotsAssignmentNavViewController.swift in Sources */,

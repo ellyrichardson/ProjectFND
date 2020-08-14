@@ -1241,7 +1241,7 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController title="schedule-view-controller" automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="ScheduleViewController" customModule="ProjectFND" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="ScheduleView" customModule="ProjectFND" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -1514,6 +1514,11 @@
                             <constraint firstItem="sYl-Eh-KfZ" firstAttribute="top" secondItem="ULd-FF-QdY" secondAttribute="bottom" id="z8r-ag-mxc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <connections>
+                            <outlet property="scheduleCalendarView" destination="PDs-aS-qTz" id="Sa8-xA-CRs"/>
+                            <outlet property="taskScheduleTableView" destination="sYl-Eh-KfZ" id="Mcf-G5-dYv"/>
+                            <outlet property="tasksSectionLabel" destination="QBd-dI-f6Q" id="dOd-de-Wwq"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Monthly" id="Ecr-D0-8Bb">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Asg-dA-BLK">
