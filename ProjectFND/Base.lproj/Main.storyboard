@@ -1345,10 +1345,6 @@
                                         <real key="value" value="43"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <outlet property="ibCalendarDataSource" destination="BYZ-38-t0r" id="ftl-3J-NQ8"/>
-                                    <outlet property="ibCalendarDelegate" destination="BYZ-38-t0r" id="dAM-uC-fSK"/>
-                                </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ULd-FF-QdY" userLabel="TasksLabelView">
                                 <rect key="frame" x="0.0" y="456" width="414" height="26"/>
@@ -1493,10 +1489,6 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="nzD-ks-epd"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Wma-h9-Il6"/>
-                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1515,8 +1507,8 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <connections>
-                            <outlet property="scheduleCalendarView" destination="PDs-aS-qTz" id="Sa8-xA-CRs"/>
-                            <outlet property="taskScheduleTableView" destination="sYl-Eh-KfZ" id="Mcf-G5-dYv"/>
+                            <outlet property="scheduleCalendarView" destination="PDs-aS-qTz" id="DXg-YW-ZZi"/>
+                            <outlet property="taskScheduleTableView" destination="sYl-Eh-KfZ" id="gE7-gE-MRf"/>
                             <outlet property="tasksSectionLabel" destination="QBd-dI-f6Q" id="dOd-de-Wwq"/>
                         </connections>
                     </view>
@@ -1527,15 +1519,10 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <outlet property="calendarView" destination="PDs-aS-qTz" id="YJN-R5-SHf"/>
-                        <outlet property="tasksLabelView" destination="ULd-FF-QdY" id="YM8-yb-G67"/>
-                        <outlet property="toDoListTableView" destination="sYl-Eh-KfZ" id="Qo8-Ac-WFG"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="703" y="-1069"/>
+            <point key="canvasLocation" x="702.89855072463774" y="-1069.4196428571429"/>
         </scene>
         <!--New Task-->
         <scene sceneID="1Tb-Fo-KGs">

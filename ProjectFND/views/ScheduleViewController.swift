@@ -14,7 +14,7 @@ import CoreData
 import os.log
 import JTAppleCalendar
 
-class ScheduleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, Observer {
+class ScheduleViewController: UIViewController, Observer {
     
     final let REMOVE = "Remove"
     final let DELETE = "Delete"
@@ -30,9 +30,11 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     // MARK: Properties
     
-    @IBOutlet weak var calendarView: JTAppleCalendarView!
-    @IBOutlet weak var toDoListTableView: UITableView!
-    @IBOutlet weak var tasksLabelView: UIView!
+    //@IBOutlet weak var calendarView: JTAppleCalendarView!
+    //@IBOutlet weak var toDoListTableView: UITableView!
+    //@IBOutlet weak var tasksLabelView: UIView!
+    
+    var scheduleView: ScheduleViewProtocol?
     
     // Helpers
     
@@ -72,13 +74,29 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
         configureTaskController()
         configureNav()
-        configureTableView()
-        configureCalendarView()
+        setupView()
+        //view = (scheduleView as! UIView)
+        //configureTableView()
+        //configureCalendarView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        toDoListTableView.reloadData()
+          //toDoListTableView.reloadData()
+        scheduleView?.getScheduleCalendarView().reloadData()
+    }
+    
+    fileprivate func setupView() {
+        if let sView = self.view as? ScheduleViewProtocol{
+            if (scheduleView == nil) {
+                setScheduleView(sView)
+            }
+        }
+    }
+    
+    func setScheduleView(_ sView: ScheduleViewProtocol){
+        scheduleView = sView
+        scheduleView?.setController(controller: self)
     }
     
     // MARK: - Configurations
@@ -102,27 +120,33 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         nav?.tintColor = UIColor(red:1.00, green:0.89, blue:0.00, alpha:1.0)
     }
     
+    // ===
+    /*
     private func configureTableView() {
-        toDoListTableView.delegate = self
-        toDoListTableView.dataSource = self
-        toDoListTableView.backgroundColor = UIColor.clear
-        GeneralViewUtils.addTopBorderWithColor(toDoListTableView, color: UIColor.lightGray, width: 1.00)
-    }
-    
+        let scheduleViewTableView = scheduleView?.getTaskScheduleTableView()
+        scheduleViewTableView!.delegate = self
+        scheduleViewTableView!.dataSource = self
+        scheduleViewTableView!.backgroundColor = UIColor.clear
+        GeneralViewUtils.addTopBorderWithColor(scheduleViewTableView!, color: UIColor.lightGray, width: 1.00)
+    }*/
+    // ===
+    /*
     func configureCalendarView(){
-        calendarView.minimumLineSpacing = 0
-        calendarView.minimumInteritemSpacing = 0
-        calendarView.register(UINib(nibName: CALENDAR_HEADER, bundle: Bundle.main),
+        let scheduleViewCalendar = scheduleView?.getScheduleCalendarView()
+        scheduleViewCalendar!.minimumLineSpacing = 0
+        scheduleViewCalendar!.minimumInteritemSpacing = 0
+        scheduleViewCalendar!.register(UINib(nibName: CALENDAR_HEADER, bundle: Bundle.main),
                               forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                               withReuseIdentifier: CALENDAR_HEADER)
-        calendarView.backgroundColor = UIColor.clear
-        calendarView.cellSize = calendarView.contentSize.width
-        self.calendarView.scrollToDate(Date(),animateScroll: false)
-        self.calendarView.selectDates([ Date() ])
-        
-    }
+        scheduleViewCalendar!.backgroundColor = UIColor.clear
+        scheduleViewCalendar!.cellSize = scheduleViewCalendar!.contentSize.width
+        scheduleViewCalendar!.scrollToDate(Date(),animateScroll: false)
+        scheduleViewCalendar!.selectDates([ Date() ])
+    }*/
     
     // Configure the calendar cell
+    // ===
+    /*
     func configureCell(cell: JTAppleCell?, cellState: CellState) {
         guard let currentCell = cell as? CalendarCell else {
             return
@@ -133,9 +157,11 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         configureSelectedDay(cell: currentCell, cellState: cellState)
         let cellHidden = cellState.dateBelongsTo != .thisMonth
         currentCell.isHidden = cellHidden
-    }
+    }*/
     
     // Configure text calendar colors
+    // ===
+    /*
     func configureTextColorFor(cell: JTAppleCell?, cellState: CellState){
         
         guard let currentCell = cell as? CalendarCell else {
@@ -151,8 +177,10 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
                 currentCell.dateLabel.textColor = UIColor.lightGray
             }
         }
-    }
+    }*/
     
+    // ===
+    /*
     func configureSelectedStateFor(cell: JTAppleCell?, cellState: CellState){
         
         guard let currentCell = cell as? CalendarCell else {
@@ -172,9 +200,11 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         } else {
             currentCell.selectedView.isHidden = true
         }
-    }
+    }*/
     
     // When a particular day is selected in the calendar
+    // ===
+    /*
     func configureSelectedDay(cell: JTAppleCell?, cellState: CellState) {
         if cellState.isSelected{
             setSelectedDate(selectedDate: cellState.date)
@@ -186,19 +216,22 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             // Set shouldReloadTableview by default
             self.shouldReloadTableView = true
         }
-    }
+    }*/
     
     // MARK: - Table View Data Source
-    // --
+    // ===
+    /*
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Gets the ToDos that fall under the selected day in calendar
         return toDosController.getToDosByDay(dateChosen: getSelectedDate()).count
-    }
-    
+    }*/
+    //===
+    /*
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
-    }
-    // --
+    }*/
+    // ===
+    /*
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SCHEDULE_TABLE_VIEW_CELL, for: indexPath) as? ScheduleTableViewCell else {
@@ -208,8 +241,10 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         generalCellPresentationConfig(cell: cell, row: indexPath.row)
         return cell
     }
+ */
     
     // =====
+    /*
     private func generalCellPresentationConfig(cell: ScheduleTableViewCell, row: Int) {
         let dueDateFormatter = DateFormatter()
         let workDateFormatter = DateFormatter()
@@ -230,33 +265,41 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         cellNotifyButtonConfig(cell: cell, row: row, sortedTaskItems: sortedTaskItems)
         cellFinishedButtonConfig(cell: cell, row: row, sortedTaskItems: sortedTaskItems)
     }
+ */
     
     // =====
     // NOTE: Is this actually used?????
+    /*
     private func cellCheckBoxButtonConfig(cell: ScheduleTableViewCell, row: Int, sortedTaskItems: [(key: String, value: ToDo)]) {
         // Sets the status of the CheckBox being pressed
         cell.checkBoxButton.tag = row
         cell.checkBoxButton.setPressedStatus(isPressed: sortedTaskItems[row].value.isFinished())
         cell.checkBoxButton.addTarget(self, action: #selector(onCheckBoxButtonTap(sender:)), for: .touchUpInside)
     }
+ */
     
     // =====
+    /*
     private func cellImportantButtonConfig(cell: ScheduleTableViewCell, row: Int, sortedTaskItems: [(key: String, value: ToDo)]) {
         // Sets the status of the important button being pressed
         cell.importantButton.tag = row
         cell.importantButton.setPressedStatus(isPressed: sortedTaskItems[row].value.isImportant())
         cell.importantButton.addTarget(self, action: #selector(onImportantButtonTap(sender:)), for: .touchUpInside)
     }
+ */
     
     // =====
+    /*
     private func cellNotifyButtonConfig(cell: ScheduleTableViewCell, row: Int, sortedTaskItems: [(key: String, value: ToDo)]) {
         // Sets the status of the notify button being pressed
         cell.notifyButton.tag = row
         cell.notifyButton.setPressedStatus(isPressed: sortedTaskItems[row].value.isNotifying())
         cell.notifyButton.addTarget(self, action: #selector(onNotificationButtonTap(sender:)), for: .touchUpInside)
     }
+ */
     
     // =====
+    /*
     private func cellFinishedButtonConfig(cell: ScheduleTableViewCell, row: Int, sortedTaskItems: [(key: String, value: ToDo)]) {
         // Sets the status of the finished button being pressed
         cell.finishedButton.tag = row
@@ -264,13 +307,18 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         cell.finishedButton.setPressedStatus(isPressed: sortedTaskItems[row].value.isFinished())
         cell.finishedButton.addTarget(self, action: #selector(onFinishedButtonTap(sender:)), for: .touchUpInside)
     }
+ */
     
+    // ===
+    /*
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         animateCellPresentation(cell: cell, indexPath: indexPath)
         let sortedTaskItems =  ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
         configureCellDesign(cell: cell, row: indexPath.row, sortedTaskItems: sortedTaskItems)
-    }
+    }*/
     
+    // ===
+    /*
     private func animateCellPresentation(cell: UITableViewCell, indexPath: IndexPath) {
         if checkButtonTapped == indexPath.row {
             ToDoTableViewUtils.makeCellMoveUpWithFade(cell: cell, indexPath: indexPath)
@@ -279,8 +327,10 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         else {
             ToDoTableViewUtils.makeCellSlide(cell: cell, indexPath: indexPath, tableView: toDoListTableView)
         }
-    }
+    }*/
     
+    // ====
+    /*
     private func configureCellDesign(cell: UITableViewCell, row: Int, sortedTaskItems: [(key: String, value: ToDo)]) {
         cell.contentView.layer.backgroundColor = ToDoTableViewUtils.colorForToDoRow(toDoRowIndex: row, toDoItems: sortedTaskItems).cgColor
         cell.layer.backgroundColor = ToDoTableViewUtils.colorForToDoRow(toDoRowIndex: row, toDoItems: sortedTaskItems).cgColor
@@ -293,8 +343,10 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
          */
         let radius = cell.contentView.layer.cornerRadius
         cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
-    }
+    }*/
     
+    // ====
+    /*
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let deleteButton = UITableViewRowAction(style: .default, title: DELETE) { (action, indexPath) in
             self.toDoListTableView.dataSource?.tableView!(self.toDoListTableView, commit: .delete, forRowAt: indexPath)
@@ -304,8 +356,10 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         deleteButton.backgroundColor = UIColor.black
         deleteButton.title = REMOVE
         return [deleteButton]
-    }
+    }*/
     
+    // ===
+    /*
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             deleteTaskFromSystem(row: indexPath.row)
@@ -315,23 +369,26 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
-    }
+    }*/
     
-    private func deleteTaskFromSystem(row: Int) {
+    func deleteTaskFromSystem(row: Int) {
         let taskToBeDeleted = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))[row]
         toDosController.updateToDos(modificationType: ListModificationType.REMOVE, toDo: taskToBeDeleted.value)
     }
-    
+    // ====
+    /*
     private func reloadOnlyCalendarViewItems() {
         DispatchQueue.main.async {
             // NOTE: This will make the tableView not reload, only the calendarView item
             self.shouldReloadTableView = false
             self.calendarView.reloadItems(at: [self.currentSelectedCalendarCell!])
         }
-    }
+    }*/
     
     // MARK: - Utilities
     
+    //====
+    /*
     private func configureCellIndicators(cell: CalendarCell, indexPath: IndexPath, date: Date) -> CalendarCell {
         
         var onProgressToDoExist: Bool = false
@@ -372,19 +429,19 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             return CalendarViewUtils.showCellIndicators(cell: cell, onProgress: onProgressToDoExist, finished: finishedToDoExist, overdue: overdueToDoExist)
         }
         return cell
-    }
+    }*/
     
     // MARK: - Actions
     
     @IBAction func unwindToScheduleView(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? ItemInfoTableViewController {
             let taskItem = sourceViewController.toDo
-            if toDoListTableView.indexPathForSelectedRow != nil {
+            if scheduleView?.getTaskScheduleTableView().indexPathForSelectedRow != nil {
                 toDosController.updateToDos(modificationType: ListModificationType.UPDATE, toDo: taskItem!)
-                GeneralViewUtils.reloadTableViewData(tableView: self.toDoListTableView)
+                GeneralViewUtils.reloadTableViewData(tableView: (scheduleView?.getTaskScheduleTableView())!)
             } else {
                 toDosController.updateToDos(modificationType: ListModificationType.ADD, toDo: taskItem!)
-                GeneralViewUtils.reloadCollectionViewData(collectionView: self.calendarView)
+                GeneralViewUtils.reloadCollectionViewData(collectionView: (scheduleView?.getScheduleCalendarView())!)
             }
         }
     }
@@ -399,7 +456,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
             itemInfoSegueProcess!.segueToItemInfoVCForAddingTask(tasksController: toDosController, startDate: selectedDate)
         case SHOW_TASK_ITEM_DETAILS:
             let itemInfoSegueProcess = ItemInfoSegueProcess(segue: segue)
-            itemInfoSegueProcess!.segueToItemInfoVCForShowingTaskDetails(selectedDate: getSelectedDate(), tasksController: toDosController, sender: sender, taskListTableView: toDoListTableView)
+            itemInfoSegueProcess!.segueToItemInfoVCForShowingTaskDetails(selectedDate: getSelectedDate(), tasksController: toDosController, sender: sender, taskListTableView: (scheduleView?.getTaskScheduleTableView())!)
         default:
             fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")
         }
@@ -450,7 +507,9 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     // TODO: Refactor code to use proper state tracking, like ENUMS! I'm talking about the shouldReloadTableView
-    @objc func onCheckBoxButtonTap(sender: CheckBoxButton) { // =====
+    // =====
+    /*
+    @objc func onCheckBoxButtonTap(sender: CheckBoxButton) {
         // The toDosByDay variable should be sorted already
         let toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
         let tempToDoItem: ToDo = toDosByDay[sender.tag].value
@@ -461,8 +520,9 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         self.toDoListTableView.reloadRows(at: [indexPath], with: .top)
         self.shouldReloadTableView = false
         self.calendarView.reloadItems(at: [self.currentSelectedCalendarCell!])
-    }
-    
+    }*/
+    // =====
+    /*
     @objc func onFinishedButtonTap(sender: FinishedButton) { // ===
         // The toDosByDay variable should be sorted already
         let toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
@@ -474,7 +534,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         self.toDoListTableView.reloadRows(at: [indexPath], with: .top)
         self.shouldReloadTableView = false
         self.calendarView.reloadItems(at: [self.currentSelectedCalendarCell!])
-    }
+    }*/
     
     func updateFinishStatusOnTask(taskIndex: Int) {
         // The toDosByDay variable should be sorted already
@@ -485,7 +545,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     
-    
+    // =====
+    /*
     @objc func onImportantButtonTap(sender: ImportantButton) { // ====
         // The toDosByDay variable should be sorted already
         let toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
@@ -493,7 +554,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         let newToDoItem = tempToDoItem
         
         toDosController.updateToDos(modificationType: ListModificationType.IMPORTANT, toDo: newToDoItem)
-    }
+    }*/
     
     func updateImportanceStatusOnTask(taskIndex: Int) {
         // The toDosByDay variable should be sorted already
@@ -503,6 +564,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         toDosController.updateToDos(modificationType: ListModificationType.IMPORTANT, toDo: newToDoItem)
     }
     
+    /*
     @objc func onNotificationButtonTap(sender: NotificationButton) { // ====
         // The toDosByDay variable should be sorted already
         let toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
@@ -510,7 +572,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         let newToDoItem = tempToDoItem
         
         toDosController.updateToDos(modificationType: ListModificationType.NOTIFICATION, toDo: newToDoItem)
-    }
+    }*/
     
     func updateNotificationStatusOnTask(taskIndex: Int) {
         // The toDosByDay variable should be sorted already
@@ -521,6 +583,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
 }
 
+// =====
+/*
 extension ScheduleViewController: JTAppleCalendarViewDataSource {
     func calendar(_ calendar: JTAppleCalendarView, willDisplay cell: JTAppleCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
         
@@ -547,8 +611,10 @@ extension ScheduleViewController: JTAppleCalendarViewDataSource {
                                                  hasStrictBoundaries: true)
         return parameters
     }
-}
+}*/
 
+// =====
+/*
 extension ScheduleViewController: JTAppleCalendarViewDelegate {
     func calendar(_ calendar: JTAppleCalendarView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTAppleCell {
         
@@ -580,4 +646,4 @@ extension ScheduleViewController: JTAppleCalendarViewDelegate {
     func calendarSizeForMonths(_ calendar: JTAppleCalendarView?) -> MonthSize? {
         return MonthSize(defaultSize: 75)
     }
-}
+}*/

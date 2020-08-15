@@ -39,9 +39,32 @@ class ScheduleView: UIView, UITableViewDelegate, UITableViewDataSource, Schedule
     }
     
     func commonInit() {
+        //UIStoryboard(name: "Main", bundle: nil).load
+        //addSubview(controller?.scheduleView as! UIView)
+        configureTableView()
+        configureCalendarView()
+    }
+    
+    private func configureTableView() {
         taskScheduleTableView.delegate = self
         taskScheduleTableView.dataSource = self
         taskScheduleTableView.backgroundColor = UIColor.clear
+        GeneralViewUtils.addTopBorderWithColor(taskScheduleTableView, color: UIColor.lightGray, width: 1.00)
+    }
+    
+    func configureCalendarView(){
+        //let scheduleViewCalendar = scheduleView?.getScheduleCalendarView()
+        scheduleCalendarView.calendarDelegate = self
+        scheduleCalendarView.calendarDataSource = self
+        scheduleCalendarView.minimumLineSpacing = 0
+        scheduleCalendarView.minimumInteritemSpacing = 0
+        scheduleCalendarView.register(UINib(nibName: CALENDAR_HEADER, bundle: Bundle.main),
+                              forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                              withReuseIdentifier: CALENDAR_HEADER)
+        scheduleCalendarView.backgroundColor = UIColor.clear
+        scheduleCalendarView.cellSize = scheduleCalendarView.contentSize.width
+        scheduleCalendarView.scrollToDate(Date(),animateScroll: false)
+        scheduleCalendarView.selectDates([ Date() ])
     }
     
     func getTaskScheduleTableView() -> UITableView {
@@ -126,8 +149,65 @@ class ScheduleView: UIView, UITableViewDelegate, UITableViewDataSource, Schedule
         return (controller?.getTasksForSelectedDay().count)!
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SCHEDULE_TABLE_VIEW_CELL, for: indexPath) as? ScheduleTableViewCell else {
+            fatalError("The dequeued cell is not an instance of ScheduleTableViewCell.")
+        }
+        
+        generalCellPresentationConfig(cell: cell, row: indexPath.row)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteButton = UITableViewRowAction(style: .default, title: DELETE) { (action, indexPath) in
+            self.taskScheduleTableView.dataSource?.tableView!(self.taskScheduleTableView, commit: .delete, forRowAt: indexPath)
+            return
+        }
+        // Makes the backgroundColor of deleteButton black and its title "Remove".
+        deleteButton.backgroundColor = UIColor.black
+        deleteButton.title = REMOVE
+        return [deleteButton]
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            controller?.deleteTaskFromSystem(row: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            reloadOnlyCalendarViewItems()
+
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        animateCellPresentation(cell: cell, indexPath: indexPath)
+        let sortedTaskItems = controller?.getSortedTasksByDayForSelectedDay()
+        configureCellDesign(cell: cell, row: indexPath.row, sortedTaskItems: sortedTaskItems!)
+    }
+    
+    
+    private func animateCellPresentation(cell: UITableViewCell, indexPath: IndexPath) {
+        ToDoTableViewUtils.makeCellSlide(cell: cell, indexPath: indexPath, tableView: taskScheduleTableView)
+    }
+    
+    
+    private func configureCellDesign(cell: UITableViewCell, row: Int, sortedTaskItems: [(key: String, value: ToDo)]) {
+        cell.contentView.layer.backgroundColor = ToDoTableViewUtils.colorForToDoRow(toDoRowIndex: row, toDoItems: sortedTaskItems).cgColor
+        cell.layer.backgroundColor = ToDoTableViewUtils.colorForToDoRow(toDoRowIndex: row, toDoItems: sortedTaskItems).cgColor
+        
+        // This will turn on `masksToBounds` just before showing the cell
+        cell.contentView.layer.masksToBounds = true
+        
+        /*
+         NOTE: If this is not set `shadowPath` you'll notice laggy scrolling. Mysterious code too.  It just make the shadow stuff work
+         */
+        let radius = cell.contentView.layer.cornerRadius
+        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
     }
     
     func generalCellPresentationConfig(cell: ScheduleTableViewCell, row: Int) {
@@ -137,6 +217,7 @@ class ScheduleView: UIView, UITableViewDelegate, UITableViewDataSource, Schedule
         workDateFormatter.dateFormat = TIME_h_mm_a
         
         // Retrieves sorted ToDo Items by date that fall under the chosen day in the calendar
+        // NOTE: Put this logic in the controller
         let sortedTaskItems =  controller?.getSortedTasksByDayForSelectedDay()
         cell.taskNameLabel.text = sortedTaskItems![row].value.getTaskName()
         cell.startTimeLabel.text = workDateFormatter.string(from: sortedTaskItems![row].value.getStartTime())
@@ -148,6 +229,14 @@ class ScheduleView: UIView, UITableViewDelegate, UITableViewDataSource, Schedule
         cellImportantButtonConfig(cell: cell, row: row, sortedTaskItems: sortedTaskItems!)
         cellNotifyButtonConfig(cell: cell, row: row, sortedTaskItems: sortedTaskItems!)
         cellFinishedButtonConfig(cell: cell, row: row, sortedTaskItems: sortedTaskItems!)
+    }
+    
+    private func reloadOnlyCalendarViewItems() {
+        DispatchQueue.main.async {
+            // NOTE: This will make the tableView not reload, only the calendarView item
+            self.shouldReloadTableView = false
+            self.scheduleCalendarView.reloadItems(at: [self.currentSelectedCalendarCell!])
+        }
     }
     
     /*
@@ -216,6 +305,7 @@ class ScheduleView: UIView, UITableViewDelegate, UITableViewDataSource, Schedule
         /*
          Task will be identified as onProgress if due date is not set
          */
+        // NOTE: Move this logic to the controller
         let onProgressToDo = toDosForTheDay!.first(where: {(Date() < $0.value.getDueDate() || !$0.value.isDueDateSet()) && !$0.value.isFinished() })
         let finishedToDo = toDosForTheDay!.first(where: {$0.value.isFinished() == true})
         let overdueToDo = toDosForTheDay!.first(where: {(Date() > $0.value.getDueDate() && !$0.value.isFinished()) && $0.value.isDueDateSet()})
