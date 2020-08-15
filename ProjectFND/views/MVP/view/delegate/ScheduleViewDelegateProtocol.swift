@@ -6,9 +6,12 @@
 //  Copyright © 2020 EllyRichardson. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol ScheduleViewDelegate: NSObjectProtocol {
     func updateScheduleCalendar()
     func updateTasksTable()
+    //func getTabBarController() -> UITabBarController?
+    //func setTaskTableViewRowCount(rowCount: Int)
+    func getSelectedDate() -> Date
 }

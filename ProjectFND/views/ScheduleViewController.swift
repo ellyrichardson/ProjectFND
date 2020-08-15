@@ -14,7 +14,29 @@ import CoreData
 import os.log
 import JTAppleCalendar
 
-class ScheduleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, Observer {
+// NOTE: Can not be an observer anymore
+class ScheduleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ScheduleViewDelegate, Observer {
+    
+    
+    // FOR MVP
+    // -------
+    
+    //private var taskTableViewRowCount = 0
+    
+    func updateScheduleCalendar() {
+        //
+    }
+    
+    func updateTasksTable() {
+        //
+    }
+    
+    func getSelectedDate() -> Date {
+        return self.selectedDate
+    }
+    
+    // -------
+    
     
     final let REMOVE = "Remove"
     final let DELETE = "Delete"
@@ -38,6 +60,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     var toDoProcessHelper: ToDoProcessUtils = ToDoProcessUtils()
     
+    private let scheduleViewPresenter = ScheduleViewPresenter(taskService: ToDosController())
+    
     // Properties
 
     private var toDos = [String: ToDo]()
@@ -48,7 +72,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     private var shouldReloadTableView: Bool = true
     
     // -- MOVE 
-    private var toDosController: ToDosController = ToDosController()
+    //private var toDosController: ToDosController = ToDosController()
 
     let formatter = DateFormatter()
     let numberOfRows = 6
@@ -72,7 +96,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureTaskController()
+        scheduleViewPresenter.setViewDelegate(scheduleViewDelegate: self)
+        //configureTaskController()
         configureNav()
         configureTableView()
         configureCalendarView()
@@ -85,6 +110,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     // MARK: - Configurations
     
+    // ---- MOVE
+    /*
     private func configureTaskController() {
         self.toDosController.setInitialToDos()
         var observerVCList: [Observer] = [Observer]()
@@ -94,7 +121,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         statusViewController.setToDosController(toDosController: toDosController)
         observerVCList.append(statusViewController)
         self.toDosController.setObservers(observers: observerVCList)
-    }
+    }*/
     
     private func configureNav() {
         let nav = self.navigationController?.navigationBar
@@ -194,7 +221,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Gets the ToDos that fall under the selected day in calendar
-        return toDosController.getToDosByDay(dateChosen: getSelectedDate()).count
+        return scheduleViewPresenter.getTasksOnSelectedDay().count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -217,9 +244,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         dueDateFormatter.dateFormat = TIME_h_mm_a
         workDateFormatter.dateFormat = TIME_h_mm_a
         
-        // Retrieves sorted ToDo Items by date that fall under the chosen day in the calendar
-        let taskItems = ToDoProcessUtils.retrieveToDoItemsByDay(toDoDate: getSelectedDate(), toDoItems: getToDosController().getToDos())
-        let sortedTaskItems =  ToDoProcessUtils.sortToDoItemsByDate(toDoItems: taskItems)
+        let sortedTaskItems =  scheduleViewPresenter.getSortedTasksByDateOnSelectedDay()
         cell.taskNameLabel.text = sortedTaskItems[row].value.getTaskName()
         cell.startTimeLabel.text = workDateFormatter.string(from: sortedTaskItems[row].value.getStartTime())
         cell.endTimeLabel.text = dueDateFormatter.string(from: sortedTaskItems[row].value.getEndTime())
@@ -237,7 +262,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         // Sets the status of the CheckBox being pressed
         cell.checkBoxButton.tag = row
         cell.checkBoxButton.setPressedStatus(isPressed: sortedTaskItems[row].value.isFinished())
-        cell.checkBoxButton.addTarget(self, action: #selector(onCheckBoxButtonTap(sender:)), for: .touchUpInside)
+        // I DONT THINK THIS IS USED
+        //cell.checkBoxButton.addTarget(self, action: #selector(onCheckBoxButtonTap(sender:)), for: .touchUpInside)
     }
     
     private func cellImportantButtonConfig(cell: ScheduleTableViewCell, row: Int, sortedTaskItems: [(key: String, value: ToDo)]) {
@@ -264,7 +290,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         animateCellPresentation(cell: cell, indexPath: indexPath)
-        let sortedTaskItems =  ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
+        let sortedTaskItems =  scheduleViewPresenter.getSortedTasksByDateOnSelectedDay()
         configureCellDesign(cell: cell, row: indexPath.row, sortedTaskItems: sortedTaskItems)
     }
     
@@ -305,7 +331,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            deleteTaskFromSystem(row: indexPath.row)
+            scheduleViewPresenter.deleteTaskFromSystem(row: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             reloadOnlyCalendarViewItems()
 
@@ -314,10 +340,12 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
+    // ---- MOVE
+    /*
     private func deleteTaskFromSystem(row: Int) {
         let taskToBeDeleted = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))[row]
         toDosController.updateToDos(modificationType: ListModificationType.REMOVE, toDo: taskToBeDeleted.value)
-    }
+    }*/
     
     private func reloadOnlyCalendarViewItems() {
         DispatchQueue.main.async {
@@ -329,6 +357,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     // MARK: - Utilities
     
+    // ---- MOVE THIS OUT IN FUTURE
     private func configureCellIndicators(cell: CalendarCell, indexPath: IndexPath, date: Date) -> CalendarCell {
         
         var onProgressToDoExist: Bool = false
@@ -342,7 +371,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         cell.topRightIndicator.isHidden = true
         
         // Gets the ToDos based on the date of the current cell.
-        let toDosForTheDay = toDosController.getToDosByDay(dateChosen: date)
+        let toDosForTheDay = scheduleViewPresenter.getTasksOnTargetDate(targetDate: date)
         
         // Checks if these kinds of ToDos exist in the date of the current cell.
         /*
@@ -377,10 +406,11 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         if let sourceViewController = sender.source as? ItemInfoTableViewController {
             let taskItem = sourceViewController.toDo
             if toDoListTableView.indexPathForSelectedRow != nil {
-                toDosController.updateToDos(modificationType: ListModificationType.UPDATE, toDo: taskItem!)
+                scheduleViewPresenter.taskUpdated(taskItem: taskItem!)
                 GeneralViewUtils.reloadTableViewData(tableView: self.toDoListTableView)
             } else {
-                toDosController.updateToDos(modificationType: ListModificationType.ADD, toDo: taskItem!)
+                scheduleViewPresenter.taskAdded(taskItem: taskItem!)
+                //toDosController.updateToDos(modificationType: ListModificationType.ADD, toDo: taskItem!)
                 GeneralViewUtils.reloadCollectionViewData(collectionView: self.calendarView)
             }
         }
@@ -393,10 +423,12 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         switch(segue.identifier ?? EMPTY_STRING) {
         case ADD_TASK_ITEM:
             let itemInfoSegueProcess = ItemInfoSegueProcess(segue: segue)
-            itemInfoSegueProcess!.segueToItemInfoVCForAddingTask(tasksController: toDosController, startDate: selectedDate)
+            // FIX THIS
+            //itemInfoSegueProcess!.segueToItemInfoVCForAddingTask(tasksController: scheduleViewPresenter, startDate: selectedDate)
         case SHOW_TASK_ITEM_DETAILS:
             let itemInfoSegueProcess = ItemInfoSegueProcess(segue: segue)
-            itemInfoSegueProcess!.segueToItemInfoVCForShowingTaskDetails(selectedDate: getSelectedDate(), tasksController: toDosController, sender: sender, taskListTableView: toDoListTableView)
+            // FIX THIS
+            //itemInfoSegueProcess!.segueToItemInfoVCForShowingTaskDetails(selectedDate: getSelectedDate(), tasksController: toDosController, sender: sender, taskListTableView: toDoListTableView)
         default:
             fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")
         }
@@ -412,24 +444,24 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     func setSelectedDate(selectedDate: Date) {
         self.selectedDate = selectedDate
     }
-    
+    /*
     func setToDosController(toDosController: ToDosController) {
         self.toDosController = toDosController
-    }
+    }*/
     
+    // --- MOVE (REMOVED)
+    /*
     func getToDosController() -> ToDosController {
         return self.toDosController
-    }
+    }*/
     
     func getObserverId() -> Int {
         return self.observerId
     }
     
-    func getSelectedDate() -> Date {
-        return self.selectedDate
-    }
-    
     // TODO: Refactor code to use proper state tracking, like ENUMS! I'm talking about the shouldReloadTableView
+    // THIS IS PROBABLY NOT USED
+    /*
     @objc func onCheckBoxButtonTap(sender: CheckBoxButton) {
         // The toDosByDay variable should be sorted already
         let toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
@@ -441,15 +473,10 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         self.toDoListTableView.reloadRows(at: [indexPath], with: .top)
         self.shouldReloadTableView = false
         self.calendarView.reloadItems(at: [self.currentSelectedCalendarCell!])
-    }
+    }*/
     
     @objc func onFinishedButtonTap(sender: FinishedButton) {
-        // The toDosByDay variable should be sorted already
-        let toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
-        let tempToDoItem: ToDo = toDosByDay[sender.tag].value
-        let newToDoItem = tempToDoItem
-        
-        toDosController.updateToDos(modificationType: ListModificationType.FINISHNESS, toDo: newToDoItem)
+        scheduleViewPresenter.taskFinishedOnDate(day: selectedDate, tableRowIndex: sender.tag)
         let indexPath = IndexPath(item: sender.tag, section: 0)
         self.toDoListTableView.reloadRows(at: [indexPath], with: .top)
         self.shouldReloadTableView = false
@@ -457,21 +484,11 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @objc func onImportantButtonTap(sender: ImportantButton) {
-        // The toDosByDay variable should be sorted already
-        let toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
-        let tempToDoItem: ToDo = toDosByDay[sender.tag].value
-        let newToDoItem = tempToDoItem
-        
-        toDosController.updateToDos(modificationType: ListModificationType.IMPORTANT, toDo: newToDoItem)
+        scheduleViewPresenter.taskMarkedImportantOnDate(day: selectedDate, tableRowIndex: sender.tag)
     }
     
     @objc func onNotificationButtonTap(sender: NotificationButton) {
-        // The toDosByDay variable should be sorted already
-        let toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
-        let tempToDoItem: ToDo = toDosByDay[sender.tag].value
-        let newToDoItem = tempToDoItem
-        
-        toDosController.updateToDos(modificationType: ListModificationType.NOTIFICATION, toDo: newToDoItem)
+        scheduleViewPresenter.taskIsNotifyingOnDate(day: selectedDate, tableRowIndex: sender.tag)
     }
 }
 
