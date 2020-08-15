@@ -22,10 +22,11 @@ class ScheduleView: UIView, UITableViewDelegate, UITableViewDataSource, Schedule
     final let DATE_MMMM_YYYY =  "MMMM YYYY"
     final let CALENDAR_CELL = "CalendarCell"
     final let numberOfRows = 6
+
+    @IBOutlet weak var scheduleCalendarView: ScheduleCalendarView!
+    @IBOutlet weak var taskScheduleTableView: TaskScheduleTableView!
+    @IBOutlet weak var tasksSectionView: UIView!
     
-    @IBOutlet weak var scheduleCalendarView: JTAppleCalendarView!
-    @IBOutlet weak var taskScheduleTableView: UITableView!
-    @IBOutlet weak var tasksSectionLabel: UILabel!
     
     private var controller: ScheduleViewController?
     private var currentSelectedCalendarCell: IndexPath?

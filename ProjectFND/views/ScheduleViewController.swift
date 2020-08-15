@@ -34,12 +34,13 @@ class ScheduleViewController: UIViewController, Observer {
     //@IBOutlet weak var toDoListTableView: UITableView!
     //@IBOutlet weak var tasksLabelView: UIView!
     
-    var scheduleView: ScheduleViewProtocol?
+    //var scheduleView: ScheduleViewProtocol?
     
     // Helpers
     
     var toDoProcessHelper: ToDoProcessUtils = ToDoProcessUtils()
     
+    var scheduleView: ScheduleViewProtocol!
     // Properties
 
     private var toDos = [String: ToDo]()
@@ -88,7 +89,7 @@ class ScheduleViewController: UIViewController, Observer {
     
     fileprivate func setupView() {
         if let sView = self.view as? ScheduleViewProtocol{
-            if (scheduleView == nil) {
+            if (scheduleView != nil) {
                 setScheduleView(sView)
             }
         }

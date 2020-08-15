@@ -1509,7 +1509,7 @@
                         <connections>
                             <outlet property="scheduleCalendarView" destination="PDs-aS-qTz" id="DXg-YW-ZZi"/>
                             <outlet property="taskScheduleTableView" destination="sYl-Eh-KfZ" id="gE7-gE-MRf"/>
-                            <outlet property="tasksSectionLabel" destination="QBd-dI-f6Q" id="dOd-de-Wwq"/>
+                            <outlet property="tasksSectionView" destination="ULd-FF-QdY" id="Jlx-o0-Zhp"/>
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Monthly" id="Ecr-D0-8Bb">
@@ -2485,7 +2485,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="IZc-cd-zG3"/>
+        <segue reference="S04-n3-wvv"/>
         <segue reference="mDA-Bm-bDa"/>
     </inferredMetricsTieBreakers>
     <resources>
