@@ -53,6 +53,8 @@
 		2151612224821D13004BD49B /* ObservableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151612124821D13004BD49B /* ObservableItem.swift */; };
 		21516125248228F1004BD49B /* DateObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21516124248228F1004BD49B /* DateObserver.swift */; };
 		215161272482380B004BD49B /* ObservableDateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215161262482380B004BD49B /* ObservableDateController.swift */; };
+		2151BF9424E87C6800194E21 /* ScheduleViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151BF9324E87C6800194E21 /* ScheduleViewPresenter.swift */; };
+		2151BF9824E87DA600194E21 /* ScheduleViewDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151BF9724E87DA600194E21 /* ScheduleViewDelegateProtocol.swift */; };
 		21521C45240E0D3A00FC8A8A /* GeneralViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21521C44240E0D3A00FC8A8A /* GeneralViewUtils.swift */; };
 		21521C47240E106D00FC8A8A /* ToDoTableViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21521C46240E106D00FC8A8A /* ToDoTableViewUtils.swift */; };
 		21521C49240E11C600FC8A8A /* CalendarViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21521C48240E11C600FC8A8A /* CalendarViewUtils.swift */; };
@@ -197,6 +199,8 @@
 		2151612124821D13004BD49B /* ObservableItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableItem.swift; sourceTree = "<group>"; };
 		21516124248228F1004BD49B /* DateObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateObserver.swift; sourceTree = "<group>"; };
 		215161262482380B004BD49B /* ObservableDateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableDateController.swift; sourceTree = "<group>"; };
+		2151BF9324E87C6800194E21 /* ScheduleViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewPresenter.swift; sourceTree = "<group>"; };
+		2151BF9724E87DA600194E21 /* ScheduleViewDelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewDelegateProtocol.swift; sourceTree = "<group>"; };
 		21521C44240E0D3A00FC8A8A /* GeneralViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralViewUtils.swift; sourceTree = "<group>"; };
 		21521C46240E106D00FC8A8A /* ToDoTableViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTableViewUtils.swift; sourceTree = "<group>"; };
 		21521C48240E11C600FC8A8A /* CalendarViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewUtils.swift; sourceTree = "<group>"; };
@@ -329,13 +333,6 @@
 			path = navViewControllers;
 			sourceTree = "<group>";
 		};
-		2113DA4124CE84C1006C5415 /* helpers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = helpers;
-			sourceTree = "<group>";
-		};
 		2126727024CFC287000E3CC7 /* process */ = {
 			isa = PBXGroup;
 			children = (
@@ -447,6 +444,39 @@
 			path = Observers;
 			sourceTree = "<group>";
 		};
+		2151BF9124E87C1100194E21 /* MVP */ = {
+			isa = PBXGroup;
+			children = (
+				2151BF9524E87D7600194E21 /* view */,
+				2151BF9224E87C1700194E21 /* presenter */,
+			);
+			path = MVP;
+			sourceTree = "<group>";
+		};
+		2151BF9224E87C1700194E21 /* presenter */ = {
+			isa = PBXGroup;
+			children = (
+				2151BF9324E87C6800194E21 /* ScheduleViewPresenter.swift */,
+			);
+			path = presenter;
+			sourceTree = "<group>";
+		};
+		2151BF9524E87D7600194E21 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				2151BF9624E87D7D00194E21 /* delegate */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		2151BF9624E87D7D00194E21 /* delegate */ = {
+			isa = PBXGroup;
+			children = (
+				2151BF9724E87DA600194E21 /* ScheduleViewDelegateProtocol.swift */,
+			);
+			path = delegate;
+			sourceTree = "<group>";
+		};
 		21521C43240E0CC600FC8A8A /* utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -469,7 +499,7 @@
 		21521C4A240E17D200FC8A8A /* views */ = {
 			isa = PBXGroup;
 			children = (
-				2113DA4124CE84C1006C5415 /* helpers */,
+				2151BF9124E87C1100194E21 /* MVP */,
 				2113DA4024CE8490006C5415 /* navViewControllers */,
 				2113DA3E24CE83B6006C5415 /* viewcontrollers */,
 				21DB50B324AD96BB00386749 /* SchedulingIntervalizer */,
@@ -1048,8 +1078,10 @@
 				21A4D122231ECE2300B5B52A /* CalendarHeader.swift in Sources */,
 				219648E6247A10C40052ECEF /* Structs.swift in Sources */,
 				212E317724E4F2E400B8D89B /* FNDTaskDueDate.swift in Sources */,
+				2151BF9824E87DA600194E21 /* ScheduleViewDelegateProtocol.swift in Sources */,
 				2151612224821D13004BD49B /* ObservableItem.swift in Sources */,
 				219A6568232B12B10062BF84 /* ToDoProcessUtils.swift in Sources */,
+				2151BF9424E87C6800194E21 /* ScheduleViewPresenter.swift in Sources */,
 				21A4D0F7231ECC3600B5B52A /* AppDelegate.swift in Sources */,
 				216067E624219FBD00B0E5EF /* DeadlinesViewController.swift in Sources */,
 				219648E42479EFD10052ECEF /* SimpleItemsTVCTableViewCell.swift in Sources */,

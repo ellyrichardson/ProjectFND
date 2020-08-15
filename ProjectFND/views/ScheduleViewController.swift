@@ -46,6 +46,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     private var checkButtonTapped: Int =  -1
     private var currentSelectedCalendarCell: IndexPath?
     private var shouldReloadTableView: Bool = true
+    
+    // -- MOVE 
     private var toDosController: ToDosController = ToDosController()
 
     let formatter = DateFormatter()
