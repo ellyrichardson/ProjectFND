@@ -55,6 +55,7 @@
 		215161272482380B004BD49B /* ObservableDateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215161262482380B004BD49B /* ObservableDateController.swift */; };
 		2151BF9424E87C6800194E21 /* ScheduleViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151BF9324E87C6800194E21 /* ScheduleViewPresenter.swift */; };
 		2151BF9824E87DA600194E21 /* ScheduleViewDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151BF9724E87DA600194E21 /* ScheduleViewDelegateProtocol.swift */; };
+		2151BF9A24E8AD7800194E21 /* ScheduleViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151BF9924E8AD7800194E21 /* ScheduleViewData.swift */; };
 		21521C45240E0D3A00FC8A8A /* GeneralViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21521C44240E0D3A00FC8A8A /* GeneralViewUtils.swift */; };
 		21521C47240E106D00FC8A8A /* ToDoTableViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21521C46240E106D00FC8A8A /* ToDoTableViewUtils.swift */; };
 		21521C49240E11C600FC8A8A /* CalendarViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21521C48240E11C600FC8A8A /* CalendarViewUtils.swift */; };
@@ -201,6 +202,7 @@
 		215161262482380B004BD49B /* ObservableDateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableDateController.swift; sourceTree = "<group>"; };
 		2151BF9324E87C6800194E21 /* ScheduleViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewPresenter.swift; sourceTree = "<group>"; };
 		2151BF9724E87DA600194E21 /* ScheduleViewDelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewDelegateProtocol.swift; sourceTree = "<group>"; };
+		2151BF9924E8AD7800194E21 /* ScheduleViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewData.swift; sourceTree = "<group>"; };
 		21521C44240E0D3A00FC8A8A /* GeneralViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralViewUtils.swift; sourceTree = "<group>"; };
 		21521C46240E106D00FC8A8A /* ToDoTableViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTableViewUtils.swift; sourceTree = "<group>"; };
 		21521C48240E11C600FC8A8A /* CalendarViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewUtils.swift; sourceTree = "<group>"; };
@@ -380,6 +382,7 @@
 			children = (
 				212E317624E4F2E400B8D89B /* FNDTaskDueDate.swift */,
 				212E317824E4F35300B8D89B /* FNDTaskTag.swift */,
+				2151BF9924E8AD7800194E21 /* ScheduleViewData.swift */,
 			);
 			path = FNDTask;
 			sourceTree = "<group>";
@@ -1043,6 +1046,7 @@
 				21B8965623D3BC8000D49827 /* DateArithmeticUtils.swift in Sources */,
 				21521C47240E106D00FC8A8A /* ToDoTableViewUtils.swift in Sources */,
 				213139EC245A79AF00BBB717 /* ImportantButton.swift in Sources */,
+				2151BF9A24E8AD7800194E21 /* ScheduleViewData.swift in Sources */,
 				21DA2E82248734B10035B237 /* RegularTaskButton.swift in Sources */,
 				212F14E5247056DE0084FBD3 /* UIVIew+Nib.swift in Sources */,
 				21312F19248344AF00870920 /* TagsTableViewController.swift in Sources */,

@@ -15,7 +15,7 @@ import os.log
 import JTAppleCalendar
 
 // NOTE: Can not be an observer anymore
-class ScheduleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ScheduleViewDelegate, Observer {
+class ScheduleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, Observer {
     
     
     // FOR MVP
@@ -23,17 +23,10 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     //private var taskTableViewRowCount = 0
     
-    func updateScheduleCalendar() {
-        //
-    }
-    
-    func updateTasksTable() {
-        //
-    }
-    
-    func getSelectedDate() -> Date {
-        return self.selectedDate
-    }
+    var onProgressTaskExist: Bool = false
+    var finishedTaskExist: Bool = false
+    var overdueTaskExist: Bool = false
+    private var tasksToDisplay = [ScheduleViewData]()
     
     // -------
     
@@ -56,11 +49,8 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var toDoListTableView: UITableView!
     @IBOutlet weak var tasksLabelView: UIView!
     
-    // Helpers
-    
-    var toDoProcessHelper: ToDoProcessUtils = ToDoProcessUtils()
-    
     private let scheduleViewPresenter = ScheduleViewPresenter(taskService: ToDosController())
+    private let taskTableViewData = [String]()
     
     // Properties
 
@@ -87,6 +77,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     // To Update the ViewController
+    // NOTE: Move this to the presenter
     func update<T>(with newValue: T, with observableType: ObservableType) {
         setToDoItems(toDoItems: newValue as! [String: ToDo])
         print("ToDo Items for ScheduleViewController has been updated")
@@ -229,11 +220,10 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+        scheduleViewPresenter.getTasksToDisplay()
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SCHEDULE_TABLE_VIEW_CELL, for: indexPath) as? ScheduleTableViewCell else {
             fatalError("The dequeued cell is not an instance of ScheduleTableViewCell.")
         }
-        
         generalCellPresentationConfig(cell: cell, row: indexPath.row)
         return cell
     }
@@ -244,48 +234,59 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         dueDateFormatter.dateFormat = TIME_h_mm_a
         workDateFormatter.dateFormat = TIME_h_mm_a
         
-        let sortedTaskItems =  scheduleViewPresenter.getSortedTasksByDateOnSelectedDay()
-        cell.taskNameLabel.text = sortedTaskItems[row].value.getTaskName()
+        //let sortedTaskItems =  scheduleViewPresenter.getSortedTasksByDateOnSelectedDay()
+        
+        /*cell.taskNameLabel.text = sortedTaskItems[row].value.getTaskName()
         cell.startTimeLabel.text = workDateFormatter.string(from: sortedTaskItems[row].value.getStartTime())
         cell.endTimeLabel.text = dueDateFormatter.string(from: sortedTaskItems[row].value.getEndTime())
-        cell.taskTypeLabel.text = sortedTaskItems[row].value.getTaskTag()
-        cell.checkBoxButton.setToDoRowIndex(toDoRowIndex: row)
+        cell.taskTypeLabel.text = sortedTaskItems[row].value.getTaskTag()*/
         
-        cellCheckBoxButtonConfig(cell: cell, row: row, sortedTaskItems: sortedTaskItems)
-        cellImportantButtonConfig(cell: cell, row: row, sortedTaskItems: sortedTaskItems)
-        cellNotifyButtonConfig(cell: cell, row: row, sortedTaskItems: sortedTaskItems)
-        cellFinishedButtonConfig(cell: cell, row: row, sortedTaskItems: sortedTaskItems)
+        cell.taskNameLabel.text = tasksToDisplay[row].taskName
+        cell.startTimeLabel.text = workDateFormatter.string(from: tasksToDisplay[row].timeSpan.startDate)
+        cell.endTimeLabel.text = dueDateFormatter.string(from: tasksToDisplay[row].timeSpan.endDate)
+        cell.taskTypeLabel.text = tasksToDisplay[row].taskTag
+        //cell.checkBoxButton.setToDoRowIndex(toDoRowIndex: row)
+        
+        //cellCheckBoxButtonConfig(cell: cell, row: row, sortedTaskItems: sortedTaskItems)
+        cellImportantButtonConfig(cell: cell, row: row)
+        cellNotifyButtonConfig(cell: cell, row: row)
+        cellFinishedButtonConfig(cell: cell, row: row)
     }
     
     // NOTE: Is this actually used?????
-    private func cellCheckBoxButtonConfig(cell: ScheduleTableViewCell, row: Int, sortedTaskItems: [(key: String, value: ToDo)]) {
+    /*
+    private func cellCheckBoxButtonConfig(cell: ScheduleTableViewCell, row: Int) {
         // Sets the status of the CheckBox being pressed
         cell.checkBoxButton.tag = row
         cell.checkBoxButton.setPressedStatus(isPressed: sortedTaskItems[row].value.isFinished())
         // I DONT THINK THIS IS USED
         //cell.checkBoxButton.addTarget(self, action: #selector(onCheckBoxButtonTap(sender:)), for: .touchUpInside)
-    }
+    }*/
     
-    private func cellImportantButtonConfig(cell: ScheduleTableViewCell, row: Int, sortedTaskItems: [(key: String, value: ToDo)]) {
+    private func cellImportantButtonConfig(cell: ScheduleTableViewCell, row: Int) {
         // Sets the status of the important button being pressed
         cell.importantButton.tag = row
-        cell.importantButton.setPressedStatus(isPressed: sortedTaskItems[row].value.isImportant())
+        cell.importantButton.setPressedStatus(isPressed: tasksToDisplay[row].important)
         cell.importantButton.addTarget(self, action: #selector(onImportantButtonTap(sender:)), for: .touchUpInside)
     }
     
-    private func cellNotifyButtonConfig(cell: ScheduleTableViewCell, row: Int, sortedTaskItems: [(key: String, value: ToDo)]) {
+    private func cellNotifyButtonConfig(cell: ScheduleTableViewCell, row: Int) {
         // Sets the status of the notify button being pressed
         cell.notifyButton.tag = row
-        cell.notifyButton.setPressedStatus(isPressed: sortedTaskItems[row].value.isNotifying())
+        cell.notifyButton.setPressedStatus(isPressed: tasksToDisplay[row].notifying)
         cell.notifyButton.addTarget(self, action: #selector(onNotificationButtonTap(sender:)), for: .touchUpInside)
     }
     
-    private func cellFinishedButtonConfig(cell: ScheduleTableViewCell, row: Int, sortedTaskItems: [(key: String, value: ToDo)]) {
+    private func cellFinishedButtonConfig(cell: ScheduleTableViewCell, row: Int) {
         // Sets the status of the finished button being pressed
         cell.finishedButton.tag = row
-        cell.finishedButton.isOverdue(overdue: ToDoProcessUtils.isToDoOverdue(toDoRowIndex: row, toDoItems: sortedTaskItems))
-        cell.finishedButton.setPressedStatus(isPressed: sortedTaskItems[row].value.isFinished())
+        cell.finishedButton.isOverdue(overdue: isTaskToDisplayOverdue(taskToDisplay: tasksToDisplay[row]))
+        cell.finishedButton.setPressedStatus(isPressed: tasksToDisplay[row].finished)
         cell.finishedButton.addTarget(self, action: #selector(onFinishedButtonTap(sender:)), for: .touchUpInside)
+    }
+    
+    private func isTaskToDisplayOverdue(taskToDisplay: ScheduleViewData) -> Bool {
+        return (taskToDisplay.finished && Date() > taskToDisplay.dueDate.dateValue!) && taskToDisplay.dueDate.assigned
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -295,13 +296,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     private func animateCellPresentation(cell: UITableViewCell, indexPath: IndexPath) {
-        if checkButtonTapped == indexPath.row {
-            ToDoTableViewUtils.makeCellMoveUpWithFade(cell: cell, indexPath: indexPath)
-            checkButtonTapped = -1
-        }
-        else {
-            ToDoTableViewUtils.makeCellSlide(cell: cell, indexPath: indexPath, tableView: toDoListTableView)
-        }
+        ToDoTableViewUtils.makeCellSlide(cell: cell, indexPath: indexPath, tableView: toDoListTableView)
     }
     
     private func configureCellDesign(cell: UITableViewCell, row: Int, sortedTaskItems: [(key: String, value: ToDo)]) {
@@ -356,52 +351,25 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     // MARK: - Utilities
-    
-    // ---- MOVE THIS OUT IN FUTURE
-    private func configureCellIndicators(cell: CalendarCell, indexPath: IndexPath, date: Date) -> CalendarCell {
-        
-        var onProgressToDoExist: Bool = false
-        var finishedToDoExist: Bool = false
-        var overdueToDoExist: Bool = false
-        
+
+    private func configureCellIndicators(cell: CalendarCell, indexPath: IndexPath, date: Date) {
         // Hides the indicators initially.
         cell.bottomIndicator.isHidden = true
         cell.topIndicator.isHidden = true
         cell.topLeftIndicator.isHidden = true
         cell.topRightIndicator.isHidden = true
-        
-        // Gets the ToDos based on the date of the current cell.
-        let toDosForTheDay = scheduleViewPresenter.getTasksOnTargetDate(targetDate: date)
-        
-        // Checks if these kinds of ToDos exist in the date of the current cell.
-        /*
-         Task will be identified as onProgress if due date is not set
-         */
-        let onProgressToDo = toDosForTheDay.first(where: {(Date() < $0.value.getDueDate() || !$0.value.isDueDateSet()) && !$0.value.isFinished() })
-        let finishedToDo = toDosForTheDay.first(where: {$0.value.isFinished() == true})
-        let overdueToDo = toDosForTheDay.first(where: {(Date() > $0.value.getDueDate() && !$0.value.isFinished()) && $0.value.isDueDateSet()})
-        
-        // Sets boolean variables if types of ToDos exist.
-        if onProgressToDo != nil {
-            onProgressToDoExist = true
-        }
-        if finishedToDo != nil {
-            finishedToDoExist = true
-        }
-        if overdueToDo != nil {
-            overdueToDoExist = true
-        }
+    
+        scheduleViewPresenter.checkTasksForCalendarCellIndicatorsForDay(targetDate: date)
         
         // If either one of the types of ToDo exist.
-        if onProgressToDoExist == true || finishedToDoExist == true || overdueToDoExist == true {
+        if onProgressTaskExist || finishedTaskExist || overdueTaskExist {
             // Update the cell to have the indicators it needs.
-            return CalendarViewUtils.showCellIndicators(cell: cell, onProgress: onProgressToDoExist, finished: finishedToDoExist, overdue: overdueToDoExist)
+            CalendarViewUtils.showCellIndicators(cell: cell, onProgress: onProgressTaskExist, finished: finishedTaskExist, overdue: overdueTaskExist)
         }
-        return cell
     }
     
     // MARK: - Actions
-    
+    // Handle this in the presenter
     @IBAction func unwindToScheduleView(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? ItemInfoTableViewController {
             let taskItem = sourceViewController.toDo
@@ -418,6 +386,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
     
     // MARK: - Navigation
     
+    // Handle this in the presenter
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         switch(segue.identifier ?? EMPTY_STRING) {
@@ -459,22 +428,7 @@ class ScheduleViewController: UIViewController, UITableViewDelegate, UITableView
         return self.observerId
     }
     
-    // TODO: Refactor code to use proper state tracking, like ENUMS! I'm talking about the shouldReloadTableView
-    // THIS IS PROBABLY NOT USED
-    /*
-    @objc func onCheckBoxButtonTap(sender: CheckBoxButton) {
-        // The toDosByDay variable should be sorted already
-        let toDosByDay = ToDoProcessUtils.sortToDoItemsByDate(toDoItems: toDosController.getToDosByDay(dateChosen: getSelectedDate()))
-        let tempToDoItem: ToDo = toDosByDay[sender.tag].value
-        let newToDoItem = tempToDoItem
-        
-        toDosController.updateToDos(modificationType: ListModificationType.FINISHNESS, toDo: newToDoItem)
-        let indexPath = IndexPath(item: sender.tag, section: 0)
-        self.toDoListTableView.reloadRows(at: [indexPath], with: .top)
-        self.shouldReloadTableView = false
-        self.calendarView.reloadItems(at: [self.currentSelectedCalendarCell!])
-    }*/
-    
+    // TODO: Refactor code to use proper state tracking, like ENUMS! I'm talking about the shouldReloadTableView    
     @objc func onFinishedButtonTap(sender: FinishedButton) {
         scheduleViewPresenter.taskFinishedOnDate(day: selectedDate, tableRowIndex: sender.tag)
         let indexPath = IndexPath(item: sender.tag, section: 0)
@@ -523,10 +477,9 @@ extension ScheduleViewController: JTAppleCalendarViewDataSource {
 extension ScheduleViewController: JTAppleCalendarViewDelegate {
     func calendar(_ calendar: JTAppleCalendarView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTAppleCell {
         
-        var cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: CALENDAR_CELL, for: indexPath) as! CalendarCell
+        let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: CALENDAR_CELL, for: indexPath) as! CalendarCell
         
-        cell = configureCellIndicators(cell: cell, indexPath: indexPath, date: date)
-        
+        configureCellIndicators(cell: cell, indexPath: indexPath, date: date)
         configureCell(cell: cell, cellState: cellState)
         return cell
     }
@@ -551,4 +504,35 @@ extension ScheduleViewController: JTAppleCalendarViewDelegate {
     func calendarSizeForMonths(_ calendar: JTAppleCalendarView?) -> MonthSize? {
         return MonthSize(defaultSize: 75)
     }
+}
+
+extension ScheduleViewController: ScheduleViewDelegate {
+    func setOnProgressTaskExist(exists: Bool) {
+        self.onProgressTaskExist = exists
+    }
+    
+    func setFinishedTaskExist(exists: Bool) {
+        self.finishedTaskExist = exists
+    }
+    
+    func setOverdueTaskExist(exists: Bool) {
+        self.overdueTaskExist = exists
+    }
+    
+    func updateScheduleCalendar() {
+        //
+    }
+    
+    func updateTasksTable() {
+        //
+    }
+    
+    func getSelectedDate() -> Date {
+        return self.selectedDate
+    }
+    
+    func setScheduleTableViewDataForDay(sData: [ScheduleViewData]) {
+        self.tasksToDisplay = sData
+    }
+    
 }

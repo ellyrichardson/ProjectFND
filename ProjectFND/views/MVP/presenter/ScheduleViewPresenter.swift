@@ -95,4 +95,56 @@ class ScheduleViewPresenter {
         
         taskService.updateToDos(modificationType: ListModificationType.NOTIFICATION, toDo: newTaskItem)
     }
+    
+    func checkTasksForCalendarCellIndicatorsForDay(targetDate: Date) {
+        
+        // Gets the Tasks based on the target date
+        let tasksForTheDay = getTasksOnTargetDate(targetDate: targetDate)
+        
+        // Checks if these kinds of Tasks exist for the target date.
+        /*
+         Task will be identified as onProgress if due date is not set
+         */
+        let onProgressTask = tasksForTheDay.first(where: {(Date() < $0.value.getDueDate() || !$0.value.isDueDateSet()) && !$0.value.isFinished() })
+        let finishedTask = tasksForTheDay.first(where: {$0.value.isFinished() == true})
+        let overdueTask = tasksForTheDay.first(where: {(Date() > $0.value.getDueDate() && !$0.value.isFinished()) && $0.value.isDueDateSet()})
+        
+        // Sets boolean variables if types of Tasks exist.
+        if onProgressTask != nil {
+            scheduleViewDelegate?.setOnProgressTaskExist(exists: true)
+        }
+        else {
+            scheduleViewDelegate?.setOnProgressTaskExist(exists: false)
+        }
+        
+        if finishedTask != nil {
+            scheduleViewDelegate?.setFinishedTaskExist(exists: true)
+        }
+        else {
+            scheduleViewDelegate?.setFinishedTaskExist(exists: false)
+        }
+        
+        if overdueTask != nil {
+            scheduleViewDelegate?.setOverdueTaskExist(exists: true)
+        }
+        else {
+            scheduleViewDelegate?.setOverdueTaskExist(exists: false)
+        }
+    }
+    
+    func getTasksToDisplay() {
+        let tasksToDisplay = convertTasksOfDayToScheduleViewData(taskItems: getSortedTasksByDateOnSelectedDay())
+        scheduleViewDelegate?.setScheduleTableViewDataForDay(sData: tasksToDisplay)
+    }
+    
+    func convertTasksOfDayToScheduleViewData(taskItems: [(key: String, value: ToDo)]) -> [ScheduleViewData] {
+        var tasksForDisplay = [ScheduleViewData]()
+        for task in taskItems {
+            let taskValue = task.value
+            let timeSpan = TimeSpan(startDate: taskValue.getStartTime(), endDate: taskValue.getEndTime())
+            let dueDateStatus = ToDoDate(dateValue: taskValue.getDueDate(), assigned: taskValue.isDueDateSet())
+            tasksForDisplay.append(ScheduleViewData(taskName: taskValue.getTaskName(), taskTag: taskValue.getTaskTag(), timeSpan: timeSpan, dueDate: dueDateStatus, finished: taskValue.isFinished(), important: taskValue.isImportant(), notifying: taskValue.isNotifying()))
+        }
+        return tasksForDisplay
+    }
 }
