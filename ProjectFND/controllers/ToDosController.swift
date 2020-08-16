@@ -10,7 +10,7 @@ import UIKit
 import os.log
 
 // This is a service
-class ToDosController {
+class ToDosController: TaskServiceProtocol {
     private var toDos = ObservableList<ToDo>()
     
     // MARK: - Controller Essentials

@@ -56,6 +56,10 @@
 		2151BF9424E87C6800194E21 /* ScheduleViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151BF9324E87C6800194E21 /* ScheduleViewPresenter.swift */; };
 		2151BF9824E87DA600194E21 /* ScheduleViewDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151BF9724E87DA600194E21 /* ScheduleViewDelegateProtocol.swift */; };
 		2151BF9A24E8AD7800194E21 /* ScheduleViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151BF9924E8AD7800194E21 /* ScheduleViewData.swift */; };
+		2151BF9E24E8F42600194E21 /* MockScheduleViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151BF9D24E8F42600194E21 /* MockScheduleViewDelegate.swift */; };
+		2151BFA024E8F5D300194E21 /* ScheduleViewPresenterSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151BF9F24E8F5D300194E21 /* ScheduleViewPresenterSpecs.swift */; };
+		2151BFA324E8F7E400194E21 /* TaskServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151BFA224E8F7E400194E21 /* TaskServiceProtocol.swift */; };
+		2151BFA624E8F94800194E21 /* MockTaskService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151BFA524E8F94800194E21 /* MockTaskService.swift */; };
 		21521C45240E0D3A00FC8A8A /* GeneralViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21521C44240E0D3A00FC8A8A /* GeneralViewUtils.swift */; };
 		21521C47240E106D00FC8A8A /* ToDoTableViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21521C46240E106D00FC8A8A /* ToDoTableViewUtils.swift */; };
 		21521C49240E11C600FC8A8A /* CalendarViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21521C48240E11C600FC8A8A /* CalendarViewUtils.swift */; };
@@ -203,6 +207,10 @@
 		2151BF9324E87C6800194E21 /* ScheduleViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewPresenter.swift; sourceTree = "<group>"; };
 		2151BF9724E87DA600194E21 /* ScheduleViewDelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewDelegateProtocol.swift; sourceTree = "<group>"; };
 		2151BF9924E8AD7800194E21 /* ScheduleViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewData.swift; sourceTree = "<group>"; };
+		2151BF9D24E8F42600194E21 /* MockScheduleViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockScheduleViewDelegate.swift; sourceTree = "<group>"; };
+		2151BF9F24E8F5D300194E21 /* ScheduleViewPresenterSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewPresenterSpecs.swift; sourceTree = "<group>"; };
+		2151BFA224E8F7E400194E21 /* TaskServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskServiceProtocol.swift; sourceTree = "<group>"; };
+		2151BFA524E8F94800194E21 /* MockTaskService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTaskService.swift; sourceTree = "<group>"; };
 		21521C44240E0D3A00FC8A8A /* GeneralViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralViewUtils.swift; sourceTree = "<group>"; };
 		21521C46240E106D00FC8A8A /* ToDoTableViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTableViewUtils.swift; sourceTree = "<group>"; };
 		21521C48240E11C600FC8A8A /* CalendarViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewUtils.swift; sourceTree = "<group>"; };
@@ -450,6 +458,7 @@
 		2151BF9124E87C1100194E21 /* MVP */ = {
 			isa = PBXGroup;
 			children = (
+				2151BFA124E8F7D400194E21 /* model */,
 				2151BF9524E87D7600194E21 /* view */,
 				2151BF9224E87C1700194E21 /* presenter */,
 			);
@@ -467,6 +476,7 @@
 		2151BF9524E87D7600194E21 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				2151BF9B24E8EB4800194E21 /* controller */,
 				2151BF9624E87D7D00194E21 /* delegate */,
 			);
 			path = view;
@@ -478,6 +488,39 @@
 				2151BF9724E87DA600194E21 /* ScheduleViewDelegateProtocol.swift */,
 			);
 			path = delegate;
+			sourceTree = "<group>";
+		};
+		2151BF9B24E8EB4800194E21 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				21A4D0F8231ECC3600B5B52A /* ScheduleViewController.swift */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		2151BF9C24E8F40700194E21 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				2151BF9D24E8F42600194E21 /* MockScheduleViewDelegate.swift */,
+				2151BFA524E8F94800194E21 /* MockTaskService.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		2151BFA124E8F7D400194E21 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				2151BFA424E8F7E900194E21 /* protocol */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		2151BFA424E8F7E900194E21 /* protocol */ = {
+			isa = PBXGroup;
+			children = (
+				2151BFA224E8F7E400194E21 /* TaskServiceProtocol.swift */,
+			);
+			path = protocol;
 			sourceTree = "<group>";
 		};
 		21521C43240E0CC600FC8A8A /* utilities */ = {
@@ -502,6 +545,7 @@
 		21521C4A240E17D200FC8A8A /* views */ = {
 			isa = PBXGroup;
 			children = (
+				2151BF9C24E8F40700194E21 /* Mocks */,
 				2151BF9124E87C1100194E21 /* MVP */,
 				2113DA4024CE8490006C5415 /* navViewControllers */,
 				2113DA3E24CE83B6006C5415 /* viewcontrollers */,
@@ -512,7 +556,6 @@
 				212F14C5246F8FE10084FBD3 /* RepeatingSetupTableViewController.swift */,
 				21F7013C23F26177001942D6 /* IntervalSchedulingPreviewController.swift */,
 				212990C6247B88C600A9D618 /* EntryDetailsTableViewController.swift */,
-				21A4D0F8231ECC3600B5B52A /* ScheduleViewController.swift */,
 				212E316E24E4EFED00B8D89B /* MainCalendarVC */,
 				21521C4C240E17F300FC8A8A /* xibs */,
 			);
@@ -718,6 +761,7 @@
 				2154F9752492C5C400B43D64 /* TimeSlotsVacancyEvaluatorSpecs.swift */,
 				21306F8224DE530400A80CAF /* SchedulingAssistanceVCSpecs.swift */,
 				212E316C24E4C44B00B8D89B /* TimeSlotsAssignmentVCSpecs.swift */,
+				2151BF9F24E8F5D300194E21 /* ScheduleViewPresenterSpecs.swift */,
 			);
 			path = ProjectFNDTests;
 			sourceTree = "<group>";
@@ -1062,6 +1106,8 @@
 				212F14DD2470563F0084FBD3 /* Font.swift in Sources */,
 				219CA4AB2326CA18003ACBDE /* CheckBoxButton.swift in Sources */,
 				214E0AE9233552C700398AC5 /* TransformingButton.swift in Sources */,
+				2151BFA624E8F94800194E21 /* MockTaskService.swift in Sources */,
+				2151BF9E24E8F42600194E21 /* MockScheduleViewDelegate.swift in Sources */,
 				216067E92421CD4A00B0E5EF /* DeadlinesTableViewCell.swift in Sources */,
 				213139F0245A8AC900BBB717 /* FinishedButton.swift in Sources */,
 				212F14DF247056670084FBD3 /* Object+ClassName.swift in Sources */,
@@ -1082,6 +1128,7 @@
 				21A4D122231ECE2300B5B52A /* CalendarHeader.swift in Sources */,
 				219648E6247A10C40052ECEF /* Structs.swift in Sources */,
 				212E317724E4F2E400B8D89B /* FNDTaskDueDate.swift in Sources */,
+				2151BFA324E8F7E400194E21 /* TaskServiceProtocol.swift in Sources */,
 				2151BF9824E87DA600194E21 /* ScheduleViewDelegateProtocol.swift in Sources */,
 				2151612224821D13004BD49B /* ObservableItem.swift in Sources */,
 				219A6568232B12B10062BF84 /* ToDoProcessUtils.swift in Sources */,
@@ -1104,6 +1151,7 @@
 			files = (
 				21306F8324DE530400A80CAF /* SchedulingAssistanceVCSpecs.swift in Sources */,
 				212E316D24E4C44B00B8D89B /* TimeSlotsAssignmentVCSpecs.swift in Sources */,
+				2151BFA024E8F5D300194E21 /* ScheduleViewPresenterSpecs.swift in Sources */,
 				2154F9762492C5C400B43D64 /* TimeSlotsVacancyEvaluatorSpecs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

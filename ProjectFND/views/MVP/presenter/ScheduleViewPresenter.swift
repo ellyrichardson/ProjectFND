@@ -9,10 +9,10 @@
 import Foundation
 
 class ScheduleViewPresenter {
-    private let taskService: ToDosController
+    private let taskService: TaskServiceProtocol
     weak private var scheduleViewDelegate: ScheduleViewDelegate?
     
-    init(taskService: ToDosController) {
+    init(taskService: TaskServiceProtocol) {
         self.taskService = taskService
         //self.taskService.setInitialToDos()
         configureTaskService()
