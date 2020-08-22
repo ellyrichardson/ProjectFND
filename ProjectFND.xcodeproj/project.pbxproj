@@ -114,6 +114,8 @@
 		21A4D12F2320B9F600B5B52A /* StaticTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D12E2320B9F600B5B52A /* StaticTableCell.swift */; };
 		21A4D1322320CDC000B5B52A /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D1312320CDC000B5B52A /* CalendarCell.swift */; };
 		21A7921224120446004C5770 /* (null) in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		21AEED4B24F0E0D500A05C85 /* ItemInfoViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AEED4A24F0E0D500A05C85 /* ItemInfoViewPresenter.swift */; };
+		21AEED4D24F0E10200A05C85 /* ItemInfoViewDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AEED4C24F0E10200A05C85 /* ItemInfoViewDelegateProtocol.swift */; };
 		21B8965323D3B7E100D49827 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8965223D3B7E100D49827 /* DateUtils.swift */; };
 		21B8965623D3BC8000D49827 /* DateArithmeticUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8965523D3BC8000D49827 /* DateArithmeticUtils.swift */; };
 		21BC58AE23E629CA00015ECE /* IntervalAvailabilitiesRetrievingOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BC58AD23E629CA00015ECE /* IntervalAvailabilitiesRetrievingOperations.swift */; };
@@ -268,6 +270,8 @@
 		21A4D12C2320B6E400B5B52A /* ItemInfoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemInfoTableViewController.swift; sourceTree = "<group>"; };
 		21A4D12E2320B9F600B5B52A /* StaticTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticTableCell.swift; sourceTree = "<group>"; };
 		21A4D1312320CDC000B5B52A /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
+		21AEED4A24F0E0D500A05C85 /* ItemInfoViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemInfoViewPresenter.swift; sourceTree = "<group>"; };
+		21AEED4C24F0E10200A05C85 /* ItemInfoViewDelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemInfoViewDelegateProtocol.swift; sourceTree = "<group>"; };
 		21B8965223D3B7E100D49827 /* DateUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
 		21B8965523D3BC8000D49827 /* DateArithmeticUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateArithmeticUtils.swift; sourceTree = "<group>"; };
 		21BC58AD23E629CA00015ECE /* IntervalAvailabilitiesRetrievingOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalAvailabilitiesRetrievingOperations.swift; sourceTree = "<group>"; };
@@ -469,6 +473,7 @@
 			isa = PBXGroup;
 			children = (
 				2151BF9324E87C6800194E21 /* ScheduleViewPresenter.swift */,
+				21AEED4A24F0E0D500A05C85 /* ItemInfoViewPresenter.swift */,
 			);
 			path = presenter;
 			sourceTree = "<group>";
@@ -486,6 +491,7 @@
 			isa = PBXGroup;
 			children = (
 				2151BF9724E87DA600194E21 /* ScheduleViewDelegateProtocol.swift */,
+				21AEED4C24F0E10200A05C85 /* ItemInfoViewDelegateProtocol.swift */,
 			);
 			path = delegate;
 			sourceTree = "<group>";
@@ -1042,6 +1048,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				212F14DB247056150084FBD3 /* UIColor+Utils.swift in Sources */,
+				21AEED4D24F0E10200A05C85 /* ItemInfoViewDelegateProtocol.swift in Sources */,
 				218BDDCC24B05272002E8E80 /* DetachedVCDelegate.swift in Sources */,
 				21091B822470D38F00C6F964 /* RecurrenceSelectionTableViewCell.swift in Sources */,
 				219648E9247A14930052ECEF /* ViewRecurrenceModelItem.swift in Sources */,
@@ -1051,6 +1058,7 @@
 				219CA4A92326C904003ACBDE /* ScheduleTableViewCell.swift in Sources */,
 				217974E22425BFC700FE7B4C /* ObservableList.swift in Sources */,
 				21A4D1322320CDC000B5B52A /* CalendarCell.swift in Sources */,
+				21AEED4B24F0E0D500A05C85 /* ItemInfoViewPresenter.swift in Sources */,
 				21521C49240E11C600FC8A8A /* CalendarViewUtils.swift in Sources */,
 				219648E22478DCB80052ECEF /* RecurrencePatternDetailsTableViewController.swift in Sources */,
 				21B8965323D3B7E100D49827 /* DateUtils.swift in Sources */,

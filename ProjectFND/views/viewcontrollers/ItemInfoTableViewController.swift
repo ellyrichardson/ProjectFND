@@ -97,6 +97,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     }
     
     // NOTE: Must use the DateObserver class, or something similar
+    // === MOVE THIS OUT
     func update<T>(with newValue: T, with observableType: ObservableType) {
         // If Due Date was selected
         if observableType == ObservableType.TODO_DUE_DATE {
@@ -291,6 +292,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         changeDueDateLabelColor(whiteColor: !shouldRemove)
     }
     
+    // == MOVE
     private func configureObservableControllers() {
         observerVCs = [self]
         self.observableDueDateController.setupData()
@@ -307,6 +309,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         nav?.tintColor = yellowColor
     }
     
+    
     private func configureUiObjects() {
         self.taskNameField.delegate = self
         self.startDateUIView.cornerRadius = 10
@@ -316,6 +319,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         taskNameField.addTarget(self, action: #selector(textFieldsAreNotEmpty), for: .editingChanged)
     }
     
+    // == MOVE
     private func configureVcObjets() {
         if let toDo = toDo {
             self.startTimeTracker = toDo.getStartTime()
@@ -442,6 +446,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     
     // MARK: - Table view data source
     
+    // == MOVE LOGIC OUT TO PRESENTER
     // Collapses and expands table view cells
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 2 {
@@ -481,7 +486,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     }
     
     // MARK: - Due Date Utilities
-    
+    // === MOVE THIS OUT
     private func setDueDatePopupView(viewController: SchedulingTaskMonthlyViewController) {
         if let toDo = toDo {
             viewController.setSelectedDate(dateVal: toDo.getDueDate())
@@ -491,6 +496,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     // MARK: - Navigation
     
     // Prepares view controller before it gets presented
+    // ==== MOVE THIS LOGIC OUT TO PRESENTER
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
@@ -526,7 +532,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     }
     
     // MARK: - Creating / Editing Task
-    
+    // ==== MOVE THIS OUT TO PRESENTER
     private func createOrUpdateTask(sender: UIBarButtonItem) {
         
         let taskName = taskNameField.text
@@ -546,6 +552,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
         }
     }
     
+    // ==== MOVE THIS OUT TO PRESENTER
     private func updateTask(taskName: String, repeating: Bool) {
         // This is to track if anything has changed and the Save button was pressed.
         var dueDate = toDo?.getDueDate()
@@ -580,7 +587,7 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     }
     
     // MARK: - Actions
-    
+    // ==== MOVE THIS logic OUT TO PRESENTER
     @IBAction func cancelButton(_ sender: UIBarButtonItem) {
         // Depending on style of presentation (modal or push presentation), this view controller needs to be dismissed in two different ways.
         let isPresentingInAddToDoMode = presentingViewController is UINavigationController
@@ -635,36 +642,44 @@ class ItemInfoTableViewController: UITableViewController, UITextViewDelegate, UI
     
     // MARK: - Setters
     
+    // ==== MOVE THIS OUT TO PRESENTER
     func setToDos(toDos: [String: ToDo]) {
         self.toDos = toDos
     }
     
+    // ==== MOVE THIS OUT TO PRESENTER
     func setChosenStartDate(chosenStartDate: Date) {
         self.chosenStartDate = chosenStartDate
     }
     
+    // ==== MOVE THIS OUT TO PRESENTER
     func setIsFinished(isFinished: Bool) {
         self.finished = isFinished
     }
     
+    // ==== MOVE THIS OUT TO PRESENTER
     func setSelectedTaskType(selectedTaskTypePickerData: String) {
         self.selectedTaskTypePickerData = selectedTaskTypePickerData
     }
     
     // MARK: - Getters
     
+    // ==== MOVE THIS OUT TO PRESENTER
     func getToDoIntervals() -> [String: ToDo] {
         return self.toDoIntervals
     }
     
+    // ==== MOVE THIS OUT TO PRESENTER
     func isToDoIntervalsExist() -> Bool {
         return self.toDoIntervalsExist
     }
     
+    // ==== MOVE THIS OUT TO PRESENTER
     func getToDos() -> [String: ToDo] {
         return self.toDos
     }
     
+    // ==== MOVE THIS OUT TO PRESENTER
     func getIsFinished() -> Bool {
         return self.finished
     }
